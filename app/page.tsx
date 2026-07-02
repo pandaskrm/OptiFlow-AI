@@ -1,17 +1,13 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Features from "../components/Features";
-import Stats from "../components/Stats";
-import AiAssistant from "../components/AiAssistant";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <>
       <Navbar />
       <Hero />
       <Features />
-      <Stats />
-      <AiAssistant />
-    </main>
+    </>
   );
 }
