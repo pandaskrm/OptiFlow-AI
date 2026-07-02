@@ -3,9 +3,16 @@ import StatCard from "../../components/ui/StatCard";
 import AIRecommendation from "../../components/ui/AIRecommendation";
 import ProgressCard from "../../components/ui/ProgressCard";
 import { getDailyRecommendations } from "../../lib/ai";
+import {
+  getPriorityAlert,
+  getWarehouseHealth,
+} from "../../lib/ai/recommendations";
 
 export default function DashboardPage() {
   const recommendations = getDailyRecommendations();
+
+  const health = getWarehouseHealth();
+  const priority = getPriorityAlert();
 
   return (
     <MainLayout>
@@ -16,6 +23,39 @@ export default function DashboardPage() {
       <p className="text-gray-400 mb-8">
         Voici le résumé intelligent de votre activité logistique aujourd'hui.
       </p>
+
+      {/* Centre de Commande IA */}
+      <div className="bg-slate-900 border border-blue-900 rounded-2xl p-6 mb-8">
+        <h2 className="text-2xl font-bold mb-3">
+          🧠 Centre de Commande IA
+        </h2>
+
+        <p className="text-green-400 font-bold">
+          État de l'entrepôt : {health.status} — {health.score}%
+        </p>
+
+        <p className="text-gray-300 mt-2">
+          {health.message}
+        </p>
+
+        <div className="mt-5 rounded-xl bg-slate-800 border border-orange-500 p-4">
+          <p className="text-orange-400 font-bold">
+            {priority.level}
+          </p>
+
+          <h3 className="text-xl font-bold text-white mt-1">
+            {priority.title}
+          </h3>
+
+          <p className="text-gray-300 mt-2">
+            {priority.message}
+          </p>
+
+          <p className="text-blue-400 font-bold mt-3">
+            Gain estimé : {priority.estimatedGain}
+          </p>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <StatCard
@@ -56,9 +96,7 @@ export default function DashboardPage() {
         <div className="xl:col-span-2 space-y-6">
 
           <ProgressCard title="Préparation" value={78} />
-
           <ProgressCard title="Expédition" value={92} />
-
           <ProgressCard title="Réception" value={65} />
 
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 mt-6">
