@@ -5,6 +5,7 @@ import MainLayout from "../components/layout/MainLayout";
 import ReceptionForm from "../components/reception/ReceptionForm";
 import ReceptionStats from "../components/reception/ReceptionStats";
 import ReceptionTable from "../components/reception/ReceptionTable";
+import DockPlanning from "../components/reception/DockPlanning";
 
 export default function ReceptionPage() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -17,11 +18,9 @@ export default function ReceptionPage() {
     <MainLayout>
       <div className="space-y-6">
         <ReceptionStats refreshKey={refreshKey} />
+        <DockPlanning refreshKey={refreshKey} />
         <ReceptionForm onSaved={refreshData} />
-        <ReceptionTable
-          refreshKey={refreshKey}
-          onDeleted={refreshData}
-        />
+        <ReceptionTable refreshKey={refreshKey} onDeleted={refreshData} />
       </div>
     </MainLayout>
   );
