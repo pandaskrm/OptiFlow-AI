@@ -6,6 +6,7 @@ import ReceptionForm from "../components/reception/ReceptionForm";
 import ReceptionStats from "../components/reception/ReceptionStats";
 import ReceptionTable from "../components/reception/ReceptionTable";
 import DockPlanning from "../components/reception/DockPlanning";
+import AICopilot from "../components/dashboard/AICopilot";
 
 export default function ReceptionPage() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -17,6 +18,7 @@ export default function ReceptionPage() {
   return (
     <MainLayout>
       <div className="space-y-6">
+        <AICopilot />
         <ReceptionStats refreshKey={refreshKey} />
         <DockPlanning refreshKey={refreshKey} />
         <ReceptionForm onSaved={refreshData} />
