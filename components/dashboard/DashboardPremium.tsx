@@ -8,8 +8,11 @@ import {
   getPriorityAlert,
   getWarehouseHealth,
 } from "../../lib/ai/recommendations";
+import { getDashboardService } from "../../lib/dashboard/dashboardService";
 
-export default function DashboardPremium() {
+export default async function DashboardPremium() {
+  const data = await getDashboardService();
+
   const recommendations = getDailyRecommendations();
   const health = getWarehouseHealth();
   const priority = getPriorityAlert();
@@ -19,10 +22,22 @@ export default function DashboardPremium() {
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
         <KpiCard title="Commandes" value="486" trend="+12%" progress={86} />
         <KpiCard title="Expéditions" value="32" trend="+8%" progress={74} />
-        <KpiCard title="Réceptions" value="18" trend="+5%" progress={65} />
+
+        <KpiCard
+          title="Réceptions"
+          value={String(data.receptions.totalReceptions)}
+          trend={`${data.receptions.pendingReceptions} en attente`}
+          progress={65}
+        />
+
         <KpiCard title="Service" value="97%" trend="+3%" progress={97} />
         <KpiCard title="Productivité" value="91%" trend="+14%" progress={91} />
-        <KpiCard title="Santé dépôt" value="91%" trend="Stable" progress={91} />
+        <KpiCard
+          title="Santé dépôt"
+          value={`${data.warehouse.health.score}%`}
+          trend={data.warehouse.health.status}
+          progress={data.warehouse.health.score}
+        />
       </div>
 
       <div className="mb-8">

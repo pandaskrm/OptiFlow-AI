@@ -1,13 +1,10 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
+import MainLayout from "../../components/layout/MainLayout";
+import ReceptionClientPage from "../../components/reception/ReceptionClientPage";
 
-export default function Home() {
+export default function ReceptionPage() {
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <Features />
-    </>
+    <MainLayout>
+      <ReceptionClientPage />
+    </MainLayout>
   );
 }
