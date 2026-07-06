@@ -1,15 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Reception } from "../../types/reception";
+import { generateDashboard } from "../../lib/dashboard/dashboardEngine";
 
 type DashboardStatsProps = {
   refreshKey: number;
-};
-
-type Reception = {
-  id: number;
-  status: string;
-  pallets: number;
 };
 
 export default function DashboardStats({ refreshKey }: DashboardStatsProps) {
@@ -25,17 +21,32 @@ export default function DashboardStats({ refreshKey }: DashboardStatsProps) {
     loadStats();
   }, [refreshKey]);
 
-  const total = receptions.length;
-  const pallets = receptions.reduce((sum, item) => sum + item.pallets, 0);
-  const planned = receptions.filter((r) => r.status === "Planifiée").length;
-  const atDock = receptions.filter((r) => r.status === "À quai").length;
-  const alerts = planned + atDock;
+  const dashboard = generateDashboard(receptions);
 
   const stats = [
-    { label: "Réceptions", value: total, detail: "données réelles" },
-    { label: "Quais occupés", value: `${atDock}/6`, detail: `${6 - atDock} quais libres` },
-    { label: "Palettes", value: pallets, detail: "total à traiter" },
-    { label: "Alertes actives", value: alerts, detail: "à surveiller" },
+    {
+      label: "Réceptions",
+      value: dashboard.totalReceptions,
+      detail: "données réelles",
+    },
+    {
+      label: "Quais occupés",
+      value: `${dashboard.occupiedDocks}/6`,
+      detail: `${dashboard.freeDocks} quais libres`,
+    },
+    {
+      label: "Palettes",
+      value: dashboard.totalPallets,
+      detail: "total à traiter",
+    },
+    {
+      label: "Alertes actives",
+      value: dashboard.activeAlerts.length,
+      detail:
+        dashboard.activeAlerts.length > 0
+          ? "à surveiller"
+          : "aucune alerte",
+    },
   ];
 
   return (
