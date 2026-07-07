@@ -1,22 +1,50 @@
 export const demoEvents = [
   {
     title: "🚚 Camion DHL arrivé",
-    message: "Le camion DHL est arrivé au quai 1.",
+    message: "24 palettes à réceptionner au quai 1.",
   },
   {
-    title: "📦 Déchargement",
-    message: "Début du déchargement des palettes.",
+    title: "📦 Déchargement démarré",
+    message: "Équipe A affectée au quai 1.",
   },
   {
     title: "🤖 Analyse IA",
-    message: "L'IA recommande de renforcer le quai 2.",
+    message: "Ouverture du quai 3 recommandée.",
   },
   {
-    title: "⚠️ Saturation",
-    message: "Le quai 2 approche de sa capacité maximale.",
+    title: "⚠ Quai 2 chargé",
+    message: "Temps d'attente estimé : 12 min.",
+  },
+  {
+    title: "📋 Contrôle qualité",
+    message: "Inspection de la réception DHL.",
   },
   {
     title: "✅ Réception terminée",
-    message: "La réception a été clôturée avec succès.",
+    message: "24 palettes validées.",
+  },
+  {
+    title: "🚛 Camion Chronopost",
+    message: "Arrivée prévue dans 8 minutes.",
+  },
+  {
+    title: "📦 Nouvelle réception",
+    message: "18 palettes à traiter.",
+  },
+  {
+    title: "🤖 IA",
+    message: "Charge équilibrée sur les quais.",
+  },
+  {
+    title: "🚚 Transporteur Geodis",
+    message: "Arrivée au quai 5.",
+  },
+  {
+    title: "⚠ Contrôle supplémentaire",
+    message: "Écart détecté sur une palette.",
+  },
+  {
+    title: "✅ Incident résolu",
+    message: "Réception clôturée normalement.",
   },
 ];

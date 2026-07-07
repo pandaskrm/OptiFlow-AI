@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import useDemo from "../../hooks/useDemo";
 
 type DockPlanningProps = {
   refreshKey: number;
@@ -28,6 +29,7 @@ const statusStyle: Record<string, string> = {
 
 export default function DockPlanning({ refreshKey }: DockPlanningProps) {
   const [receptions, setReceptions] = useState<Reception[]>([]);
+  const demo = useDemo();
 
   useEffect(() => {
     loadReceptions();
@@ -50,11 +52,26 @@ export default function DockPlanning({ refreshKey }: DockPlanningProps) {
 
       <div className="grid gap-4 md:grid-cols-5">
         {docks.map((dock) => {
-          const reception = receptions.find(
-            (item) => item.dock === dock && item.status !== "Terminée"
-          );
+         const demoRunning = demo.running;
 
-          const status = reception ? reception.status : "Libre";
+const reception = demoRunning
+  ? null
+  : receptions.find(
+      (item) => item.dock === dock && item.status !== "Terminée"
+    );
+
+         let status = reception ? reception.status : "Libre";
+
+if (demoRunning) {
+  const occupied = demo.state.occupiedDocks;
+  const dockNumber = Number(dock.replace("Quai ", ""));
+
+  if (dockNumber <= occupied) {
+    status = "À quai";
+  } else {
+    status = "Libre";
+  }
+}
 
           return (
             <div
@@ -74,20 +91,49 @@ export default function DockPlanning({ refreshKey }: DockPlanningProps) {
               </div>
 
               <div className="mt-5 space-y-2">
-                {reception ? (
-                  <>
-                    <p className="text-sm text-slate-300">🚛 {reception.carrier}</p>
-                    <p className="text-sm text-slate-300">📦 {reception.supplier}</p>
-                    <p className="text-sm text-slate-400">
-                      ⏰ {reception.scheduledAt || "Heure non définie"}
-                    </p>
-                    <p className="text-sm text-slate-400">
-                      Palettes : {reception.pallets}
-                    </p>
-                  </>
-                ) : (
-                  <p className="text-sm text-green-400">🟢 Disponible</p>
-                )}
+                {demoRunning ? (
+  status === "À quai" ? (
+    <>
+      <p className="text-sm text-slate-300">
+        🚛 Transporteur Demo
+      </p>
+
+      <p className="text-sm text-slate-300">
+        📦 {12 + Math.floor(Math.random() * 18)} palettes
+      </p>
+
+      <p className="text-sm text-orange-400">
+        ⏳ Déchargement...
+      </p>
+    </>
+  ) : (
+    <p className="text-sm text-green-400">
+      🟢 Disponible
+    </p>
+  )
+) : reception ? (
+  <>
+    <p className="text-sm text-slate-300">
+      🚛 {reception.carrier}
+    </p>
+
+    <p className="text-sm text-slate-300">
+      📦 {reception.supplier}
+    </p>
+
+    <p className="text-sm text-slate-400">
+      ⏰ {reception.scheduledAt || "Heure non définie"}
+    </p>
+
+    <p className="text-sm text-slate-400">
+      Palettes : {reception.pallets}
+    </p>
+  </>
+) : (
+  <p className="text-sm text-green-400">
+    🟢 Disponible
+  </p>
+)}
               </div>
             </div>
           );

@@ -1,0 +1,60 @@
+import type { DemoEvent } from "./demoTypes";
+
+export const demoEvents: DemoEvent[] = [
+  {
+    id: 1,
+    delay: 1000,
+    type: "truck-arrival",
+    icon: "🚛",
+    title: "Camion DHL arrivé",
+    description: "Arrivée au quai 3 avec 24 palettes.",
+  },
+  {
+    id: 2,
+    delay: 3000,
+    type: "unloading",
+    icon: "📦",
+    title: "Déchargement lancé",
+    description: "L'équipe démarre la réception DHL.",
+  },
+  {
+    id: 3,
+    delay: 5000,
+    type: "alert",
+    icon: "⚠️",
+    title: "Risque de saturation",
+    description: "Le quai 2 est occupé depuis plus de 45 minutes.",
+  },
+  {
+    id: 4,
+    delay: 7000,
+    type: "ai",
+    icon: "🤖",
+    title: "Recommandation IA",
+    description: "Ouvrir le quai 5 pour absorber le prochain transporteur.",
+  },
+  {
+    id: 5,
+    delay: 9000,
+    type: "quality",
+    icon: "📋",
+    title: "Contrôle qualité terminé",
+    description: "Aucune anomalie détectée sur la réception DHL.",
+  },
+  {
+    id: 6,
+    delay: 11000,
+    type: "finished",
+    icon: "✅",
+    title: "Réception clôturée",
+    description: "Réception RE-2026-084 terminée avec succès.",
+  },
+  {
+    id: 7,
+    delay: 13000,
+    type: "truck-arrival",
+    icon: "🚚",
+    title: "Chronopost annoncé",
+    description: "Arrivée estimée dans 12 minutes au quai 1.",
+  },
+];

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import useDemo from "../../hooks/useDemo";
 
 type ReceptionStatsProps = {
   refreshKey: number;
@@ -13,6 +14,7 @@ type Reception = {
 
 export default function ReceptionStats({ refreshKey }: ReceptionStatsProps) {
   const [receptions, setReceptions] = useState<Reception[]>([]);
+  const demo = useDemo();
 
   useEffect(() => {
     async function loadStats() {
@@ -24,10 +26,21 @@ export default function ReceptionStats({ refreshKey }: ReceptionStatsProps) {
     loadStats();
   }, [refreshKey]);
 
-  const total = receptions.length;
-  const planned = receptions.filter((r) => r.status === "Planifiée").length;
-  const atDock = receptions.filter((r) => r.status === "À quai").length;
-  const finished = receptions.filter((r) => r.status === "Terminée").length;
+const total = demo.running
+  ? demo.state.completedToday + demo.state.activeReceptions
+  : receptions.length;
+
+const planned = demo.running
+  ? Math.max(0, demo.state.activeReceptions - demo.state.occupiedDocks)
+  : receptions.filter((r) => r.status === "Planifiée").length;
+
+const atDock = demo.running
+  ? demo.state.occupiedDocks
+  : receptions.filter((r) => r.status === "À quai").length;
+
+const finished = demo.running
+  ? demo.state.completedToday
+  : receptions.filter((r) => r.status === "Terminée").length;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
