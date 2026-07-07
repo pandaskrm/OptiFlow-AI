@@ -31,35 +31,71 @@ export function generateDailyBrief(receptions: Reception[]) {
 
   const alerts: string[] = [];
 
-  if (planned > 0) {
+  if (planned > 0)
     alerts.push(`${planned} réception(s) encore planifiée(s).`);
-  }
 
-  if (atDock > 0) {
+  if (atDock > 0)
     alerts.push(`${atDock} camion(s) actuellement à quai.`);
+
+  if (inspection > 0)
+    alerts.push(`${inspection} contrôle(s) qualité en attente.`);
+
+  let warehouseHealth = 100;
+
+  warehouseHealth -= planned * 4;
+  warehouseHealth -= atDock * 5;
+  warehouseHealth -= inspection * 3;
+
+  warehouseHealth = Math.max(55, Math.min(100, warehouseHealth));
+
+  let risk: "Faible" | "Moyen" | "Élevé";
+
+  if (warehouseHealth >= 90) {
+    risk = "Faible";
+  } else if (warehouseHealth >= 75) {
+    risk = "Moyen";
+  } else {
+    risk = "Élevé";
   }
 
-  if (inspection > 0) {
-    alerts.push(`${inspection} réception(s) en contrôle qualité.`);
-  }
+  let recommendation = "";
 
-  const recommendation =
-    total === 0
-      ? "Enregistrez les réceptions prévues pour obtenir un brief automatique."
-      : planned > 0
-      ? "Priorisez la mise à quai des réceptions planifiées."
-      : unloading > 0
-      ? "Surveillez les déchargements en cours pour éviter les blocages."
-      : inspection > 0
-      ? "Clôturez les contrôles qualité dès validation."
-      : "La journée est bien maîtrisée. Continuez le suivi opérationnel.";
+  if (risk === "Élevé") {
+    recommendation =
+      "Renforcer immédiatement l'équipe réception et libérer un quai.";
+  } else if (planned >= 3) {
+    recommendation =
+      "Prioriser les camions déjà planifiés afin d'éviter un engorgement.";
+  } else if (inspection > 0) {
+    recommendation =
+      "Finaliser les contrôles qualité avant l'arrivée des prochains camions.";
+  } else if (unloading > 0) {
+    recommendation =
+      "Accélérer le déchargement pour réduire le temps d'occupation des quais.";
+  } else {
+    recommendation =
+      "Activité stable. Vous pouvez anticiper les prochaines réceptions.";
+  }
 
   const priority = activeReception
     ? `${activeReception.carrier} - ${activeReception.dock}`
     : "Aucune priorité urgente";
 
   const estimatedEndTime =
-    total === 0 ? "Non disponible" : pallets > 200 ? "Fin estimée : après 16h00" : "Fin estimée : avant 15h30";
+    warehouseHealth < 75
+      ? "Fin estimée : après 17h00"
+      : pallets > 200
+      ? "Fin estimée : après 16h00"
+      : "Fin estimée : avant 15h30";
+
+  const confidence =
+    warehouseHealth > 90
+      ? 98
+      : warehouseHealth > 80
+      ? 94
+      : warehouseHealth > 70
+      ? 88
+      : 79;
 
   return {
     total,
@@ -73,5 +109,8 @@ export function generateDailyBrief(receptions: Reception[]) {
     recommendation,
     priority,
     estimatedEndTime,
+    warehouseHealth,
+    risk,
+    confidence,
   };
 }

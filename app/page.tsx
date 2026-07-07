@@ -8,6 +8,7 @@ import DashboardStats from "../components/dashboard/DashboardStats";
 import DashboardCharts from "../components/dashboard/DashboardCharts";
 import DashboardAlerts from "../components/dashboard/DashboardAlerts";
 import DashboardActivity from "../components/dashboard/DashboardActivity";
+import LiveActivityFeed from "../components/dashboard/LiveActivityFeed";
 import ReceptionForm from "../components/reception/ReceptionForm";
 import ReceptionStats from "../components/reception/ReceptionStats";
 import ReceptionTable from "../components/reception/ReceptionTable";
@@ -24,6 +25,7 @@ export default function ReceptionPage() {
     <MainLayout>
       <div className="space-y-8">
         <DashboardHeader />
+
         <DashboardStats refreshKey={refreshKey} />
 
         <div className="grid gap-6 xl:grid-cols-2">
@@ -31,15 +33,22 @@ export default function ReceptionPage() {
           <DashboardAlerts />
         </div>
 
-        <div className="grid gap-6 xl:grid-cols-2">
+        <div className="grid gap-6 xl:grid-cols-3">
           <DashboardActivity />
           <AICopilot />
+          <LiveActivityFeed />
         </div>
 
         <ReceptionStats refreshKey={refreshKey} />
+
         <DockPlanning refreshKey={refreshKey} />
+
         <ReceptionForm onSaved={refreshData} />
-        <ReceptionTable refreshKey={refreshKey} onDeleted={refreshData} />
+
+        <ReceptionTable
+          refreshKey={refreshKey}
+          onDeleted={refreshData}
+        />
       </div>
     </MainLayout>
   );
