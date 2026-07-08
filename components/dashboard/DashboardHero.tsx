@@ -1,9 +1,53 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import useSimulation from "../../hooks/useSimulation";
+import {
+  DemoScenario,
+  getScenario,
+  subscribeScenario,
+} from "../../lib/scenarios/scenarioStore";
+
+const scenarioLabels: Record<DemoScenario, string> = {
+  normal: "🟢 Journée normale",
+  peak: "🟠 Pic d'activité",
+  black_friday: "🔴 Black Friday",
+  transport_issue: "🚚 Incident transport",
+  quality_alert: "🔍 Contrôle qualité",
+};
+
+const scenarioMessages: Record<DemoScenario, string> = {
+  normal:
+    "Activité stable. Les quais sont sous contrôle et aucun risque majeur n'est détecté.",
+  peak:
+    "Pic d'activité détecté. Je recommande de renforcer l'équipe réception pour absorber le flux.",
+  black_friday:
+    "Charge exceptionnelle. Priorisez les quais actifs et surveillez les risques de saturation.",
+  transport_issue:
+    "Incident transport en cours. Réorganisez les quais pour limiter l'attente des camions.",
+  quality_alert:
+    "Contrôle qualité renforcé. Vérifiez les écarts avant validation des réceptions sensibles.",
+};
+
+const scenarioBadgeStyle: Record<DemoScenario, string> = {
+  normal: "bg-emerald-500/20 text-emerald-300",
+  peak: "bg-orange-500/20 text-orange-300",
+  black_friday: "bg-red-500/20 text-red-300",
+  transport_issue: "bg-blue-500/20 text-blue-300",
+  quality_alert: "bg-yellow-500/20 text-yellow-300",
+};
 
 export default function DashboardHero() {
   const simulation = useSimulation();
+  const [scenario, setScenario] = useState<DemoScenario>(getScenario());
+
+  useEffect(() => {
+    const unsubscribe = subscribeScenario(setScenario);
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const kpis = [
     ["🚚", "Camions", simulation.trucksWaiting.toString(), "en attente"],
@@ -58,10 +102,15 @@ export default function DashboardHero() {
           <div className="absolute inset-x-8 bottom-8 h-28 rounded-full bg-cyan-400/20 blur-3xl" />
 
           <div className="relative h-full rounded-2xl border border-white/10 bg-slate-950/70 p-5">
-            <div className="flex items-center justify-between">
-              <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-300">
-                ● Entrepôt connecté
+            <div className="flex items-center justify-between gap-3">
+              <span
+                className={`rounded-full px-3 py-1 text-xs font-bold ${
+                  scenarioBadgeStyle[scenario]
+                }`}
+              >
+                {scenarioLabels[scenario]}
               </span>
+
               <span className="text-sm text-slate-400">
                 Centre de commandement
               </span>
@@ -86,7 +135,7 @@ export default function DashboardHero() {
                 🤖 Recommandation IA
               </p>
               <p className="mt-2 text-sm leading-6 text-slate-300">
-                Analyse des quais, priorités et alertes en temps réel.
+                {scenarioMessages[scenario]}
               </p>
             </div>
 
