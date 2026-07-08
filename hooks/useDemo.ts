@@ -8,11 +8,10 @@ import {
   startDemo,
   stopDemo,
   subscribeDemo,
-} from "../lib/simulation/demoStore";
-import { SimulationState } from "../lib/simulation/simulationTypes";
+} from "@/lib/simulation/demoStore";
 
-export default function useDemo() {
-  const [state, setState] = useState<SimulationState>(getDemoState());
+export function useDemo() {
+  const [state, setState] = useState(getDemoState());
   const [running, setRunning] = useState(isDemoRunning());
   const [event, setEvent] = useState(getCurrentDemoEvent());
 
@@ -23,27 +22,17 @@ export default function useDemo() {
       setEvent(getCurrentDemoEvent());
     });
 
-    return unsubscribe;
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  function start() {
-    startDemo();
-    setRunning(true);
-    setEvent(getCurrentDemoEvent());
-  }
-
-  function stop() {
-    stopDemo();
-    setRunning(false);
-    setState({ ...getDemoState() });
-    setEvent(getCurrentDemoEvent());
-  }
-
   return {
-    running,
     state,
+    running,
     event,
-    start,
-    stop,
+    start: startDemo,
+    stop: stopDemo,
   };
 }
+export default useDemo;
