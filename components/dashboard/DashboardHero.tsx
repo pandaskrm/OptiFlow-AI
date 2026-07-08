@@ -151,6 +151,23 @@ export default function DashboardHero() {
               <p className="text-sm font-bold text-purple-300">
                 🤖 Recommandation IA
               </p>
+              <div className="mt-5 rounded-2xl border border-cyan-500/20 bg-cyan-500/10 p-5">
+  <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">
+    Mission IA en cours
+  </p>
+
+  <h3 className="mt-2 text-3xl font-black text-white">
+    {scenario === "normal" && "Entrepôt parfaitement fluide"}
+    {scenario === "peak" && "Pic d'activité détecté"}
+    {scenario === "black_friday" && "Black Friday : capacité maximale"}
+    {scenario === "transport_issue" && "Retard transport identifié"}
+    {scenario === "quality_alert" && "Contrôle qualité renforcé"}
+  </h3>
+
+  <p className="mt-3 text-slate-300 leading-7">
+    {scenarioMessages[scenario]}
+  </p>
+</div>
               <p className="mt-2 text-sm leading-6 text-slate-300">
                 {scenarioMessages[scenario]}
               </p>
