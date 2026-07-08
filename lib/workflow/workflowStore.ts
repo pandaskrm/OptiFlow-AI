@@ -1,9 +1,11 @@
 import {
   WorkflowReception,
   nextStatus,
+  WorkflowStatus,
 } from "./workflowEngine";
+
 import { emitEvent } from "../events/eventBus";
-import { WorkflowStatus } from "./workflowEngine";
+import { addWorkflowHistoryEvent } from "../simulation/eventHistory";
 
 let receptions: WorkflowReception[] = [];
 
@@ -46,22 +48,47 @@ export function startWorkflow() {
         switch (updated.status) {
           case "arriving":
             emitEvent("truck_arrived", updated);
+            addWorkflowHistoryEvent(
+              "🚚 Camion annoncé",
+              `${updated.carrier} arrive au quai ${updated.dock}.`,
+              "event"
+            );
             break;
 
           case "dock":
             emitEvent("dock_reserved", updated);
+            addWorkflowHistoryEvent(
+              "🚪 Quai réservé",
+              `${updated.receptionNumber} est maintenant à quai.`,
+              "action"
+            );
             break;
 
           case "unloading":
             emitEvent("unloading_started", updated);
+            addWorkflowHistoryEvent(
+              "📦 Déchargement",
+              `Déchargement en cours pour ${updated.receptionNumber}.`,
+              "event"
+            );
             break;
 
           case "quality":
             emitEvent("quality_started", updated);
+            addWorkflowHistoryEvent(
+              "🔍 Contrôle qualité",
+              `Contrôle qualité lancé pour ${updated.receptionNumber}.`,
+              "alert"
+            );
             break;
 
           case "completed":
             emitEvent("reception_completed", updated);
+            addWorkflowHistoryEvent(
+              "✅ Réception terminée",
+              `${updated.receptionNumber} est terminée.`,
+              "action"
+            );
             break;
         }
       }
