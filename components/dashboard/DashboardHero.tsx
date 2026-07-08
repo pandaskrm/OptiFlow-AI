@@ -7,6 +7,7 @@ import {
   subscribeScenario,
 } from "../../lib/scenarios/scenarioStore";
 import LiveWarehouseMap from "./livewarehouse/LiveWarehouseMap";
+import LiveClock from "./LiveClock";
 
 const scenarioLabels: Record<DemoScenario, string> = {
   normal: "🟢 Journée normale",
@@ -136,6 +137,9 @@ export default function DashboardHero() {
             </span>
           </div>
 
+<div className="mb-4 flex justify-end">
+  <LiveClock />
+</div>
           <LiveWarehouseMap />
         </div>
       </div>
