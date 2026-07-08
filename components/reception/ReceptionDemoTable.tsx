@@ -1,112 +1,85 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {
+  getWorkflowReceptions,
+  initWorkflow,
+  startWorkflow,
+  subscribeWorkflow,
+} from "../../lib/workflow/workflowStore";
+import { WorkflowReception } from "../../lib/workflow/workflowEngine";
 
-type DemoReception = {
-  reception: string;
-  supplier: string;
-  carrier: string;
-  dock: string;
-  pallets: number;
-  status: string;
-  progress: number;
-};
-
-const suppliers = [
-  "Nike",
-  "Apple",
-  "Adidas",
-  "Samsung",
-  "Sony",
-  "L'Oréal",
-  "Bosch",
-];
-
-const carriers = [
-  "DHL",
-  "Chronopost",
-  "Geodis",
-  "DB Schenker",
-  "UPS",
-];
-
-const initialRows: DemoReception[] = [
+const initialRows: WorkflowReception[] = [
   {
-    reception: "RE240001",
+    id: 1,
+    receptionNumber: "RE240001",
     supplier: "Nike",
     carrier: "DHL",
-    dock: "Quai 1",
+    dock: 1,
     pallets: 24,
-    status: "🚛 À quai",
+    status: "dock",
     progress: 20,
   },
   {
-    reception: "RE240002",
+    id: 2,
+    receptionNumber: "RE240002",
     supplier: "Apple",
     carrier: "Geodis",
-    dock: "Quai 2",
+    dock: 2,
     pallets: 18,
-    status: "📦 Déchargement",
+    status: "unloading",
     progress: 45,
   },
   {
-    reception: "RE240003",
+    id: 3,
+    receptionNumber: "RE240003",
     supplier: "Adidas",
     carrier: "Chronopost",
-    dock: "Quai 3",
+    dock: 3,
     pallets: 12,
-    status: "🔍 Contrôle",
+    status: "quality",
     progress: 75,
   },
 ];
 
+function getStatusLabel(status: WorkflowReception["status"]) {
+  switch (status) {
+    case "planned":
+      return "📝 Planifiée";
+    case "arriving":
+      return "🚚 Camion annoncé";
+    case "dock":
+      return "🚛 À quai";
+    case "unloading":
+      return "📦 Déchargement";
+    case "quality":
+      return "🔍 Contrôle";
+    case "completed":
+      return "✅ Terminée";
+  }
+}
+
 export default function ReceptionDemoTable() {
-  const [rows, setRows] = useState(initialRows);
+  const [rows, setRows] = useState<WorkflowReception[]>(
+    getWorkflowReceptions().length > 0
+      ? getWorkflowReceptions()
+      : initialRows
+  );
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setRows((current) =>
-        current.map((row, index) => {
-          let progress = Math.min(
-            100,
-            row.progress + Math.floor(Math.random() * 18) + 5
-          );
+    if (getWorkflowReceptions().length === 0) {
+      initWorkflow(initialRows);
+    }
 
-          let status = "📝 Planifiée";
+    const unsubscribe = subscribeWorkflow((data) => {
+      setRows(data);
+    });
 
-          if (progress >= 15) status = "🚛 À quai";
-          if (progress >= 35) status = "📦 Déchargement";
-          if (progress >= 70) status = "🔍 Contrôle";
-          if (progress >= 100) status = "✅ Terminée";
+    startWorkflow();
 
-          if (progress >= 100) {
-            progress = 0;
-
-            return {
-              reception: `RE24${Math.floor(
-                1000 + Math.random() * 9000
-              )}`,
-              supplier:
-                suppliers[Math.floor(Math.random() * suppliers.length)],
-              carrier:
-                carriers[Math.floor(Math.random() * carriers.length)],
-              dock: `Quai ${index + 1}`,
-              pallets: Math.floor(Math.random() * 25) + 5,
-              status: "📝 Planifiée",
-              progress,
-            };
-          }
-
-          return {
-            ...row,
-            progress,
-            status,
-          };
-        })
-      );
-    }, 2000);
-
-    return () => clearInterval(interval);
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (
@@ -117,7 +90,7 @@ export default function ReceptionDemoTable() {
         </h2>
 
         <p className="mt-1 text-sm text-slate-400">
-          Simulation temps réel des réceptions.
+          Scénario live : chaque réception avance étape par étape.
         </p>
       </div>
 
@@ -137,15 +110,19 @@ export default function ReceptionDemoTable() {
         <tbody>
           {rows.map((row) => (
             <tr
-              key={row.reception}
-              className="border-t border-slate-800 hover:bg-slate-800/60 transition"
+              key={row.id}
+              className="border-t border-slate-800 transition hover:bg-slate-800/60"
             >
-              <td className="p-4 font-bold text-white">{row.reception}</td>
+              <td className="p-4 font-bold text-white">
+                {row.receptionNumber}
+              </td>
               <td className="p-4 text-slate-300">{row.supplier}</td>
               <td className="p-4 text-slate-300">{row.carrier}</td>
-              <td className="p-4 text-slate-300">{row.dock}</td>
+              <td className="p-4 text-slate-300">Quai {row.dock}</td>
               <td className="p-4 text-slate-300">{row.pallets}</td>
-              <td className="p-4 text-slate-300">{row.status}</td>
+              <td className="p-4 text-slate-300">
+                {getStatusLabel(row.status)}
+              </td>
 
               <td className="p-4">
                 <div className="w-40">
@@ -155,7 +132,7 @@ export default function ReceptionDemoTable() {
 
                   <div className="h-2 rounded-full bg-slate-700">
                     <div
-                      className="h-2 rounded-full rounded-full bg-cyan-500 transition-all duration-700"
+                      className="h-2 rounded-full bg-cyan-500 transition-all duration-700"
                       style={{
                         width: `${row.progress}%`,
                       }}
