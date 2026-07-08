@@ -1,10 +1,20 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import useDemo from "../../hooks/useDemo";
 import { getHistoryEvents } from "../../lib/simulation/eventHistory";
-
+import { subscribeEvents } from "../../lib/events/eventBus";
 export default function NotificationCenter() {
   const demo = useDemo();
+  const [, setRefresh] = useState(0);
+  useEffect(() => {
+  const unsubscribe = subscribeEvents(() => {
+    setRefresh((value) => value + 1);
+  });
+
+  return () => unsubscribe();
+}, []);
   const history = getHistoryEvents().slice(0, 5);
 
   return (
