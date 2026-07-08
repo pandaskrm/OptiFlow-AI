@@ -35,6 +35,27 @@ export function addHistoryEvent(index: number) {
   return history;
 }
 
+export function addWorkflowHistoryEvent(
+  title: string,
+  message: string,
+  category: EventHistoryItem["category"] = "event"
+) {
+  const item: EventHistoryItem = {
+    id: Date.now(),
+    time: new Date().toLocaleTimeString("fr-FR", {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+    title,
+    message,
+    category,
+  };
+
+  history = [item, ...history].slice(0, 8);
+
+  return history;
+}
+
 export function getHistoryEvents() {
   return history;
 }
