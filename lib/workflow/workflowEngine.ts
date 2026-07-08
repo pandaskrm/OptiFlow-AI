@@ -1,3 +1,5 @@
+import { getScenario } from "../scenarios/scenarioStore";
+
 export type WorkflowStatus =
   | "planned"
   | "arriving"
@@ -15,6 +17,25 @@ export interface WorkflowReception {
   pallets: number;
   progress: number;
   status: WorkflowStatus;
+}
+
+function getProgressIncrement() {
+  switch (getScenario()) {
+    case "peak":
+      return 30;
+
+    case "black_friday":
+      return 40;
+
+    case "transport_issue":
+      return 10;
+
+    case "quality_alert":
+      return 20;
+
+    default:
+      return 20;
+  }
 }
 
 export function nextStatus(
@@ -42,7 +63,7 @@ export function nextStatus(
 
     case "unloading": {
       const progress = Math.min(
-        reception.progress + 20,
+        reception.progress + getProgressIncrement(),
         100
       );
 
@@ -60,11 +81,19 @@ export function nextStatus(
       };
     }
 
-    case "quality":
+    case "quality": {
+      if (
+        getScenario() === "quality_alert" &&
+        Math.random() < 0.6
+      ) {
+        return reception;
+      }
+
       return {
         ...reception,
         status: "completed",
       };
+    }
 
     default:
       return reception;
