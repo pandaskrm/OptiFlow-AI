@@ -22,6 +22,7 @@ import DockPlanning from "../components/reception/DockPlanning";
 import FloatingNotification from "../components/dashboard/FloatingNotification";
 import NotificationCenter from "../components/dashboard/NotificationCenter";
 import ScenarioSelector from "../components/dashboard/ScenarioSelector";
+import DashboardHero from "../components/dashboard/DashboardHero";
 
 export default function ReceptionPage() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -36,6 +37,8 @@ export default function ReceptionPage() {
       <div className="space-y-8">
         <DashboardHeader />
         <FloatingNotification />
+        
+        <DashboardHero />
         
         <ScenarioSelector />
 
