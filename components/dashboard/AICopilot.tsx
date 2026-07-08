@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { Reception } from "../../types/reception";
 import { generateDailyBrief } from "../../lib/ai/dailyBrief";
-import DemoEventCard from "./DemoEventCard";
 import {
   OptiFlowEvent,
   subscribeEvents,
@@ -92,9 +91,6 @@ export default function AICopilot() {
         </p>
       </div>
 
-      <div className="mt-8">
-        <DemoEventCard />
-      </div>
 
       <div className="mt-8 grid gap-4 md:grid-cols-4">
         <div className="rounded-xl bg-slate-800/60 p-5">
