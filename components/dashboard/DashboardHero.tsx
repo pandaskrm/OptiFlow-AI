@@ -70,6 +70,28 @@ export default function DashboardHero() {
           <p className="mt-5 text-xl font-semibold text-white">
             Anticipez. Optimisez. Performez.
           </p>
+          <div className="mt-8 grid max-w-2xl grid-cols-3 gap-4">
+  {[
+    ["+24%", "Productivité"],
+    ["-37%", "Attente quais"],
+    ["98%", "Taux service"],
+  ].map(([value, label]) => (
+    <div
+      key={label}
+      className="rounded-2xl border border-cyan-500/20 bg-cyan-500/10 p-4"
+    >
+      <p className="text-3xl font-black text-cyan-300">{value}</p>
+      <p className="mt-1 text-xs font-semibold text-slate-300">{label}</p>
+    </div>
+  ))}
+</div>
+
+<div className="mt-6 grid max-w-2xl gap-3 text-sm text-slate-300">
+  <p>✓ Pilotage des quais en temps réel</p>
+  <p>✓ Réceptions intelligentes et priorisées</p>
+  <p>✓ Alertes opérationnelles instantanées</p>
+  <p>✓ Recommandations IA pour fluidifier l'entrepôt</p>
+</div>
 
           <div className="mt-8 grid max-w-3xl grid-cols-2 gap-4 md:grid-cols-4">
             {[
