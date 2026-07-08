@@ -20,6 +20,7 @@ import ReceptionTable from "../components/reception/ReceptionTable";
 import ReceptionDemoTable from "../components/reception/ReceptionDemoTable";
 import DockPlanning from "../components/reception/DockPlanning";
 import FloatingNotification from "../components/dashboard/FloatingNotification";
+import NotificationCenter from "../components/dashboard/NotificationCenter";
 
 export default function ReceptionPage() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -37,9 +38,10 @@ export default function ReceptionPage() {
 
         <DashboardStats refreshKey={refreshKey} />
 
-        <div className="grid gap-6 xl:grid-cols-2">
+        <div className="grid gap-6 xl:grid-cols-3">
           <DashboardCharts />
           <DashboardAlerts />
+          <NotificationCenter />
         </div>
 
         <div className="grid gap-6 xl:grid-cols-3">
