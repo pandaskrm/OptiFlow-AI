@@ -2,6 +2,8 @@ import {
   WorkflowReception,
   nextStatus,
 } from "./workflowEngine";
+import { emitEvent } from "../events/eventBus";
+import { WorkflowStatus } from "./workflowEngine";
 
 let receptions: WorkflowReception[] = [];
 
@@ -36,7 +38,37 @@ export function startWorkflow() {
   if (timer) return;
 
   timer = setInterval(() => {
-    receptions = receptions.map(nextStatus);
+    receptions = receptions.map((reception) => {
+      const previousStatus: WorkflowStatus = reception.status;
+      const updated = nextStatus(reception);
+
+      if (updated.status !== previousStatus) {
+        switch (updated.status) {
+          case "arriving":
+            emitEvent("truck_arrived", updated);
+            break;
+
+          case "dock":
+            emitEvent("dock_reserved", updated);
+            break;
+
+          case "unloading":
+            emitEvent("unloading_started", updated);
+            break;
+
+          case "quality":
+            emitEvent("quality_started", updated);
+            break;
+
+          case "completed":
+            emitEvent("reception_completed", updated);
+            break;
+        }
+      }
+
+      return updated;
+    });
+
     notify();
   }, 3000);
 }
