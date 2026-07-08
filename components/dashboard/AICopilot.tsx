@@ -4,9 +4,38 @@ import { useEffect, useState } from "react";
 import { Reception } from "../../types/reception";
 import { generateDailyBrief } from "../../lib/ai/dailyBrief";
 import DemoEventCard from "./DemoEventCard";
+import {
+  OptiFlowEvent,
+  subscribeEvents,
+} from "../../lib/events/eventBus";
+
+function getAiMessage(event: OptiFlowEvent, payload: any) {
+  switch (event) {
+    case "truck_arrived":
+      return `Le camion ${payload.carrier} vient d'arriver au quai ${payload.dock}. Préparez l'équipe réception.`;
+
+    case "dock_reserved":
+      return `${payload.receptionNumber} est maintenant à quai. Le déchargement peut démarrer.`;
+
+    case "unloading_started":
+      return `Déchargement en cours pour ${payload.receptionNumber}. Surveillez la progression et les palettes sensibles.`;
+
+    case "quality_started":
+      return `Contrôle qualité lancé pour ${payload.receptionNumber}. Vérifiez les écarts avant validation.`;
+
+    case "reception_completed":
+      return `${payload.receptionNumber} est terminée. Le quai ${payload.dock} peut être libéré.`;
+
+    default:
+      return "Analyse logistique en cours.";
+  }
+}
 
 export default function AICopilot() {
   const [receptions, setReceptions] = useState<Reception[]>([]);
+  const [liveMessage, setLiveMessage] = useState(
+    "J'analyse l'activité de l'entrepôt en temps réel."
+  );
 
   useEffect(() => {
     async function loadReceptions() {
@@ -16,6 +45,14 @@ export default function AICopilot() {
     }
 
     loadReceptions();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = subscribeEvents((event, payload) => {
+      setLiveMessage(getAiMessage(event, payload));
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const brief = generateDailyBrief(receptions);
@@ -44,6 +81,15 @@ export default function AICopilot() {
             {brief.warehouseHealth}%
           </p>
         </div>
+      </div>
+
+      <div className="mt-8 rounded-2xl border border-cyan-500/30 bg-cyan-500/10 p-5">
+        <h3 className="font-bold text-cyan-300">
+          🧠 Analyse IA live
+        </h3>
+        <p className="mt-3 text-slate-200 leading-7">
+          {liveMessage}
+        </p>
       </div>
 
       <div className="mt-8">
