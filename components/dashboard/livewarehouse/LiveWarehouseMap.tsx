@@ -1,183 +1,116 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import {
-  getWorkflowReceptions,
-  subscribeWorkflow,
-} from "../../../lib/workflow/workflowStore";
-import { WorkflowReception } from "../../../lib/workflow/workflowEngine";
-
-const docks = [1, 2, 3, 4, 5, 6];
-
-function getStatusLabel(reception?: WorkflowReception) {
-  if (!reception) return "Libre";
-
-  switch (reception.status) {
-    case "arriving":
-      return "Camion annoncé";
-    case "dock":
-      return "À quai";
-    case "unloading":
-      return "Déchargement";
-    case "quality":
-      return "Contrôle qualité";
-    default:
-      return "Libre";
-  }
-}
-
-function getStatusIcon(reception?: WorkflowReception) {
-  if (!reception) return "🟢";
-
-  switch (reception.status) {
-    case "arriving":
-      return "🚚";
-    case "dock":
-      return "🚛";
-    case "unloading":
-      return "📦";
-    case "quality":
-      return "🔍";
-    default:
-      return "🟢";
-  }
-}
-
-function getStatusStyle(reception?: WorkflowReception) {
-  if (!reception) {
-    return "border-emerald-500/20 bg-emerald-500/10 text-emerald-300";
-  }
-
-  switch (reception.status) {
-    case "arriving":
-      return "border-blue-500/30 bg-blue-500/10 text-blue-300";
-    case "dock":
-      return "border-orange-500/30 bg-orange-500/10 text-orange-300";
-    case "unloading":
-      return "border-cyan-500/30 bg-cyan-500/10 text-cyan-300";
-    case "quality":
-      return "border-yellow-500/30 bg-yellow-500/10 text-yellow-300";
-    default:
-      return "border-emerald-500/20 bg-emerald-500/10 text-emerald-300";
-  }
-}
+import useDemo from "../../../hooks/useDemo";
 
 export default function LiveWarehouseMap() {
-  const [receptions, setReceptions] = useState<WorkflowReception[]>(
-    getWorkflowReceptions()
-  );
+  const demo = useDemo();
 
-  useEffect(() => {
-    const unsubscribe = subscribeWorkflow((data) => {
-      setReceptions(data);
-    });
+  const occupiedDocks = demo.state?.occupiedDocks ?? 3;
+  const trucksWaiting = demo.state?.trucksWaiting ?? 2;
+  const activeReceptions = demo.state?.activeReceptions ?? 8;
+  const completedToday = demo.state?.completedToday ?? 42;
 
-    setReceptions(getWorkflowReceptions());
+  const docks = Array.from({ length: 6 }, (_, index) => {
+    const number = index + 1;
+    const occupied = number <= occupiedDocks;
+    const critical = occupiedDocks >= 5 && occupied;
 
-    return () => unsubscribe();
-  }, []);
-
-  const activeDocks = receptions.filter(
-    (item) => item.status !== "completed"
-  ).length;
-
-  const averageProgress =
-    receptions.length > 0
-      ? Math.round(
-          receptions.reduce((sum, item) => sum + item.progress, 0) /
-            receptions.length
-        )
-      : 0;
+    return {
+      number,
+      status: critical ? "Saturé" : occupied ? "Déchargement" : "Libre",
+      color: critical
+        ? "border-red-500 bg-red-500/10 text-red-300"
+        : occupied
+        ? "border-orange-500 bg-orange-500/10 text-orange-300"
+        : "border-emerald-500 bg-emerald-500/10 text-emerald-300",
+    };
+  });
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-950/80 p-5">
-      <div className="absolute inset-x-8 bottom-0 h-24 rounded-full bg-cyan-400/10 blur-3xl" />
-
-      <div className="relative mb-5 flex items-center justify-between">
+    <section className="rounded-xl border border-cyan-900 bg-[#07111f] p-6 shadow-lg">
+      <div className="mb-5 flex items-center justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-cyan-300">
+          <p className="text-xs uppercase tracking-widest text-cyan-400">
             Live Warehouse
           </p>
-          <h3 className="text-xl font-black text-white">
-            Jumeau numérique des quais
-          </h3>
-        </div>
-
-        <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-300">
-          ● LIVE
-        </span>
-      </div>
-
-      <div className="relative mb-5 grid grid-cols-3 gap-3">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-slate-400">Quais actifs</p>
-          <p className="mt-1 text-3xl font-black text-white">
-            {activeDocks}/6
+          <h2 className="mt-1 text-2xl font-bold text-white">
+            Plan vivant de l'entrepôt
+          </h2>
+          <p className="mt-2 text-sm text-slate-400">
+            Vue opérationnelle des quais, zones, flux et décisions IA.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-slate-400">Progression</p>
-          <p className="mt-1 text-3xl font-black text-cyan-300">
-            {averageProgress}%
-          </p>
-        </div>
-
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-          <p className="text-xs text-slate-400">Flux IA</p>
-          <p className="mt-1 text-3xl font-black text-emerald-300">
-            OK
-          </p>
+        <div className="rounded-full bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-300">
+          LIVE · {occupiedDocks}/6 quais
         </div>
       </div>
 
-      <div className="relative grid gap-3">
-        {docks.map((dock) => {
-          const reception = receptions.find(
-            (item) => item.dock === dock && item.status !== "completed"
-          );
+      <div className="rounded-2xl border border-slate-700 bg-slate-950/40 p-5">
+        <div className="mb-5 grid gap-4 md:grid-cols-4">
+          <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4">
+            <p className="text-xs text-blue-300">Arrivées</p>
+            <p className="mt-2 text-3xl font-bold text-white">🚛 {trucksWaiting}</p>
+          </div>
 
-          const status = getStatusLabel(reception);
-          const icon = getStatusIcon(reception);
-          const progress = reception?.progress ?? 0;
-          const style = getStatusStyle(reception);
+          <div className="rounded-xl border border-cyan-500/40 bg-cyan-500/10 p-4">
+            <p className="text-xs text-cyan-300">Réception</p>
+            <p className="mt-2 text-3xl font-bold text-white">📦 {activeReceptions}</p>
+          </div>
 
-          return (
-            <div
-              key={dock}
-              className={`rounded-2xl border p-3 transition-all duration-700 ${style}`}
-            >
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{icon}</span>
+          <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4">
+            <p className="text-xs text-emerald-300">Terminées</p>
+            <p className="mt-2 text-3xl font-bold text-white">✅ {completedToday}</p>
+          </div>
 
-                  <div>
-                    <p className="text-sm font-bold text-white">
-                      Quai {dock}
-                    </p>
-                    <p className="text-xs text-slate-400">
-                      {reception
-                        ? `${reception.carrier} · ${reception.supplier}`
-                        : "Disponible"}
-                    </p>
-                  </div>
-                </div>
+          <div className="rounded-xl border border-violet-500/40 bg-violet-500/10 p-4">
+            <p className="text-xs text-violet-300">Décision IA</p>
+            <p className="mt-2 text-sm font-semibold text-white">
+              Réallouer 1 préparateur
+            </p>
+          </div>
+        </div>
 
-                <span className="text-xs font-black">
-                  {status}
-                </span>
+        <div className="rounded-2xl border border-cyan-900/70 bg-[#081422] p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <p className="font-bold text-white">🚛 Zone quais</p>
+            <p className="text-xs text-slate-400">Flux entrant en temps réel</p>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-6">
+            {docks.map((dock) => (
+              <div
+                key={dock.number}
+                className={`rounded-xl border p-4 text-center ${dock.color}`}
+              >
+                <p className="text-xl">{dock.status === "Libre" ? "🚪" : "🚛"}</p>
+                <p className="mt-2 text-sm text-white">Quai {dock.number}</p>
+                <p className="mt-1 text-xs font-bold">{dock.status}</p>
               </div>
+            ))}
+          </div>
+        </div>
 
-              <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-800">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-fuchsia-500 transition-all duration-700"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </div>
-          );
-        })}
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-slate-700 bg-slate-900/70 p-5">
+            <p className="font-bold text-white">📦 Zone Réception</p>
+            <p className="mt-4 text-3xl">📦 📦 📦 📦</p>
+            <p className="mt-3 text-xs text-emerald-300">Flux normal</p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-700 bg-slate-900/70 p-5">
+            <p className="font-bold text-white">👷 Zone Préparation</p>
+            <p className="mt-4 text-3xl">👷 👷 👷 👷</p>
+            <p className="mt-3 text-xs text-cyan-300">Équipe active</p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-700 bg-slate-900/70 p-5">
+            <p className="font-bold text-white">🚚 Zone Expédition</p>
+            <p className="mt-4 text-3xl">🚚 🚚 📦</p>
+            <p className="mt-3 text-xs text-blue-300">Départs en préparation</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

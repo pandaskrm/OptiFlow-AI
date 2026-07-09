@@ -1,5 +1,6 @@
 import AIRecommendation from "../ui/AIRecommendation";
 import ProgressCard from "../ui/ProgressCard";
+import CommandCenter from "./CommandCenter";
 import KpiCard from "./KpiCard";
 import OrdersChart from "./OrdersChart";
 import WarehouseAiAnalysis from "./WarehouseAiAnalysis";
@@ -38,6 +39,10 @@ export default async function DashboardPremium() {
           trend={data.warehouse.health.status}
           progress={data.warehouse.health.score}
         />
+      </div>
+
+      <div className="mb-8">
+        <CommandCenter />
       </div>
 
       <div className="mb-8">
