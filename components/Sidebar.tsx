@@ -44,11 +44,11 @@ const links = [
     icon: "🤖",
     label: "IA OptiFlow",
   },
-  {
-    href: "/parametres",
-    icon: "⚙️",
-    label: "Paramètres",
-  },
+ {
+  href: "/team"
+  icon: "👥",
+  label: "Équipe",
+},
 ];
 
 export default function Sidebar() {
