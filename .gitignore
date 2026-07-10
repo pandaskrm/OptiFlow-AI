@@ -42,4 +42,3 @@ next-env.d.ts
 *.exe
 *.msi
 
-/app/generated/prisma
