@@ -10,21 +10,15 @@ export async function PATCH(
     const body = await request.json();
 
     const reception = await prisma.reception.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        status: body.status,
-      },
+      where: { id: Number(id) },
+      data: { status: body.status },
     });
 
     return NextResponse.json(reception);
-  } catch (error) {
-    console.error(error);
-
+  } catch {
     return NextResponse.json(
-      { message: "Erreur lors de la mise à jour." },
-      { status: 500 }
+      { message: "Mise à jour indisponible en production pour le moment." },
+      { status: 503 }
     );
   }
 }
@@ -37,20 +31,14 @@ export async function DELETE(
     const { id } = await context.params;
 
     await prisma.reception.delete({
-      where: {
-        id: Number(id),
-      },
+      where: { id: Number(id) },
     });
 
-    return NextResponse.json({
-      message: "Réception supprimée",
-    });
-  } catch (error) {
-    console.error(error);
-
+    return NextResponse.json({ message: "Réception supprimée" });
+  } catch {
     return NextResponse.json(
-      { message: "Erreur lors de la suppression." },
-      { status: 500 }
+      { message: "Suppression indisponible en production pour le moment." },
+      { status: 503 }
     );
   }
 }
