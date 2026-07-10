@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ReceptionService from "../../services/reception.service";
 import ReceptionTimeline from "../timeline/ReceptionTimeline";
 import { Reception } from "../../types/reception";
 import {
@@ -15,6 +14,8 @@ type ReceptionTableProps = {
   refreshKey: number;
   onDeleted: () => void;
 };
+
+const STORAGE_KEY = "optiflow_receptions";
 
 function getActionLabel(status: string) {
   if (status === RECEPTION_STATUS.PLANNED) return "▶️ Démarrer";
@@ -30,6 +31,15 @@ function getProgress(status: string) {
   return Math.round(((index + 1) / STATUS_ORDER.length) * 100);
 }
 
+function getStoredReceptions(): Reception[] {
+  if (typeof window === "undefined") return [];
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+}
+
+function saveStoredReceptions(receptions: Reception[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(receptions));
+}
+
 export default function ReceptionTable({
   refreshKey,
   onDeleted,
@@ -39,28 +49,24 @@ export default function ReceptionTable({
   const [openedId, setOpenedId] = useState<number | null>(null);
 
   useEffect(() => {
-    loadReceptions();
+    setReceptions(getStoredReceptions());
   }, [refreshKey]);
-
-  async function loadReceptions() {
-    const data = await ReceptionService.getAll();
-    setReceptions(data);
-  }
 
   async function handleNextStatus(item: Reception) {
     const nextStatus = getNextStatus(item.status);
     if (nextStatus === item.status) return;
 
     setLoadingId(item.id);
-    const response = await ReceptionService.updateStatus(item.id, nextStatus);
+
+    const updated = receptions.map((reception) =>
+      reception.id === item.id
+        ? { ...reception, status: nextStatus }
+        : reception
+    );
+
+    saveStoredReceptions(updated);
+    setReceptions(updated);
     setLoadingId(null);
-
-    if (!response.ok) {
-      alert("Erreur lors du changement de statut.");
-      return;
-    }
-
-    await loadReceptions();
     onDeleted();
   }
 
@@ -71,14 +77,10 @@ export default function ReceptionTable({
 
     if (!confirmDelete) return;
 
-    const response = await ReceptionService.delete(id);
-
-    if (response.ok) {
-      await loadReceptions();
-      onDeleted();
-    } else {
-      alert("Erreur lors de la suppression.");
-    }
+    const updated = receptions.filter((item) => item.id !== id);
+    saveStoredReceptions(updated);
+    setReceptions(updated);
+    onDeleted();
   }
 
   return (
@@ -160,9 +162,7 @@ export default function ReceptionTable({
 
                     <td className="p-4 text-center">
                       <button
-                        onClick={() =>
-                          setOpenedId(isOpened ? null : item.id)
-                        }
+                        onClick={() => setOpenedId(isOpened ? null : item.id)}
                         className="rounded-lg bg-cyan-600 px-3 py-2 text-sm font-semibold transition hover:bg-cyan-700"
                       >
                         {isOpened ? "Masquer" : "Voir"}
