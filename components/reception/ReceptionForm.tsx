@@ -20,24 +20,46 @@ export default function ReceptionForm({ onSaved }: ReceptionFormProps) {
   });
 
   const handleChange = (field: string, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    setForm((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
-  const handleSubmit = async () => {
-    if (!form.number || !form.supplier || !form.carrier || !form.dock || !form.pallets) {
+  const handleSubmit = () => {
+    if (
+      !form.number ||
+      !form.supplier ||
+      !form.carrier ||
+      !form.dock ||
+      !form.pallets
+    ) {
       alert("Merci de remplir tous les champs.");
       return;
     }
 
     const newReception = {
       id: Date.now(),
-      ...form,
+      number: form.number,
+      supplier: form.supplier,
+      carrier: form.carrier,
+      dock: form.dock,
       pallets: Number(form.pallets),
+      scheduledAt: form.scheduledAt,
+      status: "Planifiée",
       createdAt: new Date().toISOString(),
     };
 
-    const existing = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([newReception, ...existing]));
+    const existing = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || "[]"
+    );
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify([newReception, ...existing])
+    );
+
+    onSaved();
 
     setForm({
       number: "",
@@ -48,8 +70,6 @@ export default function ReceptionForm({ onSaved }: ReceptionFormProps) {
       scheduledAt: "",
       status: "Planifiée",
     });
-
-    onSaved();
   };
 
   return (
@@ -66,11 +86,32 @@ export default function ReceptionForm({ onSaved }: ReceptionFormProps) {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <input value={form.number} onChange={(e) => handleChange("number", e.target.value)} className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3" placeholder="Numéro de réception" />
-        <input value={form.supplier} onChange={(e) => handleChange("supplier", e.target.value)} className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3" placeholder="Fournisseur" />
-        <input value={form.carrier} onChange={(e) => handleChange("carrier", e.target.value)} className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3" placeholder="Transporteur" />
+        <input
+          value={form.number}
+          onChange={(e) => handleChange("number", e.target.value)}
+          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+          placeholder="Numéro de réception"
+        />
 
-        <select value={form.dock} onChange={(e) => handleChange("dock", e.target.value)} className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3">
+        <input
+          value={form.supplier}
+          onChange={(e) => handleChange("supplier", e.target.value)}
+          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+          placeholder="Fournisseur"
+        />
+
+        <input
+          value={form.carrier}
+          onChange={(e) => handleChange("carrier", e.target.value)}
+          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+          placeholder="Transporteur"
+        />
+
+        <select
+          value={form.dock}
+          onChange={(e) => handleChange("dock", e.target.value)}
+          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+        >
           <option value="">Sélectionner un quai</option>
           <option value="Quai 1">Quai 1</option>
           <option value="Quai 2">Quai 2</option>
@@ -80,8 +121,20 @@ export default function ReceptionForm({ onSaved }: ReceptionFormProps) {
           <option value="Quai 6">Quai 6</option>
         </select>
 
-        <input type="number" value={form.pallets} onChange={(e) => handleChange("pallets", e.target.value)} className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3" placeholder="Nombre de palettes" />
-        <input type="time" value={form.scheduledAt} onChange={(e) => handleChange("scheduledAt", e.target.value)} className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3" />
+        <input
+          type="number"
+          value={form.pallets}
+          onChange={(e) => handleChange("pallets", e.target.value)}
+          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+          placeholder="Nombre de palettes"
+        />
+
+        <input
+          type="time"
+          value={form.scheduledAt}
+          onChange={(e) => handleChange("scheduledAt", e.target.value)}
+          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+        />
       </div>
     </div>
   );
