@@ -2,8 +2,6 @@
 
 import useDemo from "../../hooks/useDemo";
 
-import PreparationHero from "./PreparationHero";
-import PreparationStats from "./PreparationStats";
 import PreparationTable from "./PreparationTable";
 import PreparationAi from "./PreparationAi";
 import PreparationLiveChart from "./PreparationLiveChart";
@@ -13,6 +11,7 @@ import PreparationAnalytics from "./PreparationAnalytics";
 import PreparationAnalyticsAi from "./PreparationAnalyticsAi";
 import PreparationTeamStatus from "./PreparationTeamStatus";
 import PreparationDecisionPanel from "./PreparationDecisionPanel";
+import PreparationScenarioSummary from "./PreparationScenarioSummary";
 
 const zeroCards = [
   { label: "Commandes du jour", value: "0" },
@@ -360,8 +359,7 @@ export default function PreparationModeContent() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PreparationHero />
-      <PreparationStats />
+      <PreparationScenarioSummary />
 
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
         <PreparationAnalytics />
