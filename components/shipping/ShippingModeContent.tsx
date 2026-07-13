@@ -2,8 +2,7 @@
 
 import useDemo from "../../hooks/useDemo";
 
-import ShippingHero from "./ShippingHero";
-import ShippingStats from "./ShippingStats";
+import ShippingScenarioSummary from "./ShippingScenarioSummary";
 import ShippingAnalytics from "./ShippingAnalytics";
 import ShippingTeamStatus from "./ShippingTeamStatus";
 import ShippingTable from "./ShippingTable";
@@ -166,8 +165,8 @@ function ShippingZeroState() {
             </p>
 
             <p className="mt-2 text-sm text-slate-300">
-              Lancez le mode Démo pour découvrir les recommandations
-              liées aux départs transporteurs.
+              Lancez le mode Démo pour découvrir les recommandations liées aux
+              départs transporteurs.
             </p>
           </div>
         </section>
@@ -289,8 +288,7 @@ export default function ShippingModeContent() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ShippingHero />
-      <ShippingStats />
+      <ShippingScenarioSummary />
 
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
         <ShippingAnalytics />
