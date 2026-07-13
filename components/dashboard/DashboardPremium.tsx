@@ -1,6 +1,7 @@
-import AIRecommendation from "../ui/AIRecommendation";
+﻿import AIRecommendation from "../ui/AIRecommendation";
 import ProgressCard from "../ui/ProgressCard";
 import CommandCenter from "./CommandCenter";
+import DashboardHeader from "./DashboardHeader";
 import KpiCard from "./KpiCard";
 import OrdersChart from "./OrdersChart";
 import WarehouseAiAnalysis from "./WarehouseAiAnalysis";
@@ -20,6 +21,8 @@ export default async function DashboardPremium() {
 
   return (
     <>
+          <DashboardHeader />
+          
       <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
         <KpiCard title="Commandes" value="486" trend="+12%" progress={86} />
         <KpiCard title="Expéditions" value="32" trend="+8%" progress={74} />
