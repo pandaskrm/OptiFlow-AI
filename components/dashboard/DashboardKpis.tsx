@@ -8,6 +8,7 @@ import KpiCard from "./KpiCard";
 export default function DashboardKpis() {
   const demo = useDemo();
   const { data: scenario } = useScenario();
+
   const {
     data: warehouse,
     loading,
@@ -22,36 +23,39 @@ export default function DashboardKpis() {
       ? "Données indisponibles"
       : loading
         ? "Actualisation..."
-        : "Données réelles";
-
-  const realReceptionProgress =
-    warehouse.receptions.total > 0
-      ? Math.round(
-          (warehouse.receptions.completed /
-            warehouse.receptions.total) *
-            100
-        )
-      : 0;
+        : warehouse.dataConnected
+          ? "Données ERP synchronisées"
+          : "En attente de données ERP";
 
   return (
     <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3 xl:grid-cols-6">
       <KpiCard
         title="Commandes"
         value={String(
-          demo.running ? dashboard.commandes : 0
+          demo.running
+            ? dashboard.commandes
+            : warehouse.orders.total
         )}
         trend={trend}
-        progress={demo.running ? dashboard.productivite : 0}
+        progress={
+          demo.running
+            ? dashboard.productivite
+            : warehouse.performance.preparation
+        }
       />
 
       <KpiCard
         title="Expéditions"
         value={String(
-          demo.running ? dashboard.expeditions : 0
+          demo.running
+            ? dashboard.expeditions
+            : warehouse.shipments.total
         )}
         trend={trend}
         progress={
-          demo.running ? dashboard.shippingProgress : 0
+          demo.running
+            ? dashboard.shippingProgress
+            : warehouse.performance.shipping
         }
       />
 
@@ -66,25 +70,40 @@ export default function DashboardKpis() {
         progress={
           demo.running
             ? dashboard.receptionProgress
-            : realReceptionProgress
+            : warehouse.performance.reception
         }
       />
 
       <KpiCard
         title="Service"
-        value={`${demo.running ? dashboard.service : 0}%`}
+        value={`${
+          demo.running
+            ? dashboard.service
+            : warehouse.performance.service
+        }%`}
         trend={trend}
-        progress={demo.running ? dashboard.service : 0}
+        progress={
+          demo.running
+            ? dashboard.service
+            : warehouse.performance.service
+        }
       />
 
       <KpiCard
         title="Productivité"
         value={`${
-          demo.running ? dashboard.productivite : 0
-        }%`}
+          demo.running
+            ? dashboard.productivite
+            : warehouse.performance.productivity
+        }`}
         trend={trend}
         progress={
-          demo.running ? dashboard.productivite : 0
+          demo.running
+            ? dashboard.productivite
+            : Math.min(
+                100,
+                warehouse.performance.productivity
+              )
         }
       />
 

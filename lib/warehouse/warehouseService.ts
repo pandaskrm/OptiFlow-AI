@@ -15,21 +15,78 @@ export type WarehouseReceptionSummary = {
   occupiedDocks: number;
   totalPallets: number;
   receivedPallets: number;
+  scheduledToday: number;
+  scheduledTomorrow: number;
+  late: number;
+  completionRate: number;
+};
+
+export type WarehouseOrderSummary = {
+  total: number;
+  waiting: number;
+  inPreparation: number;
+  completed: number;
+  priority: number;
+  totalLines: number;
+  preparedLines: number;
+  progress: number;
+  serviceRate: number;
+};
+
+export type WarehouseShipmentSummary = {
+  total: number;
+  waiting: number;
+  ready: number;
+  shipped: number;
+  totalPallets: number;
+  totalPackages: number;
+  progress: number;
+  serviceRate: number;
+};
+
+export type WarehouseInventorySummary = {
+  references: number;
+  totalQuantity: number;
+  reservedQuantity: number;
+  availableQuantity: number;
+  lowStockReferences: number;
+  unavailableReferences: number;
+};
+
+export type WarehouseWorkforceSummary = {
+  total: number;
+  present: number;
+  absent: number;
+  paused: number;
+  reinforcement: number;
+  workedMinutes: number;
+  processedUnits: number;
+  productivity: number;
+};
+
+export type WarehousePerformanceSummary = {
+  reception: number;
+  preparation: number;
+  shipping: number;
+  service: number;
+  productivity: number;
 };
 
 export type WarehouseSummary = {
   receptions: WarehouseReceptionSummary;
+  orders: WarehouseOrderSummary;
+  shipments: WarehouseShipmentSummary;
+  inventory: WarehouseInventorySummary;
+  workforce: WarehouseWorkforceSummary;
+  performance: WarehousePerformanceSummary;
   healthScore: number;
   alerts: string[];
   priorities: string[];
+  dataConnected: boolean;
   updatedAt: string;
 };
 
-/**
- * Compatibilité temporaire avec les anciens statuts mal encodés.
- * Ces valeurs pourront être supprimées après nettoyage de la base.
- */
-const LEGACY_STATUS = {
+const LEGACY_RECEPTION_STATUS = {
   PLANNED: "PlanifiÃ©e",
   AT_DOCK: "Ã€ quai",
   UNLOADING: "DÃ©chargement",
@@ -37,7 +94,35 @@ const LEGACY_STATUS = {
   COMPLETED: "TerminÃ©e",
 } as const;
 
-function matchesStatus(
+const ORDER_STATUS = {
+  WAITING: ["À préparer", "A preparer", "En attente"],
+  PREPARING: ["En préparation", "En preparation"],
+  COMPLETED: ["Terminée", "Terminee", "Préparée", "Preparee"],
+} as const;
+
+const SHIPMENT_STATUS = {
+  WAITING: ["À expédier", "A expedier", "En attente"],
+  READY: ["Prête", "Prete", "Prêt", "Pret"],
+  SHIPPED: ["Expédiée", "Expediee", "Terminée", "Terminee"],
+} as const;
+
+function normalize(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
+function matchesOneOf(value: string, expected: readonly string[]) {
+  const normalizedValue = normalize(value);
+
+  return expected.some(
+    (item) => normalize(item) === normalizedValue
+  );
+}
+
+function matchesReceptionStatus(
   currentStatus: string,
   expectedStatus: string,
   legacyStatus: string
@@ -48,120 +133,257 @@ function matchesStatus(
   );
 }
 
-function isPlanned(status: string) {
-  return matchesStatus(
+function isReceptionPlanned(status: string) {
+  return matchesReceptionStatus(
     status,
     RECEPTION_STATUS.PLANNED,
-    LEGACY_STATUS.PLANNED
+    LEGACY_RECEPTION_STATUS.PLANNED
   );
 }
 
-function isAtDock(status: string) {
-  return matchesStatus(
+function isReceptionAtDock(status: string) {
+  return matchesReceptionStatus(
     status,
     RECEPTION_STATUS.AT_DOCK,
-    LEGACY_STATUS.AT_DOCK
+    LEGACY_RECEPTION_STATUS.AT_DOCK
   );
 }
 
-function isUnloading(status: string) {
-  return matchesStatus(
+function isReceptionUnloading(status: string) {
+  return matchesReceptionStatus(
     status,
     RECEPTION_STATUS.UNLOADING,
-    LEGACY_STATUS.UNLOADING
+    LEGACY_RECEPTION_STATUS.UNLOADING
   );
 }
 
-function isInspection(status: string) {
-  return matchesStatus(
+function isReceptionInspection(status: string) {
+  return matchesReceptionStatus(
     status,
     RECEPTION_STATUS.INSPECTION,
-    LEGACY_STATUS.INSPECTION
+    LEGACY_RECEPTION_STATUS.INSPECTION
   );
 }
 
-function isCompleted(status: string) {
-  return matchesStatus(
+function isReceptionCompleted(status: string) {
+  return matchesReceptionStatus(
     status,
     RECEPTION_STATUS.COMPLETED,
-    LEGACY_STATUS.COMPLETED
+    LEGACY_RECEPTION_STATUS.COMPLETED
   );
 }
 
-function isActive(status: string) {
+function isReceptionActive(status: string) {
   return (
     ACTIVE_RECEPTION_STATUSES.includes(status as never) ||
-    isAtDock(status) ||
-    isUnloading(status) ||
-    isInspection(status)
+    isReceptionAtDock(status) ||
+    isReceptionUnloading(status) ||
+    isReceptionInspection(status)
   );
+}
+
+function percentage(value: number, total: number) {
+  if (total <= 0) {
+    return 0;
+  }
+
+  return Math.max(
+    0,
+    Math.min(100, Math.round((value / total) * 100))
+  );
+}
+
+function average(values: number[]) {
+  const availableValues = values.filter(
+    (value) => Number.isFinite(value) && value >= 0
+  );
+
+  if (availableValues.length === 0) {
+    return 0;
+  }
+
+  return Math.round(
+    availableValues.reduce(
+      (total, value) => total + value,
+      0
+    ) / availableValues.length
+  );
+}
+
+function startOfDay(date: Date) {
+  const result = new Date(date);
+  result.setHours(0, 0, 0, 0);
+  return result;
+}
+
+function endOfDay(date: Date) {
+  const result = new Date(date);
+  result.setHours(23, 59, 59, 999);
+  return result;
+}
+
+function parseReceptionDate(value: string) {
+  const parsedDate = new Date(value);
+
+  return Number.isNaN(parsedDate.getTime())
+    ? null
+    : parsedDate;
 }
 
 function calculateHealthScore({
-  planned,
-  active,
+  dataConnected,
+  receptionPerformance,
+  preparationPerformance,
+  shippingPerformance,
+  serviceRate,
+  productivity,
+  lateReceptions,
   occupiedDocks,
+  lowStockReferences,
+  absentEmployees,
 }: {
-  planned: number;
-  active: number;
+  dataConnected: boolean;
+  receptionPerformance: number;
+  preparationPerformance: number;
+  shippingPerformance: number;
+  serviceRate: number;
+  productivity: number;
+  lateReceptions: number;
   occupiedDocks: number;
+  lowStockReferences: number;
+  absentEmployees: number;
 }) {
-  if (planned === 0 && active === 0) {
-    return 100;
+  if (!dataConnected) {
+    return 0;
   }
 
-  let score = 100;
+  const availablePerformance = [
+    receptionPerformance,
+    preparationPerformance,
+    shippingPerformance,
+    serviceRate,
+    productivity,
+  ].filter((value) => value > 0);
 
-  score -= Math.min(planned * 3, 24);
-  score -= Math.min(active * 2, 20);
+  let score =
+    availablePerformance.length > 0
+      ? average(availablePerformance)
+      : 100;
 
-  if (occupiedDocks >= 5) {
+  score -= Math.min(lateReceptions * 5, 25);
+
+  if (occupiedDocks >= 6) {
     score -= 20;
-  } else if (occupiedDocks >= 3) {
-    score -= 10;
+  } else if (occupiedDocks >= 5) {
+    score -= 12;
+  } else if (occupiedDocks >= 4) {
+    score -= 6;
   }
 
-  return Math.max(0, Math.min(100, score));
+  score -= Math.min(lowStockReferences * 2, 20);
+  score -= Math.min(absentEmployees * 2, 15);
+
+  return Math.max(0, Math.min(100, Math.round(score)));
 }
 
 function buildAlerts({
-  planned,
-  active,
+  lateReceptions,
   occupiedDocks,
+  priorityOrders,
+  lowStockReferences,
+  unavailableReferences,
+  absentEmployees,
+  waitingShipments,
 }: {
-  planned: number;
-  active: number;
+  lateReceptions: number;
   occupiedDocks: number;
+  priorityOrders: number;
+  lowStockReferences: number;
+  unavailableReferences: number;
+  absentEmployees: number;
+  waitingShipments: number;
 }) {
   const alerts: string[] = [];
 
-  if (planned >= 5) {
-    alerts.push(`${planned} réceptions sont encore planifiées.`);
+  if (lateReceptions > 0) {
+    alerts.push(
+      `${lateReceptions} réception${
+        lateReceptions > 1 ? "s sont" : " est"
+      } en retard.`
+    );
   }
 
   if (occupiedDocks >= 5) {
-    alerts.push("Les quais sont proches de la saturation.");
+    alerts.push(
+      `${occupiedDocks}/6 quais sont occupés : risque de saturation.`
+    );
   }
 
-  if (active >= 10) {
-    alerts.push("Le volume de réceptions actives est élevé.");
+  if (priorityOrders > 0) {
+    alerts.push(
+      `${priorityOrders} commande${
+        priorityOrders > 1 ? "s prioritaires" : " prioritaire"
+      } à traiter.`
+    );
+  }
+
+  if (unavailableReferences > 0) {
+    alerts.push(
+      `${unavailableReferences} référence${
+        unavailableReferences > 1 ? "s sont" : " est"
+      } indisponible en stock.`
+    );
+  }
+
+  if (lowStockReferences > 0) {
+    alerts.push(
+      `${lowStockReferences} référence${
+        lowStockReferences > 1 ? "s sont" : " est"
+      } sous le seuil minimum.`
+    );
+  }
+
+  if (absentEmployees > 0) {
+    alerts.push(
+      `${absentEmployees} collaborateur${
+        absentEmployees > 1 ? "s sont" : " est"
+      } absent aujourd’hui.`
+    );
+  }
+
+  if (waitingShipments > 0) {
+    alerts.push(
+      `${waitingShipments} expédition${
+        waitingShipments > 1 ? "s sont" : " est"
+      } encore en attente.`
+    );
   }
 
   return alerts;
 }
 
 function buildPriorities({
-  planned,
+  plannedReceptions,
+  lateReceptions,
   occupiedDocks,
+  priorityOrders,
+  waitingShipments,
+  lowStockReferences,
+  absentEmployees,
 }: {
-  planned: number;
+  plannedReceptions: number;
+  lateReceptions: number;
   occupiedDocks: number;
+  priorityOrders: number;
+  waitingShipments: number;
+  lowStockReferences: number;
+  absentEmployees: number;
 }) {
   const priorities: string[] = [];
 
-  if (planned > 0) {
+  if (lateReceptions > 0) {
     priorities.push(
-      "Affecter les prochaines réceptions aux quais disponibles."
+      "Traiter les réceptions en retard et vérifier les créneaux transporteurs."
     );
   }
 
@@ -171,43 +393,115 @@ function buildPriorities({
     );
   }
 
+  if (priorityOrders > 0) {
+    priorities.push(
+      "Affecter les ressources disponibles aux commandes prioritaires."
+    );
+  }
+
+  if (waitingShipments > 0) {
+    priorities.push(
+      "Contrôler les expéditions en attente avant leur heure de départ."
+    );
+  }
+
+  if (lowStockReferences > 0) {
+    priorities.push(
+      "Analyser les références sous seuil et lancer un réapprovisionnement."
+    );
+  }
+
+  if (absentEmployees > 0) {
+    priorities.push(
+      "Rééquilibrer les équipes selon les absences du jour."
+    );
+  }
+
+  if (plannedReceptions > 0) {
+    priorities.push(
+      "Préparer les quais pour les prochaines réceptions planifiées."
+    );
+  }
+
   return priorities;
 }
 
 export async function getWarehouseSummary(): Promise<WarehouseSummary> {
-  const receptions = await prisma.reception.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const [
+    receptions,
+    orders,
+    shipments,
+    inventory,
+    workforce,
+  ] = await Promise.all([
+    prisma.reception.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
 
-  const planned = receptions.filter((item) =>
-    isPlanned(item.status)
+    prisma.order.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+
+    prisma.shipment.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+
+    prisma.inventory.findMany({
+      orderBy: {
+        designation: "asc",
+      },
+    }),
+
+    prisma.workforce.findMany({
+      orderBy: {
+        workDate: "desc",
+      },
+    }),
+  ]);
+
+  const now = new Date();
+  const todayStart = startOfDay(now);
+  const todayEnd = endOfDay(now);
+
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const tomorrowStart = startOfDay(tomorrow);
+  const tomorrowEnd = endOfDay(tomorrow);
+
+  const receptionPlanned = receptions.filter((item) =>
+    isReceptionPlanned(item.status)
   ).length;
 
-  const atDock = receptions.filter((item) =>
-    isAtDock(item.status)
+  const receptionAtDock = receptions.filter((item) =>
+    isReceptionAtDock(item.status)
   ).length;
 
-  const unloading = receptions.filter((item) =>
-    isUnloading(item.status)
+  const receptionUnloading = receptions.filter((item) =>
+    isReceptionUnloading(item.status)
   ).length;
 
-  const inspection = receptions.filter((item) =>
-    isInspection(item.status)
+  const receptionInspection = receptions.filter((item) =>
+    isReceptionInspection(item.status)
   ).length;
 
-  const active = receptions.filter((item) =>
-    isActive(item.status)
+  const receptionActive = receptions.filter((item) =>
+    isReceptionActive(item.status)
   ).length;
 
-  const completed = receptions.filter((item) =>
-    isCompleted(item.status)
+  const receptionCompleted = receptions.filter((item) =>
+    isReceptionCompleted(item.status)
   ).length;
 
   const occupiedDocks = new Set(
     receptions
-      .filter((item) => isActive(item.status))
+      .filter((item) => isReceptionActive(item.status))
       .map((item) => item.dock)
       .filter(Boolean)
   ).size;
@@ -218,42 +512,336 @@ export async function getWarehouseSummary(): Promise<WarehouseSummary> {
   );
 
   const receivedPallets = receptions
-    .filter((item) => isCompleted(item.status))
-    .reduce((total, item) => total + item.pallets, 0);
+    .filter((item) => isReceptionCompleted(item.status))
+    .reduce(
+      (total, item) => total + item.pallets,
+      0
+    );
+
+  const scheduledToday = receptions.filter((item) => {
+    const date = parseReceptionDate(item.scheduledAt);
+
+    return (
+      date !== null &&
+      date >= todayStart &&
+      date <= todayEnd
+    );
+  }).length;
+
+  const scheduledTomorrow = receptions.filter((item) => {
+    const date = parseReceptionDate(item.scheduledAt);
+
+    return (
+      date !== null &&
+      date >= tomorrowStart &&
+      date <= tomorrowEnd
+    );
+  }).length;
+
+  const lateReceptions = receptions.filter((item) => {
+    const date = parseReceptionDate(item.scheduledAt);
+
+    return (
+      date !== null &&
+      date < now &&
+      !isReceptionCompleted(item.status)
+    );
+  }).length;
+
+  const receptionCompletionRate = percentage(
+    receptionCompleted,
+    receptions.length
+  );
+
+  const waitingOrders = orders.filter((item) =>
+    matchesOneOf(item.status, ORDER_STATUS.WAITING)
+  ).length;
+
+  const preparingOrders = orders.filter((item) =>
+    matchesOneOf(
+      item.status,
+      ORDER_STATUS.PREPARING
+    )
+  ).length;
+
+  const completedOrders = orders.filter((item) =>
+    matchesOneOf(
+      item.status,
+      ORDER_STATUS.COMPLETED
+    )
+  ).length;
+
+  const priorityOrders = orders.filter((item) =>
+    ["haute", "urgente", "critique"].includes(
+      normalize(item.priority)
+    )
+  ).length;
+
+  const totalOrderLines = orders.reduce(
+    (total, item) => total + item.totalLines,
+    0
+  );
+
+  const preparedOrderLines = orders.reduce(
+    (total, item) => total + item.preparedLines,
+    0
+  );
+
+  const preparationProgress = percentage(
+    preparedOrderLines,
+    totalOrderLines
+  );
+
+  const ordersWithDeadline = orders.filter(
+    (item) => item.scheduledAt !== null
+  );
+
+  const ordersCompletedOnTime =
+    ordersWithDeadline.filter((item) => {
+      if (!item.completedAt || !item.scheduledAt) {
+        return false;
+      }
+
+      return item.completedAt <= item.scheduledAt;
+    }).length;
+
+  const orderServiceRate = percentage(
+    ordersCompletedOnTime,
+    ordersWithDeadline.length
+  );
+
+  const waitingShipments = shipments.filter((item) =>
+    matchesOneOf(
+      item.status,
+      SHIPMENT_STATUS.WAITING
+    )
+  ).length;
+
+  const readyShipments = shipments.filter((item) =>
+    matchesOneOf(item.status, SHIPMENT_STATUS.READY)
+  ).length;
+
+  const shippedShipments = shipments.filter((item) =>
+    matchesOneOf(
+      item.status,
+      SHIPMENT_STATUS.SHIPPED
+    )
+  ).length;
+
+  const shipmentPallets = shipments.reduce(
+    (total, item) => total + item.pallets,
+    0
+  );
+
+  const shipmentPackages = shipments.reduce(
+    (total, item) => total + item.packages,
+    0
+  );
+
+  const shippingProgress = percentage(
+    shippedShipments,
+    shipments.length
+  );
+
+  const shipmentsWithDeadline = shipments.filter(
+    (item) => item.scheduledAt !== null
+  );
+
+  const shipmentsCompletedOnTime =
+    shipmentsWithDeadline.filter((item) => {
+      if (!item.shippedAt || !item.scheduledAt) {
+        return false;
+      }
+
+      return item.shippedAt <= item.scheduledAt;
+    }).length;
+
+  const shipmentServiceRate = percentage(
+    shipmentsCompletedOnTime,
+    shipmentsWithDeadline.length
+  );
+
+  const totalInventoryQuantity = inventory.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
+  const reservedInventoryQuantity = inventory.reduce(
+    (total, item) => total + item.reserved,
+    0
+  );
+
+  const availableInventoryQuantity = inventory.reduce(
+    (total, item) =>
+      total + Math.max(0, item.quantity - item.reserved),
+    0
+  );
+
+  const lowStockReferences = inventory.filter(
+    (item) =>
+      item.quantity - item.reserved <= item.minimum
+  ).length;
+
+  const unavailableReferences = inventory.filter(
+    (item) => item.quantity - item.reserved <= 0
+  ).length;
+
+  const presentEmployees = workforce.filter(
+    (item) => normalize(item.status) === "present"
+  ).length;
+
+  const absentEmployees = workforce.filter(
+    (item) => normalize(item.status) === "absent"
+  ).length;
+
+  const pausedEmployees = workforce.filter(
+    (item) => normalize(item.status) === "en pause"
+  ).length;
+
+  const reinforcementEmployees = workforce.filter(
+    (item) => normalize(item.status) === "renfort"
+  ).length;
+
+  const workedMinutes = workforce.reduce(
+    (total, item) => total + item.workedMinutes,
+    0
+  );
+
+  const processedUnits = workforce.reduce(
+    (total, item) => total + item.processedUnits,
+    0
+  );
+
+  const productivity =
+    workedMinutes > 0
+      ? Math.round(
+          (processedUnits / workedMinutes) * 60
+        )
+      : 0;
+
+  const serviceValues = [
+    orderServiceRate,
+    shipmentServiceRate,
+  ].filter((value) => value > 0);
+
+  const globalServiceRate =
+    serviceValues.length > 0
+      ? average(serviceValues)
+      : 0;
+
+  const dataConnected =
+    receptions.length > 0 ||
+    orders.length > 0 ||
+    shipments.length > 0 ||
+    inventory.length > 0 ||
+    workforce.length > 0;
 
   const healthScore = calculateHealthScore({
-    planned,
-    active,
+    dataConnected,
+    receptionPerformance: receptionCompletionRate,
+    preparationPerformance: preparationProgress,
+    shippingPerformance: shippingProgress,
+    serviceRate: globalServiceRate,
+    productivity,
+    lateReceptions,
     occupiedDocks,
+    lowStockReferences,
+    absentEmployees,
+  });
+
+  const alerts = buildAlerts({
+    lateReceptions,
+    occupiedDocks,
+    priorityOrders,
+    lowStockReferences,
+    unavailableReferences,
+    absentEmployees,
+    waitingShipments,
+  });
+
+  const priorities = buildPriorities({
+    plannedReceptions: receptionPlanned,
+    lateReceptions,
+    occupiedDocks,
+    priorityOrders,
+    waitingShipments,
+    lowStockReferences,
+    absentEmployees,
   });
 
   return {
     receptions: {
       total: receptions.length,
-      planned,
-      atDock,
-      unloading,
-      inspection,
-      active,
-      completed,
+      planned: receptionPlanned,
+      atDock: receptionAtDock,
+      unloading: receptionUnloading,
+      inspection: receptionInspection,
+      active: receptionActive,
+      completed: receptionCompleted,
       occupiedDocks,
       totalPallets,
       receivedPallets,
+      scheduledToday,
+      scheduledTomorrow,
+      late: lateReceptions,
+      completionRate: receptionCompletionRate,
+    },
+
+    orders: {
+      total: orders.length,
+      waiting: waitingOrders,
+      inPreparation: preparingOrders,
+      completed: completedOrders,
+      priority: priorityOrders,
+      totalLines: totalOrderLines,
+      preparedLines: preparedOrderLines,
+      progress: preparationProgress,
+      serviceRate: orderServiceRate,
+    },
+
+    shipments: {
+      total: shipments.length,
+      waiting: waitingShipments,
+      ready: readyShipments,
+      shipped: shippedShipments,
+      totalPallets: shipmentPallets,
+      totalPackages: shipmentPackages,
+      progress: shippingProgress,
+      serviceRate: shipmentServiceRate,
+    },
+
+    inventory: {
+      references: inventory.length,
+      totalQuantity: totalInventoryQuantity,
+      reservedQuantity: reservedInventoryQuantity,
+      availableQuantity: availableInventoryQuantity,
+      lowStockReferences,
+      unavailableReferences,
+    },
+
+    workforce: {
+      total: workforce.length,
+      present: presentEmployees,
+      absent: absentEmployees,
+      paused: pausedEmployees,
+      reinforcement: reinforcementEmployees,
+      workedMinutes,
+      processedUnits,
+      productivity,
+    },
+
+    performance: {
+      reception: receptionCompletionRate,
+      preparation: preparationProgress,
+      shipping: shippingProgress,
+      service: globalServiceRate,
+      productivity,
     },
 
     healthScore,
-
-    alerts: buildAlerts({
-      planned,
-      active,
-      occupiedDocks,
-    }),
-
-    priorities: buildPriorities({
-      planned,
-      occupiedDocks,
-    }),
-
+    alerts,
+    priorities,
+    dataConnected,
     updatedAt: new Date().toISOString(),
   };
 }
