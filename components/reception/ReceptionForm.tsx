@@ -1,140 +1,233 @@
 "use client";
 
 import { useState } from "react";
+import { RECEPTION_STATUS } from "../../constants/receptionStatus";
 
 type ReceptionFormProps = {
   onSaved: () => void;
 };
 
-const STORAGE_KEY = "optiflow_receptions";
+const initialForm = {
+  number: "",
+  supplier: "",
+  carrier: "",
+  dock: "",
+  pallets: "",
+  scheduledAt: "",
+};
 
-export default function ReceptionForm({ onSaved }: ReceptionFormProps) {
-  const [form, setForm] = useState({
-    number: "",
-    supplier: "",
-    carrier: "",
-    dock: "",
-    pallets: "",
-    scheduledAt: "",
-    status: "Planifiée",
-  });
+export default function ReceptionForm({
+  onSaved,
+}: ReceptionFormProps) {
+  const [form, setForm] = useState(initialForm);
+  const [saving, setSaving] = useState(false);
 
-  const handleChange = (field: string, value: string) => {
-    setForm((prev) => ({
-      ...prev,
+  function handleChange(field: string, value: string) {
+    setForm((current) => ({
+      ...current,
       [field]: value,
     }));
-  };
+  }
 
-  const handleSubmit = () => {
+  async function handleSubmit() {
     if (
       !form.number ||
       !form.supplier ||
       !form.carrier ||
       !form.dock ||
-      !form.pallets
+      !form.pallets ||
+      !form.scheduledAt
     ) {
-      alert("Merci de remplir tous les champs.");
+      alert("Merci de remplir tous les champs obligatoires.");
       return;
     }
 
-    const newReception = {
-      id: Date.now(),
-      number: form.number,
-      supplier: form.supplier,
-      carrier: form.carrier,
-      dock: form.dock,
-      pallets: Number(form.pallets),
-      scheduledAt: form.scheduledAt,
-      status: "Planifiée",
-      createdAt: new Date().toISOString(),
-    };
+    try {
+      setSaving(true);
 
-    const existing = JSON.parse(
-      localStorage.getItem(STORAGE_KEY) || "[]"
-    );
+      const response = await fetch("/api/receptions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...form,
+          pallets: Number(form.pallets),
+          status: RECEPTION_STATUS.PLANNED,
+        }),
+      });
 
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify([newReception, ...existing])
-    );
+      if (!response.ok) {
+        const error = await response.json().catch(() => null);
 
-    onSaved();
+        throw new Error(
+          error?.message ??
+            "Impossible d'enregistrer la réception."
+        );
+      }
 
-    setForm({
-      number: "",
-      supplier: "",
-      carrier: "",
-      dock: "",
-      pallets: "",
-      scheduledAt: "",
-      status: "Planifiée",
-    });
-  };
+      setForm(initialForm);
+      onSaved();
+    } catch (error) {
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Une erreur est survenue pendant l'enregistrement."
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
 
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold">➕ Nouvelle réception</h2>
+        <h2 className="text-2xl font-bold">
+          ➕ Nouvelle réception
+        </h2>
 
         <button
+          type="button"
           onClick={handleSubmit}
-          className="rounded-xl bg-blue-600 px-5 py-2 font-semibold transition hover:bg-blue-700"
+          disabled={saving}
+          className="rounded-xl bg-blue-600 px-5 py-2 font-semibold transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-700"
         >
-          Enregistrer
+          {saving ? "Enregistrement..." : "Enregistrer"}
         </button>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <input
-          value={form.number}
-          onChange={(e) => handleChange("number", e.target.value)}
-          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
-          placeholder="Numéro de réception"
-        />
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="reception-number"
+            className="text-sm text-slate-400"
+          >
+            Numéro de réception
+          </label>
 
-        <input
-          value={form.supplier}
-          onChange={(e) => handleChange("supplier", e.target.value)}
-          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
-          placeholder="Fournisseur"
-        />
+          <input
+            id="reception-number"
+            type="text"
+            required
+            value={form.number}
+            onChange={(event) =>
+              handleChange("number", event.target.value)
+            }
+            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            placeholder="Exemple : REC-2026-001"
+          />
+        </div>
 
-        <input
-          value={form.carrier}
-          onChange={(e) => handleChange("carrier", e.target.value)}
-          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
-          placeholder="Transporteur"
-        />
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="reception-supplier"
+            className="text-sm text-slate-400"
+          >
+            Fournisseur
+          </label>
 
-        <select
-          value={form.dock}
-          onChange={(e) => handleChange("dock", e.target.value)}
-          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
-        >
-          <option value="">Sélectionner un quai</option>
-          <option value="Quai 1">Quai 1</option>
-          <option value="Quai 2">Quai 2</option>
-          <option value="Quai 3">Quai 3</option>
-          <option value="Quai 4">Quai 4</option>
-          <option value="Quai 5">Quai 5</option>
-          <option value="Quai 6">Quai 6</option>
-        </select>
+          <input
+            id="reception-supplier"
+            type="text"
+            required
+            value={form.supplier}
+            onChange={(event) =>
+              handleChange("supplier", event.target.value)
+            }
+            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            placeholder="Nom du fournisseur"
+          />
+        </div>
 
-        <input
-          type="number"
-          value={form.pallets}
-          onChange={(e) => handleChange("pallets", e.target.value)}
-          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
-          placeholder="Nombre de palettes"
-        />
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="reception-carrier"
+            className="text-sm text-slate-400"
+          >
+            Transporteur
+          </label>
 
-        <input
-          type="time"
-          value={form.scheduledAt}
-          onChange={(e) => handleChange("scheduledAt", e.target.value)}
-          className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
-        />
+          <input
+            id="reception-carrier"
+            type="text"
+            required
+            value={form.carrier}
+            onChange={(event) =>
+              handleChange("carrier", event.target.value)
+            }
+            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            placeholder="Nom du transporteur"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="reception-dock"
+            className="text-sm text-slate-400"
+          >
+            Quai prévu
+          </label>
+
+          <select
+            id="reception-dock"
+            required
+            value={form.dock}
+            onChange={(event) =>
+              handleChange("dock", event.target.value)
+            }
+            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+          >
+            <option value="">Sélectionner un quai</option>
+            <option value="Quai 1">Quai 1</option>
+            <option value="Quai 2">Quai 2</option>
+            <option value="Quai 3">Quai 3</option>
+            <option value="Quai 4">Quai 4</option>
+            <option value="Quai 5">Quai 5</option>
+            <option value="Quai 6">Quai 6</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="reception-pallets"
+            className="text-sm text-slate-400"
+          >
+            Nombre de palettes
+          </label>
+
+          <input
+            id="reception-pallets"
+            type="number"
+            min="1"
+            required
+            value={form.pallets}
+            onChange={(event) =>
+              handleChange("pallets", event.target.value)
+            }
+            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            placeholder="Exemple : 24"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="reception-scheduled-at"
+            className="text-sm text-slate-400"
+          >
+            Date et heure prévues de la réception
+          </label>
+
+          <input
+            id="reception-scheduled-at"
+            type="datetime-local"
+            required
+            value={form.scheduledAt}
+            onChange={(event) =>
+              handleChange("scheduledAt", event.target.value)
+            }
+            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+          />
+        </div>
       </div>
     </div>
   );

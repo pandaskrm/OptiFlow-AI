@@ -2,17 +2,36 @@
 
 import useDemo from "../../hooks/useDemo";
 import useScenario from "../../hooks/useScenario";
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 import KpiCard from "./KpiCard";
 
 export default function DashboardKpis() {
   const demo = useDemo();
-  const { data } = useScenario();
+  const { data: scenario } = useScenario();
+  const {
+    data: warehouse,
+    loading,
+    error,
+  } = useWarehouseSummary();
 
-  const dashboard = data.dashboard;
+  const dashboard = scenario.dashboard;
 
   const trend = demo.running
-    ? data.label
-    : "ERP non connecté";
+    ? scenario.label
+    : error
+      ? "Données indisponibles"
+      : loading
+        ? "Actualisation..."
+        : "Données réelles";
+
+  const realReceptionProgress =
+    warehouse.receptions.total > 0
+      ? Math.round(
+          (warehouse.receptions.completed /
+            warehouse.receptions.total) *
+            100
+        )
+      : 0;
 
   return (
     <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3 xl:grid-cols-6">
@@ -31,16 +50,24 @@ export default function DashboardKpis() {
           demo.running ? dashboard.expeditions : 0
         )}
         trend={trend}
-        progress={demo.running ? dashboard.shippingProgress : 0}
+        progress={
+          demo.running ? dashboard.shippingProgress : 0
+        }
       />
 
       <KpiCard
         title="Réceptions"
         value={String(
-          demo.running ? dashboard.receptions : 0
+          demo.running
+            ? dashboard.receptions
+            : warehouse.receptions.total
         )}
         trend={trend}
-        progress={demo.running ? dashboard.receptionProgress : 0}
+        progress={
+          demo.running
+            ? dashboard.receptionProgress
+            : realReceptionProgress
+        }
       />
 
       <KpiCard
@@ -52,16 +79,28 @@ export default function DashboardKpis() {
 
       <KpiCard
         title="Productivité"
-        value={`${demo.running ? dashboard.productivite : 0}%`}
+        value={`${
+          demo.running ? dashboard.productivite : 0
+        }%`}
         trend={trend}
-        progress={demo.running ? dashboard.productivite : 0}
+        progress={
+          demo.running ? dashboard.productivite : 0
+        }
       />
 
       <KpiCard
         title="Santé dépôt"
-        value={`${demo.running ? dashboard.health : 0}%`}
+        value={`${
+          demo.running
+            ? dashboard.health
+            : warehouse.healthScore
+        }%`}
         trend={trend}
-        progress={demo.running ? dashboard.health : 0}
+        progress={
+          demo.running
+            ? dashboard.health
+            : warehouse.healthScore
+        }
       />
     </div>
   );

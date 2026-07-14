@@ -11,6 +11,7 @@ import {
 } from "recharts";
 
 import useDemo from "../../hooks/useDemo";
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 import AIRecommendation from "../ui/AIRecommendation";
 import ProgressCard from "../ui/ProgressCard";
 
@@ -37,29 +38,65 @@ const emptyOrders = [
 export default function DashboardLiveContent() {
   const demo = useDemo();
 
+  const {
+    data: warehouse,
+    loading,
+    error,
+  } = useWarehouseSummary();
+
   const trucksWaiting = demo.running
     ? demo.state.trucksWaiting
-    : 0;
+    : warehouse.receptions.planned;
 
   const occupiedDocks = demo.running
     ? demo.state.occupiedDocks
-    : 0;
+    : warehouse.receptions.occupiedDocks;
 
   const activeReceptions = demo.running
     ? demo.state.activeReceptions
-    : 0;
+    : warehouse.receptions.active;
 
   const completedToday = demo.running
     ? demo.state.completedToday
-    : 0;
+    : warehouse.receptions.completed;
 
   const health = demo.running
     ? demo.state.warehouseHealth
-    : 0;
+    : warehouse.healthScore;
+
+  const alerts = demo.running
+    ? ["Surveiller la disponibilité des quais."]
+    : warehouse.alerts;
+
+  const priorities = demo.running
+    ? ["Anticiper les prochaines arrivées."]
+    : warehouse.priorities;
 
   const ordersData = demo.running
     ? demoOrders
     : emptyOrders;
+
+  const hasRealData =
+    warehouse.receptions.total > 0;
+
+  const sourceLabel = demo.running
+    ? "Simulation active"
+    : loading
+      ? "Actualisation des données..."
+      : error
+        ? "Données indisponibles"
+        : hasRealData
+          ? "Données réelles synchronisées"
+          : "En attente de données ERP";
+
+  const receptionProgress =
+    warehouse.receptions.total > 0
+      ? Math.round(
+          (warehouse.receptions.completed /
+            warehouse.receptions.total) *
+            100
+        )
+      : 0;
 
   const actions = [
     {
@@ -67,28 +104,78 @@ export default function DashboardLiveContent() {
       title: `${trucksWaiting} camion${
         trucksWaiting > 1 ? "s" : ""
       } en attente`,
-      priority: demo.running ? "Suivi" : "Aucune donnée",
+      priority:
+        trucksWaiting >= 5
+          ? "Priorité haute"
+          : trucksWaiting > 0
+            ? "À planifier"
+            : "Stable",
+      color:
+        trucksWaiting >= 5
+          ? "border-orange-500"
+          : "border-cyan-500",
     },
     {
       icon: "🚪",
       title: `${occupiedDocks}/6 quais occupés`,
-      priority: demo.running ? "Temps réel" : "Aucune donnée",
+      priority:
+        occupiedDocks >= 5
+          ? "Critique"
+          : occupiedDocks > 0
+            ? "Temps réel"
+            : "Disponible",
+      color:
+        occupiedDocks >= 5
+          ? "border-red-500"
+          : "border-emerald-500",
     },
     {
       icon: "📦",
       title: `${activeReceptions} réception${
         activeReceptions > 1 ? "s" : ""
       } active${activeReceptions > 1 ? "s" : ""}`,
-      priority: demo.running ? "Suivi" : "Aucune donnée",
+      priority:
+        activeReceptions >= 10
+          ? "Volume élevé"
+          : activeReceptions > 0
+            ? "En cours"
+            : "Aucune activité",
+      color: "border-cyan-500",
     },
     {
       icon: "✅",
       title: `${completedToday} opération${
         completedToday > 1 ? "s" : ""
       } terminée${completedToday > 1 ? "s" : ""}`,
-      priority: demo.running ? "Aujourd'hui" : "Aucune donnée",
+      priority:
+        completedToday > 0
+          ? "Réception validée"
+          : "Aucune opération",
+      color: "border-emerald-500",
     },
   ];
+
+  const mainAlert =
+    alerts[0] ??
+    (hasRealData
+      ? "Aucune alerte critique détectée."
+      : "Aucune alerte disponible.");
+
+  const mainPriority =
+    priorities[0] ??
+    (hasRealData
+      ? "Maintenir le suivi des opérations."
+      : "Aucune priorité disponible.");
+
+  const aiAdvice = demo.running
+    ? "Répartir les ressources selon l’occupation simulée."
+    : occupiedDocks >= 5
+      ? "Accélérer la libération d’un quai pour éviter une saturation."
+      : trucksWaiting > 0
+        ? "Préparer les quais disponibles pour les prochaines réceptions."
+        : hasRealData
+          ? "L’activité est stable. Maintenir le suivi des réceptions."
+          : "Connectez une source ERP ou créez une réception.";
 
   return (
     <>
@@ -104,20 +191,22 @@ export default function DashboardLiveContent() {
             </h2>
 
             <p className="mt-2 text-sm text-gray-400">
-              {demo.running
-                ? "Vue en temps réel de l'activité simulée."
-                : "Aucune activité sans ERP ou mode Démo."}
+              {sourceLabel}
             </p>
           </div>
 
           <div
             className={`rounded-full px-4 py-2 text-sm font-semibold ${
-              demo.running
+              hasRealData || demo.running
                 ? "bg-emerald-500/20 text-emerald-400"
                 : "bg-slate-800 text-slate-400"
             }`}
           >
-            IA {demo.running ? "ACTIVE" : "EN ATTENTE"} · {health}%
+            IA{" "}
+            {hasRealData || demo.running
+              ? "ACTIVE"
+              : "EN ATTENTE"}{" "}
+            · {health}%
           </div>
         </div>
 
@@ -132,10 +221,12 @@ export default function DashboardLiveContent() {
           {actions.map((action) => (
             <div
               key={action.title}
-              className="rounded-lg border-l-4 border-cyan-500 bg-[#0d1d31] p-4"
+              className={`rounded-lg border-l-4 ${action.color} bg-[#0d1d31] p-4 transition hover:scale-[1.01]`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-2xl">{action.icon}</span>
+                <span className="text-2xl">
+                  {action.icon}
+                </span>
 
                 <span className="rounded bg-slate-800 px-2 py-1 text-xs text-cyan-300">
                   {action.priority}
@@ -156,11 +247,11 @@ export default function DashboardLiveContent() {
         </p>
 
         <h2 className="mt-1 text-2xl font-bold text-white">
-          Santé de l'entrepôt : {health} %
+          Santé de l’entrepôt : {health} %
         </h2>
 
         <p className="mt-1 text-sm text-slate-400">
-          Statut : {demo.running ? "Simulation active" : "En attente"}
+          Statut : {sourceLabel}
         </p>
 
         <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -170,9 +261,7 @@ export default function DashboardLiveContent() {
             </h3>
 
             <p className="text-sm text-slate-300">
-              {demo.running
-                ? "Surveiller la disponibilité des quais."
-                : "Aucune alerte disponible."}
+              {mainAlert}
             </p>
           </div>
 
@@ -182,9 +271,7 @@ export default function DashboardLiveContent() {
             </h3>
 
             <p className="text-sm text-slate-300">
-              {demo.running
-                ? "Anticiper les prochaines arrivées."
-                : "Aucune priorité disponible."}
+              {mainPriority}
             </p>
           </div>
         </div>
@@ -195,57 +282,59 @@ export default function DashboardLiveContent() {
           </h3>
 
           <p className="text-sm text-slate-300">
-            {demo.running
-              ? "Répartir les ressources selon l'occupation simulée."
-              : "Connectez un ERP ou lancez le mode Démo."}
+            {aiAdvice}
           </p>
         </div>
 
         <p className="mt-4 text-sm font-medium text-slate-300">
-          Productivité : {demo.running ? "91 %" : "0 %"}
+          Palettes enregistrées :{" "}
+          {demo.running
+            ? "Données simulées"
+            : warehouse.receptions.totalPallets}
+        </p>
+
+        <p className="mt-1 text-sm font-medium text-slate-300">
+          Palettes réceptionnées :{" "}
+          {demo.running
+            ? "Données simulées"
+            : warehouse.receptions.receivedPallets}
         </p>
       </section>
 
       <section className="mb-8 rounded-2xl border border-blue-900 bg-slate-900 p-6">
         <h2 className="text-2xl font-bold text-white">
-          🧠 Centre de commande IA
+          🤖 Centre de commande IA
         </h2>
 
         <p
           className={`mt-3 font-bold ${
-            demo.running
+            hasRealData || demo.running
               ? "text-green-400"
               : "text-slate-400"
           }`}
         >
-          État de l'entrepôt : {health} %
+          État de l’entrepôt : {health} %
         </p>
 
         <p className="mt-2 text-gray-300">
-          {demo.running
-            ? "OptiFlow AI analyse l'activité simulée."
+          {hasRealData || demo.running
+            ? "OptiFlow AI analyse les données opérationnelles."
             : "Aucune donnée opérationnelle disponible."}
         </p>
 
         <div className="mt-5 rounded-xl border border-slate-700 bg-slate-800 p-4">
           <p className="font-bold text-orange-400">
-            {demo.running ? "PRIORITÉ MOYENNE" : "AUCUNE ALERTE"}
+            {alerts.length > 0
+              ? "PRIORITÉ À SURVEILLER"
+              : "ACTIVITÉ STABLE"}
           </p>
 
           <h3 className="mt-1 text-xl font-bold text-white">
-            {demo.running
-              ? "Optimiser les quais"
-              : "En attente de données"}
+            {mainPriority}
           </h3>
 
           <p className="mt-2 text-gray-300">
-            {demo.running
-              ? "Anticiper les prochaines arrivées transporteurs."
-              : "Aucune décision ne peut être proposée."}
-          </p>
-
-          <p className="mt-3 font-bold text-blue-400">
-            Gain estimé : {demo.running ? "1 h 18" : "0 min"}
+            {aiAdvice}
           </p>
         </div>
       </section>
@@ -261,7 +350,7 @@ export default function DashboardLiveContent() {
               <p className="text-sm text-slate-400">
                 {demo.running
                   ? "Volume simulé sur les 7 derniers jours"
-                  : "Aucune commande disponible"}
+                  : "Les commandes seront alimentées par le flux ERP"}
               </p>
             </div>
 
@@ -314,33 +403,36 @@ export default function DashboardLiveContent() {
 
           <ProgressCard
             title="Réception"
-            value={demo.running ? 65 : 0}
+            value={
+              demo.running ? 65 : receptionProgress
+            }
           />
 
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
             <h2 className="mb-5 text-2xl font-bold text-white">
-              🤖 Recommandations de l'IA
+              🤖 Recommandations de l’IA
             </h2>
 
-            {demo.running ? (
+            {hasRealData || demo.running ? (
               <div className="space-y-4">
                 <div className="rounded-xl border border-slate-700 bg-slate-800 p-4">
                   <h3 className="font-bold text-blue-400">
-                    Optimiser les ressources
+                    Priorité opérationnelle
                   </h3>
 
                   <p className="mt-1 text-gray-300">
-                    Renforcer temporairement la zone prioritaire.
+                    {mainPriority}
                   </p>
                 </div>
 
                 <div className="rounded-xl border border-slate-700 bg-slate-800 p-4">
                   <h3 className="font-bold text-blue-400">
-                    Anticiper les quais
+                    Analyse des quais
                   </h3>
 
                   <p className="mt-1 text-gray-300">
-                    Préparer un quai avant la prochaine arrivée.
+                    {occupiedDocks}/6 quais sont actuellement
+                    occupés.
                   </p>
                 </div>
               </div>
@@ -354,12 +446,12 @@ export default function DashboardLiveContent() {
 
         <AIRecommendation
           title="Conseil IA du jour"
-          message={
-            demo.running
-              ? "Le mode Démo est actif. OptiFlow AI analyse actuellement les données simulées."
-              : "Connectez votre ERP ou lancez le mode Démo pour recevoir un conseil."
+          message={aiAdvice}
+          gain={
+            hasRealData || demo.running
+              ? "Suivi actif"
+              : "0 min"
           }
-          gain={demo.running ? "1 h 18" : "0 min"}
         />
       </div>
     </>

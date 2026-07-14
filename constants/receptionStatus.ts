@@ -6,16 +6,25 @@ export const RECEPTION_STATUS = {
   COMPLETED: "Terminée",
 } as const;
 
-export const STATUS_ORDER = [
+export type ReceptionStatus =
+  (typeof RECEPTION_STATUS)[keyof typeof RECEPTION_STATUS];
+
+export const STATUS_ORDER: readonly ReceptionStatus[] = [
   RECEPTION_STATUS.PLANNED,
   RECEPTION_STATUS.AT_DOCK,
   RECEPTION_STATUS.UNLOADING,
   RECEPTION_STATUS.INSPECTION,
   RECEPTION_STATUS.COMPLETED,
-] as const;
+];
 
-export function getNextStatus(current: string) {
-  const index = STATUS_ORDER.indexOf(current as any);
+export const ACTIVE_RECEPTION_STATUSES: readonly ReceptionStatus[] = [
+  RECEPTION_STATUS.AT_DOCK,
+  RECEPTION_STATUS.UNLOADING,
+  RECEPTION_STATUS.INSPECTION,
+];
+
+export function getNextStatus(current: string): ReceptionStatus | string {
+  const index = STATUS_ORDER.indexOf(current as ReceptionStatus);
 
   if (index === -1 || index === STATUS_ORDER.length - 1) {
     return current;

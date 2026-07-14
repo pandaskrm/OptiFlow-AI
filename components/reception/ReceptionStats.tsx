@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import useDemo from "../../hooks/useDemo";
+import { RECEPTION_STATUS } from "../../constants/receptionStatus";
 
 type ReceptionStatsProps = {
   refreshKey: number;
@@ -12,23 +13,43 @@ type Reception = {
   status: string;
 };
 
-const STORAGE_KEY = "optiflow_receptions";
-
 export default function ReceptionStats({
   refreshKey,
 }: ReceptionStatsProps) {
   const [receptions, setReceptions] = useState<Reception[]>([]);
+  const [loading, setLoading] = useState(true);
   const demo = useDemo();
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (demo.running) {
+      setLoading(false);
+      return;
+    }
 
-    const data = JSON.parse(
-      localStorage.getItem(STORAGE_KEY) || "[]"
-    );
+    async function loadReceptions() {
+      try {
+        setLoading(true);
 
-    setReceptions(data);
-  }, [refreshKey]);
+        const response = await fetch("/api/receptions", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Impossible de charger les statistiques.");
+        }
+
+        const data = await response.json();
+        setReceptions(data);
+      } catch (error) {
+        console.error(error);
+        setReceptions([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadReceptions();
+  }, [refreshKey, demo.running]);
 
   const total = demo.running
     ? demo.state.completedToday + demo.state.activeReceptions
@@ -39,41 +60,64 @@ export default function ReceptionStats({
         0,
         demo.state.activeReceptions - demo.state.occupiedDocks
       )
-    : receptions.filter((r) => r.status === "Planifiée").length;
+    : receptions.filter(
+        (reception) =>
+          reception.status === RECEPTION_STATUS.PLANNED
+      ).length;
 
   const atDock = demo.running
     ? demo.state.occupiedDocks
-    : receptions.filter((r) => r.status === "À quai").length;
+    : receptions.filter(
+        (reception) =>
+          reception.status === RECEPTION_STATUS.AT_DOCK
+      ).length;
 
   const finished = demo.running
     ? demo.state.completedToday
-    : receptions.filter((r) => r.status === "Terminée").length;
+    : receptions.filter(
+        (reception) =>
+          reception.status === RECEPTION_STATUS.COMPLETED
+      ).length;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-      <div className="bg-slate-900 rounded-2xl p-5 border border-slate-800">
-        <p className="text-gray-400 text-sm">Total réceptions</p>
-        <p className="text-3xl font-bold mt-2">{total}</p>
-      </div>
+    <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-4">
+      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+        <p className="text-sm text-gray-400">
+          Total réceptions
+        </p>
 
-      <div className="bg-slate-900 rounded-2xl p-5 border border-slate-800">
-        <p className="text-gray-400 text-sm">Planifiées</p>
-        <p className="text-3xl font-bold text-blue-400 mt-2">
-          {planned}
+        <p className="mt-2 text-3xl font-bold">
+          {loading ? "..." : total}
         </p>
       </div>
 
-      <div className="bg-slate-900 rounded-2xl p-5 border border-slate-800">
-        <p className="text-gray-400 text-sm">À quai</p>
-        <p className="text-3xl font-bold text-green-400 mt-2">
-          {atDock}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+        <p className="text-sm text-gray-400">
+          Planifiées
+        </p>
+
+        <p className="mt-2 text-3xl font-bold text-blue-400">
+          {loading ? "..." : planned}
         </p>
       </div>
 
-      <div className="bg-slate-900 rounded-2xl p-5 border border-slate-800">
-        <p className="text-gray-400 text-sm">Terminées</p>
-        <p className="text-3xl font-bold text-orange-400 mt-2">
-          {finished}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+        <p className="text-sm text-gray-400">
+          À quai
+        </p>
+
+        <p className="mt-2 text-3xl font-bold text-green-400">
+          {loading ? "..." : atDock}
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
+        <p className="text-sm text-gray-400">
+          Terminées
+        </p>
+
+        <p className="mt-2 text-3xl font-bold text-orange-400">
+          {loading ? "..." : finished}
         </p>
       </div>
     </div>
