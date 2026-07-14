@@ -1,6 +1,7 @@
 "use client";
 
 import useDemo from "../../hooks/useDemo";
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 import ShippingScenarioSummary from "./ShippingScenarioSummary";
 import ShippingAnalytics from "./ShippingAnalytics";
@@ -10,20 +11,111 @@ import ShippingAi from "./ShippingAi";
 import ShippingDecisionPanel from "./ShippingDecisionPanel";
 import ShippingTimeline from "./ShippingTimeline";
 
-const zeroCards = [
-  { label: "Expéditions du jour", value: "0" },
-  { label: "Expédiées", value: "0" },
-  { label: "Chargements", value: "0" },
-  { label: "Prioritaires", value: "0" },
-  { label: "Colis", value: "0" },
-  { label: "Palettes", value: "0" },
-  { label: "Avancement moyen", value: "0%" },
-  { label: "Taux de service", value: "0%" },
-];
+function ShippingRealData() {
+  const {
+    data: warehouse,
+    loading,
+    error,
+  } = useWarehouseSummary();
 
-const days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  const shipments = warehouse.shipments;
+  const workforce = warehouse.workforce;
 
-function ShippingZeroState() {
+  const hasShipments = shipments.total > 0;
+  const hasWorkforce = workforce.total > 0;
+
+  const cards = [
+    {
+      label: "Expéditions du jour",
+      value: shipments.total,
+    },
+    {
+      label: "Expédiées",
+      value: shipments.shipped,
+    },
+    {
+      label: "Prêtes",
+      value: shipments.ready,
+    },
+    {
+      label: "En attente",
+      value: shipments.waiting,
+    },
+    {
+      label: "Colis",
+      value: shipments.totalPackages,
+    },
+    {
+      label: "Palettes",
+      value: shipments.totalPallets,
+    },
+    {
+      label: "Avancement moyen",
+      value: `${shipments.progress}%`,
+    },
+    {
+      label: "Taux de service",
+      value: `${shipments.serviceRate}%`,
+    },
+  ];
+
+  const teamCards = [
+    {
+      label: "Prévus",
+      value: workforce.total,
+    },
+    {
+      label: "Présents",
+      value: workforce.present,
+    },
+    {
+      label: "Absents",
+      value: workforce.absent,
+    },
+    {
+      label: "Renforts",
+      value: workforce.reinforcement,
+    },
+  ];
+
+  const mainAlert =
+    warehouse.alerts.find(
+      (alert) =>
+        alert.toLowerCase().includes("expédition") ||
+        alert.toLowerCase().includes("quai") ||
+        alert.toLowerCase().includes("collaborateur")
+    ) ??
+    (hasShipments
+      ? "Aucune alerte critique sur les expéditions."
+      : "Aucune expédition ERP disponible.");
+
+  const mainPriority =
+    warehouse.priorities.find(
+      (priority) =>
+        priority.toLowerCase().includes("expédition") ||
+        priority.toLowerCase().includes("quai") ||
+        priority.toLowerCase().includes("équipe")
+    ) ??
+    (hasShipments
+      ? "Maintenir le suivi des départs transporteurs."
+      : "Connecter le flux Expéditions de l’ERP.");
+
+  if (loading) {
+    return (
+      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
+        Chargement du module Expédition...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="rounded-3xl border border-red-900 bg-red-950/30 p-10 text-center text-red-300">
+        Impossible de charger les données d’expédition.
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <section className="rounded-3xl border border-white/10 bg-slate-950 p-8 text-white shadow-2xl">
@@ -38,25 +130,39 @@ function ShippingZeroState() {
             </h1>
 
             <p className="mt-4 max-w-2xl text-slate-300">
-              Connectez votre ERP ou lancez le mode Démo pour afficher les
-              départs transporteurs, les quais, les colis et les palettes.
+              Suivi centralisé des départs transporteurs, des colis, des
+              palettes, des quais et du taux de service.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-600 bg-slate-800 px-5 py-4">
+          <div
+            className={`rounded-2xl border px-5 py-4 ${
+              warehouse.dataConnected
+                ? "border-emerald-500/30 bg-emerald-500/10"
+                : "border-slate-600 bg-slate-800"
+            }`}
+          >
             <p className="text-sm text-slate-400">
               Statut expédition
             </p>
 
-            <p className="text-2xl font-bold text-slate-300">
-              En attente de données
+            <p
+              className={`text-2xl font-bold ${
+                warehouse.dataConnected
+                  ? "text-emerald-400"
+                  : "text-slate-300"
+              }`}
+            >
+              {warehouse.dataConnected
+                ? "Données ERP synchronisées"
+                : "En attente de données ERP"}
             </p>
           </div>
         </div>
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {zeroCards.map((card) => (
+        {cards.map((card) => (
           <div
             key={card.label}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
@@ -73,100 +179,144 @@ function ShippingZeroState() {
       </section>
 
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
-        <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
-          <div className="mb-5">
-            <h2 className="text-lg font-bold text-slate-950">
-              Statistiques expédition
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-slate-950">
+              Performance expédition
             </h2>
 
             <p className="text-sm text-slate-500">
-              Aucune activité disponible.
+              Avancement calculé depuis les expéditions reçues de l’ERP.
             </p>
           </div>
 
-          <div className="mb-5 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-4">
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Période actuelle
+                Expéditions totales
               </p>
 
-              <p className="text-lg font-bold text-slate-950">
-                0 expédition
+              <p className="mt-2 text-3xl font-bold text-slate-950">
+                {shipments.total}
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-4">
+            <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Période précédente
+                Expédiées
               </p>
 
-              <p className="text-lg font-bold text-slate-950">
-                0 expédition
+              <p className="mt-2 text-3xl font-bold text-emerald-600">
+                {shipments.shipped}
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-4">
+            <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Évolution
+                Restantes
               </p>
 
-              <p className="text-lg font-bold text-slate-950">
-                0
+              <p className="mt-2 text-3xl font-bold text-orange-500">
+                {Math.max(
+                  0,
+                  shipments.total - shipments.shipped
+                )}
               </p>
             </div>
           </div>
 
-          <div className="flex h-64 items-end gap-4 rounded-2xl bg-slate-50 p-5">
-            {days.map((day) => (
+          <div className="mt-6 rounded-2xl bg-slate-50 p-5">
+            <div className="mb-3 flex items-center justify-between">
+              <p className="font-semibold text-slate-700">
+                Avancement global
+              </p>
+
+              <p className="text-2xl font-bold text-slate-950">
+                {shipments.progress}%
+              </p>
+            </div>
+
+            <div className="h-4 overflow-hidden rounded-full bg-slate-200">
               <div
-                key={day}
-                className="flex flex-1 flex-col items-center gap-3"
-              >
-                <div className="flex h-40 w-full items-end justify-center gap-2">
-                  <div className="flex h-full w-1/2 items-end rounded-xl bg-slate-100">
-                    <div
-                      className="w-full rounded-xl bg-slate-300"
-                      style={{ height: "0%" }}
-                    />
-                  </div>
+                className="h-full rounded-full bg-cyan-500 transition-all duration-500"
+                style={{
+                  width: `${Math.min(100, shipments.progress)}%`,
+                }}
+              />
+            </div>
+          </div>
 
-                  <div className="flex h-full w-1/2 items-end rounded-xl bg-slate-100">
-                    <div
-                      className="w-full rounded-xl bg-cyan-500"
-                      style={{ height: "0%" }}
-                    />
-                  </div>
-                </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-slate-200 p-5">
+              <p className="text-sm text-slate-500">
+                À expédier
+              </p>
 
-                <p className="text-sm font-bold text-slate-950">
-                  {day}
-                </p>
+              <p className="mt-2 text-3xl font-bold text-slate-950">
+                {shipments.waiting}
+              </p>
+            </div>
 
-                <p className="text-xs font-bold text-slate-500">
-                  0
-                </p>
-              </div>
-            ))}
+            <div className="rounded-2xl border border-slate-200 p-5">
+              <p className="text-sm text-slate-500">
+                Prêtes
+              </p>
+
+              <p className="mt-2 text-3xl font-bold text-cyan-600">
+                {shipments.ready}
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 p-5">
+              <p className="text-sm text-slate-500">
+                Expédiées
+              </p>
+
+              <p className="mt-2 text-3xl font-bold text-emerald-600">
+                {shipments.shipped}
+              </p>
+            </div>
           </div>
         </section>
 
         <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
-          <h2 className="text-xl font-bold">
-            Analyse IA
-          </h2>
-
-          <p className="mt-4 text-sm text-slate-300">
-            Aucune analyse disponible sans ERP ou mode Démo.
+          <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
+            Analyse stratégique IA
           </p>
 
-          <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="font-semibold text-cyan-300">
+          <h2 className="mt-2 text-xl font-bold">
+            {hasShipments
+              ? "Analyse expédition active"
+              : "En attente d’expéditions"}
+          </h2>
+
+          <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
+            <p className="text-sm text-red-300">
+              Alerte
+            </p>
+
+            <p className="mt-2 font-semibold text-white">
+              {mainAlert}
+            </p>
+          </div>
+
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-slate-400">
               Recommandation
             </p>
 
-            <p className="mt-2 text-sm text-slate-300">
-              Lancez le mode Démo pour découvrir les recommandations liées aux
-              départs transporteurs.
+            <p className="mt-2 font-semibold">
+              {mainPriority}
+            </p>
+          </div>
+
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-slate-400">
+              Taux de service
+            </p>
+
+            <p className="mt-2 text-3xl font-bold text-cyan-300">
+              {shipments.serviceRate}%
             </p>
           </div>
         </section>
@@ -179,30 +329,64 @@ function ShippingZeroState() {
           </h2>
 
           <p className="text-sm text-slate-500">
-            Aucune donnée d’équipe disponible.
+            Effectifs et capacité opérationnelle reçus depuis le flux ERP.
           </p>
         </div>
 
         <div className="grid gap-3 md:grid-cols-4">
-          {["Prévus", "Présents", "Absents", "Renforts"].map((label) => (
+          {teamCards.map((card) => (
             <div
-              key={label}
+              key={card.label}
               className="rounded-2xl bg-slate-50 p-4"
             >
               <p className="text-sm text-slate-500">
-                {label}
+                {card.label}
               </p>
 
               <p className="text-2xl font-bold text-slate-950">
-                0
+                {card.value}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-500">
-          Aucun collaborateur ou quai affecté.
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-slate-200 p-4">
+            <p className="text-sm text-slate-500">
+              Minutes travaillées
+            </p>
+
+            <p className="mt-2 text-2xl font-bold text-slate-950">
+              {workforce.workedMinutes}
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 p-4">
+            <p className="text-sm text-slate-500">
+              Unités traitées
+            </p>
+
+            <p className="mt-2 text-2xl font-bold text-slate-950">
+              {workforce.processedUnits}
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 p-4">
+            <p className="text-sm text-slate-500">
+              Productivité
+            </p>
+
+            <p className="mt-2 text-2xl font-bold text-cyan-600">
+              {workforce.productivity} u/h
+            </p>
+          </div>
         </div>
+
+        {!hasWorkforce && (
+          <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-500">
+            Aucune donnée d’équipe reçue pour le moment.
+          </div>
+        )}
       </section>
 
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
@@ -214,12 +398,20 @@ function ShippingZeroState() {
               </h2>
 
               <p className="text-sm text-slate-500">
-                Aucune expédition disponible.
+                Synthèse du flux Expéditions central.
               </p>
             </div>
 
-            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-500">
-              Hors ligne
+            <span
+              className={`rounded-full px-3 py-1 text-xs font-bold ${
+                hasShipments
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-slate-100 text-slate-500"
+              }`}
+            >
+              {hasShipments
+                ? "ERP synchronisé"
+                : "En attente ERP"}
             </span>
           </div>
 
@@ -227,30 +419,93 @@ function ShippingZeroState() {
             <table className="w-full text-left text-sm">
               <thead className="bg-slate-50 text-slate-500">
                 <tr>
-                  <th className="px-4 py-3">Expédition</th>
-                  <th className="px-4 py-3">Client</th>
-                  <th className="px-4 py-3">Transporteur</th>
-                  <th className="px-4 py-3">Quai</th>
-                  <th className="px-4 py-3">Priorité</th>
-                  <th className="px-4 py-3">Colis</th>
-                  <th className="px-4 py-3">Avancement</th>
-                  <th className="px-4 py-3">Départ</th>
-                  <th className="px-4 py-3">Statut</th>
+                  <th className="px-4 py-3">
+                    Indicateur
+                  </th>
+
+                  <th className="px-4 py-3">
+                    Valeur
+                  </th>
+
+                  <th className="px-4 py-3">
+                    Statut
+                  </th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr>
-                  <td
-                    colSpan={9}
-                    className="px-4 py-12 text-center text-slate-500"
-                  >
-                    Aucune expédition à afficher.
+                <tr className="border-t border-slate-200">
+                  <td className="px-4 py-4">
+                    Expéditions en attente
+                  </td>
+
+                  <td className="px-4 py-4 font-bold">
+                    {shipments.waiting}
+                  </td>
+
+                  <td className="px-4 py-4">
+                    {shipments.waiting > 0
+                      ? "Action requise"
+                      : "Stable"}
+                  </td>
+                </tr>
+
+                <tr className="border-t border-slate-200">
+                  <td className="px-4 py-4">
+                    Expéditions prêtes
+                  </td>
+
+                  <td className="px-4 py-4 font-bold">
+                    {shipments.ready}
+                  </td>
+
+                  <td className="px-4 py-4">
+                    {shipments.ready > 0
+                      ? "Départ à organiser"
+                      : "Stable"}
+                  </td>
+                </tr>
+
+                <tr className="border-t border-slate-200">
+                  <td className="px-4 py-4">
+                    Taux de service
+                  </td>
+
+                  <td className="px-4 py-4 font-bold">
+                    {shipments.serviceRate}%
+                  </td>
+
+                  <td className="px-4 py-4">
+                    {shipments.serviceRate >= 95
+                      ? "Objectif atteint"
+                      : hasShipments
+                        ? "À améliorer"
+                        : "Sans données"}
+                  </td>
+                </tr>
+
+                <tr className="border-t border-slate-200">
+                  <td className="px-4 py-4">
+                    Volume total
+                  </td>
+
+                  <td className="px-4 py-4 font-bold">
+                    {shipments.totalPackages} colis /{" "}
+                    {shipments.totalPallets} palettes
+                  </td>
+
+                  <td className="px-4 py-4">
+                    Suivi actif
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
+
+          <p className="mt-4 text-sm text-slate-500">
+            Le détail expédition par expédition sera alimenté par la future
+            API Expéditions ERP.
+          </p>
         </section>
 
         <div className="flex flex-col gap-6">
@@ -259,8 +514,8 @@ function ShippingZeroState() {
               Copilote décisionnel
             </h2>
 
-            <p className="mt-3 text-sm text-slate-400">
-              Aucune décision disponible.
+            <p className="mt-3 text-sm text-slate-300">
+              {mainPriority}
             </p>
           </section>
 
@@ -269,8 +524,12 @@ function ShippingZeroState() {
               Timeline expédition
             </h2>
 
-            <p className="mt-3 text-sm text-slate-400">
-              Aucun événement disponible.
+            <p className="mt-3 text-sm text-slate-300">
+              {shipments.shipped} expédition
+              {shipments.shipped > 1 ? "s réalisées" : " réalisée"},{" "}
+              {shipments.ready} prête
+              {shipments.ready > 1 ? "s" : ""} et {shipments.waiting} en
+              attente.
             </p>
           </section>
         </div>
@@ -283,7 +542,7 @@ export default function ShippingModeContent() {
   const demo = useDemo();
 
   if (!demo.running) {
-    return <ShippingZeroState />;
+    return <ShippingRealData />;
   }
 
   return (
