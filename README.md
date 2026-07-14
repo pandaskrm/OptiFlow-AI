@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OptiFlow AI
 
-## Getting Started
+OptiFlow AI est une plateforme de pilotage logistique intelligente conçue pour centraliser les opérations d’entrepôt, visualiser les performances en temps réel et aider les responsables logistiques à prendre de meilleures décisions.
 
-First, run the development server:
+## Version actuelle
+
+**OptiFlow AI V1.0.0**
+
+## Fonctionnalités V1
+
+* Centre de commandement logistique
+* Tableau de bord et indicateurs clés
+* Gestion des réceptions
+* Suivi des préparations de commandes
+* Pilotage des expéditions
+* Vue Direction
+* Suivi des stocks
+* Suivi des équipes
+* Copilote IA
+* Mode Démo commercial
+* Carte d’entrepôt dynamique
+* Alertes et recommandations IA
+* Données synchronisées automatiquement
+* API et base de données Prisma
+* Interface responsive
+
+## Stack technique
+
+* Next.js 16
+* React 19
+* TypeScript
+* Tailwind CSS 4
+* Prisma
+* SQLite
+* Recharts
+* Vercel
+
+## Installation locale
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+L’application est ensuite accessible sur :
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Compilation de production
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Statut du produit
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+La V1.0 constitue la première version stable et démontrable d’OptiFlow AI.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Les futures évolutions seront développées dans la V1.1 après collecte de retours auprès de professionnels et de premiers utilisateurs.
 
-## Deploy on Vercel
+## Auteur
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+OptiFlow AI
+Fondateur et CEO : Kevin Rodrigues
