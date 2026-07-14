@@ -8,13 +8,72 @@ datasource db {
 }
 
 model Reception {
-  id          Int      @id @default(autoincrement())
-  number      String   @unique
+  id          Int       @id @default(autoincrement())
+  number      String    @unique
   supplier    String
   carrier     String
   dock        String
   pallets     Int
   status      String
   scheduledAt String
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Order {
+  id            Int       @id @default(autoincrement())
+  number        String    @unique
+  customer      String
+  carrier       String?
+  priority      String    @default("Normale")
+  status        String    @default("À préparer")
+  totalLines    Int       @default(0)
+  preparedLines Int       @default(0)
+  scheduledAt   DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Shipment {
+  id          Int       @id @default(autoincrement())
+  number      String    @unique
+  orderNumber String?
+  customer    String
+  carrier     String
+  dock        String?
+  status      String    @default("À expédier")
+  pallets     Int       @default(0)
+  packages    Int       @default(0)
+  scheduledAt DateTime?
+  shippedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Inventory {
+  id          Int      @id @default(autoincrement())
+  sku         String   @unique
+  designation String
+  location    String?
+  quantity    Int      @default(0)
+  reserved    Int      @default(0)
+  minimum     Int      @default(0)
+  updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now())
+}
+
+model Workforce {
+  id             Int      @id @default(autoincrement())
+  employeeNumber String   @unique
+  name           String
+  team           String?
+  zone           String?
+  status         String   @default("Présent")
+  workedMinutes  Int      @default(0)
+  processedUnits Int      @default(0)
+  workDate       DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

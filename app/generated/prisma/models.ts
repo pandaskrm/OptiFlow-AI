@@ -9,4 +9,8 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Reception'
+export type * from './models/Order'
+export type * from './models/Shipment'
+export type * from './models/Inventory'
+export type * from './models/Workforce'
 export type * from './commonInputTypes'

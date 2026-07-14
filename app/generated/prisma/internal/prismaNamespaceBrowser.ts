@@ -51,7 +51,11 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Reception: 'Reception'
+  Reception: 'Reception',
+  Order: 'Order',
+  Shipment: 'Shipment',
+  Inventory: 'Inventory',
+  Workforce: 'Workforce'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -76,10 +80,81 @@ export const ReceptionScalarFieldEnum = {
   pallets: 'pallets',
   status: 'status',
   scheduledAt: 'scheduledAt',
-  createdAt: 'createdAt'
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ReceptionScalarFieldEnum = (typeof ReceptionScalarFieldEnum)[keyof typeof ReceptionScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  number: 'number',
+  customer: 'customer',
+  carrier: 'carrier',
+  priority: 'priority',
+  status: 'status',
+  totalLines: 'totalLines',
+  preparedLines: 'preparedLines',
+  scheduledAt: 'scheduledAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const ShipmentScalarFieldEnum = {
+  id: 'id',
+  number: 'number',
+  orderNumber: 'orderNumber',
+  customer: 'customer',
+  carrier: 'carrier',
+  dock: 'dock',
+  status: 'status',
+  pallets: 'pallets',
+  packages: 'packages',
+  scheduledAt: 'scheduledAt',
+  shippedAt: 'shippedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShipmentScalarFieldEnum = (typeof ShipmentScalarFieldEnum)[keyof typeof ShipmentScalarFieldEnum]
+
+
+export const InventoryScalarFieldEnum = {
+  id: 'id',
+  sku: 'sku',
+  designation: 'designation',
+  location: 'location',
+  quantity: 'quantity',
+  reserved: 'reserved',
+  minimum: 'minimum',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type InventoryScalarFieldEnum = (typeof InventoryScalarFieldEnum)[keyof typeof InventoryScalarFieldEnum]
+
+
+export const WorkforceScalarFieldEnum = {
+  id: 'id',
+  employeeNumber: 'employeeNumber',
+  name: 'name',
+  team: 'team',
+  zone: 'zone',
+  status: 'status',
+  workedMinutes: 'workedMinutes',
+  processedUnits: 'processedUnits',
+  workDate: 'workDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -88,4 +163,12 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

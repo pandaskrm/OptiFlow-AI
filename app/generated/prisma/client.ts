@@ -46,3 +46,23 @@ export { Prisma }
  * 
  */
 export type Reception = Prisma.ReceptionModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model Shipment
+ * 
+ */
+export type Shipment = Prisma.ShipmentModel
+/**
+ * Model Inventory
+ * 
+ */
+export type Inventory = Prisma.InventoryModel
+/**
+ * Model Workforce
+ * 
+ */
+export type Workforce = Prisma.WorkforceModel

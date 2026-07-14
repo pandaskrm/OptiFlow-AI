@@ -45,7 +45,9 @@ export type ReceptionMinAggregateOutputType = {
   pallets: number | null
   status: string | null
   scheduledAt: string | null
+  completedAt: Date | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ReceptionMaxAggregateOutputType = {
@@ -57,7 +59,9 @@ export type ReceptionMaxAggregateOutputType = {
   pallets: number | null
   status: string | null
   scheduledAt: string | null
+  completedAt: Date | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ReceptionCountAggregateOutputType = {
@@ -69,7 +73,9 @@ export type ReceptionCountAggregateOutputType = {
   pallets: number
   status: number
   scheduledAt: number
+  completedAt: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -93,7 +99,9 @@ export type ReceptionMinAggregateInputType = {
   pallets?: true
   status?: true
   scheduledAt?: true
+  completedAt?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type ReceptionMaxAggregateInputType = {
@@ -105,7 +113,9 @@ export type ReceptionMaxAggregateInputType = {
   pallets?: true
   status?: true
   scheduledAt?: true
+  completedAt?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type ReceptionCountAggregateInputType = {
@@ -117,7 +127,9 @@ export type ReceptionCountAggregateInputType = {
   pallets?: true
   status?: true
   scheduledAt?: true
+  completedAt?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -216,7 +228,9 @@ export type ReceptionGroupByOutputType = {
   pallets: number
   status: string
   scheduledAt: string
+  completedAt: Date | null
   createdAt: Date
+  updatedAt: Date
   _count: ReceptionCountAggregateOutputType | null
   _avg: ReceptionAvgAggregateOutputType | null
   _sum: ReceptionSumAggregateOutputType | null
@@ -251,7 +265,9 @@ export type ReceptionWhereInput = {
   pallets?: Prisma.IntFilter<"Reception"> | number
   status?: Prisma.StringFilter<"Reception"> | string
   scheduledAt?: Prisma.StringFilter<"Reception"> | string
+  completedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
 }
 
 export type ReceptionOrderByWithRelationInput = {
@@ -263,7 +279,9 @@ export type ReceptionOrderByWithRelationInput = {
   pallets?: Prisma.SortOrder
   status?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReceptionWhereUniqueInput = Prisma.AtLeast<{
@@ -278,7 +296,9 @@ export type ReceptionWhereUniqueInput = Prisma.AtLeast<{
   pallets?: Prisma.IntFilter<"Reception"> | number
   status?: Prisma.StringFilter<"Reception"> | string
   scheduledAt?: Prisma.StringFilter<"Reception"> | string
+  completedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
 }, "id" | "number">
 
 export type ReceptionOrderByWithAggregationInput = {
@@ -290,7 +310,9 @@ export type ReceptionOrderByWithAggregationInput = {
   pallets?: Prisma.SortOrder
   status?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ReceptionCountOrderByAggregateInput
   _avg?: Prisma.ReceptionAvgOrderByAggregateInput
   _max?: Prisma.ReceptionMaxOrderByAggregateInput
@@ -310,7 +332,9 @@ export type ReceptionScalarWhereWithAggregatesInput = {
   pallets?: Prisma.IntWithAggregatesFilter<"Reception"> | number
   status?: Prisma.StringWithAggregatesFilter<"Reception"> | string
   scheduledAt?: Prisma.StringWithAggregatesFilter<"Reception"> | string
+  completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Reception"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Reception"> | Date | string
 }
 
 export type ReceptionCreateInput = {
@@ -321,7 +345,9 @@ export type ReceptionCreateInput = {
   pallets: number
   status: string
   scheduledAt: string
+  completedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReceptionUncheckedCreateInput = {
@@ -333,7 +359,9 @@ export type ReceptionUncheckedCreateInput = {
   pallets: number
   status: string
   scheduledAt: string
+  completedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReceptionUpdateInput = {
@@ -344,7 +372,9 @@ export type ReceptionUpdateInput = {
   pallets?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   scheduledAt?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReceptionUncheckedUpdateInput = {
@@ -356,7 +386,9 @@ export type ReceptionUncheckedUpdateInput = {
   pallets?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   scheduledAt?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReceptionCreateManyInput = {
@@ -368,7 +400,9 @@ export type ReceptionCreateManyInput = {
   pallets: number
   status: string
   scheduledAt: string
+  completedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReceptionUpdateManyMutationInput = {
@@ -379,7 +413,9 @@ export type ReceptionUpdateManyMutationInput = {
   pallets?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   scheduledAt?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReceptionUncheckedUpdateManyInput = {
@@ -391,7 +427,9 @@ export type ReceptionUncheckedUpdateManyInput = {
   pallets?: Prisma.IntFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
   scheduledAt?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReceptionCountOrderByAggregateInput = {
@@ -403,7 +441,9 @@ export type ReceptionCountOrderByAggregateInput = {
   pallets?: Prisma.SortOrder
   status?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReceptionAvgOrderByAggregateInput = {
@@ -420,7 +460,9 @@ export type ReceptionMaxOrderByAggregateInput = {
   pallets?: Prisma.SortOrder
   status?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReceptionMinOrderByAggregateInput = {
@@ -432,7 +474,9 @@ export type ReceptionMinOrderByAggregateInput = {
   pallets?: Prisma.SortOrder
   status?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
+  completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReceptionSumOrderByAggregateInput = {
@@ -452,6 +496,10 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -467,7 +515,9 @@ export type ReceptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   pallets?: boolean
   status?: boolean
   scheduledAt?: boolean
+  completedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["reception"]>
 
 export type ReceptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -479,7 +529,9 @@ export type ReceptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   pallets?: boolean
   status?: boolean
   scheduledAt?: boolean
+  completedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["reception"]>
 
 export type ReceptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -491,7 +543,9 @@ export type ReceptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   pallets?: boolean
   status?: boolean
   scheduledAt?: boolean
+  completedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["reception"]>
 
 export type ReceptionSelectScalar = {
@@ -503,10 +557,12 @@ export type ReceptionSelectScalar = {
   pallets?: boolean
   status?: boolean
   scheduledAt?: boolean
+  completedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ReceptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "supplier" | "carrier" | "dock" | "pallets" | "status" | "scheduledAt" | "createdAt", ExtArgs["result"]["reception"]>
+export type ReceptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "supplier" | "carrier" | "dock" | "pallets" | "status" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["reception"]>
 
 export type $ReceptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Reception"
@@ -520,7 +576,9 @@ export type $ReceptionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     pallets: number
     status: string
     scheduledAt: string
+    completedAt: Date | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["reception"]>
   composites: {}
 }
@@ -952,7 +1010,9 @@ export interface ReceptionFieldRefs {
   readonly pallets: Prisma.FieldRef<"Reception", 'Int'>
   readonly status: Prisma.FieldRef<"Reception", 'String'>
   readonly scheduledAt: Prisma.FieldRef<"Reception", 'String'>
+  readonly completedAt: Prisma.FieldRef<"Reception", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Reception", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Reception", 'DateTime'>
 }
     
 
