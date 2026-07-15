@@ -1,47 +1,121 @@
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#060B1F] flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-2xl">
-        <h1 className="text-3xl font-bold text-white mb-2">
-          Connexion
-        </h1>
+    <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-8">
+      <div className="mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-7xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl lg:grid-cols-[1.05fr_0.95fr]">
+        <section className="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-cyan-500 via-blue-700 to-slate-950 p-8 text-white sm:p-12 lg:p-16">
+          <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -bottom-28 -left-20 h-80 w-80 rounded-full bg-cyan-300/10 blur-3xl" />
 
-        <p className="text-gray-400 mb-8">
-          Connectez-vous à votre espace OptiFlow AI.
-        </p>
+          <div className="relative">
+            <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold uppercase tracking-[0.2em]">
+              OptiFlow AI
+            </span>
 
-        <form className="space-y-5">
-          <div>
-            <label className="block text-sm text-gray-300 mb-2">
-              Adresse e-mail
-            </label>
+            <h1 className="mt-10 max-w-xl text-5xl font-black leading-tight sm:text-6xl lg:text-7xl">
+              Pilotez votre entrepôt avec l’IA.
+            </h1>
 
-            <input
-              type="email"
-              placeholder="vous@entreprise.fr"
-              className="w-full rounded-xl bg-slate-800 border border-slate-700 px-4 py-3 text-white outline-none focus:border-blue-500"
-            />
+            <p className="mt-6 max-w-xl text-lg leading-8 text-cyan-50/90 sm:text-xl">
+              Une plateforme unique pour superviser les opérations, les équipes,
+              les quais et les performances en temps réel.
+            </p>
           </div>
 
-          <div>
-            <label className="block text-sm text-gray-300 mb-2">
-              Mot de passe
-            </label>
-
-            <input
-              type="password"
-              placeholder="********"
-              className="w-full rounded-xl bg-slate-800 border border-slate-700 px-4 py-3 text-white outline-none focus:border-blue-500"
-            />
+          <div className="relative mt-12 grid gap-4 sm:grid-cols-2">
+            {[
+              "Pilotage temps réel",
+              "KPI opérationnels",
+              "Gestion des équipes",
+              "Rôles et permissions",
+              "Multi-entrepôts",
+              "Recommandations IA",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur"
+              >
+                <p className="font-semibold">✓ {item}</p>
+              </div>
+            ))}
           </div>
+        </section>
 
-          <button
-            className="w-full bg-blue-600 hover:bg-blue-700 transition rounded-xl py-3 font-bold"
-          >
-            Se connecter
-          </button>
-        </form>
+        <section className="flex items-center p-8 sm:p-12 lg:p-16">
+          <div className="mx-auto w-full max-w-lg">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-400">
+              Espace sécurisé
+            </p>
+
+            <h2 className="mt-3 text-4xl font-black text-white sm:text-5xl">
+              Connexion
+            </h2>
+
+            <p className="mt-4 text-base leading-7 text-slate-400">
+              Accédez à votre environnement OptiFlow AI et à vos outils de
+              pilotage logistique.
+            </p>
+
+            <form className="mt-10 space-y-6">
+              <div>
+                <label className="mb-2 block text-sm font-medium text-slate-300">
+                  Adresse e-mail
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="vous@entreprise.fr"
+                  className="h-14 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
+                />
+              </div>
+
+              <div>
+                <div className="mb-2 flex items-center justify-between gap-4">
+                  <label className="text-sm font-medium text-slate-300">
+                    Mot de passe
+                  </label>
+
+                  <button
+                    type="button"
+                    className="text-sm font-medium text-cyan-400 transition hover:text-cyan-300"
+                  >
+                    Mot de passe oublié ?
+                  </button>
+                </div>
+
+                <input
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  placeholder="Votre mot de passe"
+                  className="h-14 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="h-14 w-full rounded-xl bg-cyan-600 text-lg font-bold text-white shadow-lg shadow-cyan-950/30 transition hover:-translate-y-0.5 hover:bg-cyan-500"
+              >
+                Se connecter
+              </button>
+
+              <button
+                type="button"
+                className="h-14 w-full rounded-xl border border-slate-700 text-base font-semibold text-slate-300 transition hover:border-cyan-500 hover:text-white"
+              >
+                Créer une entreprise
+              </button>
+            </form>
+
+            <div className="mt-10 border-t border-slate-800 pt-6">
+              <p className="text-center text-sm text-slate-500">
+                © 2026 OptiFlow AI — Plateforme logistique intelligente
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
