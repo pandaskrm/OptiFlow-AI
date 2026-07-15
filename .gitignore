@@ -45,3 +45,5 @@ next-env.d.ts
 
 .vercel
 .env*
+dev-backup-*.db
+dev.db
