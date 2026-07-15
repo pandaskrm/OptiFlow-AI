@@ -87,11 +87,11 @@ export type WarehouseSummary = {
 };
 
 const LEGACY_RECEPTION_STATUS = {
-  PLANNED: "PlanifiÃ©e",
-  AT_DOCK: "Ã€ quai",
-  UNLOADING: "DÃ©chargement",
-  INSPECTION: "ContrÃ´le qualitÃ©",
-  COMPLETED: "TerminÃ©e",
+  PLANNED: "Planifiée",
+  AT_DOCK: "À quai",
+  UNLOADING: "Déchargement",
+  INSPECTION: "Contrôle qualité",
+  COMPLETED: "Terminée",
 } as const;
 
 const ORDER_STATUS = {
