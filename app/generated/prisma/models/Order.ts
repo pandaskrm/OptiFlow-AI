@@ -51,6 +51,7 @@ export type OrderMinAggregateOutputType = {
   completedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  companyId: string | null
 }
 
 export type OrderMaxAggregateOutputType = {
@@ -66,6 +67,7 @@ export type OrderMaxAggregateOutputType = {
   completedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  companyId: string | null
 }
 
 export type OrderCountAggregateOutputType = {
@@ -81,6 +83,7 @@ export type OrderCountAggregateOutputType = {
   completedAt: number
   createdAt: number
   updatedAt: number
+  companyId: number
   _all: number
 }
 
@@ -110,6 +113,7 @@ export type OrderMinAggregateInputType = {
   completedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
 }
 
 export type OrderMaxAggregateInputType = {
@@ -125,6 +129,7 @@ export type OrderMaxAggregateInputType = {
   completedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
 }
 
 export type OrderCountAggregateInputType = {
@@ -140,6 +145,7 @@ export type OrderCountAggregateInputType = {
   completedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
   _all?: true
 }
 
@@ -242,6 +248,7 @@ export type OrderGroupByOutputType = {
   completedAt: Date | null
   createdAt: Date
   updatedAt: Date
+  companyId: string | null
   _count: OrderCountAggregateOutputType | null
   _avg: OrderAvgAggregateOutputType | null
   _sum: OrderSumAggregateOutputType | null
@@ -280,6 +287,8 @@ export type OrderWhereInput = {
   completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Order"> | string | null
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }
 
 export type OrderOrderByWithRelationInput = {
@@ -295,6 +304,8 @@ export type OrderOrderByWithRelationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  company?: Prisma.CompanyOrderByWithRelationInput
 }
 
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -313,6 +324,8 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Order"> | string | null
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }, "id" | "number">
 
 export type OrderOrderByWithAggregationInput = {
@@ -328,6 +341,7 @@ export type OrderOrderByWithAggregationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.OrderCountOrderByAggregateInput
   _avg?: Prisma.OrderAvgOrderByAggregateInput
   _max?: Prisma.OrderMaxOrderByAggregateInput
@@ -351,6 +365,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
 }
 
 export type OrderCreateInput = {
@@ -365,6 +380,7 @@ export type OrderCreateInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutOrdersInput
 }
 
 export type OrderUncheckedCreateInput = {
@@ -380,6 +396,7 @@ export type OrderUncheckedCreateInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyId?: string | null
 }
 
 export type OrderUpdateInput = {
@@ -394,6 +411,7 @@ export type OrderUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutOrdersNestedInput
 }
 
 export type OrderUncheckedUpdateInput = {
@@ -409,6 +427,7 @@ export type OrderUncheckedUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type OrderCreateManyInput = {
@@ -424,6 +443,7 @@ export type OrderCreateManyInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyId?: string | null
 }
 
 export type OrderUpdateManyMutationInput = {
@@ -453,6 +473,17 @@ export type OrderUncheckedUpdateManyInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type OrderListRelationFilter = {
+  every?: Prisma.OrderWhereInput
+  some?: Prisma.OrderWhereInput
+  none?: Prisma.OrderWhereInput
+}
+
+export type OrderOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type OrderCountOrderByAggregateInput = {
@@ -468,6 +499,7 @@ export type OrderCountOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type OrderAvgOrderByAggregateInput = {
@@ -489,6 +521,7 @@ export type OrderMaxOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type OrderMinOrderByAggregateInput = {
@@ -504,6 +537,7 @@ export type OrderMinOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type OrderSumOrderByAggregateInput = {
@@ -512,8 +546,178 @@ export type OrderSumOrderByAggregateInput = {
   preparedLines?: Prisma.SortOrder
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
+export type OrderCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutCompanyInput, Prisma.OrderUncheckedCreateWithoutCompanyInput> | Prisma.OrderCreateWithoutCompanyInput[] | Prisma.OrderUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutCompanyInput | Prisma.OrderCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.OrderCreateManyCompanyInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUncheckedCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutCompanyInput, Prisma.OrderUncheckedCreateWithoutCompanyInput> | Prisma.OrderCreateWithoutCompanyInput[] | Prisma.OrderUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutCompanyInput | Prisma.OrderCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.OrderCreateManyCompanyInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutCompanyInput, Prisma.OrderUncheckedCreateWithoutCompanyInput> | Prisma.OrderCreateWithoutCompanyInput[] | Prisma.OrderUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutCompanyInput | Prisma.OrderCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutCompanyInput | Prisma.OrderUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.OrderCreateManyCompanyInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutCompanyInput | Prisma.OrderUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutCompanyInput | Prisma.OrderUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderUncheckedUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutCompanyInput, Prisma.OrderUncheckedCreateWithoutCompanyInput> | Prisma.OrderCreateWithoutCompanyInput[] | Prisma.OrderUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutCompanyInput | Prisma.OrderCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutCompanyInput | Prisma.OrderUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.OrderCreateManyCompanyInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutCompanyInput | Prisma.OrderUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutCompanyInput | Prisma.OrderUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderCreateWithoutCompanyInput = {
+  number: string
+  customer: string
+  carrier?: string | null
+  priority?: string
+  status?: string
+  totalLines?: number
+  preparedLines?: number
+  scheduledAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderUncheckedCreateWithoutCompanyInput = {
+  id?: number
+  number: string
+  customer: string
+  carrier?: string | null
+  priority?: string
+  status?: string
+  totalLines?: number
+  preparedLines?: number
+  scheduledAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderCreateOrConnectWithoutCompanyInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutCompanyInput, Prisma.OrderUncheckedCreateWithoutCompanyInput>
+}
+
+export type OrderCreateManyCompanyInputEnvelope = {
+  data: Prisma.OrderCreateManyCompanyInput | Prisma.OrderCreateManyCompanyInput[]
+}
+
+export type OrderUpsertWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.OrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutCompanyInput, Prisma.OrderUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutCompanyInput, Prisma.OrderUncheckedCreateWithoutCompanyInput>
+}
+
+export type OrderUpdateWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.OrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutCompanyInput, Prisma.OrderUncheckedUpdateWithoutCompanyInput>
+}
+
+export type OrderUpdateManyWithWhereWithoutCompanyInput = {
+  where: Prisma.OrderScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutCompanyInput>
+}
+
+export type OrderScalarWhereInput = {
+  AND?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+  OR?: Prisma.OrderScalarWhereInput[]
+  NOT?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+  id?: Prisma.IntFilter<"Order"> | number
+  number?: Prisma.StringFilter<"Order"> | string
+  customer?: Prisma.StringFilter<"Order"> | string
+  carrier?: Prisma.StringNullableFilter<"Order"> | string | null
+  priority?: Prisma.StringFilter<"Order"> | string
+  status?: Prisma.StringFilter<"Order"> | string
+  totalLines?: Prisma.IntFilter<"Order"> | number
+  preparedLines?: Prisma.IntFilter<"Order"> | number
+  scheduledAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Order"> | string | null
+}
+
+export type OrderCreateManyCompanyInput = {
+  id?: number
+  number: string
+  customer: string
+  carrier?: string | null
+  priority?: string
+  status?: string
+  totalLines?: number
+  preparedLines?: number
+  scheduledAt?: Date | string | null
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderUpdateWithoutCompanyInput = {
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  customer?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  totalLines?: Prisma.IntFieldUpdateOperationsInput | number
+  preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderUncheckedUpdateWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  customer?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  totalLines?: Prisma.IntFieldUpdateOperationsInput | number
+  preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderUncheckedUpdateManyWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  customer?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  priority?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  totalLines?: Prisma.IntFieldUpdateOperationsInput | number
+  preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -531,6 +735,8 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Order$companyArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -546,6 +752,8 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Order$companyArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -561,6 +769,8 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Order$companyArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectScalar = {
@@ -576,13 +786,25 @@ export type OrderSelectScalar = {
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "customer" | "carrier" | "priority" | "status" | "totalLines" | "preparedLines" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "customer" | "carrier" | "priority" | "status" | "totalLines" | "preparedLines" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["order"]>
+export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Order$companyArgs<ExtArgs>
+}
+export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Order$companyArgs<ExtArgs>
+}
+export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Order$companyArgs<ExtArgs>
+}
 
 export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Order"
-  objects: {}
+  objects: {
+    company: Prisma.$CompanyPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     number: string
@@ -596,6 +818,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     completedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    companyId: string | null
   }, ExtArgs["result"]["order"]>
   composites: {}
 }
@@ -990,6 +1213,7 @@ readonly fields: OrderFieldRefs;
  */
 export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  company<T extends Prisma.Order$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1031,6 +1255,7 @@ export interface OrderFieldRefs {
   readonly completedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly companyId: Prisma.FieldRef<"Order", 'String'>
 }
     
 
@@ -1047,6 +1272,10 @@ export type OrderFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
   /**
    * Filter, which Order to fetch.
    */
@@ -1066,6 +1295,10 @@ export type OrderFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * Filter, which Order to fetch.
    */
   where: Prisma.OrderWhereUniqueInput
@@ -1083,6 +1316,10 @@ export type OrderFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
   /**
    * Filter, which Order to fetch.
    */
@@ -1132,6 +1369,10 @@ export type OrderFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * Filter, which Order to fetch.
    */
   where?: Prisma.OrderWhereInput
@@ -1179,6 +1420,10 @@ export type OrderFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
   /**
    * Filter, which Orders to fetch.
    */
@@ -1228,6 +1473,10 @@ export type OrderCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * The data needed to create a Order.
    */
   data: Prisma.XOR<Prisma.OrderCreateInput, Prisma.OrderUncheckedCreateInput>
@@ -1259,6 +1508,10 @@ export type OrderCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * The data used to create many Orders.
    */
   data: Prisma.OrderCreateManyInput | Prisma.OrderCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1273,6 +1526,10 @@ export type OrderUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
   /**
    * The data needed to update a Order.
    */
@@ -1325,6 +1582,10 @@ export type OrderUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many Orders to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1339,6 +1600,10 @@ export type OrderUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
   /**
    * The filter to search for the Order to update in case it exists.
    */
@@ -1366,6 +1631,10 @@ export type OrderDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  /**
    * Filter which Order to delete.
    */
   where: Prisma.OrderWhereUniqueInput
@@ -1386,6 +1655,25 @@ export type OrderDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * Order.company
+ */
+export type Order$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
  * Order without action
  */
 export type OrderDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1397,4 +1685,8 @@ export type OrderDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the Order
    */
   omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
 }

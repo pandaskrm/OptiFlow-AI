@@ -52,6 +52,7 @@ export type ShipmentMinAggregateOutputType = {
   shippedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  companyId: string | null
 }
 
 export type ShipmentMaxAggregateOutputType = {
@@ -68,6 +69,7 @@ export type ShipmentMaxAggregateOutputType = {
   shippedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  companyId: string | null
 }
 
 export type ShipmentCountAggregateOutputType = {
@@ -84,6 +86,7 @@ export type ShipmentCountAggregateOutputType = {
   shippedAt: number
   createdAt: number
   updatedAt: number
+  companyId: number
   _all: number
 }
 
@@ -114,6 +117,7 @@ export type ShipmentMinAggregateInputType = {
   shippedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
 }
 
 export type ShipmentMaxAggregateInputType = {
@@ -130,6 +134,7 @@ export type ShipmentMaxAggregateInputType = {
   shippedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
 }
 
 export type ShipmentCountAggregateInputType = {
@@ -146,6 +151,7 @@ export type ShipmentCountAggregateInputType = {
   shippedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
   _all?: true
 }
 
@@ -249,6 +255,7 @@ export type ShipmentGroupByOutputType = {
   shippedAt: Date | null
   createdAt: Date
   updatedAt: Date
+  companyId: string | null
   _count: ShipmentCountAggregateOutputType | null
   _avg: ShipmentAvgAggregateOutputType | null
   _sum: ShipmentSumAggregateOutputType | null
@@ -288,6 +295,8 @@ export type ShipmentWhereInput = {
   shippedAt?: Prisma.DateTimeNullableFilter<"Shipment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Shipment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shipment"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Shipment"> | string | null
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }
 
 export type ShipmentOrderByWithRelationInput = {
@@ -304,6 +313,8 @@ export type ShipmentOrderByWithRelationInput = {
   shippedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  company?: Prisma.CompanyOrderByWithRelationInput
 }
 
 export type ShipmentWhereUniqueInput = Prisma.AtLeast<{
@@ -323,6 +334,8 @@ export type ShipmentWhereUniqueInput = Prisma.AtLeast<{
   shippedAt?: Prisma.DateTimeNullableFilter<"Shipment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Shipment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shipment"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Shipment"> | string | null
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }, "id" | "number">
 
 export type ShipmentOrderByWithAggregationInput = {
@@ -339,6 +352,7 @@ export type ShipmentOrderByWithAggregationInput = {
   shippedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ShipmentCountOrderByAggregateInput
   _avg?: Prisma.ShipmentAvgOrderByAggregateInput
   _max?: Prisma.ShipmentMaxOrderByAggregateInput
@@ -363,6 +377,7 @@ export type ShipmentScalarWhereWithAggregatesInput = {
   shippedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Shipment"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Shipment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Shipment"> | Date | string
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"Shipment"> | string | null
 }
 
 export type ShipmentCreateInput = {
@@ -378,6 +393,7 @@ export type ShipmentCreateInput = {
   shippedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutShipmentsInput
 }
 
 export type ShipmentUncheckedCreateInput = {
@@ -394,6 +410,7 @@ export type ShipmentUncheckedCreateInput = {
   shippedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyId?: string | null
 }
 
 export type ShipmentUpdateInput = {
@@ -409,6 +426,7 @@ export type ShipmentUpdateInput = {
   shippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutShipmentsNestedInput
 }
 
 export type ShipmentUncheckedUpdateInput = {
@@ -425,6 +443,7 @@ export type ShipmentUncheckedUpdateInput = {
   shippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ShipmentCreateManyInput = {
@@ -441,6 +460,7 @@ export type ShipmentCreateManyInput = {
   shippedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyId?: string | null
 }
 
 export type ShipmentUpdateManyMutationInput = {
@@ -472,6 +492,17 @@ export type ShipmentUncheckedUpdateManyInput = {
   shippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ShipmentListRelationFilter = {
+  every?: Prisma.ShipmentWhereInput
+  some?: Prisma.ShipmentWhereInput
+  none?: Prisma.ShipmentWhereInput
+}
+
+export type ShipmentOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ShipmentCountOrderByAggregateInput = {
@@ -488,6 +519,7 @@ export type ShipmentCountOrderByAggregateInput = {
   shippedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type ShipmentAvgOrderByAggregateInput = {
@@ -510,6 +542,7 @@ export type ShipmentMaxOrderByAggregateInput = {
   shippedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type ShipmentMinOrderByAggregateInput = {
@@ -526,12 +559,194 @@ export type ShipmentMinOrderByAggregateInput = {
   shippedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type ShipmentSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   pallets?: Prisma.SortOrder
   packages?: Prisma.SortOrder
+}
+
+export type ShipmentCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.ShipmentCreateWithoutCompanyInput, Prisma.ShipmentUncheckedCreateWithoutCompanyInput> | Prisma.ShipmentCreateWithoutCompanyInput[] | Prisma.ShipmentUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ShipmentCreateOrConnectWithoutCompanyInput | Prisma.ShipmentCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.ShipmentCreateManyCompanyInputEnvelope
+  connect?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+}
+
+export type ShipmentUncheckedCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.ShipmentCreateWithoutCompanyInput, Prisma.ShipmentUncheckedCreateWithoutCompanyInput> | Prisma.ShipmentCreateWithoutCompanyInput[] | Prisma.ShipmentUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ShipmentCreateOrConnectWithoutCompanyInput | Prisma.ShipmentCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.ShipmentCreateManyCompanyInputEnvelope
+  connect?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+}
+
+export type ShipmentUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.ShipmentCreateWithoutCompanyInput, Prisma.ShipmentUncheckedCreateWithoutCompanyInput> | Prisma.ShipmentCreateWithoutCompanyInput[] | Prisma.ShipmentUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ShipmentCreateOrConnectWithoutCompanyInput | Prisma.ShipmentCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.ShipmentUpsertWithWhereUniqueWithoutCompanyInput | Prisma.ShipmentUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.ShipmentCreateManyCompanyInputEnvelope
+  set?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+  disconnect?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+  delete?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+  connect?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+  update?: Prisma.ShipmentUpdateWithWhereUniqueWithoutCompanyInput | Prisma.ShipmentUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.ShipmentUpdateManyWithWhereWithoutCompanyInput | Prisma.ShipmentUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.ShipmentScalarWhereInput | Prisma.ShipmentScalarWhereInput[]
+}
+
+export type ShipmentUncheckedUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.ShipmentCreateWithoutCompanyInput, Prisma.ShipmentUncheckedCreateWithoutCompanyInput> | Prisma.ShipmentCreateWithoutCompanyInput[] | Prisma.ShipmentUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ShipmentCreateOrConnectWithoutCompanyInput | Prisma.ShipmentCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.ShipmentUpsertWithWhereUniqueWithoutCompanyInput | Prisma.ShipmentUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.ShipmentCreateManyCompanyInputEnvelope
+  set?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+  disconnect?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+  delete?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+  connect?: Prisma.ShipmentWhereUniqueInput | Prisma.ShipmentWhereUniqueInput[]
+  update?: Prisma.ShipmentUpdateWithWhereUniqueWithoutCompanyInput | Prisma.ShipmentUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.ShipmentUpdateManyWithWhereWithoutCompanyInput | Prisma.ShipmentUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.ShipmentScalarWhereInput | Prisma.ShipmentScalarWhereInput[]
+}
+
+export type ShipmentCreateWithoutCompanyInput = {
+  number: string
+  orderNumber?: string | null
+  customer: string
+  carrier: string
+  dock?: string | null
+  status?: string
+  pallets?: number
+  packages?: number
+  scheduledAt?: Date | string | null
+  shippedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShipmentUncheckedCreateWithoutCompanyInput = {
+  id?: number
+  number: string
+  orderNumber?: string | null
+  customer: string
+  carrier: string
+  dock?: string | null
+  status?: string
+  pallets?: number
+  packages?: number
+  scheduledAt?: Date | string | null
+  shippedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShipmentCreateOrConnectWithoutCompanyInput = {
+  where: Prisma.ShipmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShipmentCreateWithoutCompanyInput, Prisma.ShipmentUncheckedCreateWithoutCompanyInput>
+}
+
+export type ShipmentCreateManyCompanyInputEnvelope = {
+  data: Prisma.ShipmentCreateManyCompanyInput | Prisma.ShipmentCreateManyCompanyInput[]
+}
+
+export type ShipmentUpsertWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.ShipmentWhereUniqueInput
+  update: Prisma.XOR<Prisma.ShipmentUpdateWithoutCompanyInput, Prisma.ShipmentUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.ShipmentCreateWithoutCompanyInput, Prisma.ShipmentUncheckedCreateWithoutCompanyInput>
+}
+
+export type ShipmentUpdateWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.ShipmentWhereUniqueInput
+  data: Prisma.XOR<Prisma.ShipmentUpdateWithoutCompanyInput, Prisma.ShipmentUncheckedUpdateWithoutCompanyInput>
+}
+
+export type ShipmentUpdateManyWithWhereWithoutCompanyInput = {
+  where: Prisma.ShipmentScalarWhereInput
+  data: Prisma.XOR<Prisma.ShipmentUpdateManyMutationInput, Prisma.ShipmentUncheckedUpdateManyWithoutCompanyInput>
+}
+
+export type ShipmentScalarWhereInput = {
+  AND?: Prisma.ShipmentScalarWhereInput | Prisma.ShipmentScalarWhereInput[]
+  OR?: Prisma.ShipmentScalarWhereInput[]
+  NOT?: Prisma.ShipmentScalarWhereInput | Prisma.ShipmentScalarWhereInput[]
+  id?: Prisma.IntFilter<"Shipment"> | number
+  number?: Prisma.StringFilter<"Shipment"> | string
+  orderNumber?: Prisma.StringNullableFilter<"Shipment"> | string | null
+  customer?: Prisma.StringFilter<"Shipment"> | string
+  carrier?: Prisma.StringFilter<"Shipment"> | string
+  dock?: Prisma.StringNullableFilter<"Shipment"> | string | null
+  status?: Prisma.StringFilter<"Shipment"> | string
+  pallets?: Prisma.IntFilter<"Shipment"> | number
+  packages?: Prisma.IntFilter<"Shipment"> | number
+  scheduledAt?: Prisma.DateTimeNullableFilter<"Shipment"> | Date | string | null
+  shippedAt?: Prisma.DateTimeNullableFilter<"Shipment"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Shipment"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Shipment"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Shipment"> | string | null
+}
+
+export type ShipmentCreateManyCompanyInput = {
+  id?: number
+  number: string
+  orderNumber?: string | null
+  customer: string
+  carrier: string
+  dock?: string | null
+  status?: string
+  pallets?: number
+  packages?: number
+  scheduledAt?: Date | string | null
+  shippedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShipmentUpdateWithoutCompanyInput = {
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customer?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.StringFieldUpdateOperationsInput | string
+  dock?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  pallets?: Prisma.IntFieldUpdateOperationsInput | number
+  packages?: Prisma.IntFieldUpdateOperationsInput | number
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ShipmentUncheckedUpdateWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customer?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.StringFieldUpdateOperationsInput | string
+  dock?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  pallets?: Prisma.IntFieldUpdateOperationsInput | number
+  packages?: Prisma.IntFieldUpdateOperationsInput | number
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ShipmentUncheckedUpdateManyWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  orderNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customer?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.StringFieldUpdateOperationsInput | string
+  dock?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  pallets?: Prisma.IntFieldUpdateOperationsInput | number
+  packages?: Prisma.IntFieldUpdateOperationsInput | number
+  scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  shippedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -550,6 +765,8 @@ export type ShipmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   shippedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Shipment$companyArgs<ExtArgs>
 }, ExtArgs["result"]["shipment"]>
 
 export type ShipmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -566,6 +783,8 @@ export type ShipmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   shippedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Shipment$companyArgs<ExtArgs>
 }, ExtArgs["result"]["shipment"]>
 
 export type ShipmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -582,6 +801,8 @@ export type ShipmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   shippedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Shipment$companyArgs<ExtArgs>
 }, ExtArgs["result"]["shipment"]>
 
 export type ShipmentSelectScalar = {
@@ -598,13 +819,25 @@ export type ShipmentSelectScalar = {
   shippedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
 }
 
-export type ShipmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "orderNumber" | "customer" | "carrier" | "dock" | "status" | "pallets" | "packages" | "scheduledAt" | "shippedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["shipment"]>
+export type ShipmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "orderNumber" | "customer" | "carrier" | "dock" | "status" | "pallets" | "packages" | "scheduledAt" | "shippedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["shipment"]>
+export type ShipmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Shipment$companyArgs<ExtArgs>
+}
+export type ShipmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Shipment$companyArgs<ExtArgs>
+}
+export type ShipmentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Shipment$companyArgs<ExtArgs>
+}
 
 export type $ShipmentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Shipment"
-  objects: {}
+  objects: {
+    company: Prisma.$CompanyPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     number: string
@@ -619,6 +852,7 @@ export type $ShipmentPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     shippedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    companyId: string | null
   }, ExtArgs["result"]["shipment"]>
   composites: {}
 }
@@ -1013,6 +1247,7 @@ readonly fields: ShipmentFieldRefs;
  */
 export interface Prisma__ShipmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  company<T extends Prisma.Shipment$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shipment$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1055,6 +1290,7 @@ export interface ShipmentFieldRefs {
   readonly shippedAt: Prisma.FieldRef<"Shipment", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Shipment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Shipment", 'DateTime'>
+  readonly companyId: Prisma.FieldRef<"Shipment", 'String'>
 }
     
 
@@ -1071,6 +1307,10 @@ export type ShipmentFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the Shipment
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
   /**
    * Filter, which Shipment to fetch.
    */
@@ -1090,6 +1330,10 @@ export type ShipmentFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
+  /**
    * Filter, which Shipment to fetch.
    */
   where: Prisma.ShipmentWhereUniqueInput
@@ -1107,6 +1351,10 @@ export type ShipmentFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Shipment
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
   /**
    * Filter, which Shipment to fetch.
    */
@@ -1156,6 +1404,10 @@ export type ShipmentFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
+  /**
    * Filter, which Shipment to fetch.
    */
   where?: Prisma.ShipmentWhereInput
@@ -1203,6 +1455,10 @@ export type ShipmentFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Shipment
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
   /**
    * Filter, which Shipments to fetch.
    */
@@ -1252,6 +1508,10 @@ export type ShipmentCreateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
+  /**
    * The data needed to create a Shipment.
    */
   data: Prisma.XOR<Prisma.ShipmentCreateInput, Prisma.ShipmentUncheckedCreateInput>
@@ -1283,6 +1543,10 @@ export type ShipmentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many Shipments.
    */
   data: Prisma.ShipmentCreateManyInput | Prisma.ShipmentCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1297,6 +1561,10 @@ export type ShipmentUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Shipment
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
   /**
    * The data needed to update a Shipment.
    */
@@ -1349,6 +1617,10 @@ export type ShipmentUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many Shipments to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1363,6 +1635,10 @@ export type ShipmentUpsertArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Shipment
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
   /**
    * The filter to search for the Shipment to update in case it exists.
    */
@@ -1390,6 +1666,10 @@ export type ShipmentDeleteArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
+  /**
    * Filter which Shipment to delete.
    */
   where: Prisma.ShipmentWhereUniqueInput
@@ -1410,6 +1690,25 @@ export type ShipmentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
+ * Shipment.company
+ */
+export type Shipment$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
  * Shipment without action
  */
 export type ShipmentDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1421,4 +1720,8 @@ export type ShipmentDefaultArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Shipment
    */
   omit?: Prisma.ShipmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShipmentInclude<ExtArgs> | null
 }

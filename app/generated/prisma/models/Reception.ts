@@ -48,6 +48,7 @@ export type ReceptionMinAggregateOutputType = {
   completedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  companyId: string | null
 }
 
 export type ReceptionMaxAggregateOutputType = {
@@ -62,6 +63,7 @@ export type ReceptionMaxAggregateOutputType = {
   completedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  companyId: string | null
 }
 
 export type ReceptionCountAggregateOutputType = {
@@ -76,6 +78,7 @@ export type ReceptionCountAggregateOutputType = {
   completedAt: number
   createdAt: number
   updatedAt: number
+  companyId: number
   _all: number
 }
 
@@ -102,6 +105,7 @@ export type ReceptionMinAggregateInputType = {
   completedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
 }
 
 export type ReceptionMaxAggregateInputType = {
@@ -116,6 +120,7 @@ export type ReceptionMaxAggregateInputType = {
   completedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
 }
 
 export type ReceptionCountAggregateInputType = {
@@ -130,6 +135,7 @@ export type ReceptionCountAggregateInputType = {
   completedAt?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
   _all?: true
 }
 
@@ -231,6 +237,7 @@ export type ReceptionGroupByOutputType = {
   completedAt: Date | null
   createdAt: Date
   updatedAt: Date
+  companyId: string | null
   _count: ReceptionCountAggregateOutputType | null
   _avg: ReceptionAvgAggregateOutputType | null
   _sum: ReceptionSumAggregateOutputType | null
@@ -268,6 +275,8 @@ export type ReceptionWhereInput = {
   completedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Reception"> | string | null
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }
 
 export type ReceptionOrderByWithRelationInput = {
@@ -282,6 +291,8 @@ export type ReceptionOrderByWithRelationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  company?: Prisma.CompanyOrderByWithRelationInput
 }
 
 export type ReceptionWhereUniqueInput = Prisma.AtLeast<{
@@ -299,6 +310,8 @@ export type ReceptionWhereUniqueInput = Prisma.AtLeast<{
   completedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Reception"> | string | null
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }, "id" | "number">
 
 export type ReceptionOrderByWithAggregationInput = {
@@ -313,6 +326,7 @@ export type ReceptionOrderByWithAggregationInput = {
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.ReceptionCountOrderByAggregateInput
   _avg?: Prisma.ReceptionAvgOrderByAggregateInput
   _max?: Prisma.ReceptionMaxOrderByAggregateInput
@@ -335,6 +349,7 @@ export type ReceptionScalarWhereWithAggregatesInput = {
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Reception"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Reception"> | Date | string
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"Reception"> | string | null
 }
 
 export type ReceptionCreateInput = {
@@ -348,6 +363,7 @@ export type ReceptionCreateInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutReceptionsInput
 }
 
 export type ReceptionUncheckedCreateInput = {
@@ -362,6 +378,7 @@ export type ReceptionUncheckedCreateInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyId?: string | null
 }
 
 export type ReceptionUpdateInput = {
@@ -375,6 +392,7 @@ export type ReceptionUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutReceptionsNestedInput
 }
 
 export type ReceptionUncheckedUpdateInput = {
@@ -389,6 +407,7 @@ export type ReceptionUncheckedUpdateInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ReceptionCreateManyInput = {
@@ -403,6 +422,7 @@ export type ReceptionCreateManyInput = {
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyId?: string | null
 }
 
 export type ReceptionUpdateManyMutationInput = {
@@ -430,6 +450,17 @@ export type ReceptionUncheckedUpdateManyInput = {
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ReceptionListRelationFilter = {
+  every?: Prisma.ReceptionWhereInput
+  some?: Prisma.ReceptionWhereInput
+  none?: Prisma.ReceptionWhereInput
+}
+
+export type ReceptionOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ReceptionCountOrderByAggregateInput = {
@@ -444,6 +475,7 @@ export type ReceptionCountOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type ReceptionAvgOrderByAggregateInput = {
@@ -463,6 +495,7 @@ export type ReceptionMaxOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type ReceptionMinOrderByAggregateInput = {
@@ -477,6 +510,7 @@ export type ReceptionMinOrderByAggregateInput = {
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type ReceptionSumOrderByAggregateInput = {
@@ -484,8 +518,46 @@ export type ReceptionSumOrderByAggregateInput = {
   pallets?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
+export type ReceptionCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.ReceptionCreateWithoutCompanyInput, Prisma.ReceptionUncheckedCreateWithoutCompanyInput> | Prisma.ReceptionCreateWithoutCompanyInput[] | Prisma.ReceptionUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ReceptionCreateOrConnectWithoutCompanyInput | Prisma.ReceptionCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.ReceptionCreateManyCompanyInputEnvelope
+  connect?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+}
+
+export type ReceptionUncheckedCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.ReceptionCreateWithoutCompanyInput, Prisma.ReceptionUncheckedCreateWithoutCompanyInput> | Prisma.ReceptionCreateWithoutCompanyInput[] | Prisma.ReceptionUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ReceptionCreateOrConnectWithoutCompanyInput | Prisma.ReceptionCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.ReceptionCreateManyCompanyInputEnvelope
+  connect?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+}
+
+export type ReceptionUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.ReceptionCreateWithoutCompanyInput, Prisma.ReceptionUncheckedCreateWithoutCompanyInput> | Prisma.ReceptionCreateWithoutCompanyInput[] | Prisma.ReceptionUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ReceptionCreateOrConnectWithoutCompanyInput | Prisma.ReceptionCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.ReceptionUpsertWithWhereUniqueWithoutCompanyInput | Prisma.ReceptionUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.ReceptionCreateManyCompanyInputEnvelope
+  set?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+  disconnect?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+  delete?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+  connect?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+  update?: Prisma.ReceptionUpdateWithWhereUniqueWithoutCompanyInput | Prisma.ReceptionUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.ReceptionUpdateManyWithWhereWithoutCompanyInput | Prisma.ReceptionUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.ReceptionScalarWhereInput | Prisma.ReceptionScalarWhereInput[]
+}
+
+export type ReceptionUncheckedUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.ReceptionCreateWithoutCompanyInput, Prisma.ReceptionUncheckedCreateWithoutCompanyInput> | Prisma.ReceptionCreateWithoutCompanyInput[] | Prisma.ReceptionUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.ReceptionCreateOrConnectWithoutCompanyInput | Prisma.ReceptionCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.ReceptionUpsertWithWhereUniqueWithoutCompanyInput | Prisma.ReceptionUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.ReceptionCreateManyCompanyInputEnvelope
+  set?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+  disconnect?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+  delete?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+  connect?: Prisma.ReceptionWhereUniqueInput | Prisma.ReceptionWhereUniqueInput[]
+  update?: Prisma.ReceptionUpdateWithWhereUniqueWithoutCompanyInput | Prisma.ReceptionUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.ReceptionUpdateManyWithWhereWithoutCompanyInput | Prisma.ReceptionUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.ReceptionScalarWhereInput | Prisma.ReceptionScalarWhereInput[]
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -496,12 +568,129 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type ReceptionCreateWithoutCompanyInput = {
+  number: string
+  supplier: string
+  carrier: string
+  dock: string
+  pallets: number
+  status: string
+  scheduledAt: string
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
+export type ReceptionUncheckedCreateWithoutCompanyInput = {
+  id?: number
+  number: string
+  supplier: string
+  carrier: string
+  dock: string
+  pallets: number
+  status: string
+  scheduledAt: string
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ReceptionCreateOrConnectWithoutCompanyInput = {
+  where: Prisma.ReceptionWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReceptionCreateWithoutCompanyInput, Prisma.ReceptionUncheckedCreateWithoutCompanyInput>
+}
+
+export type ReceptionCreateManyCompanyInputEnvelope = {
+  data: Prisma.ReceptionCreateManyCompanyInput | Prisma.ReceptionCreateManyCompanyInput[]
+}
+
+export type ReceptionUpsertWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.ReceptionWhereUniqueInput
+  update: Prisma.XOR<Prisma.ReceptionUpdateWithoutCompanyInput, Prisma.ReceptionUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.ReceptionCreateWithoutCompanyInput, Prisma.ReceptionUncheckedCreateWithoutCompanyInput>
+}
+
+export type ReceptionUpdateWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.ReceptionWhereUniqueInput
+  data: Prisma.XOR<Prisma.ReceptionUpdateWithoutCompanyInput, Prisma.ReceptionUncheckedUpdateWithoutCompanyInput>
+}
+
+export type ReceptionUpdateManyWithWhereWithoutCompanyInput = {
+  where: Prisma.ReceptionScalarWhereInput
+  data: Prisma.XOR<Prisma.ReceptionUpdateManyMutationInput, Prisma.ReceptionUncheckedUpdateManyWithoutCompanyInput>
+}
+
+export type ReceptionScalarWhereInput = {
+  AND?: Prisma.ReceptionScalarWhereInput | Prisma.ReceptionScalarWhereInput[]
+  OR?: Prisma.ReceptionScalarWhereInput[]
+  NOT?: Prisma.ReceptionScalarWhereInput | Prisma.ReceptionScalarWhereInput[]
+  id?: Prisma.IntFilter<"Reception"> | number
+  number?: Prisma.StringFilter<"Reception"> | string
+  supplier?: Prisma.StringFilter<"Reception"> | string
+  carrier?: Prisma.StringFilter<"Reception"> | string
+  dock?: Prisma.StringFilter<"Reception"> | string
+  pallets?: Prisma.IntFilter<"Reception"> | number
+  status?: Prisma.StringFilter<"Reception"> | string
+  scheduledAt?: Prisma.StringFilter<"Reception"> | string
+  completedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
+  createdAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Reception"> | string | null
+}
+
+export type ReceptionCreateManyCompanyInput = {
+  id?: number
+  number: string
+  supplier: string
+  carrier: string
+  dock: string
+  pallets: number
+  status: string
+  scheduledAt: string
+  completedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ReceptionUpdateWithoutCompanyInput = {
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  supplier?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.StringFieldUpdateOperationsInput | string
+  dock?: Prisma.StringFieldUpdateOperationsInput | string
+  pallets?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  scheduledAt?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReceptionUncheckedUpdateWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  supplier?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.StringFieldUpdateOperationsInput | string
+  dock?: Prisma.StringFieldUpdateOperationsInput | string
+  pallets?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  scheduledAt?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReceptionUncheckedUpdateManyWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  number?: Prisma.StringFieldUpdateOperationsInput | string
+  supplier?: Prisma.StringFieldUpdateOperationsInput | string
+  carrier?: Prisma.StringFieldUpdateOperationsInput | string
+  dock?: Prisma.StringFieldUpdateOperationsInput | string
+  pallets?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  scheduledAt?: Prisma.StringFieldUpdateOperationsInput | string
+  completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -518,6 +707,8 @@ export type ReceptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Reception$companyArgs<ExtArgs>
 }, ExtArgs["result"]["reception"]>
 
 export type ReceptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -532,6 +723,8 @@ export type ReceptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Reception$companyArgs<ExtArgs>
 }, ExtArgs["result"]["reception"]>
 
 export type ReceptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -546,6 +739,8 @@ export type ReceptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Reception$companyArgs<ExtArgs>
 }, ExtArgs["result"]["reception"]>
 
 export type ReceptionSelectScalar = {
@@ -560,13 +755,25 @@ export type ReceptionSelectScalar = {
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
 }
 
-export type ReceptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "supplier" | "carrier" | "dock" | "pallets" | "status" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["reception"]>
+export type ReceptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "supplier" | "carrier" | "dock" | "pallets" | "status" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["reception"]>
+export type ReceptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Reception$companyArgs<ExtArgs>
+}
+export type ReceptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Reception$companyArgs<ExtArgs>
+}
+export type ReceptionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Reception$companyArgs<ExtArgs>
+}
 
 export type $ReceptionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Reception"
-  objects: {}
+  objects: {
+    company: Prisma.$CompanyPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     number: string
@@ -579,6 +786,7 @@ export type $ReceptionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     completedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    companyId: string | null
   }, ExtArgs["result"]["reception"]>
   composites: {}
 }
@@ -973,6 +1181,7 @@ readonly fields: ReceptionFieldRefs;
  */
 export interface Prisma__ReceptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  company<T extends Prisma.Reception$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Reception$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1013,6 +1222,7 @@ export interface ReceptionFieldRefs {
   readonly completedAt: Prisma.FieldRef<"Reception", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Reception", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Reception", 'DateTime'>
+  readonly companyId: Prisma.FieldRef<"Reception", 'String'>
 }
     
 
@@ -1029,6 +1239,10 @@ export type ReceptionFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the Reception
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
   /**
    * Filter, which Reception to fetch.
    */
@@ -1048,6 +1262,10 @@ export type ReceptionFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
+  /**
    * Filter, which Reception to fetch.
    */
   where: Prisma.ReceptionWhereUniqueInput
@@ -1065,6 +1283,10 @@ export type ReceptionFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the Reception
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
   /**
    * Filter, which Reception to fetch.
    */
@@ -1114,6 +1336,10 @@ export type ReceptionFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
+  /**
    * Filter, which Reception to fetch.
    */
   where?: Prisma.ReceptionWhereInput
@@ -1161,6 +1387,10 @@ export type ReceptionFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Reception
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
   /**
    * Filter, which Receptions to fetch.
    */
@@ -1210,6 +1440,10 @@ export type ReceptionCreateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
+  /**
    * The data needed to create a Reception.
    */
   data: Prisma.XOR<Prisma.ReceptionCreateInput, Prisma.ReceptionUncheckedCreateInput>
@@ -1241,6 +1475,10 @@ export type ReceptionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Receptions.
    */
   data: Prisma.ReceptionCreateManyInput | Prisma.ReceptionCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1255,6 +1493,10 @@ export type ReceptionUpdateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Reception
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
   /**
    * The data needed to update a Reception.
    */
@@ -1307,6 +1549,10 @@ export type ReceptionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many Receptions to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1321,6 +1567,10 @@ export type ReceptionUpsertArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Reception
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
   /**
    * The filter to search for the Reception to update in case it exists.
    */
@@ -1348,6 +1598,10 @@ export type ReceptionDeleteArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
+  /**
    * Filter which Reception to delete.
    */
   where: Prisma.ReceptionWhereUniqueInput
@@ -1368,6 +1622,25 @@ export type ReceptionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * Reception.company
+ */
+export type Reception$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
  * Reception without action
  */
 export type ReceptionDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1379,4 +1652,8 @@ export type ReceptionDefaultArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Reception
    */
   omit?: Prisma.ReceptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionInclude<ExtArgs> | null
 }

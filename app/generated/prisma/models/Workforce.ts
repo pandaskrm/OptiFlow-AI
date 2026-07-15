@@ -50,6 +50,7 @@ export type WorkforceMinAggregateOutputType = {
   workDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  companyId: string | null
 }
 
 export type WorkforceMaxAggregateOutputType = {
@@ -64,6 +65,7 @@ export type WorkforceMaxAggregateOutputType = {
   workDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
+  companyId: string | null
 }
 
 export type WorkforceCountAggregateOutputType = {
@@ -78,6 +80,7 @@ export type WorkforceCountAggregateOutputType = {
   workDate: number
   createdAt: number
   updatedAt: number
+  companyId: number
   _all: number
 }
 
@@ -106,6 +109,7 @@ export type WorkforceMinAggregateInputType = {
   workDate?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
 }
 
 export type WorkforceMaxAggregateInputType = {
@@ -120,6 +124,7 @@ export type WorkforceMaxAggregateInputType = {
   workDate?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
 }
 
 export type WorkforceCountAggregateInputType = {
@@ -134,6 +139,7 @@ export type WorkforceCountAggregateInputType = {
   workDate?: true
   createdAt?: true
   updatedAt?: true
+  companyId?: true
   _all?: true
 }
 
@@ -235,6 +241,7 @@ export type WorkforceGroupByOutputType = {
   workDate: Date
   createdAt: Date
   updatedAt: Date
+  companyId: string | null
   _count: WorkforceCountAggregateOutputType | null
   _avg: WorkforceAvgAggregateOutputType | null
   _sum: WorkforceSumAggregateOutputType | null
@@ -272,6 +279,8 @@ export type WorkforceWhereInput = {
   workDate?: Prisma.DateTimeFilter<"Workforce"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Workforce"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Workforce"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }
 
 export type WorkforceOrderByWithRelationInput = {
@@ -286,6 +295,8 @@ export type WorkforceOrderByWithRelationInput = {
   workDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  company?: Prisma.CompanyOrderByWithRelationInput
 }
 
 export type WorkforceWhereUniqueInput = Prisma.AtLeast<{
@@ -303,6 +314,8 @@ export type WorkforceWhereUniqueInput = Prisma.AtLeast<{
   workDate?: Prisma.DateTimeFilter<"Workforce"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Workforce"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Workforce"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
 }, "id" | "employeeNumber">
 
 export type WorkforceOrderByWithAggregationInput = {
@@ -317,6 +330,7 @@ export type WorkforceOrderByWithAggregationInput = {
   workDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.WorkforceCountOrderByAggregateInput
   _avg?: Prisma.WorkforceAvgOrderByAggregateInput
   _max?: Prisma.WorkforceMaxOrderByAggregateInput
@@ -339,6 +353,7 @@ export type WorkforceScalarWhereWithAggregatesInput = {
   workDate?: Prisma.DateTimeWithAggregatesFilter<"Workforce"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Workforce"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Workforce"> | Date | string
+  companyId?: Prisma.StringNullableWithAggregatesFilter<"Workforce"> | string | null
 }
 
 export type WorkforceCreateInput = {
@@ -352,6 +367,7 @@ export type WorkforceCreateInput = {
   workDate?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutWorkforceInput
 }
 
 export type WorkforceUncheckedCreateInput = {
@@ -366,6 +382,7 @@ export type WorkforceUncheckedCreateInput = {
   workDate?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyId?: string | null
 }
 
 export type WorkforceUpdateInput = {
@@ -379,6 +396,7 @@ export type WorkforceUpdateInput = {
   workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutWorkforceNestedInput
 }
 
 export type WorkforceUncheckedUpdateInput = {
@@ -393,6 +411,7 @@ export type WorkforceUncheckedUpdateInput = {
   workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type WorkforceCreateManyInput = {
@@ -407,6 +426,7 @@ export type WorkforceCreateManyInput = {
   workDate?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  companyId?: string | null
 }
 
 export type WorkforceUpdateManyMutationInput = {
@@ -434,6 +454,17 @@ export type WorkforceUncheckedUpdateManyInput = {
   workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type WorkforceListRelationFilter = {
+  every?: Prisma.WorkforceWhereInput
+  some?: Prisma.WorkforceWhereInput
+  none?: Prisma.WorkforceWhereInput
+}
+
+export type WorkforceOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type WorkforceCountOrderByAggregateInput = {
@@ -448,6 +479,7 @@ export type WorkforceCountOrderByAggregateInput = {
   workDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type WorkforceAvgOrderByAggregateInput = {
@@ -468,6 +500,7 @@ export type WorkforceMaxOrderByAggregateInput = {
   workDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type WorkforceMinOrderByAggregateInput = {
@@ -482,12 +515,180 @@ export type WorkforceMinOrderByAggregateInput = {
   workDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  companyId?: Prisma.SortOrder
 }
 
 export type WorkforceSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   workedMinutes?: Prisma.SortOrder
   processedUnits?: Prisma.SortOrder
+}
+
+export type WorkforceCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutCompanyInput, Prisma.WorkforceUncheckedCreateWithoutCompanyInput> | Prisma.WorkforceCreateWithoutCompanyInput[] | Prisma.WorkforceUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutCompanyInput | Prisma.WorkforceCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.WorkforceCreateManyCompanyInputEnvelope
+  connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+}
+
+export type WorkforceUncheckedCreateNestedManyWithoutCompanyInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutCompanyInput, Prisma.WorkforceUncheckedCreateWithoutCompanyInput> | Prisma.WorkforceCreateWithoutCompanyInput[] | Prisma.WorkforceUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutCompanyInput | Prisma.WorkforceCreateOrConnectWithoutCompanyInput[]
+  createMany?: Prisma.WorkforceCreateManyCompanyInputEnvelope
+  connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+}
+
+export type WorkforceUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutCompanyInput, Prisma.WorkforceUncheckedCreateWithoutCompanyInput> | Prisma.WorkforceCreateWithoutCompanyInput[] | Prisma.WorkforceUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutCompanyInput | Prisma.WorkforceCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.WorkforceUpsertWithWhereUniqueWithoutCompanyInput | Prisma.WorkforceUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.WorkforceCreateManyCompanyInputEnvelope
+  set?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  disconnect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  delete?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  update?: Prisma.WorkforceUpdateWithWhereUniqueWithoutCompanyInput | Prisma.WorkforceUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.WorkforceUpdateManyWithWhereWithoutCompanyInput | Prisma.WorkforceUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.WorkforceScalarWhereInput | Prisma.WorkforceScalarWhereInput[]
+}
+
+export type WorkforceUncheckedUpdateManyWithoutCompanyNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutCompanyInput, Prisma.WorkforceUncheckedCreateWithoutCompanyInput> | Prisma.WorkforceCreateWithoutCompanyInput[] | Prisma.WorkforceUncheckedCreateWithoutCompanyInput[]
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutCompanyInput | Prisma.WorkforceCreateOrConnectWithoutCompanyInput[]
+  upsert?: Prisma.WorkforceUpsertWithWhereUniqueWithoutCompanyInput | Prisma.WorkforceUpsertWithWhereUniqueWithoutCompanyInput[]
+  createMany?: Prisma.WorkforceCreateManyCompanyInputEnvelope
+  set?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  disconnect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  delete?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  update?: Prisma.WorkforceUpdateWithWhereUniqueWithoutCompanyInput | Prisma.WorkforceUpdateWithWhereUniqueWithoutCompanyInput[]
+  updateMany?: Prisma.WorkforceUpdateManyWithWhereWithoutCompanyInput | Prisma.WorkforceUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.WorkforceScalarWhereInput | Prisma.WorkforceScalarWhereInput[]
+}
+
+export type WorkforceCreateWithoutCompanyInput = {
+  employeeNumber: string
+  name: string
+  team?: string | null
+  zone?: string | null
+  status?: string
+  workedMinutes?: number
+  processedUnits?: number
+  workDate?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WorkforceUncheckedCreateWithoutCompanyInput = {
+  id?: number
+  employeeNumber: string
+  name: string
+  team?: string | null
+  zone?: string | null
+  status?: string
+  workedMinutes?: number
+  processedUnits?: number
+  workDate?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WorkforceCreateOrConnectWithoutCompanyInput = {
+  where: Prisma.WorkforceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkforceCreateWithoutCompanyInput, Prisma.WorkforceUncheckedCreateWithoutCompanyInput>
+}
+
+export type WorkforceCreateManyCompanyInputEnvelope = {
+  data: Prisma.WorkforceCreateManyCompanyInput | Prisma.WorkforceCreateManyCompanyInput[]
+}
+
+export type WorkforceUpsertWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.WorkforceWhereUniqueInput
+  update: Prisma.XOR<Prisma.WorkforceUpdateWithoutCompanyInput, Prisma.WorkforceUncheckedUpdateWithoutCompanyInput>
+  create: Prisma.XOR<Prisma.WorkforceCreateWithoutCompanyInput, Prisma.WorkforceUncheckedCreateWithoutCompanyInput>
+}
+
+export type WorkforceUpdateWithWhereUniqueWithoutCompanyInput = {
+  where: Prisma.WorkforceWhereUniqueInput
+  data: Prisma.XOR<Prisma.WorkforceUpdateWithoutCompanyInput, Prisma.WorkforceUncheckedUpdateWithoutCompanyInput>
+}
+
+export type WorkforceUpdateManyWithWhereWithoutCompanyInput = {
+  where: Prisma.WorkforceScalarWhereInput
+  data: Prisma.XOR<Prisma.WorkforceUpdateManyMutationInput, Prisma.WorkforceUncheckedUpdateManyWithoutCompanyInput>
+}
+
+export type WorkforceScalarWhereInput = {
+  AND?: Prisma.WorkforceScalarWhereInput | Prisma.WorkforceScalarWhereInput[]
+  OR?: Prisma.WorkforceScalarWhereInput[]
+  NOT?: Prisma.WorkforceScalarWhereInput | Prisma.WorkforceScalarWhereInput[]
+  id?: Prisma.IntFilter<"Workforce"> | number
+  employeeNumber?: Prisma.StringFilter<"Workforce"> | string
+  name?: Prisma.StringFilter<"Workforce"> | string
+  team?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  zone?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  status?: Prisma.StringFilter<"Workforce"> | string
+  workedMinutes?: Prisma.IntFilter<"Workforce"> | number
+  processedUnits?: Prisma.IntFilter<"Workforce"> | number
+  workDate?: Prisma.DateTimeFilter<"Workforce"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"Workforce"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Workforce"> | Date | string
+  companyId?: Prisma.StringNullableFilter<"Workforce"> | string | null
+}
+
+export type WorkforceCreateManyCompanyInput = {
+  id?: number
+  employeeNumber: string
+  name: string
+  team?: string | null
+  zone?: string | null
+  status?: string
+  workedMinutes?: number
+  processedUnits?: number
+  workDate?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type WorkforceUpdateWithoutCompanyInput = {
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  workedMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  processedUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type WorkforceUncheckedUpdateWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  workedMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  processedUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type WorkforceUncheckedUpdateManyWithoutCompanyInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  workedMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  processedUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -504,6 +705,8 @@ export type WorkforceSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   workDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
 }, ExtArgs["result"]["workforce"]>
 
 export type WorkforceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -518,6 +721,8 @@ export type WorkforceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   workDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
 }, ExtArgs["result"]["workforce"]>
 
 export type WorkforceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -532,6 +737,8 @@ export type WorkforceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   workDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
+  company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
 }, ExtArgs["result"]["workforce"]>
 
 export type WorkforceSelectScalar = {
@@ -546,13 +753,25 @@ export type WorkforceSelectScalar = {
   workDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  companyId?: boolean
 }
 
-export type WorkforceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeNumber" | "name" | "team" | "zone" | "status" | "workedMinutes" | "processedUnits" | "workDate" | "createdAt" | "updatedAt", ExtArgs["result"]["workforce"]>
+export type WorkforceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeNumber" | "name" | "team" | "zone" | "status" | "workedMinutes" | "processedUnits" | "workDate" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["workforce"]>
+export type WorkforceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+}
+export type WorkforceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+}
+export type WorkforceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+}
 
 export type $WorkforcePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Workforce"
-  objects: {}
+  objects: {
+    company: Prisma.$CompanyPayload<ExtArgs> | null
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     employeeNumber: string
@@ -565,6 +784,7 @@ export type $WorkforcePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     workDate: Date
     createdAt: Date
     updatedAt: Date
+    companyId: string | null
   }, ExtArgs["result"]["workforce"]>
   composites: {}
 }
@@ -959,6 +1179,7 @@ readonly fields: WorkforceFieldRefs;
  */
 export interface Prisma__WorkforceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  company<T extends Prisma.Workforce$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workforce$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -999,6 +1220,7 @@ export interface WorkforceFieldRefs {
   readonly workDate: Prisma.FieldRef<"Workforce", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Workforce", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Workforce", 'DateTime'>
+  readonly companyId: Prisma.FieldRef<"Workforce", 'String'>
 }
     
 
@@ -1015,6 +1237,10 @@ export type WorkforceFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Omit specific fields from the Workforce
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
   /**
    * Filter, which Workforce to fetch.
    */
@@ -1034,6 +1260,10 @@ export type WorkforceFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensi
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
+  /**
    * Filter, which Workforce to fetch.
    */
   where: Prisma.WorkforceWhereUniqueInput
@@ -1051,6 +1281,10 @@ export type WorkforceFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Omit specific fields from the Workforce
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
   /**
    * Filter, which Workforce to fetch.
    */
@@ -1100,6 +1334,10 @@ export type WorkforceFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
+  /**
    * Filter, which Workforce to fetch.
    */
   where?: Prisma.WorkforceWhereInput
@@ -1147,6 +1385,10 @@ export type WorkforceFindManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Workforce
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
   /**
    * Filter, which Workforces to fetch.
    */
@@ -1196,6 +1438,10 @@ export type WorkforceCreateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
+  /**
    * The data needed to create a Workforce.
    */
   data: Prisma.XOR<Prisma.WorkforceCreateInput, Prisma.WorkforceUncheckedCreateInput>
@@ -1227,6 +1473,10 @@ export type WorkforceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Workforces.
    */
   data: Prisma.WorkforceCreateManyInput | Prisma.WorkforceCreateManyInput[]
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1241,6 +1491,10 @@ export type WorkforceUpdateArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Workforce
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
   /**
    * The data needed to update a Workforce.
    */
@@ -1293,6 +1547,10 @@ export type WorkforceUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many Workforces to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1307,6 +1565,10 @@ export type WorkforceUpsertArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Workforce
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
   /**
    * The filter to search for the Workforce to update in case it exists.
    */
@@ -1334,6 +1596,10 @@ export type WorkforceDeleteArgs<ExtArgs extends runtime.Types.Extensions.Interna
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
+  /**
    * Filter which Workforce to delete.
    */
   where: Prisma.WorkforceWhereUniqueInput
@@ -1354,6 +1620,25 @@ export type WorkforceDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
+ * Workforce.company
+ */
+export type Workforce$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
  * Workforce without action
  */
 export type WorkforceDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1365,4 +1650,8 @@ export type WorkforceDefaultArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Workforce
    */
   omit?: Prisma.WorkforceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
 }
