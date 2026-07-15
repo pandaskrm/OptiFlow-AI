@@ -1,0 +1,10 @@
+.next
+node_modules
+.git
+dev.db
+*.db-journal
+*.db-wal
+*.db-shm
+.vercel
+*.exe
+*.msi
