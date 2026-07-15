@@ -1,4 +1,59 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+
 export default function LoginPage() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = (await response.json()) as {
+        error?: string;
+        message?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ?? "Impossible de vous connecter."
+        );
+      }
+
+      router.push("/dashboard");
+      router.refresh();
+    } catch (submitError) {
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : "Une erreur est survenue."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 px-4 py-8">
       <div className="mx-auto grid min-h-[calc(100vh-4rem)] w-full max-w-7xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl lg:grid-cols-[1.05fr_0.95fr]">
@@ -55,7 +110,10 @@ export default function LoginPage() {
               pilotage logistique.
             </p>
 
-            <form className="mt-10 space-y-6">
+            <form
+              onSubmit={handleSubmit}
+              className="mt-10 space-y-6"
+            >
               <div>
                 <label className="mb-2 block text-sm font-medium text-slate-300">
                   Adresse e-mail
@@ -64,7 +122,12 @@ export default function LoginPage() {
                 <input
                   type="email"
                   name="email"
+                  value={email}
+                  onChange={(event) =>
+                    setEmail(event.target.value)
+                  }
                   autoComplete="email"
+                  required
                   placeholder="vous@entreprise.fr"
                   className="h-14 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
                 />
@@ -87,25 +150,39 @@ export default function LoginPage() {
                 <input
                   type="password"
                   name="password"
+                  value={password}
+                  onChange={(event) =>
+                    setPassword(event.target.value)
+                  }
                   autoComplete="current-password"
+                  required
                   placeholder="Votre mot de passe"
                   className="h-14 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
                 />
               </div>
 
-              <button
-                type="submit"
-                className="h-14 w-full rounded-xl bg-cyan-600 text-lg font-bold text-white shadow-lg shadow-cyan-950/30 transition hover:-translate-y-0.5 hover:bg-cyan-500"
-              >
-                Se connecter
-              </button>
+              {error && (
+                <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+                  {error}
+                </div>
+              )}
 
               <button
-                type="button"
-                className="h-14 w-full rounded-xl border border-slate-700 text-base font-semibold text-slate-300 transition hover:border-cyan-500 hover:text-white"
+                type="submit"
+                disabled={loading}
+                className="h-14 w-full rounded-xl bg-cyan-600 text-lg font-bold text-white shadow-lg shadow-cyan-950/30 transition hover:-translate-y-0.5 hover:bg-cyan-500 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {loading
+                  ? "Connexion en cours..."
+                  : "Se connecter"}
+              </button>
+
+              <Link
+                href="/register"
+                className="flex h-14 w-full items-center justify-center rounded-xl border border-slate-700 text-base font-semibold text-slate-300 transition hover:border-cyan-500 hover:text-white"
               >
                 Créer une entreprise
-              </button>
+              </Link>
             </form>
 
             <div className="mt-10 border-t border-slate-800 pt-6">
