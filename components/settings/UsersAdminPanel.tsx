@@ -10,6 +10,7 @@ type UserItem = {
   email: string;
   role: string;
   isActive: boolean;
+  createdAt: string;
   lastLoginAt: string | null;
 };
 
@@ -74,7 +75,9 @@ export default function UsersAdminPanel() {
     void loadUsers();
   }, []);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
 
     setSubmitting(true);
@@ -101,7 +104,9 @@ export default function UsersAdminPanel() {
         );
       }
 
-      setSuccess(data.message ?? "Le collaborateur a été créé.");
+      setSuccess(
+        data.message ?? "Le collaborateur a été créé."
+      );
       setForm(initialForm);
       setShowForm(false);
 
@@ -126,11 +131,12 @@ export default function UsersAdminPanel() {
           </p>
 
           <h2 className="mt-1 text-2xl font-bold text-white">
-            Gestion des utilisateurs
+            Utilisateurs de l’entreprise
           </h2>
 
           <p className="mt-2 text-sm text-slate-400">
-            {users.length} collaborateur{users.length > 1 ? "s" : ""}
+            {users.length} collaborateur
+            {users.length > 1 ? "s" : ""}
           </p>
         </div>
 
@@ -201,11 +207,13 @@ export default function UsersAdminPanel() {
               }
               className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none focus:border-cyan-500"
             >
-              {Object.entries(roleLabels).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
+              {Object.entries(roleLabels).map(
+                ([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                )
+              )}
             </select>
           </label>
 
@@ -213,7 +221,6 @@ export default function UsersAdminPanel() {
             <Field
               label="Mot de passe temporaire"
               type="password"
-              placeholder="10 caractères minimum"
               value={form.temporaryPassword}
               onChange={(value) =>
                 setForm((current) => ({
@@ -221,6 +228,7 @@ export default function UsersAdminPanel() {
                   temporaryPassword: value,
                 }))
               }
+              placeholder="10 caractères minimum"
             />
           </div>
 
@@ -282,7 +290,7 @@ export default function UsersAdminPanel() {
                   Chargement des collaborateurs...
                 </td>
               </tr>
-            ) : users.length === 0 ? (
+            ) : users.length == 0 ? (
               <tr>
                 <td
                   colSpan={5}
