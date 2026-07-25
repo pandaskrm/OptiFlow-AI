@@ -7,6 +7,7 @@
 import { emitEvent } from "../events/eventBus";
 import { addWorkflowHistoryEvent } from "../simulation/eventHistory";
 import { getScenario, subscribeScenario } from "../scenarios/scenarioStore";
+import { notifyWarehouseUpdate } from "../warehouse/warehouseLiveStore";
 
 let receptions: WorkflowReception[] = [];
 let timer: NodeJS.Timeout | null = null;
@@ -32,6 +33,7 @@ function getScenarioDelay() {
 
 function notify() {
   listeners.forEach((callback) => callback([...receptions]));
+  notifyWarehouseUpdate();
 }
 
 function publishWorkflowEvent(

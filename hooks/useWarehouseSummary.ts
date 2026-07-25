@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { subscribeWarehouseUpdates } from "../lib/warehouse/warehouseLiveStore";
 
 export type WarehouseSummary = {
   receptions: {
@@ -199,17 +200,22 @@ export default function useWarehouseSummary(
   }, []);
 
   useEffect(() => {
+  refresh();
+
+  const intervalId = window.setInterval(
+    refresh,
+    refreshInterval
+  );
+
+  const unsubscribe = subscribeWarehouseUpdates(() => {
     refresh();
+  });
 
-    const intervalId = window.setInterval(
-      refresh,
-      refreshInterval
-    );
-
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, [refresh, refreshInterval]);
+  return () => {
+    window.clearInterval(intervalId);
+    unsubscribe();
+  };
+}, [refresh, refreshInterval]);
 
   return {
     data,
