@@ -36,6 +36,9 @@ export default function UsersAdminPanel() {
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [actionLoading, setActionLoading] = useState<string | null>(
+    null
+  );
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -119,6 +122,105 @@ export default function UsersAdminPanel() {
       );
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  async function updateMembership(
+    membershipId: string,
+    data: {
+      role?: string;
+      isActive?: boolean;
+    }
+  ) {
+    setActionLoading(membershipId);
+    setError("");
+    setSuccess("");
+
+    try {
+      const response = await fetch(
+        `/api/admin/users/${membershipId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      const result = (await response.json()) as {
+        message?: string;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(
+          result.error ?? "Impossible de modifier l’utilisateur."
+        );
+      }
+
+      setSuccess(
+        result.message ?? "Utilisateur mis à jour."
+      );
+
+      await loadUsers();
+    } catch (updateError) {
+      setError(
+        updateError instanceof Error
+          ? updateError.message
+          : "Une erreur est survenue."
+      );
+    } finally {
+      setActionLoading(null);
+    }
+  }
+
+  async function deleteMembership(user: UserItem) {
+    const confirmed = window.confirm(
+      `Supprimer l’accès de ${user.firstName} ${user.lastName} ?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setActionLoading(user.membershipId);
+    setError("");
+    setSuccess("");
+
+    try {
+      const response = await fetch(
+        `/api/admin/users/${user.membershipId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const result = (await response.json()) as {
+        message?: string;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(
+          result.error ?? "Impossible de supprimer l’utilisateur."
+        );
+      }
+
+      setSuccess(
+        result.message ??
+          "Utilisateur retiré de l’entreprise."
+      );
+
+      await loadUsers();
+    } catch (deleteError) {
+      setError(
+        deleteError instanceof Error
+          ? deleteError.message
+          : "Une erreur est survenue."
+      );
+    } finally {
+      setActionLoading(null);
     }
   }
 
@@ -277,6 +379,9 @@ export default function UsersAdminPanel() {
               <th className="px-4 py-3 text-left text-sm text-slate-300">
                 Dernière connexion
               </th>
+              <th className="px-4 py-3 text-right text-sm text-slate-300">
+                Actions
+              </th>
             </tr>
           </thead>
 
@@ -284,61 +389,125 @@ export default function UsersAdminPanel() {
             {loading ? (
               <tr>
                 <td
-                  colSpan={5}
+                  colSpan={6}
                   className="px-4 py-8 text-center text-slate-400"
                 >
                   Chargement des collaborateurs...
                 </td>
               </tr>
-            ) : users.length == 0 ? (
+            ) : users.length === 0 ? (
               <tr>
                 <td
-                  colSpan={5}
+                  colSpan={6}
                   className="px-4 py-8 text-center text-slate-400"
                 >
                   Aucun collaborateur.
                 </td>
               </tr>
             ) : (
-              users.map((user) => (
-                <tr
-                  key={user.membershipId}
-                  className="border-t border-slate-700"
-                >
-                  <td className="px-4 py-4 font-medium text-white">
-                    {user.firstName} {user.lastName}
-                  </td>
+              users.map((user) => {
+                const isUpdating =
+                  actionLoading === user.membershipId;
 
-                  <td className="px-4 py-4 text-slate-300">
-                    {user.email}
-                  </td>
+                return (
+                  <tr
+                    key={user.membershipId}
+                    className="border-t border-slate-700"
+                  >
+                    <td className="px-4 py-4 font-medium text-white">
+                      {user.firstName} {user.lastName}
+                    </td>
 
-                  <td className="px-4 py-4 text-slate-300">
-                    {roleLabels[user.role] ?? user.role}
-                  </td>
+                    <td className="px-4 py-4 text-slate-300">
+                      {user.email}
+                    </td>
 
-                  <td className="px-4 py-4">
-                    <span
-                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${
-                        user.isActive
-                          ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
-                          : "border-red-500/30 bg-red-500/10 text-red-300"
-                      }`}
-                    >
-                      {user.isActive ? "Actif" : "Inactif"}
-                    </span>
-                  </td>
+                    <td className="px-4 py-4">
+                      <select
+                        value={user.role}
+                        disabled={isUpdating}
+                        onChange={(event) =>
+                          void updateMembership(
+                            user.membershipId,
+                            {
+                              role: event.target.value,
+                            }
+                          )
+                        }
+                        className="h-10 rounded-lg border border-slate-700 bg-slate-800 px-3 text-sm text-white outline-none focus:border-cyan-500 disabled:opacity-50"
+                      >
+                        {Object.entries(roleLabels).map(
+                          ([value, label]) => (
+                            <option key={value} value={value}>
+                              {label}
+                            </option>
+                          )
+                        )}
+                      </select>
+                    </td>
 
-                  <td className="px-4 py-4 text-slate-400">
-                    {user.lastLoginAt
-                      ? new Intl.DateTimeFormat("fr-FR", {
-                          dateStyle: "short",
-                          timeStyle: "short",
-                        }).format(new Date(user.lastLoginAt))
-                      : "Jamais"}
-                  </td>
-                </tr>
-              ))
+                    <td className="px-4 py-4">
+                      <span
+                        className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                          user.isActive
+                            ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                            : "border-red-500/30 bg-red-500/10 text-red-300"
+                        }`}
+                      >
+                        {user.isActive ? "Actif" : "Inactif"}
+                      </span>
+                    </td>
+
+                    <td className="px-4 py-4 text-slate-400">
+                      {user.lastLoginAt
+                        ? new Intl.DateTimeFormat("fr-FR", {
+                            dateStyle: "short",
+                            timeStyle: "short",
+                          }).format(new Date(user.lastLoginAt))
+                        : "Jamais"}
+                    </td>
+
+                    <td className="px-4 py-4">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          type="button"
+                          disabled={isUpdating}
+                          onClick={() =>
+                            void updateMembership(
+                              user.membershipId,
+                              {
+                                isActive: !user.isActive,
+                              }
+                            )
+                          }
+                          className={`rounded-lg px-3 py-2 text-xs font-bold text-white transition disabled:cursor-not-allowed disabled:opacity-50 ${
+                            user.isActive
+                              ? "bg-amber-600 hover:bg-amber-500"
+                              : "bg-emerald-600 hover:bg-emerald-500"
+                          }`}
+                        >
+                          {isUpdating
+                            ? "..."
+                            : user.isActive
+                              ? "Désactiver"
+                              : "Réactiver"}
+                        </button>
+
+                        <button
+                          type="button"
+                          disabled={isUpdating}
+                          onClick={() =>
+                            void deleteMembership(user)
+                          }
+                          className="rounded-lg bg-red-600 px-3 py-2 text-xs font-bold text-white transition hover:bg-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          Supprimer
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
