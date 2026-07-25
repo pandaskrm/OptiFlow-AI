@@ -12,8 +12,8 @@ export const demoEvents = [
     message: "Ouverture du quai 3 recommandée.",
   },
   {
-    title: "⚠ Quai 2 chargé",
-    message: "Temps d'attente estimé : 12 min.",
+    title: "⚠️ Quai 2 chargé",
+    message: "Temps d’attente estimé : 12 min.",
   },
   {
     title: "📋 Contrôle qualité",
@@ -40,7 +40,7 @@ export const demoEvents = [
     message: "Arrivée au quai 5.",
   },
   {
-    title: "⚠ Contrôle supplémentaire",
+    title: "⚠️ Contrôle supplémentaire",
     message: "Écart détecté sur une palette.",
   },
   {

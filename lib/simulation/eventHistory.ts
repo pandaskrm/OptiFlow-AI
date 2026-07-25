@@ -10,8 +10,41 @@ export type EventHistoryItem = {
 
 let history: EventHistoryItem[] = [];
 
+function getEventCategory(
+  title: string
+): EventHistoryItem["category"] {
+  const normalizedTitle = title.toLowerCase();
+
+  if (normalizedTitle.includes("ia")) {
+    return "ai";
+  }
+
+  if (
+    normalizedTitle.includes("saturation") ||
+    normalizedTitle.includes("écart") ||
+    normalizedTitle.includes("contrôle supplémentaire") ||
+    normalizedTitle.includes("chargé")
+  ) {
+    return "alert";
+  }
+
+  if (
+    normalizedTitle.includes("terminée") ||
+    normalizedTitle.includes("résolu") ||
+    normalizedTitle.includes("clôturée")
+  ) {
+    return "action";
+  }
+
+  return "event";
+}
+
 export function addHistoryEvent(index: number) {
   const event = demoEvents[index];
+
+  if (!event) {
+    return history;
+  }
 
   const item: EventHistoryItem = {
     id: Date.now(),
@@ -21,16 +54,10 @@ export function addHistoryEvent(index: number) {
     }),
     title: event.title,
     message: event.message,
-    category: event.title.includes("IA")
-      ? "ai"
-      : event.title.includes("Saturation")
-      ? "alert"
-      : event.title.includes("terminée")
-      ? "action"
-      : "event",
+    category: getEventCategory(event.title),
   };
 
-  history = [item, ...history].slice(0, 8);
+  history = [item, ...history].slice(0, 20);
 
   return history;
 }
@@ -38,7 +65,7 @@ export function addHistoryEvent(index: number) {
 export function addWorkflowHistoryEvent(
   title: string,
   message: string,
-  category: EventHistoryItem["category"] = "event"
+  category?: EventHistoryItem["category"]
 ) {
   const item: EventHistoryItem = {
     id: Date.now(),
@@ -48,10 +75,10 @@ export function addWorkflowHistoryEvent(
     }),
     title,
     message,
-    category,
+    category: category ?? getEventCategory(title),
   };
 
-  history = [item, ...history].slice(0, 8);
+  history = [item, ...history].slice(0, 20);
 
   return history;
 }
