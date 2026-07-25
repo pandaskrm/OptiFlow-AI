@@ -1,4 +1,4 @@
-import {
+﻿import {
   WorkflowReception,
   nextStatus,
   WorkflowStatus,
@@ -52,7 +52,7 @@ function publishWorkflowEvent(
       emitEvent("dock_reserved", updated);
       addWorkflowHistoryEvent(
         "🚪 Quai réservé",
-        `${updated.receptionNumber} est maintenant à quai.`,
+        `${updated.receptionNumber} est maintenant à quai.`, 
         "action"
       );
       break;
@@ -61,7 +61,7 @@ function publishWorkflowEvent(
       emitEvent("unloading_started", updated);
       addWorkflowHistoryEvent(
         "📦 Déchargement",
-        `Déchargement en cours pour ${updated.receptionNumber}.`,
+        `Déchargement en cours pour ${updated.receptionNumber}.`, 
         "event"
       );
       break;
@@ -70,7 +70,7 @@ function publishWorkflowEvent(
       emitEvent("quality_started", updated);
       addWorkflowHistoryEvent(
         "🔍 Contrôle qualité",
-        `Contrôle qualité lancé pour ${updated.receptionNumber}.`,
+        `Contrôle qualité lancé pour ${updated.receptionNumber}.`, 
         "alert"
       );
       break;
@@ -79,7 +79,7 @@ function publishWorkflowEvent(
       emitEvent("reception_completed", updated);
       addWorkflowHistoryEvent(
         "✅ Réception terminée",
-        `${updated.receptionNumber} est terminée.`,
+        `${updated.receptionNumber} est terminée.`, 
         "action"
       );
       break;
@@ -125,7 +125,7 @@ subscribeScenario(() => {
 
   addWorkflowHistoryEvent(
     "🎬 Scénario changé",
-    `Nouveau scénario actif : ${getScenario()}.`,
+    `Nouveau scénario actif : ${getScenario()}.`, 
     "ai"
   );
 
