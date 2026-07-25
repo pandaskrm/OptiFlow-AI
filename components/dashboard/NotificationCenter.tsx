@@ -5,9 +5,9 @@ import { useEffect, useMemo, useState } from "react";
 import useDemo from "../../hooks/useDemo";
 import {
   getHistoryEvents,
+  subscribeHistory,
   type EventHistoryItem,
 } from "../../lib/simulation/eventHistory";
-import { subscribeEvents } from "../../lib/events/eventBus";
 
 const CATEGORY_STYLES: Record<
   EventHistoryItem["category"],
@@ -49,12 +49,12 @@ export default function NotificationCenter() {
   const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
-    const unsubscribe = subscribeEvents(() => {
-      setRefresh((value) => value + 1);
-    });
+  const unsubscribe = subscribeHistory(() => {
+    setRefresh((value) => value + 1);
+  });
 
-    return () => unsubscribe();
-  }, []);
+  return () => unsubscribe();
+}, []);
 
   const history = useMemo(
     () => getHistoryEvents().slice(0, 8),

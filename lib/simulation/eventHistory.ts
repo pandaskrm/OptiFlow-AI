@@ -10,6 +10,20 @@ export type EventHistoryItem = {
 
 let history: EventHistoryItem[] = [];
 
+const listeners = new Set<() => void>();
+
+function notify() {
+  listeners.forEach((listener) => listener());
+}
+
+export function subscribeHistory(callback: () => void) {
+  listeners.add(callback);
+
+  return () => {
+    listeners.delete(callback);
+  };
+}
+
 function getEventCategory(
   title: string
 ): EventHistoryItem["category"] {
@@ -58,6 +72,7 @@ export function addHistoryEvent(index: number) {
   };
 
   history = [item, ...history].slice(0, 20);
+  notify();
 
   return history;
 }
@@ -79,6 +94,7 @@ export function addWorkflowHistoryEvent(
   };
 
   history = [item, ...history].slice(0, 20);
+  notify();
 
   return history;
 }
@@ -89,4 +105,5 @@ export function getHistoryEvents() {
 
 export function resetHistory() {
   history = [];
+  notify();
 }

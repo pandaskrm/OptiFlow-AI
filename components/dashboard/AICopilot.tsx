@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { Reception } from "../../types/reception";
@@ -149,7 +149,7 @@ export default function AICopilot() {
 
           <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-5">
             <h4 className="font-bold text-red-300">
-              ⚠ Analyse des alertes
+              ⚠️ Analyse des alertes
             </h4>
 
             {brief.alerts.length > 0 ? (
