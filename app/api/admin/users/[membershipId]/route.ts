@@ -55,6 +55,9 @@ export async function PATCH(
       where: {
         id: membershipId,
       },
+      include: {
+        user: true,
+      },
     });
 
     if (
@@ -127,50 +130,57 @@ export async function PATCH(
       );
     }
 
-    const updatedMembership =
-      await prisma.membership.update({
-        where: {
-          id: membership.id,
-        },
-        data: {
-          ...(body.role !== undefined
-            ? { role: body.role }
-            : {}),
-          ...(body.isActive !== undefined
-            ? { isActive: body.isActive }
-            : {}),
-        },
-        include: {
-          user: true,
-        },
-      });
+    const result = await prisma.$transaction(
+      async (transaction) => {
+        const updatedMembership =
+          await transaction.membership.update({
+            where: {
+              id: membership.id,
+            },
+            data: {
+              ...(body.role !== undefined
+                ? { role: body.role }
+                : {}),
+              ...(body.isActive !== undefined
+                ? { isActive: body.isActive }
+                : {}),
+            },
+            include: {
+              user: true,
+            },
+          });
 
-    await prisma.auditLog.create({
-      data: {
-        companyId: auth.company.id,
-        actorId: auth.user.id,
-        action: "USER_UPDATED",
-        entityType: "Membership",
-        entityId: membership.id,
-        details: JSON.stringify({
-          role: body.role,
-          isActive: body.isActive,
-        }),
-      },
-    });
+        await transaction.auditLog.create({
+          data: {
+            companyId: auth.company.id,
+            actorId: auth.user.id,
+            action: "USER_UPDATED",
+            entityType: "Membership",
+            entityId: membership.id,
+            details: JSON.stringify({
+              email: membership.user.email,
+              previousRole: membership.role,
+              newRole: updatedMembership.role,
+              previousIsActive: membership.isActive,
+              newIsActive: updatedMembership.isActive,
+            }),
+          },
+        });
+
+        return updatedMembership;
+      }
+    );
 
     return NextResponse.json({
       message: "Utilisateur mis à jour.",
       user: {
-        membershipId: updatedMembership.id,
-        userId: updatedMembership.user.id,
-        firstName: updatedMembership.user.firstName,
-        lastName: updatedMembership.user.lastName,
-        email: updatedMembership.user.email,
-        role: updatedMembership.role,
-        isActive:
-          updatedMembership.isActive &&
-          updatedMembership.user.isActive,
+        membershipId: result.id,
+        userId: result.user.id,
+        firstName: result.user.firstName,
+        lastName: result.user.lastName,
+        email: result.user.email,
+        role: result.role,
+        isActive: result.isActive && result.user.isActive,
       },
     });
   } catch (error) {
@@ -182,6 +192,7 @@ export async function PATCH(
     );
   }
 }
+
 export async function DELETE(
   _request: Request,
   context: RouteContext

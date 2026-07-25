@@ -12,6 +12,7 @@ const links = [
   { href: "/stock", icon: "📦", label: "Stock" },
   { href: "/team", icon: "👥", label: "Équipe" },
   { href: "/ai", icon: "🤖", label: "IA OptiFlow" },
+  { href: "/audit", icon: "📜", label: "Journal d’audit" },
   { href: "/parametres", icon: "⚙️", label: "Paramètres" },
 ];
 
@@ -19,9 +20,12 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-72 min-h-screen border-r border-slate-800 bg-slate-950 p-6 text-white">
+    <aside className="min-h-screen w-72 border-r border-slate-800 bg-slate-950 p-6 text-white">
       <div className="mb-10">
-        <h1 className="text-3xl font-black text-cyan-400">OptiFlow AI</h1>
+        <h1 className="text-3xl font-black text-cyan-400">
+          OptiFlow AI
+        </h1>
+
         <p className="mt-2 text-sm text-slate-400">
           Warehouse Intelligence Platform
         </p>
@@ -29,7 +33,9 @@ export default function Sidebar() {
 
       <nav className="space-y-2">
         {links.map((link) => {
-          const active = pathname === link.href;
+          const active =
+            pathname === link.href ||
+            pathname.startsWith(`${link.href}/`);
 
           return (
             <Link
@@ -49,9 +55,15 @@ export default function Sidebar() {
       </nav>
 
       <div className="mt-10 rounded-2xl border border-cyan-500/20 bg-cyan-500/10 p-4">
-        <p className="text-sm font-semibold text-cyan-300">Version</p>
+        <p className="text-sm font-semibold text-cyan-300">
+          Version
+        </p>
+
         <p className="mt-1 text-2xl font-bold">V1.0</p>
-        <p className="mt-2 text-xs text-slate-400">Développement en cours</p>
+
+        <p className="mt-2 text-xs text-slate-400">
+          Développement en cours
+        </p>
       </div>
     </aside>
   );
