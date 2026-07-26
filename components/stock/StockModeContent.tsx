@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 function StockRealData() {
@@ -14,15 +14,15 @@ function StockRealData() {
 
   const cards = [
     {
-      label: "Références",
+      label: "RÃ©fÃ©rences",
       value: inventory.references,
     },
     {
-      label: "Quantité totale",
+      label: "QuantitÃ© totale",
       value: inventory.totalQuantity,
     },
     {
-      label: "Stock réservé",
+      label: "Stock rÃ©servÃ©",
       value: inventory.reservedQuantity,
     },
     {
@@ -43,21 +43,21 @@ function StockRealData() {
     warehouse.alerts.find(
       (alert) =>
         alert.toLowerCase().includes("stock") ||
-        alert.toLowerCase().includes("référence")
+        alert.toLowerCase().includes("rÃ©fÃ©rence")
     ) ??
     (inventory.references > 0
       ? "Aucune alerte critique sur le stock."
-      : "Aucune donnée de stock ERP disponible.");
+      : "Aucune donnÃ©e de stock ERP disponible.");
 
   const mainPriority =
     warehouse.priorities.find(
       (priority) =>
         priority.toLowerCase().includes("stock") ||
-        priority.toLowerCase().includes("réapprovisionnement")
+        priority.toLowerCase().includes("rÃ©approvisionnement")
     ) ??
     (inventory.references > 0
-      ? "Maintenir le contrôle des références sensibles."
-      : "Connecter le flux Stock de l’ERP.");
+      ? "Maintenir le contrÃ´le des rÃ©fÃ©rences sensibles."
+      : "Connecter le flux Stock de lâ€™ERP.");
 
   if (loading) {
     return (
@@ -70,7 +70,7 @@ function StockRealData() {
   if (error) {
     return (
       <div className="rounded-3xl border border-red-900 bg-red-950/30 p-10 text-center text-red-300">
-        Impossible de charger les données de stock.
+        Impossible de charger les donnÃ©es de stock.
       </div>
     );
   }
@@ -89,8 +89,8 @@ function StockRealData() {
             </h1>
 
             <p className="mt-4 max-w-2xl text-slate-300">
-              Suivi centralisé des quantités, réservations, disponibilités,
-              ruptures et seuils de réapprovisionnement.
+              Suivi centralisÃ© des quantitÃ©s, rÃ©servations, disponibilitÃ©s,
+              ruptures et seuils de rÃ©approvisionnement.
             </p>
           </div>
 
@@ -113,8 +113,8 @@ function StockRealData() {
               }`}
             >
               {warehouse.dataConnected
-                ? "Données ERP synchronisées"
-                : "En attente de données ERP"}
+                ? "DonnÃ©es ERP synchronisÃ©es"
+                : "En attente de donnÃ©es ERP"}
             </p>
           </div>
         </div>
@@ -140,11 +140,11 @@ function StockRealData() {
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-slate-950">
-            Disponibilité globale
+            DisponibilitÃ© globale
           </h2>
 
           <p className="mt-1 text-sm text-slate-500">
-            Répartition calculée depuis les données de stock ERP.
+            RÃ©partition calculÃ©e depuis les donnÃ©es de stock ERP.
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -160,7 +160,7 @@ function StockRealData() {
 
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Réservé
+                RÃ©servÃ©
               </p>
 
               <p className="mt-2 text-3xl font-bold text-orange-500">
@@ -181,7 +181,7 @@ function StockRealData() {
 
           <div className="mt-6 rounded-2xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500">
-              Taux de disponibilité
+              Taux de disponibilitÃ©
             </p>
 
             <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -254,13 +254,13 @@ function StockRealData() {
         </h2>
 
         <p className="mt-1 text-sm text-slate-500">
-          Synthèse des références nécessitant une action.
+          SynthÃ¨se des rÃ©fÃ©rences nÃ©cessitant une action.
         </p>
 
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500">
-              Références suivies
+              RÃ©fÃ©rences suivies
             </p>
 
             <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -297,20 +297,20 @@ function StockDemoState() {
   return (
     <div className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-10 text-center text-white">
       <h1 className="text-3xl font-bold">
-        Mode Démo Stock
+        Mode DÃ©mo Stock
       </h1>
 
       <p className="mt-4 text-slate-300">
-        Les données simulées du Stock seront enrichies dans un prochain sprint.
+        Les donnÃ©es simulÃ©es du Stock seront enrichies dans un prochain sprint.
       </p>
     </div>
   );
 }
 
 export default function StockModeContent() {
-  const demo = useDemo();
+  const simulation = useSimulationV2();
 
-  if (demo.running) {
+  if (simulation.running) {
     return <StockDemoState />;
   }
 

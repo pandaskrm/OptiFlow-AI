@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 const weeklySchedule = [
@@ -51,7 +51,7 @@ function TeamRealData() {
       value: workforce.total,
     },
     {
-      label: "Présents",
+      label: "PrÃ©sents",
       value: workforce.present,
     },
     {
@@ -67,7 +67,7 @@ function TeamRealData() {
       value: workforce.reinforcement,
     },
     {
-      label: "Productivité",
+      label: "ProductivitÃ©",
       value: `${workforce.productivity} u/h`,
     },
   ];
@@ -93,24 +93,24 @@ function TeamRealData() {
         alert.toLowerCase().includes("absent")
     ) ??
     (workforce.total > 0
-      ? "Aucune alerte critique concernant les équipes."
-      : "Aucune donnée d’équipe ERP disponible.");
+      ? "Aucune alerte critique concernant les Ã©quipes."
+      : "Aucune donnÃ©e dâ€™Ã©quipe ERP disponible.");
 
   const mainPriority =
     warehouse.priorities.find(
       (priority) =>
-        priority.toLowerCase().includes("équipe") ||
+        priority.toLowerCase().includes("Ã©quipe") ||
         priority.toLowerCase().includes("absence") ||
         priority.toLowerCase().includes("ressource")
     ) ??
     (workforce.total > 0
-      ? "Maintenir la répartition actuelle des équipes."
-      : "Connecter le flux Équipe de l’ERP.");
+      ? "Maintenir la rÃ©partition actuelle des Ã©quipes."
+      : "Connecter le flux Ã‰quipe de lâ€™ERP.");
 
   if (loading) {
     return (
       <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
-        Chargement du module Équipe...
+        Chargement du module Ã‰quipe...
       </div>
     );
   }
@@ -118,7 +118,7 @@ function TeamRealData() {
   if (error) {
     return (
       <div className="rounded-3xl border border-red-900 bg-red-950/30 p-10 text-center text-red-300">
-        Impossible de charger les données d’équipe.
+        Impossible de charger les donnÃ©es dâ€™Ã©quipe.
       </div>
     );
   }
@@ -127,18 +127,18 @@ function TeamRealData() {
     <div className="flex flex-col gap-6">
       <section className="rounded-3xl border border-white/10 bg-slate-950 p-8 text-white shadow-2xl">
         <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
-          Module équipe
+          Module Ã©quipe
         </p>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight lg:text-5xl">
-              Pilotage des équipes
+              Pilotage des Ã©quipes
             </h1>
 
             <p className="mt-4 max-w-3xl text-slate-300">
-              Suivi centralisé des présences, absences, pauses,
-              renforts, temps travaillé et performances.
+              Suivi centralisÃ© des prÃ©sences, absences, pauses,
+              renforts, temps travaillÃ© et performances.
             </p>
           </div>
 
@@ -150,7 +150,7 @@ function TeamRealData() {
             }`}
           >
             <p className="text-sm text-slate-400">
-              Statut équipe
+              Statut Ã©quipe
             </p>
 
             <p
@@ -161,8 +161,8 @@ function TeamRealData() {
               }`}
             >
               {warehouse.dataConnected
-                ? "Données ERP synchronisées"
-                : "En attente de données ERP"}
+                ? "DonnÃ©es ERP synchronisÃ©es"
+                : "En attente de donnÃ©es ERP"}
             </p>
           </div>
         </div>
@@ -188,17 +188,17 @@ function TeamRealData() {
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-slate-950">
-            Capacité opérationnelle
+            CapacitÃ© opÃ©rationnelle
           </h2>
 
           <p className="mt-1 text-sm text-slate-500">
-            Indicateurs calculés depuis les données d’activité.
+            Indicateurs calculÃ©s depuis les donnÃ©es dâ€™activitÃ©.
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Taux de présence
+                Taux de prÃ©sence
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -208,7 +208,7 @@ function TeamRealData() {
 
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Heures enregistrées
+                Heures enregistrÃ©es
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -218,7 +218,7 @@ function TeamRealData() {
 
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Unités traitées
+                UnitÃ©s traitÃ©es
               </p>
 
               <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -230,7 +230,7 @@ function TeamRealData() {
           <div className="mt-6 rounded-2xl border border-slate-200 p-5">
             <div className="mb-3 flex items-center justify-between">
               <p className="font-semibold text-slate-700">
-                Présence de l’équipe
+                PrÃ©sence de lâ€™Ã©quipe
               </p>
 
               <p className="text-2xl font-bold text-slate-950">
@@ -258,7 +258,7 @@ function TeamRealData() {
           </p>
 
           <h2 className="mt-2 text-xl font-bold">
-            Équilibre des ressources
+            Ã‰quilibre des ressources
           </h2>
 
           <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
@@ -287,7 +287,7 @@ function TeamRealData() {
         <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-xl font-bold text-slate-950">
-              Horaires de référence
+              Horaires de rÃ©fÃ©rence
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
@@ -313,7 +313,7 @@ function TeamRealData() {
                 </th>
 
                 <th className="px-4 py-3">
-                  Après-midi
+                  AprÃ¨s-midi
                 </th>
 
                 <th className="px-4 py-3">
@@ -321,7 +321,7 @@ function TeamRealData() {
                 </th>
 
                 <th className="px-4 py-3">
-                  Durée d’une pause
+                  DurÃ©e dâ€™une pause
                 </th>
               </tr>
             </thead>
@@ -360,13 +360,13 @@ function TeamRealData() {
 
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="text-xl font-bold text-slate-950">
-          Synthèse des ressources
+          SynthÃ¨se des ressources
         </h2>
 
         <div className="mt-5 grid gap-4 md:grid-cols-4">
           <div className="rounded-2xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500">
-              Présents
+              PrÃ©sents
             </p>
 
             <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -413,11 +413,11 @@ function TeamDemoState() {
   return (
     <div className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-10 text-center text-white">
       <h1 className="text-3xl font-bold">
-        Mode Démo Équipe
+        Mode DÃ©mo Ã‰quipe
       </h1>
 
       <p className="mt-4 text-slate-300">
-        Le scénario Démo utilise les effectifs simulés du moteur
+        Le scÃ©nario DÃ©mo utilise les effectifs simulÃ©s du moteur
         OptiFlow AI.
       </p>
     </div>
@@ -425,11 +425,12 @@ function TeamDemoState() {
 }
 
 export default function TeamModeContent() {
-  const demo = useDemo();
+  const simulation = useSimulationV2();
 
-  if (demo.running) {
+  if (simulation.running) {
     return <TeamDemoState />;
   }
 
   return <TeamRealData />;
 }
+

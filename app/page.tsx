@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
-import useDemo from "../hooks/useDemo";
+import useSimulationV2 from "../hooks/useSimulationV2";
 
 import MainLayout from "../components/layout/MainLayout";
 
@@ -29,7 +29,7 @@ import ReceptionTable from "../components/reception/ReceptionTable";
 
 export default function ReceptionPage() {
   const [refreshKey, setRefreshKey] = useState(0);
-  const demo = useDemo();
+  const simulation = useSimulationV2();
 
   function refreshData() {
     setRefreshKey((prev) => prev + 1);
@@ -70,9 +70,9 @@ export default function ReceptionPage() {
 
         <DockPlanning refreshKey={refreshKey} />
 
-        {!demo.running && <ReceptionForm onSaved={refreshData} />}
+        {!simulation.running && <ReceptionForm onSaved={refreshData} />}
 
-        {demo.running ? (
+        {simulation.running ? (
           <ReceptionDemoTable />
         ) : (
           <ReceptionTable refreshKey={refreshKey} onDeleted={refreshData} />
