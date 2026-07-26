@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 import {
   getWorkflowReceptions,
   subscribeWorkflow,
@@ -48,10 +48,10 @@ function getProgress(status: string) {
 }
 
 function getStatusIcon(status: string) {
-  if (status === RECEPTION_STATUS.AT_DOCK) return "🚛";
-  if (status === RECEPTION_STATUS.UNLOADING) return "📦";
-  if (status === RECEPTION_STATUS.INSPECTION) return "🔎";
-  return "🟢";
+  if (status === RECEPTION_STATUS.AT_DOCK) return "ðŸš›";
+  if (status === RECEPTION_STATUS.UNLOADING) return "ðŸ“¦";
+  if (status === RECEPTION_STATUS.INSPECTION) return "ðŸ”Ž";
+  return "ðŸŸ¢";
 }
 
 function getDemoStatus(
@@ -90,10 +90,10 @@ export default function DockPlanning({
 }: DockPlanningProps) {
   const [receptions, setReceptions] = useState<Reception[]>([]);
   const [loading, setLoading] = useState(true);
-  const demo = useDemo();
+  const simulation = useSimulationV2();
 
   useEffect(() => {
-    if (demo.running) {
+    if (simulation.running) {
       setLoading(false);
       setReceptions(
         convertDemoReceptions(getWorkflowReceptions())
@@ -131,22 +131,22 @@ export default function DockPlanning({
     }
 
     loadReceptions();
-  }, [refreshKey, demo.running]);
+  }, [refreshKey, simulation.running]);
 
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
       <div className="mb-6">
         <h2 className="text-xl font-bold text-white">
-          📍 Occupation des quais
+          ðŸ“ Occupation des quais
         </h2>
 
         <p className="mt-1 text-sm text-slate-400">
-          Suivi en direct des quais : arrivée, déchargement,
-          contrôle et disponibilité.
+          Suivi en direct des quais : arrivÃ©e, dÃ©chargement,
+          contrÃ´le et disponibilitÃ©.
         </p>
       </div>
 
-      {loading && !demo.running ? (
+      {loading && !simulation.running ? (
         <div className="rounded-xl border border-slate-800 bg-slate-950 p-6 text-center text-slate-400">
           Chargement des quais...
         </div>
@@ -198,11 +198,11 @@ export default function DockPlanning({
                   {reception ? (
                     <>
                       <p className="text-sm text-slate-200">
-                        🚛 {reception.carrier}
+                        ðŸš› {reception.carrier}
                       </p>
 
                       <p className="text-sm text-slate-300">
-                        📦 {reception.supplier}
+                        ðŸ“¦ {reception.supplier}
                       </p>
 
                       <p className="text-sm text-slate-400">
@@ -226,7 +226,7 @@ export default function DockPlanning({
                   ) : (
                     <div className="flex h-full min-h-[100px] items-center justify-center rounded-xl border border-green-500/20 bg-green-500/10">
                       <p className="text-sm font-bold text-green-400">
-                        🟢 Disponible
+                        ðŸŸ¢ Disponible
                       </p>
                     </div>
                   )}

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 import {
   getHistoryEvents,
   subscribeHistory,
@@ -45,7 +45,7 @@ const CATEGORY_STYLES: Record<
 };
 
 export default function NotificationCenter() {
-  const demo = useDemo();
+  const simulation = useSimulationV2();
   const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
@@ -91,12 +91,12 @@ export default function NotificationCenter() {
 
           <span
             className={`rounded-full px-3 py-1 text-xs font-semibold ${
-              demo.running
+              simulation.running
                 ? "bg-emerald-100 text-emerald-700"
                 : "bg-slate-100 text-slate-600"
             }`}
           >
-            {demo.running ? "Temps réel" : "Stable"}
+            {simulation.running ? "Temps réel" : "Stable"}
           </span>
         </div>
       </div>

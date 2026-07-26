@@ -2,13 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import useDemo from "../../hooks/useDemo";
-import useScenario from "../../hooks/useScenario";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
-import {
-  setScenario,
-  stopScenarioAutoplay,
-} from "../../lib/scenarios/scenarioStore";
+import { stopScenarioAutoplay } from "../../lib/scenarios/scenarioStore";
 import LiveClock from "./LiveClock";
 import ScenarioSelector from "./ScenarioSelector";
 
@@ -22,8 +18,7 @@ function formatDate() {
 }
 
 export default function DashboardHeader() {
-  const demo = useDemo();
-  const { data: scenario } = useScenario();
+  const simulation = useSimulationV2();
   const { data: warehouse, loading, error } = useWarehouseSummary();
 
   const [currentDate, setCurrentDate] = useState("");
@@ -32,24 +27,27 @@ export default function DashboardHeader() {
     setCurrentDate(formatDate());
   }, []);
 
-  const health = demo.running
-    ? scenario.dashboard.health
+  const currentEvent = simulation.state.alerts[0];
+
+  const health = simulation.running
+    ? simulation.state.kpis.warehouseHealth
     : warehouse.healthScore;
 
-  const dataConnected = demo.running || warehouse.dataConnected;
+  const dataConnected =
+    simulation.running || warehouse.dataConnected;
 
   function startDemo() {
-    setScenario("normal");
-    demo.start();
+    simulation.setScenario("normal");
+    simulation.start();
   }
 
   function stopDemo() {
     stopScenarioAutoplay();
-    setScenario("normal");
-    demo.stop();
+    simulation.setScenario("normal");
+    simulation.stop();
   }
 
-  const connectionLabel = demo.running
+  const connectionLabel = simulation.running
     ? "Mode Démo actif"
     : loading
       ? "Connexion en cours"
@@ -142,35 +140,36 @@ export default function DashboardHeader() {
             </p>
 
             <p className="mt-1 font-semibold text-white">
-              {demo.running
-                ? demo.event.title
+              {simulation.running
+                ? currentEvent?.title ?? "Simulation active"
                 : "Aucune simulation active"}
             </p>
 
             <p className="mt-1 text-sm text-slate-400">
-              {demo.running
-                ? demo.event.message
+              {simulation.running
+                ? currentEvent?.message ??
+                  "Le moteur de simulation analyse les opérations."
                 : "Connectez un ERP ou lancez le Mode Démo pour alimenter le tableau de bord."}
             </p>
           </div>
 
           <button
             type="button"
-            onClick={demo.running ? stopDemo : startDemo}
+            onClick={simulation.running ? stopDemo : startDemo}
             className={`min-w-[230px] rounded-xl px-6 py-3 font-bold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 ${
-              demo.running
+              simulation.running
                 ? "bg-red-600 shadow-red-950/40 hover:bg-red-500"
                 : "bg-emerald-600 shadow-emerald-950/40 hover:bg-emerald-500"
             }`}
           >
-            {demo.running
+            {simulation.running
               ? "■ Arrêter le Mode Démo"
               : "▶ Lancer le Mode Démo"}
           </button>
         </div>
       </div>
 
-      {demo.running && <ScenarioSelector />}
+      {simulation.running && <ScenarioSelector />}
     </header>
   );
 }

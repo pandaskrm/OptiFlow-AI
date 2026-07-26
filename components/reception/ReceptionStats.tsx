@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 import { RECEPTION_STATUS } from "../../constants/receptionStatus";
 
 type ReceptionStatsProps = {
@@ -18,10 +18,11 @@ export default function ReceptionStats({
 }: ReceptionStatsProps) {
   const [receptions, setReceptions] = useState<Reception[]>([]);
   const [loading, setLoading] = useState(true);
-  const demo = useDemo();
+
+  const simulation = useSimulationV2();
 
   useEffect(() => {
-    if (demo.running) {
+    if (simulation.running) {
       setLoading(false);
       return;
     }
@@ -49,31 +50,28 @@ export default function ReceptionStats({
     }
 
     loadReceptions();
-  }, [refreshKey, demo.running]);
+  }, [refreshKey, simulation.running]);
 
-  const total = demo.running
-    ? demo.state.completedToday + demo.state.activeReceptions
+  const total = simulation.running
+    ? simulation.state.kpis.receptions
     : receptions.length;
 
-  const planned = demo.running
-    ? Math.max(
-        0,
-        demo.state.activeReceptions - demo.state.occupiedDocks
-      )
+  const planned = simulation.running
+    ? simulation.state.receptions.planned
     : receptions.filter(
         (reception) =>
           reception.status === RECEPTION_STATUS.PLANNED
       ).length;
 
-  const atDock = demo.running
-    ? demo.state.occupiedDocks
+  const atDock = simulation.running
+    ? simulation.state.receptions.atDock
     : receptions.filter(
         (reception) =>
           reception.status === RECEPTION_STATUS.AT_DOCK
       ).length;
 
-  const finished = demo.running
-    ? demo.state.completedToday
+  const finished = simulation.running
+    ? simulation.state.receptions.completed
     : receptions.filter(
         (reception) =>
           reception.status === RECEPTION_STATUS.COMPLETED
@@ -82,40 +80,28 @@ export default function ReceptionStats({
   return (
     <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-4">
       <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p className="text-sm text-gray-400">
-          Total réceptions
-        </p>
-
+        <p className="text-sm text-gray-400">Total réceptions</p>
         <p className="mt-2 text-3xl font-bold">
           {loading ? "..." : total}
         </p>
       </div>
 
       <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p className="text-sm text-gray-400">
-          Planifiées
-        </p>
-
+        <p className="text-sm text-gray-400">Planifiées</p>
         <p className="mt-2 text-3xl font-bold text-blue-400">
           {loading ? "..." : planned}
         </p>
       </div>
 
       <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p className="text-sm text-gray-400">
-          À quai
-        </p>
-
+        <p className="text-sm text-gray-400">À quai</p>
         <p className="mt-2 text-3xl font-bold text-green-400">
           {loading ? "..." : atDock}
         </p>
       </div>
 
       <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p className="text-sm text-gray-400">
-          Terminées
-        </p>
-
+        <p className="text-sm text-gray-400">Terminées</p>
         <p className="mt-2 text-3xl font-bold text-orange-400">
           {loading ? "..." : finished}
         </p>

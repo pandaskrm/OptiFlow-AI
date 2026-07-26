@@ -1,19 +1,21 @@
-"use client";
+﻿"use client";
 
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 
 export default function MissionControlBar() {
-  const demo = useDemo();
+  const simulation = useSimulationV2();
 
-  const trucks = demo.state?.trucksWaiting ?? 2;
-  const docks = demo.state?.occupiedDocks ?? 3;
-  const receptions = demo.state?.activeReceptions ?? 8;
-  const health = demo.state?.warehouseHealth ?? 96;
+  const trucks = simulation.state.docks.trucksWaiting;
+  const docks = simulation.state.docks.occupied;
+  const receptions =
+    simulation.state.receptions.atDock +
+    simulation.state.receptions.unloading +
+    simulation.state.receptions.inspection;
+  const health = simulation.state.kpis.warehouseHealth;
 
   return (
     <section className="rounded-2xl border border-cyan-900 bg-gradient-to-r from-[#081422] to-[#10253d] p-5 shadow-xl">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
-
         <div>
           <p className="text-xs uppercase text-slate-400">État global</p>
           <p className="mt-2 text-2xl font-bold text-emerald-400">
@@ -47,7 +49,6 @@ export default function MissionControlBar() {
             🤖 IA : Entrepôt sous contrôle
           </span>
         </div>
-
       </div>
     </section>
   );

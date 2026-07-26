@@ -1,38 +1,48 @@
-"use client";
+﻿"use client";
 
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 
 export default function CommandCenter() {
-  const demo = useDemo();
+  const simulation = useSimulationV2();
+  const { state } = simulation;
 
-  const trucksWaiting = demo.state?.trucksWaiting ?? 2;
-  const occupiedDocks = demo.state?.occupiedDocks ?? 3;
-  const activeReceptions = demo.state?.activeReceptions ?? 14;
-  const completedToday = demo.state?.completedToday ?? 38;
-  const health = demo.state?.warehouseHealth ?? 96;
+  const trucksWaiting = state.docks.trucksWaiting;
+  const occupiedDocks = state.docks.occupied;
+  const activeReceptions =
+    state.receptions.atDock +
+    state.receptions.unloading +
+    state.receptions.inspection;
+  const completedToday = state.receptions.completed;
+  const health = state.kpis.warehouseHealth;
 
   const actions = [
     {
       icon: "🚛",
-      title: `${trucksWaiting} camions en attente`,
+      title: `${trucksWaiting} camion${trucksWaiting > 1 ? "s" : ""} en attente`,
       priority: trucksWaiting >= 3 ? "Haute" : "Normale",
-      color: trucksWaiting >= 3 ? "border-orange-500" : "border-cyan-500",
+      color:
+        trucksWaiting >= 3
+          ? "border-orange-500"
+          : "border-cyan-500",
     },
     {
       icon: "🚪",
-      title: `${occupiedDocks}/6 quais occupés`,
+      title: `${occupiedDocks}/${state.docks.total} quais occupés`,
       priority: occupiedDocks >= 5 ? "Critique" : "Stable",
-      color: occupiedDocks >= 5 ? "border-red-500" : "border-emerald-500",
+      color:
+        occupiedDocks >= 5
+          ? "border-red-500"
+          : "border-emerald-500",
     },
     {
       icon: "📦",
-      title: `${activeReceptions} réceptions actives`,
+      title: `${activeReceptions} réception${activeReceptions > 1 ? "s" : ""} active${activeReceptions > 1 ? "s" : ""}`,
       priority: activeReceptions >= 15 ? "Haute" : "Moyenne",
       color: "border-cyan-500",
     },
     {
       icon: "✅",
-      title: `${completedToday} opérations terminées aujourd'hui`,
+      title: `${completedToday} opération${completedToday > 1 ? "s" : ""} terminée${completedToday > 1 ? "s" : ""} aujourd'hui`,
       priority: "Suivi",
       color: "border-emerald-500",
     },
@@ -40,27 +50,33 @@ export default function CommandCenter() {
 
   return (
     <section className="rounded-xl border border-cyan-900 bg-[#081422] p-6 shadow-lg">
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <div>
           <p className="text-xs uppercase tracking-widest text-cyan-400">
             Centre de pilotage
           </p>
 
-          <h2 className="text-2xl font-bold text-white mt-1">
-            Poste de Commandement
+          <h2 className="mt-1 text-2xl font-bold text-white">
+            Poste de commandement
           </h2>
 
-          <p className="text-sm text-gray-400 mt-2">
-            Vue temps réel de l'activité entrepôt.
+          <p className="mt-2 text-sm text-gray-400">
+            Vue en temps réel de l'activité de l'entrepôt.
           </p>
         </div>
 
-        <div className="rounded-full bg-emerald-500/20 px-4 py-2 text-emerald-400 text-sm font-semibold">
-          IA ACTIVE · {health}%
+        <div
+          className={`rounded-full px-4 py-2 text-sm font-semibold ${
+            state.running
+              ? "bg-emerald-500/20 text-emerald-400"
+              : "bg-slate-800 text-slate-400"
+          }`}
+        >
+          IA {state.running ? "ACTIVE" : "EN ATTENTE"} · {health}%
         </div>
       </div>
 
-      <div className="mb-5 h-2 rounded-full bg-slate-800 overflow-hidden">
+      <div className="mb-5 h-2 overflow-hidden rounded-full bg-slate-800">
         <div
           className="h-full rounded-full bg-cyan-400 transition-all duration-500"
           style={{ width: `${health}%` }}
@@ -68,9 +84,9 @@ export default function CommandCenter() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        {actions.map((action, index) => (
+        {actions.map((action) => (
           <div
-            key={index}
+            key={action.title}
             className={`rounded-lg border-l-4 ${action.color} bg-[#0d1d31] p-4 transition hover:scale-[1.02]`}
           >
             <div className="flex items-center justify-between">
@@ -81,7 +97,9 @@ export default function CommandCenter() {
               </span>
             </div>
 
-            <p className="mt-4 text-white font-medium">{action.title}</p>
+            <p className="mt-4 font-medium text-white">
+              {action.title}
+            </p>
           </div>
         ))}
       </div>

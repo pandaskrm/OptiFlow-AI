@@ -1,16 +1,12 @@
-"use client";
+﻿"use client";
 
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 
 export default function DashboardAlerts() {
-  const demo = useDemo();
+  const { state, running } = useSimulationV2();
 
-  const alerts = demo.running
-    ? [
-        demo.event.message,
-        `Camions en attente : ${demo.state.trucksWaiting}`,
-        `Quais occupés : ${demo.state.occupiedDocks}/6`,
-      ]
+  const alerts = running
+    ? state.alerts.map((alert) => alert.message)
     : [
         "Quai 2 occupé depuis plus de 45 minutes",
         "Transporteur DHL attendu dans 20 minutes",
@@ -24,7 +20,7 @@ export default function DashboardAlerts() {
           🚨 Alertes opérationnelles
         </h2>
 
-        {demo.running && (
+        {running && (
           <span className="rounded-full bg-red-500/20 px-3 py-1 text-xs font-bold text-red-400">
             LIVE
           </span>
@@ -42,15 +38,14 @@ export default function DashboardAlerts() {
         ))}
       </div>
 
-      {demo.running && (
+      {running && (
         <div className="mt-5 rounded-xl border border-cyan-500/20 bg-cyan-500/10 p-4">
           <p className="text-sm font-semibold text-cyan-300">
             🤖 Analyse IA
           </p>
 
           <p className="mt-2 text-sm text-slate-300">
-            L'IA surveille actuellement les quais et les arrivées de camions.
-            Les alertes sont mises à jour automatiquement pendant la démonstration.
+            Les alertes proviennent désormais du moteur Simulation Engine V2.
           </p>
         </div>
       )}

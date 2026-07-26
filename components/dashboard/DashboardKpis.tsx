@@ -1,15 +1,11 @@
-"use client";
+﻿"use client";
 
-import useDemo from "../../hooks/useDemo";
-import useDemoWarehouseSummary from "../../hooks/useDemoWarehouseSummary";
-import useScenario from "../../hooks/useScenario";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 import KpiCard from "./KpiCard";
 
 export default function DashboardKpis() {
-  const demo = useDemo();
-  const demoWarehouse = useDemoWarehouseSummary();
-  const { data: scenario } = useScenario();
+  const simulation = useSimulationV2();
 
   const {
     data: warehouse,
@@ -17,17 +13,24 @@ export default function DashboardKpis() {
     error,
   } = useWarehouseSummary();
 
-  const dashboard = scenario.dashboard;
+  const receptionTotal =
+    simulation.state.receptions.planned +
+    simulation.state.receptions.atDock +
+    simulation.state.receptions.unloading +
+    simulation.state.receptions.inspection +
+    simulation.state.receptions.completed;
 
-  const demoReceptionProgress =
-    demoWarehouse.total > 0
+  const receptionProgress =
+    receptionTotal > 0
       ? Math.round(
-          (demoWarehouse.completed / demoWarehouse.total) * 100
+          (simulation.state.receptions.completed /
+            receptionTotal) *
+            100,
         )
       : 0;
 
-  const trend = demo.running
-    ? scenario.label
+  const trend = simulation.running
+    ? `Scénario ${simulation.state.scenario}`
     : error
       ? "Données indisponibles"
       : loading
@@ -41,14 +44,14 @@ export default function DashboardKpis() {
       <KpiCard
         title="Commandes"
         value={String(
-          demo.running
-            ? dashboard.commandes
-            : warehouse.orders.total
+          simulation.running
+            ? simulation.state.kpis.orders
+            : warehouse.orders.total,
         )}
         trend={trend}
         progress={
-          demo.running
-            ? dashboard.productivite
+          simulation.running
+            ? simulation.state.kpis.productivity
             : warehouse.performance.preparation
         }
       />
@@ -56,14 +59,26 @@ export default function DashboardKpis() {
       <KpiCard
         title="Expéditions"
         value={String(
-          demo.running
-            ? dashboard.expeditions
-            : warehouse.shipments.total
+          simulation.running
+            ? simulation.state.kpis.shipments
+            : warehouse.shipments.total,
         )}
         trend={trend}
         progress={
-          demo.running
-            ? dashboard.shippingProgress
+          simulation.running
+            ? Math.min(
+                100,
+                Math.round(
+                  (simulation.state.shipping.completedShipments /
+                    Math.max(
+                      1,
+                      simulation.state.shipping.waitingShipments +
+                        simulation.state.shipping.loadingShipments +
+                        simulation.state.shipping.completedShipments,
+                    )) *
+                    100,
+                ),
+              )
             : warehouse.performance.shipping
         }
       />
@@ -71,14 +86,14 @@ export default function DashboardKpis() {
       <KpiCard
         title="Réceptions"
         value={String(
-          demo.running
-            ? demoWarehouse.total
-            : warehouse.receptions.total
+          simulation.running
+            ? simulation.state.kpis.receptions
+            : warehouse.receptions.total,
         )}
         trend={trend}
         progress={
-          demo.running
-            ? demoReceptionProgress
+          simulation.running
+            ? receptionProgress
             : warehouse.performance.reception
         }
       />
@@ -86,50 +101,50 @@ export default function DashboardKpis() {
       <KpiCard
         title="Service"
         value={`${
-          demo.running
-            ? dashboard.service
+          simulation.running
+            ? simulation.state.kpis.serviceRate
             : warehouse.performance.service
         }%`}
         trend={trend}
         progress={
-          demo.running
-            ? dashboard.service
+          simulation.running
+            ? simulation.state.kpis.serviceRate
             : warehouse.performance.service
         }
       />
 
       <KpiCard
         title="Productivité"
-        value={`${
-          demo.running
-            ? dashboard.productivite
-            : warehouse.performance.productivity
-        }`}
+        value={String(
+          simulation.running
+            ? simulation.state.kpis.productivity
+            : warehouse.performance.productivity,
+        )}
         trend={trend}
         progress={
-          demo.running
-            ? dashboard.productivite
+          simulation.running
+            ? simulation.state.kpis.productivity
             : Math.min(
                 100,
-                warehouse.performance.productivity
+                warehouse.performance.productivity,
               )
         }
       />
 
       <KpiCard
-  title="Santé dépôt"
-  value={`${
-    demo.running
-      ? demo.state.warehouseHealth
-      : warehouse.healthScore
-  }%`}
-  trend={trend}
-  progress={
-    demo.running
-      ? demo.state.warehouseHealth
-      : warehouse.healthScore
-  }
-  />
+        title="Santé dépôt"
+        value={`${
+          simulation.running
+            ? simulation.state.kpis.warehouseHealth
+            : warehouse.healthScore
+        }%`}
+        trend={trend}
+        progress={
+          simulation.running
+            ? simulation.state.kpis.warehouseHealth
+            : warehouse.healthScore
+        }
+      />
     </div>
   );
 }

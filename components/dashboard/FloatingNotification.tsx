@@ -1,11 +1,15 @@
-"use client";
+﻿"use client";
 
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 
 export default function FloatingNotification() {
-  const demo = useDemo();
+  const { state, running } = useSimulationV2();
 
-  if (!demo.running) return null;
+  if (!running) return null;
+
+  const currentEvent = state.alerts[0];
+
+  if (!currentEvent) return null;
 
   return (
     <div className="fixed top-6 right-6 z-50">
@@ -21,11 +25,11 @@ export default function FloatingNotification() {
         </div>
 
         <h3 className="mt-4 text-lg font-bold text-white">
-          {demo.event.title}
+          {currentEvent.title}
         </h3>
 
         <p className="mt-2 text-sm text-slate-300">
-          {demo.event.message}
+          {currentEvent.message}
         </p>
       </div>
     </div>

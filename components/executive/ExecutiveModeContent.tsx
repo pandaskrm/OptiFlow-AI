@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import useDemo from "../../hooks/useDemo";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 import ExecutiveHero from "./ExecutiveHero";
@@ -21,7 +21,7 @@ function ExecutiveRealData() {
 
   const cards = [
     {
-      label: "Santé entrepôt",
+      label: "SantÃ© entrepÃ´t",
       value: `${warehouse.healthScore}/100`,
     },
     {
@@ -29,7 +29,7 @@ function ExecutiveRealData() {
       value: `${warehouse.performance.service}%`,
     },
     {
-      label: "Productivité",
+      label: "ProductivitÃ©",
       value: `${warehouse.performance.productivity}`,
     },
     {
@@ -37,15 +37,15 @@ function ExecutiveRealData() {
       value: String(warehouse.alerts.length),
     },
     {
-      label: "Réceptions",
+      label: "RÃ©ceptions",
       value: String(warehouse.receptions.total),
     },
     {
-      label: "Préparations",
+      label: "PrÃ©parations",
       value: String(warehouse.orders.total),
     },
     {
-      label: "Expéditions",
+      label: "ExpÃ©ditions",
       value: String(warehouse.shipments.total),
     },
     {
@@ -56,19 +56,19 @@ function ExecutiveRealData() {
 
   const operations = [
     {
-      label: "Réception",
+      label: "RÃ©ception",
       value: warehouse.performance.reception,
-      detail: `${warehouse.receptions.completed}/${warehouse.receptions.total} terminées`,
+      detail: `${warehouse.receptions.completed}/${warehouse.receptions.total} terminÃ©es`,
     },
     {
-      label: "Préparation",
+      label: "PrÃ©paration",
       value: warehouse.performance.preparation,
-      detail: `${warehouse.orders.preparedLines}/${warehouse.orders.totalLines} lignes préparées`,
+      detail: `${warehouse.orders.preparedLines}/${warehouse.orders.totalLines} lignes prÃ©parÃ©es`,
     },
     {
-      label: "Expédition",
+      label: "ExpÃ©dition",
       value: warehouse.performance.shipping,
-      detail: `${warehouse.shipments.shipped}/${warehouse.shipments.total} expédiées`,
+      detail: `${warehouse.shipments.shipped}/${warehouse.shipments.total} expÃ©diÃ©es`,
     },
   ];
 
@@ -78,7 +78,7 @@ function ExecutiveRealData() {
       value: warehouse.workforce.total,
     },
     {
-      label: "Présents",
+      label: "PrÃ©sents",
       value: warehouse.workforce.present,
     },
     {
@@ -93,7 +93,7 @@ function ExecutiveRealData() {
 
   const stockCards = [
     {
-      label: "Références",
+      label: "RÃ©fÃ©rences",
       value: warehouse.inventory.references,
     },
     {
@@ -101,7 +101,7 @@ function ExecutiveRealData() {
       value: warehouse.inventory.availableQuantity,
     },
     {
-      label: "Stock réservé",
+      label: "Stock rÃ©servÃ©",
       value: warehouse.inventory.reservedQuantity,
     },
     {
@@ -121,7 +121,7 @@ function ExecutiveRealData() {
   if (error) {
     return (
       <div className="rounded-3xl border border-red-900 bg-red-950/30 p-10 text-center text-red-300">
-        Impossible de charger les données de la Direction.
+        Impossible de charger les donnÃ©es de la Direction.
       </div>
     );
   }
@@ -136,12 +136,12 @@ function ExecutiveRealData() {
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight lg:text-5xl">
-              Santé globale de l’exploitation
+              SantÃ© globale de lâ€™exploitation
             </h1>
 
             <p className="mt-4 max-w-3xl text-slate-300">
-              Synthèse en temps réel des réceptions, préparations,
-              expéditions, stocks, équipes et priorités opérationnelles.
+              SynthÃ¨se en temps rÃ©el des rÃ©ceptions, prÃ©parations,
+              expÃ©ditions, stocks, Ã©quipes et prioritÃ©s opÃ©rationnelles.
             </p>
           </div>
 
@@ -164,8 +164,8 @@ function ExecutiveRealData() {
               }`}
             >
               {hasData
-                ? "Données ERP synchronisées"
-                : "En attente de données ERP"}
+                ? "DonnÃ©es ERP synchronisÃ©es"
+                : "En attente de donnÃ©es ERP"}
             </p>
           </div>
         </div>
@@ -211,7 +211,7 @@ function ExecutiveRealData() {
           <div className="mt-6 space-y-3">
             {[
               {
-                label: "Productivité",
+                label: "ProductivitÃ©",
                 value: warehouse.performance.productivity,
               },
               {
@@ -219,11 +219,11 @@ function ExecutiveRealData() {
                 value: warehouse.performance.service,
               },
               {
-                label: "Réception",
+                label: "RÃ©ception",
                 value: warehouse.performance.reception,
               },
               {
-                label: "Expédition",
+                label: "ExpÃ©dition",
                 value: warehouse.performance.shipping,
               },
             ].map((item) => (
@@ -237,7 +237,7 @@ function ExecutiveRealData() {
 
                 <span className="font-bold text-slate-950">
                   {item.value}
-                  {item.label === "Productivité" ? "" : "%"}
+                  {item.label === "ProductivitÃ©" ? "" : "%"}
                 </span>
               </div>
             ))}
@@ -247,7 +247,7 @@ function ExecutiveRealData() {
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-5">
             <h2 className="text-xl font-bold text-slate-950">
-              Performance opérationnelle
+              Performance opÃ©rationnelle
             </h2>
 
             <p className="text-sm text-slate-500">
@@ -291,7 +291,7 @@ function ExecutiveRealData() {
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm font-semibold text-slate-500">
-                Planning réception
+                Planning rÃ©ception
               </p>
 
               <div className="mt-4 grid grid-cols-3 gap-3">
@@ -300,7 +300,7 @@ function ExecutiveRealData() {
                     {warehouse.receptions.scheduledToday}
                   </p>
                   <p className="text-xs text-slate-500">
-                    Aujourd’hui
+                    Aujourdâ€™hui
                   </p>
                 </div>
 
@@ -335,7 +335,7 @@ function ExecutiveRealData() {
                     {warehouse.receptions.occupiedDocks}/6
                   </p>
                   <p className="text-xs text-slate-500">
-                    Quais occupés
+                    Quais occupÃ©s
                   </p>
                 </div>
 
@@ -344,7 +344,7 @@ function ExecutiveRealData() {
                     {warehouse.receptions.totalPallets}
                   </p>
                   <p className="text-xs text-slate-500">
-                    Palettes prévues
+                    Palettes prÃ©vues
                   </p>
                 </div>
 
@@ -353,7 +353,7 @@ function ExecutiveRealData() {
                     {warehouse.receptions.receivedPallets}
                   </p>
                   <p className="text-xs text-slate-500">
-                    Réceptionnées
+                    RÃ©ceptionnÃ©es
                   </p>
                 </div>
               </div>
@@ -365,11 +365,11 @@ function ExecutiveRealData() {
       <div className="grid gap-6 xl:grid-cols-2">
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-slate-950">
-            Équipes
+            Ã‰quipes
           </h2>
 
           <p className="mt-1 text-sm text-slate-500">
-            Présence et capacité opérationnelle.
+            PrÃ©sence et capacitÃ© opÃ©rationnelle.
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-4">
@@ -396,7 +396,7 @@ function ExecutiveRealData() {
           </h2>
 
           <p className="mt-1 text-sm text-slate-500">
-            Disponibilité et risques de rupture.
+            DisponibilitÃ© et risques de rupture.
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-4">
@@ -425,7 +425,7 @@ function ExecutiveRealData() {
           </h2>
 
           <p className="mt-2 text-sm text-slate-300">
-            Analyse consolidée de l’exploitation.
+            Analyse consolidÃ©e de lâ€™exploitation.
           </p>
 
           <div className="mt-5 space-y-3">
@@ -440,7 +440,7 @@ function ExecutiveRealData() {
               ))
             ) : (
               <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-100">
-                Aucune alerte critique détectée.
+                Aucune alerte critique dÃ©tectÃ©e.
               </div>
             )}
           </div>
@@ -448,11 +448,11 @@ function ExecutiveRealData() {
 
         <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
           <h2 className="text-xl font-bold">
-            Décisions prioritaires
+            DÃ©cisions prioritaires
           </h2>
 
           <p className="mt-2 text-sm text-slate-300">
-            Actions proposées à partir des données ERP.
+            Actions proposÃ©es Ã  partir des donnÃ©es ERP.
           </p>
 
           <div className="mt-5 space-y-3">
@@ -465,7 +465,7 @@ function ExecutiveRealData() {
                     className="rounded-2xl border border-white/10 bg-white/5 p-4"
                   >
                     <p className="text-xs font-bold uppercase tracking-widest text-cyan-400">
-                      Priorité {index + 1}
+                      PrioritÃ© {index + 1}
                     </p>
 
                     <p className="mt-2 text-sm text-slate-200">
@@ -475,7 +475,7 @@ function ExecutiveRealData() {
                 ))
             ) : (
               <div className="rounded-2xl border border-dashed border-white/10 bg-white/5 p-6 text-center text-slate-400">
-                Aucune décision prioritaire actuellement.
+                Aucune dÃ©cision prioritaire actuellement.
               </div>
             )}
           </div>
@@ -486,9 +486,9 @@ function ExecutiveRealData() {
 }
 
 export default function ExecutiveModeContent() {
-  const demo = useDemo();
+  const simulation = useSimulationV2();
 
-  if (!demo.running) {
+  if (!simulation.running) {
     return <ExecutiveRealData />;
   }
 
