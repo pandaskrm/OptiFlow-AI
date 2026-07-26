@@ -1,12 +1,14 @@
 "use client";
 
 import useDemo from "../../hooks/useDemo";
+import useDemoWarehouseSummary from "../../hooks/useDemoWarehouseSummary";
 import useScenario from "../../hooks/useScenario";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 import KpiCard from "./KpiCard";
 
 export default function DashboardKpis() {
   const demo = useDemo();
+  const demoWarehouse = useDemoWarehouseSummary();
   const { data: scenario } = useScenario();
 
   const {
@@ -16,6 +18,13 @@ export default function DashboardKpis() {
   } = useWarehouseSummary();
 
   const dashboard = scenario.dashboard;
+
+  const demoReceptionProgress =
+    demoWarehouse.total > 0
+      ? Math.round(
+          (demoWarehouse.completed / demoWarehouse.total) * 100
+        )
+      : 0;
 
   const trend = demo.running
     ? scenario.label
@@ -63,13 +72,13 @@ export default function DashboardKpis() {
         title="Réceptions"
         value={String(
           demo.running
-            ? dashboard.receptions
+            ? demoWarehouse.total
             : warehouse.receptions.total
         )}
         trend={trend}
         progress={
           demo.running
-            ? dashboard.receptionProgress
+            ? demoReceptionProgress
             : warehouse.performance.reception
         }
       />
@@ -108,19 +117,19 @@ export default function DashboardKpis() {
       />
 
       <KpiCard
-        title="Santé dépôt"
-        value={`${
-          demo.running
-            ? dashboard.health
-            : warehouse.healthScore
-        }%`}
-        trend={trend}
-        progress={
-          demo.running
-            ? dashboard.health
-            : warehouse.healthScore
-        }
-      />
+  title="Santé dépôt"
+  value={`${
+    demo.running
+      ? demo.state.warehouseHealth
+      : warehouse.healthScore
+  }%`}
+  trend={trend}
+  progress={
+    demo.running
+      ? demo.state.warehouseHealth
+      : warehouse.healthScore
+  }
+  />
     </div>
   );
 }
