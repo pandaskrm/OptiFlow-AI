@@ -1,17 +1,19 @@
 ﻿"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 export default function DashboardAlerts() {
   const { state, running } = useSimulationV2();
+  const warehouse = useWarehouseSummary();
+
+  const hasRealData = warehouse.data.dataConnected;
 
   const alerts = running
     ? state.alerts.map((alert) => alert.message)
-    : [
-        "Quai 2 occupé depuis plus de 45 minutes",
-        "Transporteur DHL attendu dans 20 minutes",
-        "Contrôle qualité en attente sur 2 réceptions",
-      ];
+    : hasRealData
+      ? warehouse.data.alerts
+      : [];
 
   return (
     <div className="rounded-2xl border border-orange-500/20 bg-slate-900/80 p-5 shadow-lg">
@@ -28,14 +30,24 @@ export default function DashboardAlerts() {
       </div>
 
       <div className="mt-4 space-y-3">
-        {alerts.map((alert, index) => (
-          <div
-            key={index}
-            className="rounded-xl border border-orange-500/20 bg-orange-500/10 p-3 text-sm text-orange-200"
-          >
-            ⚠️ {alert}
+        {alerts.length > 0 ? (
+          alerts.map((alert, index) => (
+            <div
+              key={`${alert}-${index}`}
+              className="rounded-xl border border-orange-500/20 bg-orange-500/10 p-3 text-sm text-orange-200"
+            >
+              ⚠️ {alert}
+            </div>
+          ))
+        ) : (
+          <div className="rounded-xl border border-slate-700 bg-slate-950/40 p-4 text-sm text-slate-400">
+            {warehouse.loading
+              ? "Chargement des alertes..."
+              : hasRealData
+                ? "Aucune alerte opérationnelle détectée."
+                : "Aucune donnée disponible. Connectez votre ERP ou activez le Mode Démo."}
           </div>
-        ))}
+        )}
       </div>
 
       {running && (
@@ -45,7 +57,7 @@ export default function DashboardAlerts() {
           </p>
 
           <p className="mt-2 text-sm text-slate-300">
-            Les alertes proviennent désormais du moteur Simulation Engine V2.
+            Les alertes proviennent du moteur de simulation en temps réel.
           </p>
         </div>
       )}
