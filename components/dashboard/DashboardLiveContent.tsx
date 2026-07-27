@@ -65,11 +65,11 @@ export default function DashboardLiveContent() {
     : warehouse.healthScore;
 
   const alerts = simulation.running
-    ? ["Surveiller la disponibilitÃ© des quais."]
+    ? ["Surveiller la disponibilité des quais."]
     : warehouse.alerts;
 
   const priorities = simulation.running
-    ? ["Anticiper les prochaines arrivÃ©es."]
+    ? ["Anticiper les prochaines arrivées."]
     : warehouse.priorities;
 
   const ordersData = simulation.running
@@ -82,12 +82,12 @@ export default function DashboardLiveContent() {
   const sourceLabel = simulation.running
     ? "Simulation active"
     : loading
-      ? "Actualisation des donnÃ©es..."
+      ? "Actualisation des données..."
       : error
-        ? "DonnÃ©es indisponibles"
+        ? "Données indisponibles"
         : hasRealData
-          ? "DonnÃ©es rÃ©elles synchronisÃ©es"
-          : "En attente de donnÃ©es ERP";
+          ? "Données réelles synchronisées"
+          : "En attente de données ERP";
 
   const receptionProgress =
     warehouse.receptions.total > 0
@@ -100,15 +100,15 @@ export default function DashboardLiveContent() {
 
   const actions = [
     {
-      icon: "ðŸš›",
+      icon: "🚛",
       title: `${trucksWaiting} camion${
         trucksWaiting > 1 ? "s" : ""
       } en attente`,
       priority:
         trucksWaiting >= 5
-          ? "PrioritÃ© haute"
+          ? "Priorité haute"
           : trucksWaiting > 0
-            ? "Ã€ planifier"
+            ? "À planifier"
             : "Stable",
       color:
         trucksWaiting >= 5
@@ -116,13 +116,13 @@ export default function DashboardLiveContent() {
           : "border-cyan-500",
     },
     {
-      icon: "ðŸšª",
-      title: `${occupiedDocks}/6 quais occupÃ©s`,
+      icon: "🚪",
+      title: `${occupiedDocks}/6 quais occupés`,
       priority:
         occupiedDocks >= 5
           ? "Critique"
           : occupiedDocks > 0
-            ? "Temps rÃ©el"
+            ? "Temps réel"
             : "Disponible",
       color:
         occupiedDocks >= 5
@@ -130,27 +130,27 @@ export default function DashboardLiveContent() {
           : "border-emerald-500",
     },
     {
-      icon: "ðŸ“¦",
-      title: `${activeReceptions} rÃ©ception${
+      icon: "📦",
+      title: `${activeReceptions} réception${
         activeReceptions > 1 ? "s" : ""
       } active${activeReceptions > 1 ? "s" : ""}`,
       priority:
         activeReceptions >= 10
-          ? "Volume Ã©levÃ©"
+          ? "Volume élevé"
           : activeReceptions > 0
             ? "En cours"
-            : "Aucune activitÃ©",
+            : "Aucune activité",
       color: "border-cyan-500",
     },
     {
       icon: "âœ…",
-      title: `${completedToday} opÃ©ration${
+      title: `${completedToday} opération${
         completedToday > 1 ? "s" : ""
-      } terminÃ©e${completedToday > 1 ? "s" : ""}`,
+      } terminée${completedToday > 1 ? "s" : ""}`,
       priority:
         completedToday > 0
-          ? "RÃ©ception validÃ©e"
-          : "Aucune opÃ©ration",
+          ? "Réception validée"
+          : "Aucune opération",
       color: "border-emerald-500",
     },
   ];
@@ -158,24 +158,24 @@ export default function DashboardLiveContent() {
   const mainAlert =
     alerts[0] ??
     (hasRealData
-      ? "Aucune alerte critique dÃ©tectÃ©e."
+      ? "Aucune alerte critique détectée."
       : "Aucune alerte disponible.");
 
   const mainPriority =
     priorities[0] ??
     (hasRealData
-      ? "Maintenir le suivi des opÃ©rations."
-      : "Aucune prioritÃ© disponible.");
+      ? "Maintenir le suivi des opérations."
+      : "Aucune priorité disponible.");
 
   const aiAdvice = simulation.running
-    ? "RÃ©partir les ressources selon lâ€™occupation simulÃ©e."
+    ? "Répartir les ressources selon l’occupation simulée."
     : occupiedDocks >= 5
-      ? "AccÃ©lÃ©rer la libÃ©ration dâ€™un quai pour Ã©viter une saturation."
+      ? "Accélérer la libération d’un quai pour éviter une saturation."
       : trucksWaiting > 0
-        ? "PrÃ©parer les quais disponibles pour les prochaines rÃ©ceptions."
+        ? "Préparer les quais disponibles pour les prochaines réceptions."
         : hasRealData
-          ? "Lâ€™activitÃ© est stable. Maintenir le suivi des rÃ©ceptions."
-          : "Connectez une source ERP ou crÃ©ez une rÃ©ception.";
+          ? "L’activité est stable. Maintenir le suivi des réceptions."
+          : "Connectez une source ERP ou créez une réception.";
 
   return (
     <>
@@ -206,7 +206,7 @@ export default function DashboardLiveContent() {
             {hasRealData || simulation.running
               ? "ACTIVE"
               : "EN ATTENTE"}{" "}
-            Â· {health}%
+            · {health}%
           </div>
         </div>
 
@@ -247,7 +247,7 @@ export default function DashboardLiveContent() {
         </p>
 
         <h2 className="mt-1 text-2xl font-bold text-white">
-          SantÃ© de lâ€™entrepÃ´t : {health} %
+          Santé de l’entrepôt : {health} %
         </h2>
 
         <p className="mt-1 text-sm text-slate-400">
@@ -267,7 +267,7 @@ export default function DashboardLiveContent() {
 
           <div className="rounded-xl border border-emerald-900 bg-emerald-950/30 p-4">
             <h3 className="mb-2 font-semibold text-emerald-400">
-              PrioritÃ©s
+              Priorités
             </h3>
 
             <p className="text-sm text-slate-300">
@@ -287,23 +287,23 @@ export default function DashboardLiveContent() {
         </div>
 
         <p className="mt-4 text-sm font-medium text-slate-300">
-          Palettes enregistrÃ©es :{" "}
+          Palettes enregistrées :{" "}
           {simulation.running
-            ? "DonnÃ©es simulÃ©es"
+            ? "Données simulées"
             : warehouse.receptions.totalPallets}
         </p>
 
         <p className="mt-1 text-sm font-medium text-slate-300">
-          Palettes rÃ©ceptionnÃ©es :{" "}
+          Palettes réceptionnées :{" "}
           {simulation.running
-            ? "DonnÃ©es simulÃ©es"
+            ? "Données simulées"
             : warehouse.receptions.receivedPallets}
         </p>
       </section>
 
       <section className="mb-8 rounded-2xl border border-blue-900 bg-slate-900 p-6">
         <h2 className="text-2xl font-bold text-white">
-          ðŸ¤– Centre de commande IA
+          🤖 Centre de commande IA
         </h2>
 
         <p
@@ -313,20 +313,20 @@ export default function DashboardLiveContent() {
               : "text-slate-400"
           }`}
         >
-          Ã‰tat de lâ€™entrepÃ´t : {health} %
+          État de l’entrepôt : {health} %
         </p>
 
         <p className="mt-2 text-gray-300">
           {hasRealData || simulation.running
-            ? "OptiFlow AI analyse les donnÃ©es opÃ©rationnelles."
-            : "Aucune donnÃ©e opÃ©rationnelle disponible."}
+            ? "OptiFlow AI analyse les données opérationnelles."
+            : "Aucune donnée opérationnelle disponible."}
         </p>
 
         <div className="mt-5 rounded-xl border border-slate-700 bg-slate-800 p-4">
           <p className="font-bold text-orange-400">
             {alerts.length > 0
-              ? "PRIORITÃ‰ Ã€ SURVEILLER"
-              : "ACTIVITÃ‰ STABLE"}
+              ? "PRIORITÉ À SURVEILLER"
+              : "ACTIVITÉ STABLE"}
           </p>
 
           <h3 className="mt-1 text-xl font-bold text-white">
@@ -344,13 +344,13 @@ export default function DashboardLiveContent() {
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-lg">
             <div className="mb-6">
               <h2 className="text-xl font-bold text-white">
-                ðŸ“ˆ Ã‰volution des commandes
+                📈 Évolution des commandes
               </h2>
 
               <p className="text-sm text-slate-400">
                 {simulation.running
-                  ? "Volume simulÃ© sur les 7 derniers jours"
-                  : "Les commandes seront alimentÃ©es par le flux ERP"}
+                  ? "Volume simulé sur les 7 derniers jours"
+                  : "Les commandes seront alimentées par le flux ERP"}
               </p>
             </div>
 
@@ -392,17 +392,17 @@ export default function DashboardLiveContent() {
           </div>
 
           <ProgressCard
-            title="PrÃ©paration"
+            title="Préparation"
             value={simulation.running ? 78 : 0}
           />
 
           <ProgressCard
-            title="ExpÃ©dition"
+            title="Expédition"
             value={simulation.running ? 92 : 0}
           />
 
           <ProgressCard
-            title="RÃ©ception"
+            title="Réception"
             value={
               simulation.running ? 65 : receptionProgress
             }
@@ -410,14 +410,14 @@ export default function DashboardLiveContent() {
 
           <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
             <h2 className="mb-5 text-2xl font-bold text-white">
-              ðŸ¤– Recommandations de lâ€™IA
+              🤖 Recommandations de l’IA
             </h2>
 
             {hasRealData || simulation.running ? (
               <div className="space-y-4">
                 <div className="rounded-xl border border-slate-700 bg-slate-800 p-4">
                   <h3 className="font-bold text-blue-400">
-                    PrioritÃ© opÃ©rationnelle
+                    Priorité opérationnelle
                   </h3>
 
                   <p className="mt-1 text-gray-300">
@@ -432,7 +432,7 @@ export default function DashboardLiveContent() {
 
                   <p className="mt-1 text-gray-300">
                     {occupiedDocks}/6 quais sont actuellement
-                    occupÃ©s.
+                    occupés.
                   </p>
                 </div>
               </div>

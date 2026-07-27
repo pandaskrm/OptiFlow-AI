@@ -48,10 +48,10 @@ function getProgress(status: string) {
 }
 
 function getStatusIcon(status: string) {
-  if (status === RECEPTION_STATUS.AT_DOCK) return "ðŸš›";
-  if (status === RECEPTION_STATUS.UNLOADING) return "ðŸ“¦";
-  if (status === RECEPTION_STATUS.INSPECTION) return "ðŸ”Ž";
-  return "ðŸŸ¢";
+  if (status === RECEPTION_STATUS.AT_DOCK) return "🚛";
+  if (status === RECEPTION_STATUS.UNLOADING) return "📦";
+  if (status === RECEPTION_STATUS.INSPECTION) return "🔎";
+  return "🟢";
 }
 
 function getDemoStatus(
@@ -141,8 +141,8 @@ export default function DockPlanning({
         </h2>
 
         <p className="mt-1 text-sm text-slate-400">
-          Suivi en direct des quais : arrivÃ©e, dÃ©chargement,
-          contrÃ´le et disponibilitÃ©.
+          Suivi en direct des quais : arrivée, déchargement,
+          contrôle et disponibilité.
         </p>
       </div>
 
@@ -198,11 +198,11 @@ export default function DockPlanning({
                   {reception ? (
                     <>
                       <p className="text-sm text-slate-200">
-                        ðŸš› {reception.carrier}
+                        🚛 {reception.carrier}
                       </p>
 
                       <p className="text-sm text-slate-300">
-                        ðŸ“¦ {reception.supplier}
+                        📦 {reception.supplier}
                       </p>
 
                       <p className="text-sm text-slate-400">
@@ -226,7 +226,7 @@ export default function DockPlanning({
                   ) : (
                     <div className="flex h-full min-h-[100px] items-center justify-center rounded-xl border border-green-500/20 bg-green-500/10">
                       <p className="text-sm font-bold text-green-400">
-                        ðŸŸ¢ Disponible
+                        🟢 Disponible
                       </p>
                     </div>
                   )}

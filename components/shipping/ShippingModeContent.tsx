@@ -26,15 +26,15 @@ function ShippingRealData() {
 
   const cards = [
     {
-      label: "ExpÃ©ditions du jour",
+      label: "Expéditions du jour",
       value: shipments.total,
     },
     {
-      label: "ExpÃ©diÃ©es",
+      label: "Expédiées",
       value: shipments.shipped,
     },
     {
-      label: "PrÃªtes",
+      label: "Prêtes",
       value: shipments.ready,
     },
     {
@@ -61,11 +61,11 @@ function ShippingRealData() {
 
   const teamCards = [
     {
-      label: "PrÃ©vus",
+      label: "Prévus",
       value: workforce.total,
     },
     {
-      label: "PrÃ©sents",
+      label: "Présents",
       value: workforce.present,
     },
     {
@@ -81,29 +81,29 @@ function ShippingRealData() {
   const mainAlert =
     warehouse.alerts.find(
       (alert) =>
-        alert.toLowerCase().includes("expÃ©dition") ||
+        alert.toLowerCase().includes("expédition") ||
         alert.toLowerCase().includes("quai") ||
         alert.toLowerCase().includes("collaborateur")
     ) ??
     (hasShipments
-      ? "Aucune alerte critique sur les expÃ©ditions."
-      : "Aucune expÃ©dition ERP disponible.");
+      ? "Aucune alerte critique sur les expéditions."
+      : "Aucune expédition ERP disponible.");
 
   const mainPriority =
     warehouse.priorities.find(
       (priority) =>
-        priority.toLowerCase().includes("expÃ©dition") ||
+        priority.toLowerCase().includes("expédition") ||
         priority.toLowerCase().includes("quai") ||
-        priority.toLowerCase().includes("Ã©quipe")
+        priority.toLowerCase().includes("équipe")
     ) ??
     (hasShipments
-      ? "Maintenir le suivi des dÃ©parts transporteurs."
-      : "Connecter le flux ExpÃ©ditions de lâ€™ERP.");
+      ? "Maintenir le suivi des départs transporteurs."
+      : "Connecter le flux Expéditions de l’ERP.");
 
   if (loading) {
     return (
       <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
-        Chargement du module ExpÃ©dition...
+        Chargement du module Expédition...
       </div>
     );
   }
@@ -111,7 +111,7 @@ function ShippingRealData() {
   if (error) {
     return (
       <div className="rounded-3xl border border-red-900 bg-red-950/30 p-10 text-center text-red-300">
-        Impossible de charger les donnÃ©es dâ€™expÃ©dition.
+        Impossible de charger les données d’expédition.
       </div>
     );
   }
@@ -120,17 +120,17 @@ function ShippingRealData() {
     <div className="flex flex-col gap-6">
       <section className="rounded-3xl border border-white/10 bg-slate-950 p-8 text-white shadow-2xl">
         <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
-          Module expÃ©dition
+          Module expédition
         </p>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight lg:text-5xl">
-              Pilotage des expÃ©ditions
+              Pilotage des expéditions
             </h1>
 
             <p className="mt-4 max-w-2xl text-slate-300">
-              Suivi centralisÃ© des dÃ©parts transporteurs, des colis, des
+              Suivi centralisé des départs transporteurs, des colis, des
               palettes, des quais et du taux de service.
             </p>
           </div>
@@ -143,7 +143,7 @@ function ShippingRealData() {
             }`}
           >
             <p className="text-sm text-slate-400">
-              Statut expÃ©dition
+              Statut expédition
             </p>
 
             <p
@@ -154,8 +154,8 @@ function ShippingRealData() {
               }`}
             >
               {warehouse.dataConnected
-                ? "DonnÃ©es ERP synchronisÃ©es"
-                : "En attente de donnÃ©es ERP"}
+                ? "Données ERP synchronisées"
+                : "En attente de données ERP"}
             </p>
           </div>
         </div>
@@ -182,18 +182,18 @@ function ShippingRealData() {
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-6">
             <h2 className="text-xl font-bold text-slate-950">
-              Performance expÃ©dition
+              Performance expédition
             </h2>
 
             <p className="text-sm text-slate-500">
-              Avancement calculÃ© depuis les expÃ©ditions reÃ§ues de lâ€™ERP.
+              Avancement calculé depuis les expéditions reçues de l’ERP.
             </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                ExpÃ©ditions totales
+                Expéditions totales
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -203,7 +203,7 @@ function ShippingRealData() {
 
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                ExpÃ©diÃ©es
+                Expédiées
               </p>
 
               <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -249,7 +249,7 @@ function ShippingRealData() {
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                Ã€ expÃ©dier
+                À expédier
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -259,7 +259,7 @@ function ShippingRealData() {
 
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                PrÃªtes
+                Prêtes
               </p>
 
               <p className="mt-2 text-3xl font-bold text-cyan-600">
@@ -269,7 +269,7 @@ function ShippingRealData() {
 
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                ExpÃ©diÃ©es
+                Expédiées
               </p>
 
               <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -281,13 +281,13 @@ function ShippingRealData() {
 
         <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
           <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
-            Analyse stratÃ©gique IA
+            Analyse stratégique IA
           </p>
 
           <h2 className="mt-2 text-xl font-bold">
             {hasShipments
-              ? "Analyse expÃ©dition active"
-              : "En attente dâ€™expÃ©ditions"}
+              ? "Analyse expédition active"
+              : "En attente d’expéditions"}
           </h2>
 
           <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
@@ -325,11 +325,11 @@ function ShippingRealData() {
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-5">
           <h2 className="text-xl font-bold text-slate-950">
-            Ã‰quipe expÃ©dition
+            Équipe expédition
           </h2>
 
           <p className="text-sm text-slate-500">
-            Effectifs et capacitÃ© opÃ©rationnelle reÃ§us depuis le flux ERP.
+            Effectifs et capacité opérationnelle reçus depuis le flux ERP.
           </p>
         </div>
 
@@ -353,7 +353,7 @@ function ShippingRealData() {
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 p-4">
             <p className="text-sm text-slate-500">
-              Minutes travaillÃ©es
+              Minutes travaillées
             </p>
 
             <p className="mt-2 text-2xl font-bold text-slate-950">
@@ -363,7 +363,7 @@ function ShippingRealData() {
 
           <div className="rounded-2xl border border-slate-200 p-4">
             <p className="text-sm text-slate-500">
-              UnitÃ©s traitÃ©es
+              Unités traitées
             </p>
 
             <p className="mt-2 text-2xl font-bold text-slate-950">
@@ -373,7 +373,7 @@ function ShippingRealData() {
 
           <div className="rounded-2xl border border-slate-200 p-4">
             <p className="text-sm text-slate-500">
-              ProductivitÃ©
+              Productivité
             </p>
 
             <p className="mt-2 text-2xl font-bold text-cyan-600">
@@ -384,7 +384,7 @@ function ShippingRealData() {
 
         {!hasWorkforce && (
           <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-500">
-            Aucune donnÃ©e dâ€™Ã©quipe reÃ§ue pour le moment.
+            Aucune donnée d’équipe reçue pour le moment.
           </div>
         )}
       </section>
@@ -394,11 +394,11 @@ function ShippingRealData() {
           <div className="mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-slate-950">
-                ExpÃ©ditions live
+                Expéditions live
               </h2>
 
               <p className="text-sm text-slate-500">
-                SynthÃ¨se du flux ExpÃ©ditions central.
+                Synthèse du flux Expéditions central.
               </p>
             </div>
 
@@ -410,7 +410,7 @@ function ShippingRealData() {
               }`}
             >
               {hasShipments
-                ? "ERP synchronisÃ©"
+                ? "ERP synchronisé"
                 : "En attente ERP"}
             </span>
           </div>
@@ -436,7 +436,7 @@ function ShippingRealData() {
               <tbody>
                 <tr className="border-t border-slate-200">
                   <td className="px-4 py-4">
-                    ExpÃ©ditions en attente
+                    Expéditions en attente
                   </td>
 
                   <td className="px-4 py-4 font-bold">
@@ -452,7 +452,7 @@ function ShippingRealData() {
 
                 <tr className="border-t border-slate-200">
                   <td className="px-4 py-4">
-                    ExpÃ©ditions prÃªtes
+                    Expéditions prêtes
                   </td>
 
                   <td className="px-4 py-4 font-bold">
@@ -461,7 +461,7 @@ function ShippingRealData() {
 
                   <td className="px-4 py-4">
                     {shipments.ready > 0
-                      ? "DÃ©part Ã  organiser"
+                      ? "Départ à organiser"
                       : "Stable"}
                   </td>
                 </tr>
@@ -479,8 +479,8 @@ function ShippingRealData() {
                     {shipments.serviceRate >= 95
                       ? "Objectif atteint"
                       : hasShipments
-                        ? "Ã€ amÃ©liorer"
-                        : "Sans donnÃ©es"}
+                        ? "À améliorer"
+                        : "Sans données"}
                   </td>
                 </tr>
 
@@ -503,15 +503,15 @@ function ShippingRealData() {
           </div>
 
           <p className="mt-4 text-sm text-slate-500">
-            Le dÃ©tail expÃ©dition par expÃ©dition sera alimentÃ© par la future
-            API ExpÃ©ditions ERP.
+            Le détail expédition par expédition sera alimenté par la future
+            API Expéditions ERP.
           </p>
         </section>
 
         <div className="flex flex-col gap-6">
           <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
             <h2 className="text-xl font-bold">
-              Copilote dÃ©cisionnel
+              Copilote décisionnel
             </h2>
 
             <p className="mt-3 text-sm text-slate-300">
@@ -521,13 +521,13 @@ function ShippingRealData() {
 
           <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
             <h2 className="text-xl font-bold">
-              Timeline expÃ©dition
+              Timeline expédition
             </h2>
 
             <p className="mt-3 text-sm text-slate-300">
-              {shipments.shipped} expÃ©dition
-              {shipments.shipped > 1 ? "s rÃ©alisÃ©es" : " rÃ©alisÃ©e"},{" "}
-              {shipments.ready} prÃªte
+              {shipments.shipped} expédition
+              {shipments.shipped > 1 ? "s réalisées" : " réalisée"},{" "}
+              {shipments.ready} prête
               {shipments.ready > 1 ? "s" : ""} et {shipments.waiting} en
               attente.
             </p>

@@ -39,19 +39,19 @@ function AiRealData() {
 
   if (warehouse.receptions.late > 0) {
     decisions.push({
-      title: "RÃ©ceptions en retard",
-      description: `${warehouse.receptions.late} rÃ©ception${
+      title: "Réceptions en retard",
+      description: `${warehouse.receptions.late} réception${
         warehouse.receptions.late > 1 ? "s sont" : " est"
-      } en retard. VÃ©rifier immÃ©diatement les crÃ©neaux et les transporteurs.`,
+      } en retard. Vérifier immédiatement les créneaux et les transporteurs.`,
       level: "Critique",
-      source: "RÃ©ception",
+      source: "Réception",
     });
   }
 
   if (warehouse.receptions.occupiedDocks >= 5) {
     decisions.push({
       title: "Risque de saturation des quais",
-      description: `${warehouse.receptions.occupiedDocks}/6 quais sont occupÃ©s. Prioriser la libÃ©ration dâ€™un quai.`,
+      description: `${warehouse.receptions.occupiedDocks}/6 quais sont occupés. Prioriser la libération d’un quai.`,
       level: "Critique",
       source: "Quais",
     });
@@ -62,27 +62,27 @@ function AiRealData() {
       title: "Commandes prioritaires",
       description: `${warehouse.orders.priority} commande${
         warehouse.orders.priority > 1 ? "s prioritaires doivent" : " prioritaire doit"
-      } Ãªtre traitÃ©e rapidement.`,
+      } être traitée rapidement.`,
       level: "Haute",
-      source: "PrÃ©paration",
+      source: "Préparation",
     });
   }
 
   if (warehouse.shipments.waiting > 0) {
     decisions.push({
-      title: "ExpÃ©ditions en attente",
-      description: `${warehouse.shipments.waiting} expÃ©dition${
+      title: "Expéditions en attente",
+      description: `${warehouse.shipments.waiting} expédition${
         warehouse.shipments.waiting > 1 ? "s sont" : " est"
       } encore en attente de traitement.`,
       level: "Haute",
-      source: "ExpÃ©dition",
+      source: "Expédition",
     });
   }
 
   if (warehouse.inventory.unavailableReferences > 0) {
     decisions.push({
-      title: "RÃ©fÃ©rences indisponibles",
-      description: `${warehouse.inventory.unavailableReferences} rÃ©fÃ©rence${
+      title: "Références indisponibles",
+      description: `${warehouse.inventory.unavailableReferences} référence${
         warehouse.inventory.unavailableReferences > 1 ? "s sont" : " est"
       } sans stock disponible.`,
       level: "Critique",
@@ -93,7 +93,7 @@ function AiRealData() {
   if (warehouse.inventory.lowStockReferences > 0) {
     decisions.push({
       title: "Stock sous seuil",
-      description: `${warehouse.inventory.lowStockReferences} rÃ©fÃ©rence${
+      description: `${warehouse.inventory.lowStockReferences} référence${
         warehouse.inventory.lowStockReferences > 1 ? "s sont" : " est"
       } sous le seuil minimum.`,
       level: "Haute",
@@ -103,12 +103,12 @@ function AiRealData() {
 
   if (warehouse.workforce.absent > 0) {
     decisions.push({
-      title: "Absences Ã  compenser",
+      title: "Absences à compenser",
       description: `${warehouse.workforce.absent} collaborateur${
         warehouse.workforce.absent > 1 ? "s sont" : " est"
-      } absent. RÃ©Ã©quilibrer les ressources disponibles.`,
+      } absent. Rééquilibrer les ressources disponibles.`,
       level: "Haute",
-      source: "Ã‰quipe",
+      source: "Équipe",
     });
   }
 
@@ -118,10 +118,10 @@ function AiRealData() {
     warehouse.orders.total > 0
   ) {
     decisions.push({
-      title: "PrÃ©paration sous objectif",
-      description: `Lâ€™avancement prÃ©paration est de ${warehouse.performance.preparation} %. Affecter des ressources supplÃ©mentaires aux commandes en attente.`,
+      title: "Préparation sous objectif",
+      description: `L’avancement préparation est de ${warehouse.performance.preparation} %. Affecter des ressources supplémentaires aux commandes en attente.`,
       level: "Moyenne",
-      source: "PrÃ©paration",
+      source: "Préparation",
     });
   }
 
@@ -131,18 +131,18 @@ function AiRealData() {
     warehouse.shipments.total > 0
   ) {
     decisions.push({
-      title: "ExpÃ©dition sous objectif",
-      description: `Lâ€™avancement expÃ©dition est de ${warehouse.performance.shipping} %. VÃ©rifier les dÃ©parts et la disponibilitÃ© des quais.`,
+      title: "Expédition sous objectif",
+      description: `L’avancement expédition est de ${warehouse.performance.shipping} %. Vérifier les départs et la disponibilité des quais.`,
       level: "Moyenne",
-      source: "ExpÃ©dition",
+      source: "Expédition",
     });
   }
 
   if (warehouse.dataConnected && decisions.length === 0) {
     decisions.push({
-      title: "ActivitÃ© stable",
+      title: "Activité stable",
       description:
-        "Aucune anomalie majeure dÃ©tectÃ©e. Maintenir le suivi des opÃ©rations.",
+        "Aucune anomalie majeure détectée. Maintenir le suivi des opérations.",
       level: "Stable",
       source: "Global",
     });
@@ -150,7 +150,7 @@ function AiRealData() {
 
   const cards = [
     {
-      label: "SantÃ© dÃ©pÃ´t",
+      label: "Santé dépôt",
       value: `${warehouse.healthScore}%`,
     },
     {
@@ -158,11 +158,11 @@ function AiRealData() {
       value: warehouse.alerts.length,
     },
     {
-      label: "PrioritÃ©s",
+      label: "Priorités",
       value: warehouse.priorities.length,
     },
     {
-      label: "RÃ©ceptions",
+      label: "Réceptions",
       value: warehouse.receptions.total,
     },
     {
@@ -170,22 +170,22 @@ function AiRealData() {
       value: warehouse.orders.total,
     },
     {
-      label: "ExpÃ©ditions",
+      label: "Expéditions",
       value: warehouse.shipments.total,
     },
   ];
 
   const performanceCards = [
     {
-      label: "RÃ©ception",
+      label: "Réception",
       value: warehouse.performance.reception,
     },
     {
-      label: "PrÃ©paration",
+      label: "Préparation",
       value: warehouse.performance.preparation,
     },
     {
-      label: "ExpÃ©dition",
+      label: "Expédition",
       value: warehouse.performance.shipping,
     },
     {
@@ -195,18 +195,18 @@ function AiRealData() {
   ];
 
   const globalSummary = warehouse.dataConnected
-    ? `Lâ€™exploitation prÃ©sente un score de santÃ© de ${warehouse.healthScore} %. 
+    ? `L’exploitation présente un score de santé de ${warehouse.healthScore} %. 
        ${warehouse.alerts.length} alerte${
          warehouse.alerts.length > 1 ? "s sont actives" : " est active"
-       } et ${warehouse.priorities.length} prioritÃ©${
-         warehouse.priorities.length > 1 ? "s sont proposÃ©es" : " est proposÃ©e"
+       } et ${warehouse.priorities.length} priorité${
+         warehouse.priorities.length > 1 ? "s sont proposées" : " est proposée"
        }.`
-    : "Aucune donnÃ©e ERP nâ€™est encore disponible. Connectez une source de donnÃ©es ou utilisez le Mode DÃ©mo.";
+    : "Aucune donnée ERP n’est encore disponible. Connectez une source de données ou utilisez le Mode Démo.";
 
   if (loading) {
     return (
       <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
-        Chargement du centre de dÃ©cision IA...
+        Chargement du centre de décision IA...
       </div>
     );
   }
@@ -214,7 +214,7 @@ function AiRealData() {
   if (error) {
     return (
       <div className="rounded-3xl border border-red-900 bg-red-950/30 p-10 text-center text-red-300">
-        Impossible de charger les donnÃ©es du module IA.
+        Impossible de charger les données du module IA.
       </div>
     );
   }
@@ -223,7 +223,7 @@ function AiRealData() {
     <div className="flex flex-col gap-6">
       <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-8 text-white shadow-2xl">
         <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
-          Centre de dÃ©cision
+          Centre de décision
         </p>
 
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
@@ -233,8 +233,8 @@ function AiRealData() {
             </h1>
 
             <p className="mt-4 max-w-3xl text-slate-300">
-              Analyse centralisÃ©e des rÃ©ceptions, commandes, expÃ©ditions,
-              stocks, Ã©quipes et performances opÃ©rationnelles.
+              Analyse centralisée des réceptions, commandes, expéditions,
+              stocks, équipes et performances opérationnelles.
             </p>
           </div>
 
@@ -246,7 +246,7 @@ function AiRealData() {
             }`}
           >
             <p className="text-sm text-slate-400">
-              Statut de lâ€™analyse
+              Statut de l’analyse
             </p>
 
             <p
@@ -258,7 +258,7 @@ function AiRealData() {
             >
               {warehouse.dataConnected
                 ? "Analyse active"
-                : "En attente de donnÃ©es ERP"}
+                : "En attente de données ERP"}
             </p>
           </div>
         </div>
@@ -288,7 +288,7 @@ function AiRealData() {
           </h2>
 
           <p className="mt-1 text-sm text-slate-500">
-            SynthÃ¨se automatique de lâ€™exploitation.
+            Synthèse automatique de l’exploitation.
           </p>
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-5">
@@ -300,7 +300,7 @@ function AiRealData() {
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                RÃ©ceptions aujourdâ€™hui
+                Réceptions aujourd’hui
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -310,7 +310,7 @@ function AiRealData() {
 
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                RÃ©ceptions demain
+                Réceptions demain
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -320,7 +320,7 @@ function AiRealData() {
 
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                Collaborateurs prÃ©sents
+                Collaborateurs présents
               </p>
 
               <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -330,7 +330,7 @@ function AiRealData() {
 
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                RÃ©fÃ©rences sous seuil
+                Références sous seuil
               </p>
 
               <p className="mt-2 text-3xl font-bold text-orange-500">
@@ -346,12 +346,12 @@ function AiRealData() {
           </p>
 
           <h2 className="mt-3 text-2xl font-bold">
-            {warehouse.priorities[0] ?? "Aucune prioritÃ© critique"}
+            {warehouse.priorities[0] ?? "Aucune priorité critique"}
           </h2>
 
           <p className="mt-4 text-sm leading-6 text-slate-300">
             {warehouse.alerts[0] ??
-              "Lâ€™activitÃ© est stable. Maintenir le suivi opÃ©rationnel."}
+              "L’activité est stable. Maintenir le suivi opérationnel."}
           </p>
 
           <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
@@ -413,11 +413,11 @@ function AiRealData() {
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-5">
           <h2 className="text-xl font-bold text-slate-950">
-            DÃ©cisions recommandÃ©es
+            Décisions recommandées
           </h2>
 
           <p className="text-sm text-slate-500">
-            Actions classÃ©es automatiquement par niveau de prioritÃ©.
+            Actions classées automatiquement par niveau de priorité.
           </p>
         </div>
 
@@ -432,7 +432,7 @@ function AiRealData() {
               <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest">
-                    PrioritÃ© {index + 1} Â· {decision.source}
+                    Priorité {index + 1} · {decision.source}
                   </p>
 
                   <h3 className="mt-2 text-xl font-bold text-white">
@@ -456,7 +456,7 @@ function AiRealData() {
       <div className="grid gap-6 xl:grid-cols-2">
         <section className="rounded-3xl border border-red-500/20 bg-slate-950 p-6 text-white shadow-xl">
           <h2 className="text-xl font-bold">
-            Alertes dÃ©tectÃ©es
+            Alertes détectées
           </h2>
 
           <div className="mt-5 space-y-3">
@@ -471,7 +471,7 @@ function AiRealData() {
               ))
             ) : (
               <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-100">
-                Aucune alerte critique dÃ©tectÃ©e.
+                Aucune alerte critique détectée.
               </div>
             )}
           </div>
@@ -479,7 +479,7 @@ function AiRealData() {
 
         <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
           <h2 className="text-xl font-bold">
-            Plan dâ€™action recommandÃ©
+            Plan d’action recommandé
           </h2>
 
           <div className="mt-5 space-y-3">
@@ -514,11 +514,11 @@ function AiDemoState() {
   return (
     <div className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-10 text-center text-white">
       <h1 className="text-3xl font-bold">
-        Mode DÃ©mo IA
+        Mode Démo IA
       </h1>
 
       <p className="mt-4 text-slate-300">
-        OptiFlow AI analyse actuellement les scÃ©narios simulÃ©s du Mode DÃ©mo.
+        OptiFlow AI analyse actuellement les scénarios simulés du Mode Démo.
       </p>
     </div>
   );

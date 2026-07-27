@@ -33,11 +33,11 @@ function PreparationRealData() {
       value: orders.total,
     },
     {
-      label: "TerminÃ©es",
+      label: "Terminées",
       value: orders.completed,
     },
     {
-      label: "En prÃ©paration",
+      label: "En préparation",
       value: orders.inPreparation,
     },
     {
@@ -56,11 +56,11 @@ function PreparationRealData() {
 
   const teamCards = [
     {
-      label: "PrÃ©vus",
+      label: "Prévus",
       value: workforce.total,
     },
     {
-      label: "PrÃ©sents",
+      label: "Présents",
       value: workforce.present,
     },
     {
@@ -84,23 +84,23 @@ function PreparationRealData() {
         alert.toLowerCase().includes("collaborateur")
     ) ??
     (hasOrders
-      ? "Aucune alerte critique sur la prÃ©paration."
+      ? "Aucune alerte critique sur la préparation."
       : "Aucune commande ERP disponible.");
 
   const mainPriority =
     warehouse.priorities.find(
       (priority) =>
         priority.toLowerCase().includes("commande") ||
-        priority.toLowerCase().includes("Ã©quipe")
+        priority.toLowerCase().includes("équipe")
     ) ??
     (hasOrders
       ? "Maintenir le suivi des commandes en cours."
-      : "Connecter le flux Commandes de lâ€™ERP.");
+      : "Connecter le flux Commandes de l’ERP.");
 
   if (loading) {
     return (
       <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
-        Chargement du module PrÃ©paration...
+        Chargement du module Préparation...
       </div>
     );
   }
@@ -108,7 +108,7 @@ function PreparationRealData() {
   if (error) {
     return (
       <div className="rounded-3xl border border-red-900 bg-red-950/30 p-10 text-center text-red-300">
-        Impossible de charger les donnÃ©es de prÃ©paration.
+        Impossible de charger les données de préparation.
       </div>
     );
   }
@@ -117,18 +117,18 @@ function PreparationRealData() {
     <div className="flex flex-col gap-6">
       <section className="rounded-3xl border border-white/10 bg-slate-950 p-8 text-white shadow-2xl">
         <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
-          Module prÃ©paration
+          Module préparation
         </p>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight lg:text-5xl">
-              Pilotage des commandes Ã  prÃ©parer
+              Pilotage des commandes à préparer
             </h1>
 
             <p className="mt-4 max-w-2xl text-slate-300">
-              Suivi centralisÃ© des commandes, des lignes prÃ©parÃ©es,
-              des prioritÃ©s, des Ã©quipes et du taux de service.
+              Suivi centralisé des commandes, des lignes préparées,
+              des priorités, des équipes et du taux de service.
             </p>
           </div>
 
@@ -140,7 +140,7 @@ function PreparationRealData() {
             }`}
           >
             <p className="text-sm text-slate-400">
-              Statut opÃ©rationnel
+              Statut opérationnel
             </p>
 
             <p
@@ -151,8 +151,8 @@ function PreparationRealData() {
               }`}
             >
               {warehouse.dataConnected
-                ? "DonnÃ©es ERP synchronisÃ©es"
-                : "En attente de donnÃ©es ERP"}
+                ? "Données ERP synchronisées"
+                : "En attente de données ERP"}
             </p>
           </div>
         </div>
@@ -179,11 +179,11 @@ function PreparationRealData() {
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <div className="mb-6">
             <h2 className="text-xl font-bold text-slate-950">
-              Performance prÃ©paration
+              Performance préparation
             </h2>
 
             <p className="text-sm text-slate-500">
-              Avancement calculÃ© depuis les lignes reÃ§ues de lâ€™ERP.
+              Avancement calculé depuis les lignes reçues de l’ERP.
             </p>
           </div>
 
@@ -200,7 +200,7 @@ function PreparationRealData() {
 
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Lignes prÃ©parÃ©es
+                Lignes préparées
               </p>
 
               <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -246,7 +246,7 @@ function PreparationRealData() {
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                Ã€ prÃ©parer
+                À préparer
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -266,7 +266,7 @@ function PreparationRealData() {
 
             <div className="rounded-2xl border border-slate-200 p-5">
               <p className="text-sm text-slate-500">
-                TerminÃ©es
+                Terminées
               </p>
 
               <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -278,12 +278,12 @@ function PreparationRealData() {
 
         <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
           <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
-            Analyse stratÃ©gique IA
+            Analyse stratégique IA
           </p>
 
           <h2 className="mt-2 text-xl font-bold">
             {hasOrders
-              ? "Analyse prÃ©paration active"
+              ? "Analyse préparation active"
               : "En attente de commandes"}
           </h2>
 
@@ -309,13 +309,13 @@ function PreparationRealData() {
 
           <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
             <p className="text-sm text-slate-400">
-              ProductivitÃ©
+              Productivité
             </p>
 
             <p className="mt-2 text-3xl font-bold text-cyan-300">
               {workforce.productivity}
               <span className="ml-2 text-sm font-normal text-slate-400">
-                unitÃ©s/heure
+                unités/heure
               </span>
             </p>
           </div>
@@ -325,11 +325,11 @@ function PreparationRealData() {
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-5">
           <h2 className="text-xl font-bold text-slate-950">
-            Ã‰quipe du jour
+            Équipe du jour
           </h2>
 
           <p className="text-sm text-slate-500">
-            Effectifs et capacitÃ© reÃ§us depuis le flux ERP.
+            Effectifs et capacité reçus depuis le flux ERP.
           </p>
         </div>
 
@@ -353,7 +353,7 @@ function PreparationRealData() {
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 p-4">
             <p className="text-sm text-slate-500">
-              Minutes travaillÃ©es
+              Minutes travaillées
             </p>
 
             <p className="mt-2 text-2xl font-bold text-slate-950">
@@ -363,7 +363,7 @@ function PreparationRealData() {
 
           <div className="rounded-2xl border border-slate-200 p-4">
             <p className="text-sm text-slate-500">
-              UnitÃ©s traitÃ©es
+              Unités traitées
             </p>
 
             <p className="mt-2 text-2xl font-bold text-slate-950">
@@ -373,7 +373,7 @@ function PreparationRealData() {
 
           <div className="rounded-2xl border border-slate-200 p-4">
             <p className="text-sm text-slate-500">
-              ProductivitÃ©
+              Productivité
             </p>
 
             <p className="mt-2 text-2xl font-bold text-cyan-600">
@@ -384,7 +384,7 @@ function PreparationRealData() {
 
         {!hasWorkforce && (
           <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-500">
-            Aucune donnÃ©e dâ€™Ã©quipe reÃ§ue pour le moment.
+            Aucune donnée d’équipe reçue pour le moment.
           </div>
         )}
       </section>
@@ -394,11 +394,11 @@ function PreparationRealData() {
           <div className="mb-6 flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-slate-950">
-                Commandes en prÃ©paration
+                Commandes en préparation
               </h2>
 
               <p className="text-sm text-slate-500">
-                SynthÃ¨se du flux Commandes central.
+                Synthèse du flux Commandes central.
               </p>
             </div>
 
@@ -410,7 +410,7 @@ function PreparationRealData() {
               }`}
             >
               {hasOrders
-                ? "ERP synchronisÃ©"
+                ? "ERP synchronisé"
                 : "En attente ERP"}
             </span>
           </div>
@@ -445,7 +445,7 @@ function PreparationRealData() {
 
                   <td className="px-4 py-4">
                     {orders.priority > 0
-                      ? "Ã€ traiter"
+                      ? "À traiter"
                       : "Stable"}
                   </td>
                 </tr>
@@ -479,8 +479,8 @@ function PreparationRealData() {
                     {orders.serviceRate >= 95
                       ? "Objectif atteint"
                       : hasOrders
-                        ? "Ã€ amÃ©liorer"
-                        : "Sans donnÃ©es"}
+                        ? "À améliorer"
+                        : "Sans données"}
                   </td>
                 </tr>
               </tbody>
@@ -488,7 +488,7 @@ function PreparationRealData() {
           </div>
 
           <p className="mt-4 text-sm text-slate-500">
-            Le dÃ©tail ligne par ligne des commandes sera alimentÃ©
+            Le détail ligne par ligne des commandes sera alimenté
             par la future API Commandes ERP.
           </p>
         </section>
@@ -496,7 +496,7 @@ function PreparationRealData() {
         <div className="flex flex-col gap-6">
           <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
             <h2 className="text-xl font-bold">
-              Copilote dÃ©cisionnel
+              Copilote décisionnel
             </h2>
 
             <p className="mt-3 text-sm text-slate-300">
@@ -511,7 +511,7 @@ function PreparationRealData() {
 
             <p className="mt-3 text-sm text-slate-300">
               Avancement global : {orders.progress}%.
-              ProductivitÃ© actuelle : {workforce.productivity} unitÃ©
+              Productivité actuelle : {workforce.productivity} unité
               {workforce.productivity > 1 ? "s" : ""} par heure.
             </p>
           </section>
@@ -523,7 +523,7 @@ function PreparationRealData() {
 
             <p className="mt-3 text-sm text-slate-300">
               {orders.completed} commande
-              {orders.completed > 1 ? "s terminÃ©es" : " terminÃ©e"},{" "}
+              {orders.completed > 1 ? "s terminées" : " terminée"},{" "}
               {orders.inPreparation} en cours et {orders.waiting} en
               attente.
             </p>

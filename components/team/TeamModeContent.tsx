@@ -51,7 +51,7 @@ function TeamRealData() {
       value: workforce.total,
     },
     {
-      label: "PrÃ©sents",
+      label: "Présents",
       value: workforce.present,
     },
     {
@@ -67,7 +67,7 @@ function TeamRealData() {
       value: workforce.reinforcement,
     },
     {
-      label: "ProductivitÃ©",
+      label: "Productivité",
       value: `${workforce.productivity} u/h`,
     },
   ];
@@ -93,24 +93,24 @@ function TeamRealData() {
         alert.toLowerCase().includes("absent")
     ) ??
     (workforce.total > 0
-      ? "Aucune alerte critique concernant les Ã©quipes."
-      : "Aucune donnÃ©e dâ€™Ã©quipe ERP disponible.");
+      ? "Aucune alerte critique concernant les équipes."
+      : "Aucune donnée d’équipe ERP disponible.");
 
   const mainPriority =
     warehouse.priorities.find(
       (priority) =>
-        priority.toLowerCase().includes("Ã©quipe") ||
+        priority.toLowerCase().includes("équipe") ||
         priority.toLowerCase().includes("absence") ||
         priority.toLowerCase().includes("ressource")
     ) ??
     (workforce.total > 0
-      ? "Maintenir la rÃ©partition actuelle des Ã©quipes."
-      : "Connecter le flux Ã‰quipe de lâ€™ERP.");
+      ? "Maintenir la répartition actuelle des équipes."
+      : "Connecter le flux Équipe de l’ERP.");
 
   if (loading) {
     return (
       <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
-        Chargement du module Ã‰quipe...
+        Chargement du module Équipe...
       </div>
     );
   }
@@ -118,7 +118,7 @@ function TeamRealData() {
   if (error) {
     return (
       <div className="rounded-3xl border border-red-900 bg-red-950/30 p-10 text-center text-red-300">
-        Impossible de charger les donnÃ©es dâ€™Ã©quipe.
+        Impossible de charger les données d’équipe.
       </div>
     );
   }
@@ -127,18 +127,18 @@ function TeamRealData() {
     <div className="flex flex-col gap-6">
       <section className="rounded-3xl border border-white/10 bg-slate-950 p-8 text-white shadow-2xl">
         <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
-          Module Ã©quipe
+          Module équipe
         </p>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight lg:text-5xl">
-              Pilotage des Ã©quipes
+              Pilotage des équipes
             </h1>
 
             <p className="mt-4 max-w-3xl text-slate-300">
-              Suivi centralisÃ© des prÃ©sences, absences, pauses,
-              renforts, temps travaillÃ© et performances.
+              Suivi centralisé des présences, absences, pauses,
+              renforts, temps travaillé et performances.
             </p>
           </div>
 
@@ -150,7 +150,7 @@ function TeamRealData() {
             }`}
           >
             <p className="text-sm text-slate-400">
-              Statut Ã©quipe
+              Statut équipe
             </p>
 
             <p
@@ -161,8 +161,8 @@ function TeamRealData() {
               }`}
             >
               {warehouse.dataConnected
-                ? "DonnÃ©es ERP synchronisÃ©es"
-                : "En attente de donnÃ©es ERP"}
+                ? "Données ERP synchronisées"
+                : "En attente de données ERP"}
             </p>
           </div>
         </div>
@@ -188,17 +188,17 @@ function TeamRealData() {
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
         <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-bold text-slate-950">
-            CapacitÃ© opÃ©rationnelle
+            Capacité opérationnelle
           </h2>
 
           <p className="mt-1 text-sm text-slate-500">
-            Indicateurs calculÃ©s depuis les donnÃ©es dâ€™activitÃ©.
+            Indicateurs calculés depuis les données d’activité.
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Taux de prÃ©sence
+                Taux de présence
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -208,7 +208,7 @@ function TeamRealData() {
 
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                Heures enregistrÃ©es
+                Heures enregistrées
               </p>
 
               <p className="mt-2 text-3xl font-bold text-slate-950">
@@ -218,7 +218,7 @@ function TeamRealData() {
 
             <div className="rounded-2xl bg-slate-50 p-5">
               <p className="text-sm text-slate-500">
-                UnitÃ©s traitÃ©es
+                Unités traitées
               </p>
 
               <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -230,7 +230,7 @@ function TeamRealData() {
           <div className="mt-6 rounded-2xl border border-slate-200 p-5">
             <div className="mb-3 flex items-center justify-between">
               <p className="font-semibold text-slate-700">
-                PrÃ©sence de lâ€™Ã©quipe
+                Présence de l’équipe
               </p>
 
               <p className="text-2xl font-bold text-slate-950">
@@ -258,7 +258,7 @@ function TeamRealData() {
           </p>
 
           <h2 className="mt-2 text-xl font-bold">
-            Ã‰quilibre des ressources
+            Équilibre des ressources
           </h2>
 
           <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
@@ -287,7 +287,7 @@ function TeamRealData() {
         <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-xl font-bold text-slate-950">
-              Horaires de rÃ©fÃ©rence
+              Horaires de référence
             </h2>
 
             <p className="mt-1 text-sm text-slate-500">
@@ -313,7 +313,7 @@ function TeamRealData() {
                 </th>
 
                 <th className="px-4 py-3">
-                  AprÃ¨s-midi
+                  Après-midi
                 </th>
 
                 <th className="px-4 py-3">
@@ -321,7 +321,7 @@ function TeamRealData() {
                 </th>
 
                 <th className="px-4 py-3">
-                  DurÃ©e dâ€™une pause
+                  Durée d’une pause
                 </th>
               </tr>
             </thead>
@@ -360,13 +360,13 @@ function TeamRealData() {
 
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <h2 className="text-xl font-bold text-slate-950">
-          SynthÃ¨se des ressources
+          Synthèse des ressources
         </h2>
 
         <div className="mt-5 grid gap-4 md:grid-cols-4">
           <div className="rounded-2xl border border-slate-200 p-5">
             <p className="text-sm text-slate-500">
-              PrÃ©sents
+              Présents
             </p>
 
             <p className="mt-2 text-3xl font-bold text-emerald-600">
@@ -413,11 +413,11 @@ function TeamDemoState() {
   return (
     <div className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-10 text-center text-white">
       <h1 className="text-3xl font-bold">
-        Mode DÃ©mo Ã‰quipe
+        Mode Démo Équipe
       </h1>
 
       <p className="mt-4 text-slate-300">
-        Le scÃ©nario DÃ©mo utilise les effectifs simulÃ©s du moteur
+        Le scénario Démo utilise les effectifs simulés du moteur
         OptiFlow AI.
       </p>
     </div>
