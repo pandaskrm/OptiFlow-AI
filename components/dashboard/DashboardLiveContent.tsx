@@ -44,40 +44,55 @@ export default function DashboardLiveContent() {
     error,
   } = useWarehouseSummary();
 
+  const hasRealData = warehouse.dataConnected;
+
   const trucksWaiting = simulation.running
     ? simulation.state.docks.trucksWaiting
-    : warehouse.receptions.planned;
+    : hasRealData
+      ? warehouse.receptions.planned
+      : 0;
 
   const occupiedDocks = simulation.running
     ? simulation.state.docks.occupied
-    : warehouse.receptions.occupiedDocks;
+    : hasRealData
+      ? warehouse.receptions.occupiedDocks
+      : 0;
 
   const activeReceptions = simulation.running
-    ? simulation.state.receptions.atDock + simulation.state.receptions.unloading + simulation.state.receptions.inspection
-    : warehouse.receptions.active;
+    ? simulation.state.receptions.atDock +
+      simulation.state.receptions.unloading +
+      simulation.state.receptions.inspection
+    : hasRealData
+      ? warehouse.receptions.active
+      : 0;
 
   const completedToday = simulation.running
     ? simulation.state.receptions.completed
-    : warehouse.receptions.completed;
+    : hasRealData
+      ? warehouse.receptions.completed
+      : 0;
 
   const health = simulation.running
     ? simulation.state.kpis.warehouseHealth
-    : warehouse.healthScore;
+    : hasRealData
+      ? warehouse.healthScore
+      : 0;
 
   const alerts = simulation.running
     ? ["Surveiller la disponibilité des quais."]
-    : warehouse.alerts;
+    : hasRealData
+      ? warehouse.alerts
+      : [];
 
   const priorities = simulation.running
     ? ["Anticiper les prochaines arrivées."]
-    : warehouse.priorities;
+    : hasRealData
+      ? warehouse.priorities
+      : [];
 
   const ordersData = simulation.running
     ? demoOrders
     : emptyOrders;
-
-  const hasRealData =
-    warehouse.receptions.total > 0;
 
   const sourceLabel = simulation.running
     ? "Simulation active"
@@ -90,7 +105,7 @@ export default function DashboardLiveContent() {
           : "En attente de données ERP";
 
   const receptionProgress =
-    warehouse.receptions.total > 0
+    hasRealData && warehouse.receptions.total > 0
       ? Math.round(
           (warehouse.receptions.completed /
             warehouse.receptions.total) *
@@ -143,7 +158,7 @@ export default function DashboardLiveContent() {
       color: "border-cyan-500",
     },
     {
-      icon: "âœ…",
+      icon: "\u2705",
       title: `${completedToday} opération${
         completedToday > 1 ? "s" : ""
       } terminée${completedToday > 1 ? "s" : ""}`,
@@ -290,14 +305,14 @@ export default function DashboardLiveContent() {
           Palettes enregistrées :{" "}
           {simulation.running
             ? "Données simulées"
-            : warehouse.receptions.totalPallets}
+            : hasRealData ? warehouse.receptions.totalPallets : 0}
         </p>
 
         <p className="mt-1 text-sm font-medium text-slate-300">
           Palettes réceptionnées :{" "}
           {simulation.running
             ? "Données simulées"
-            : warehouse.receptions.receivedPallets}
+            : hasRealData ? warehouse.receptions.receivedPallets : 0}
         </p>
       </section>
 
@@ -457,5 +472,8 @@ export default function DashboardLiveContent() {
     </>
   );
 }
+
+
+
 
 

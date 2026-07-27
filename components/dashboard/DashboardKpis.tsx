@@ -13,6 +13,8 @@ export default function DashboardKpis() {
     error,
   } = useWarehouseSummary();
 
+  const hasRealData = warehouse.dataConnected;
+
   const receptionTotal =
     simulation.state.receptions.planned +
     simulation.state.receptions.atDock +
@@ -35,7 +37,7 @@ export default function DashboardKpis() {
       ? "Données indisponibles"
       : loading
         ? "Actualisation..."
-        : warehouse.dataConnected
+        : hasRealData
           ? "Données ERP synchronisées"
           : "En attente de données ERP";
 
@@ -46,13 +48,17 @@ export default function DashboardKpis() {
         value={String(
           simulation.running
             ? simulation.state.kpis.orders
-            : warehouse.orders.total,
+            : hasRealData
+              ? warehouse.orders.total
+              : 0,
         )}
         trend={trend}
         progress={
           simulation.running
             ? simulation.state.kpis.productivity
-            : warehouse.performance.preparation
+            : hasRealData
+              ? warehouse.performance.preparation
+              : 0
         }
       />
 
@@ -61,7 +67,9 @@ export default function DashboardKpis() {
         value={String(
           simulation.running
             ? simulation.state.kpis.shipments
-            : warehouse.shipments.total,
+            : hasRealData
+              ? warehouse.shipments.total
+              : 0,
         )}
         trend={trend}
         progress={
@@ -79,7 +87,9 @@ export default function DashboardKpis() {
                     100,
                 ),
               )
-            : warehouse.performance.shipping
+            : hasRealData
+              ? warehouse.performance.shipping
+              : 0
         }
       />
 
@@ -88,13 +98,17 @@ export default function DashboardKpis() {
         value={String(
           simulation.running
             ? simulation.state.kpis.receptions
-            : warehouse.receptions.total,
+            : hasRealData
+              ? warehouse.receptions.total
+              : 0,
         )}
         trend={trend}
         progress={
           simulation.running
             ? receptionProgress
-            : warehouse.performance.reception
+            : hasRealData
+              ? warehouse.performance.reception
+              : 0
         }
       />
 
@@ -103,13 +117,17 @@ export default function DashboardKpis() {
         value={`${
           simulation.running
             ? simulation.state.kpis.serviceRate
-            : warehouse.performance.service
+            : hasRealData
+              ? warehouse.performance.service
+              : 0
         }%`}
         trend={trend}
         progress={
           simulation.running
             ? simulation.state.kpis.serviceRate
-            : warehouse.performance.service
+            : hasRealData
+              ? warehouse.performance.service
+              : 0
         }
       />
 
@@ -118,33 +136,38 @@ export default function DashboardKpis() {
         value={String(
           simulation.running
             ? simulation.state.kpis.productivity
-            : warehouse.performance.productivity,
+            : hasRealData
+              ? warehouse.performance.productivity
+              : 0,
         )}
         trend={trend}
         progress={
           simulation.running
             ? simulation.state.kpis.productivity
-            : Math.min(
-                100,
-                warehouse.performance.productivity,
-              )
+            : hasRealData
+              ? Math.min(
+                  100,
+                  warehouse.performance.productivity,
+                )
+              : 0
         }
       />
 
       <KpiCard
         title="Santé dépôt"
-        value={`${
-          simulation.running
-            ? simulation.state.kpis.warehouseHealth
-            : warehouse.healthScore
-        }%`}
+        value={simulation.running ? `${simulation.state.kpis.warehouseHealth}%` : hasRealData ? `${warehouse.healthScore}%` : "--"}
         trend={trend}
         progress={
           simulation.running
             ? simulation.state.kpis.warehouseHealth
-            : warehouse.healthScore
+            : hasRealData
+              ? warehouse.healthScore
+              : 0
         }
       />
     </div>
   );
 }
+
+
+

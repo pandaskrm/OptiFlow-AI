@@ -28,13 +28,16 @@ export default function DashboardHeader() {
   }, []);
 
   const currentEvent = simulation.state.alerts[0];
+  const hasRealData = warehouse.dataConnected;
 
   const health = simulation.running
     ? simulation.state.kpis.warehouseHealth
-    : warehouse.healthScore;
+    : hasRealData
+      ? warehouse.healthScore
+      : 0;
 
   const dataConnected =
-    simulation.running || warehouse.dataConnected;
+    simulation.running || hasRealData;
 
   function startDemo() {
     simulation.setScenario("normal");
@@ -53,7 +56,7 @@ export default function DashboardHeader() {
       ? "Connexion en cours"
       : error
         ? "Données indisponibles"
-        : dataConnected
+        : hasRealData
           ? "ERP connecté"
           : "ERP non connecté";
 
@@ -111,7 +114,7 @@ export default function DashboardHeader() {
               </p>
 
               <p className="mt-2 text-2xl font-black text-white">
-                {health} %
+                {dataConnected ? `${health} %` : "--"}
               </p>
             </div>
 
@@ -142,14 +145,18 @@ export default function DashboardHeader() {
             <p className="mt-1 font-semibold text-white">
               {simulation.running
                 ? currentEvent?.title ?? "Simulation active"
-                : "Aucune simulation active"}
+                : hasRealData
+                  ? "Données ERP disponibles"
+                  : "Aucune activité disponible"}
             </p>
 
             <p className="mt-1 text-sm text-slate-400">
               {simulation.running
                 ? currentEvent?.message ??
                   "Le moteur de simulation analyse les opérations."
-                : "Connectez un ERP ou lancez le Mode Démo pour alimenter le tableau de bord."}
+                : hasRealData
+                  ? "OptiFlow AI analyse les données synchronisées."
+                  : "Connectez un ERP ou lancez le Mode Démo pour alimenter le tableau de bord."}
             </p>
           </div>
 
@@ -173,3 +180,4 @@ export default function DashboardHeader() {
     </header>
   );
 }
+
