@@ -1,4 +1,4 @@
-type AIRecommendationProps = {
+﻿type AIRecommendationProps = {
   title: string;
   message: string;
   gain: string;
@@ -10,35 +10,38 @@ export default function AIRecommendation({
   gain,
 }: AIRecommendationProps) {
   return (
-    <div className="rounded-2xl border border-blue-800 bg-gradient-to-br from-slate-900 to-blue-950 p-6">
+    <section className="overflow-hidden rounded-2xl border border-blue-800/80 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 shadow-xl">
+      <div className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between">
+        <div className="flex items-start gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-blue-700 bg-blue-500/10 text-sm font-black text-blue-300">
+            IA
+          </div>
 
-      <div className="flex items-center gap-3 mb-4">
-        <div className="text-3xl">🤖</div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-blue-400">
+              Copilote OptiFlow
+            </p>
 
-        <div>
-          <h2 className="text-xl font-bold text-white">{title}</h2>
-          <p className="text-gray-400">
-            Intelligence artificielle OptiFlow
+            <h2 className="mt-1 text-xl font-bold text-white">
+              {title}
+            </h2>
+
+            <p className="mt-3 max-w-3xl leading-7 text-slate-300">
+              {message}
+            </p>
+          </div>
+        </div>
+
+        <div className="min-w-[220px] rounded-2xl border border-blue-700/70 bg-blue-500/10 p-5">
+          <p className="text-xs font-bold uppercase tracking-wider text-blue-300">
+            Statut de l'analyse
+          </p>
+
+          <p className="mt-2 text-2xl font-black text-emerald-400">
+            {gain}
           </p>
         </div>
       </div>
-
-      <p className="text-gray-300 leading-7">
-        {message}
-      </p>
-
-      <div className="mt-6 rounded-xl bg-blue-600/20 border border-blue-700 p-4">
-
-        <p className="text-blue-300 font-semibold">
-          Temps gagné estimé
-        </p>
-
-        <h3 className="text-3xl font-bold text-green-400 mt-2">
-          {gain}
-        </h3>
-
-      </div>
-
-    </div>
+    </section>
   );
 }
