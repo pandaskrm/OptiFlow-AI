@@ -46,6 +46,52 @@ export default function DashboardLiveContent() {
   const ordersData = simulation.running
     ? demoOrders
     : emptyOrders;
+    const trucksWaiting = simulation.running
+  ? simulation.state.docks.trucksWaiting
+  : hasRealData
+    ? warehouse.receptions.planned
+    : 0;
+
+const occupiedDocks = simulation.running
+  ? simulation.state.docks.occupied
+  : hasRealData
+    ? warehouse.receptions.occupiedDocks
+    : 0;
+
+const activeReceptions = simulation.running
+  ? simulation.state.receptions.atDock +
+    simulation.state.receptions.unloading +
+    simulation.state.receptions.inspection
+  : hasRealData
+    ? warehouse.receptions.active
+    : 0;
+
+const completedToday = simulation.running
+  ? simulation.state.receptions.completed
+  : hasRealData
+    ? warehouse.receptions.completed
+    : 0;
+
+const alerts =
+  simulation.running
+    ? ["Surveiller les prochains quais."]
+    : hasRealData
+      ? warehouse.alerts
+      : [];
+
+const mainPriority =
+  simulation.running
+    ? "Optimiser les flux de réception."
+    : hasRealData
+      ? warehouse.priorities[0] ?? "Aucune priorité."
+      : "Connectez votre ERP.";
+
+const aiAdvice =
+  simulation.running
+    ? "Répartir les ressources selon la simulation."
+    : hasRealData
+      ? "Les données ERP sont synchronisées."
+      : "Connectez votre ERP ou activez le Mode Démo.";
 
   const health = simulation.running
     ? simulation.state.kpis.warehouseHealth
@@ -59,15 +105,9 @@ export default function DashboardLiveContent() {
   health={health}
   hasData={hasRealData}
   simulationRunning={simulation.running}
-  mainPriority="Maintenir le suivi des opérations."
-  aiAdvice={
-    simulation.running
-      ? "Simulation en cours."
-      : hasRealData
-        ? "Les données ERP sont synchronisées."
-        : "Connectez votre ERP ou activez le Mode Démo."
-  }
-  alerts={[]}
+ mainPriority={mainPriority}
+ aiAdvice={aiAdvice}
+ alerts={alerts}
 />
 
       <WarehouseHealth
@@ -89,10 +129,10 @@ export default function DashboardLiveContent() {
       />
 
       <LiveOperations
-  trucksWaiting={0}
-  occupiedDocks={0}
-  activeReceptions={0}
-  completedToday={0}
+  trucksWaiting={trucksWaiting}
+  occupiedDocks={occupiedDocks}
+  activeReceptions={activeReceptions}
+  completedToday={completedToday}
 />
 
       <ProgressCard
@@ -105,16 +145,10 @@ export default function DashboardLiveContent() {
         value={simulation.running ? 92 : 0}
       />
 
-      <AiRecommendations
-  mainPriority="Maintenir le suivi des opérations."
-  aiAdvice={
-    simulation.running
-      ? "Simulation en cours."
-      : hasRealData
-        ? "Les données ERP sont synchronisées."
-        : "Connectez votre ERP ou activez le Mode Démo."
-  }
-  occupiedDocks={0}
+     <AiRecommendations
+  mainPriority={mainPriority}
+  aiAdvice={aiAdvice}
+  occupiedDocks={occupiedDocks}
   hasData={simulation.running || hasRealData}
 />
 
