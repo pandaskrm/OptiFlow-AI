@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
-import useWarehouseSummary from "../../hooks/useWarehouseSummary";
+import useWarehouseAnalysis from "../../hooks/useWarehouseAnalysis";
 
 import AiCommandCenter from "./AiCommandCenter";
 import WarehouseHealth from "./WarehouseHealth";
@@ -32,139 +32,160 @@ const emptyOrders = [
   { day: "Dim", commandes: 0 },
 ];
 
+function getRiskLabel(
+  riskLevel: "LOW" | "MEDIUM" | "HIGH"
+) {
+  if (riskLevel === "HIGH") {
+    return "Risque opérationnel élevé";
+  }
+
+  if (riskLevel === "MEDIUM") {
+    return "Risque opérationnel modéré";
+  }
+
+  return "Risque opérationnel faible";
+}
+
 export default function DashboardLiveContent() {
   const simulation = useSimulationV2();
 
   const {
-    data: warehouse,
+    data,
     loading,
     error,
-  } = useWarehouseSummary();
+  } = useWarehouseAnalysis();
 
-  const hasRealData = warehouse.dataConnected;
+  const warehouse = data?.summary;
+  const analysis = data?.analysis;
+
+  const hasRealData =
+    warehouse?.dataConnected ?? false;
+
+  const hasData =
+    simulation.running || hasRealData;
 
   const ordersData = simulation.running
     ? demoOrders
     : emptyOrders;
-    const trucksWaiting = simulation.running
-  ? simulation.state.docks.trucksWaiting
-  : hasRealData
-    ? warehouse.receptions.planned
-    : 0;
 
-const occupiedDocks = simulation.running
-  ? simulation.state.docks.occupied
-  : hasRealData
-    ? warehouse.receptions.occupiedDocks
-    : 0;
+  const trucksWaiting = simulation.running
+    ? simulation.state.docks.trucksWaiting
+    : warehouse?.receptions.planned ?? 0;
 
-const activeReceptions = simulation.running
-  ? simulation.state.receptions.atDock +
-    simulation.state.receptions.unloading +
-    simulation.state.receptions.inspection
-  : hasRealData
-    ? warehouse.receptions.active
-    : 0;
+  const occupiedDocks = simulation.running
+    ? simulation.state.docks.occupied
+    : warehouse?.receptions.occupiedDocks ?? 0;
 
-const completedToday = simulation.running
-  ? simulation.state.receptions.completed
-  : hasRealData
-    ? warehouse.receptions.completed
-    : 0;
+  const activeReceptions = simulation.running
+    ? simulation.state.receptions.atDock +
+      simulation.state.receptions.unloading +
+      simulation.state.receptions.inspection
+    : warehouse?.receptions.active ?? 0;
 
-const alerts =
-  simulation.running
-    ? ["Surveiller les prochains quais."]
-    : hasRealData
-      ? warehouse.alerts
-      : [];
+  const completedToday = simulation.running
+    ? simulation.state.receptions.completed
+    : warehouse?.receptions.completed ?? 0;
 
-const mainPriority =
-  simulation.running
-    ? "Optimiser les flux de réception."
-    : hasRealData
-      ? warehouse.priorities[0] ?? "Aucune priorité."
-      : "Connectez votre ERP.";
+  const preparationProgress = simulation.running
+    ? 78
+    : warehouse?.performance.preparation ?? 0;
 
-const aiAdvice =
-  simulation.running
-    ? "Répartir les ressources selon la simulation."
-    : hasRealData
-      ? "Les données ERP sont synchronisées."
-      : "Connectez votre ERP ou activez le Mode Démo.";
+  const shippingProgress = simulation.running
+    ? 92
+    : warehouse?.performance.shipping ?? 0;
 
   const health = simulation.running
     ? simulation.state.kpis.warehouseHealth
-    : hasRealData
-    ? warehouse.healthScore
-    : 0;
+    : warehouse?.healthScore ?? 0;
+
+  const alerts = simulation.running
+    ? ["Surveiller les prochains quais."]
+    : analysis?.predictions.length
+      ? analysis.predictions
+      : warehouse?.alerts ?? [];
+
+  const mainPriority = simulation.running
+    ? "Optimiser les flux de réception."
+    : analysis?.recommendations[0] ??
+      warehouse?.priorities[0] ??
+      "Connectez votre ERP.";
+
+  const aiAdvice = simulation.running
+    ? "Répartir les ressources selon la simulation."
+    : analysis
+      ? `${getRiskLabel(analysis.riskLevel)} — score IA ${analysis.score}/100.`
+      : loading
+        ? "Analyse opérationnelle en cours..."
+        : error ??
+          "Connectez votre ERP ou activez le Mode Démo.";
 
   return (
     <>
       <AiCommandCenter
-  health={health}
-  hasData={hasRealData}
-  simulationRunning={simulation.running}
- mainPriority={mainPriority}
- aiAdvice={aiAdvice}
- alerts={alerts}
-/>
+        health={health}
+        hasData={hasRealData}
+        simulationRunning={simulation.running}
+        mainPriority={mainPriority}
+        aiAdvice={aiAdvice}
+        alerts={alerts}
+      />
 
       <WarehouseHealth
-  health={health}
-  sourceLabel={
-    simulation.running
-      ? "Simulation active"
-      : hasRealData
-        ? "Données ERP"
-        : "Aucune donnée"
-  }
-  hasData={simulation.running || hasRealData}
-/>
+        health={health}
+        sourceLabel={
+          simulation.running
+            ? "Simulation active"
+            : hasRealData
+              ? "Données ERP analysées par l'IA"
+              : "Aucune donnée"
+        }
+        hasData={hasData}
+      />
 
       <WarehouseChart
-        hasData={simulation.running || hasRealData}
+        hasData={hasData}
         simulationRunning={simulation.running}
         data={ordersData}
       />
 
       <LiveOperations
-  trucksWaiting={trucksWaiting}
-  occupiedDocks={occupiedDocks}
-  activeReceptions={activeReceptions}
-  completedToday={completedToday}
-/>
+        trucksWaiting={trucksWaiting}
+        occupiedDocks={occupiedDocks}
+        activeReceptions={activeReceptions}
+        completedToday={completedToday}
+      />
 
       <ProgressCard
         title="Préparation"
-        value={simulation.running ? 78 : 0}
+        value={preparationProgress}
       />
 
       <ProgressCard
         title="Expédition"
-        value={simulation.running ? 92 : 0}
+        value={shippingProgress}
       />
 
-     <AiRecommendations
-  mainPriority={mainPriority}
-  aiAdvice={aiAdvice}
-  occupiedDocks={occupiedDocks}
-  hasData={simulation.running || hasRealData}
-/>
+      <AiRecommendations
+        mainPriority={mainPriority}
+        aiAdvice={aiAdvice}
+        occupiedDocks={occupiedDocks}
+        hasData={hasData}
+      />
 
       <AIRecommendation
         title="Conseil IA du jour"
         message={
           simulation.running
             ? "Simulation en cours."
-            : hasRealData
-            ? "Les données ERP sont synchronisées."
-            : "Connectez votre ERP ou lancez le Mode Démo."
+            : analysis?.recommendations[0] ??
+              "Connectez votre ERP ou lancez le Mode Démo."
         }
         gain={
-          simulation.running || hasRealData
+          simulation.running
             ? "Suivi actif"
-            : "En attente"
+            : analysis
+              ? `Score IA : ${analysis.score}/100`
+              : "En attente"
         }
       />
     </>
