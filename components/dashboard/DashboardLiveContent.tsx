@@ -125,6 +125,27 @@ export default function DashboardLiveContent() {
     <>
       <AiCommandCenter
         health={health}
+        aiScore={
+          simulation.running
+            ? health
+            : hasRealData && analysis
+              ? analysis.score
+              : null
+        }
+        riskLevel={
+          simulation.running
+            ? "LOW"
+            : hasRealData && analysis
+              ? analysis.riskLevel
+              : null
+        }
+        dataSource={
+          simulation.running
+            ? "Mode Démo"
+            : hasRealData
+              ? "ERP connecté"
+              : "Aucune donnée"
+        }
         hasData={hasRealData}
         simulationRunning={simulation.running}
         mainPriority={mainPriority}
@@ -195,3 +216,4 @@ export default function DashboardLiveContent() {
     </>
   );
 }
+
