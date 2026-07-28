@@ -36,9 +36,6 @@ export default function DashboardHeader() {
       ? warehouse.healthScore
       : 0;
 
-  const dataConnected =
-    simulation.running || hasRealData;
-
   function startDemo() {
     simulation.setScenario("normal");
     simulation.start();
@@ -51,128 +48,108 @@ export default function DashboardHeader() {
   }
 
   const connectionLabel = simulation.running
-    ? "Mode Démo actif"
+    ? "Mode Démo"
     : loading
-      ? "Connexion en cours"
+      ? "Connexion..."
       : error
-        ? "Données indisponibles"
+        ? "Indisponible"
         : hasRealData
           ? "ERP connecté"
           : "ERP non connecté";
 
+  const activityTitle = simulation.running
+    ? currentEvent?.title ?? "Simulation active"
+    : hasRealData
+      ? "Données ERP disponibles"
+      : "Aucune activité disponible";
+
+  const activityMessage = simulation.running
+    ? currentEvent?.message ??
+      "Le moteur de simulation analyse les opérations."
+    : hasRealData
+      ? "OptiFlow AI analyse les données synchronisées."
+      : "Connectez un ERP ou lancez le Mode Démo.";
+
   return (
-    <header className="mb-8 space-y-5">
-      <div className="overflow-hidden rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 p-6 shadow-2xl shadow-cyan-950/20 lg:p-8">
-        <div className="flex flex-col gap-8 xl:flex-row xl:items-center xl:justify-between">
-          <div className="max-w-3xl">
-            <div className="mb-4 flex flex-wrap items-center gap-3">
-              <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">
+    <header className="mb-4 space-y-3">
+      <div className="overflow-hidden rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950/30 px-5 py-4 shadow-lg">
+        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-300">
                 OptiFlow AI
               </span>
 
               <LiveClock />
             </div>
 
-            <p className="text-sm font-semibold text-cyan-400">
-              Centre de commandement logistique
-            </p>
+            <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:gap-4">
+              <h1 className="text-2xl font-black tracking-tight text-white">
+                Bonjour Kevin 👋
+              </h1>
 
-            <h1 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Bonjour Kevin 👋
-            </h1>
-
-            <p className="mt-3 capitalize text-slate-300">
-              {currentDate || "Chargement de la date..."}
-            </p>
-
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-400">
-              Pilotez les réceptions, les quais, les alertes et les
-              recommandations de l’IA depuis une vue unique.
-            </p>
-          </div>
-
-          <div className="grid w-full gap-3 sm:grid-cols-3 xl:max-w-2xl">
-            <div className="rounded-2xl border border-slate-700/80 bg-slate-950/60 p-4 backdrop-blur">
-              <p className="text-xs uppercase tracking-wider text-slate-500">
-                Source
-              </p>
-
-              <p
-                className={`mt-2 font-bold ${
-                  dataConnected
-                    ? "text-emerald-400"
-                    : "text-slate-300"
-                }`}
-              >
-                {connectionLabel}
+              <p className="text-sm capitalize text-slate-400">
+                {currentDate || "Chargement..."}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-700/80 bg-slate-950/60 p-4 backdrop-blur">
-              <p className="text-xs uppercase tracking-wider text-slate-500">
-                Santé dépôt
+            <div className="mt-3 flex flex-col gap-1">
+              <p className="text-sm font-semibold text-white">
+                {activityTitle}
               </p>
 
-              <p className="mt-2 text-2xl font-black text-white">
-                {dataConnected ? `${health} %` : "--"}
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-700/80 bg-slate-950/60 p-4 backdrop-blur">
-              <p className="text-xs uppercase tracking-wider text-slate-500">
-                Intelligence IA
-              </p>
-
-              <p
-                className={`mt-2 font-bold ${
-                  dataConnected
-                    ? "text-cyan-300"
-                    : "text-slate-400"
-                }`}
-              >
-                {dataConnected ? "Analyse active" : "En attente"}
+              <p className="text-sm text-slate-400">
+                {activityMessage}
               </p>
             </div>
           </div>
-        </div>
 
-        <div className="mt-7 flex flex-col gap-4 border-t border-slate-800 pt-6 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <p className="text-xs text-slate-500">
-              Activité en cours
-            </p>
+          <div className="flex flex-col gap-3 xl:items-end">
+            <div className="grid w-full gap-2 sm:grid-cols-3 xl:w-auto">
+              <div className="min-w-[150px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                  Source
+                </p>
+                <p className="mt-1 text-sm font-bold text-white">
+                  {connectionLabel}
+                </p>
+              </div>
 
-            <p className="mt-1 font-semibold text-white">
+              <div className="min-w-[130px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                  Santé dépôt
+                </p>
+                <p className="mt-1 text-sm font-bold text-white">
+                  {simulation.running || hasRealData ? `${health} %` : "--"}
+                </p>
+              </div>
+
+              <div className="min-w-[130px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
+                <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                  Intelligence IA
+                </p>
+                <p className="mt-1 text-sm font-bold text-white">
+                  {simulation.running || hasRealData
+                    ? "Analyse active"
+                    : "En attente"}
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={simulation.running ? stopDemo : startDemo}
+              className={`inline-flex min-w-[200px] items-center justify-center rounded-lg px-4 py-2 text-sm font-bold text-white shadow-md transition hover:-translate-y-0.5 ${
+                simulation.running
+                  ? "bg-red-600 hover:bg-red-500"
+                  : "bg-emerald-600 hover:bg-emerald-500"
+              }`}
+            >
               {simulation.running
-                ? currentEvent?.title ?? "Simulation active"
-                : hasRealData
-                  ? "Données ERP disponibles"
-                  : "Aucune activité disponible"}
-            </p>
-
-            <p className="mt-1 text-sm text-slate-400">
-              {simulation.running
-                ? currentEvent?.message ??
-                  "Le moteur de simulation analyse les opérations."
-                : hasRealData
-                  ? "OptiFlow AI analyse les données synchronisées."
-                  : "Connectez un ERP ou lancez le Mode Démo pour alimenter le tableau de bord."}
-            </p>
+                ? "■ Arrêter le Mode Démo"
+                : "▶ Lancer le Mode Démo"}
+            </button>
           </div>
-
-          <button
-            type="button"
-            onClick={simulation.running ? stopDemo : startDemo}
-            className={`min-w-[230px] rounded-xl px-6 py-3 font-bold text-white shadow-lg transition duration-300 hover:-translate-y-0.5 ${
-              simulation.running
-                ? "bg-red-600 shadow-red-950/40 hover:bg-red-500"
-                : "bg-emerald-600 shadow-emerald-950/40 hover:bg-emerald-500"
-            }`}
-          >
-            {simulation.running
-              ? "■ Arrêter le Mode Démo"
-              : "▶ Lancer le Mode Démo"}
-          </button>
         </div>
       </div>
 
@@ -180,4 +157,3 @@ export default function DashboardHeader() {
     </header>
   );
 }
-

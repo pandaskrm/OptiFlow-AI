@@ -2,7 +2,7 @@ export default function Topbar() {
   return (
     <header className="flex justify-between items-center mb-8">
       <div>
-        <h1 className="text-4xl font-bold">Bonjour Kevin 👋</h1>
+        <div />
         <p className="text-gray-400">
           Voici le résumé intelligent de votre entreprise.
         </p>

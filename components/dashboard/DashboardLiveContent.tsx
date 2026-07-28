@@ -22,18 +22,8 @@ const demoOrders = [
   { day: "Dim", commandes: 210 },
 ];
 
-const emptyOrders = [
-  { day: "Lun", commandes: 0 },
-  { day: "Mar", commandes: 0 },
-  { day: "Mer", commandes: 0 },
-  { day: "Jeu", commandes: 0 },
-  { day: "Ven", commandes: 0 },
-  { day: "Sam", commandes: 0 },
-  { day: "Dim", commandes: 0 },
-];
-
 function getRiskLabel(
-  riskLevel: "LOW" | "MEDIUM" | "HIGH"
+  riskLevel: "LOW" | "MEDIUM" | "HIGH",
 ) {
   if (riskLevel === "HIGH") {
     return "Risque opérationnel élevé";
@@ -48,25 +38,13 @@ function getRiskLabel(
 
 export default function DashboardLiveContent() {
   const simulation = useSimulationV2();
-
-  const {
-    data,
-    loading,
-    error,
-  } = useWarehouseAnalysis();
+  const { data, loading, error } = useWarehouseAnalysis();
 
   const warehouse = data?.summary;
   const analysis = data?.analysis;
 
-  const hasRealData =
-    warehouse?.dataConnected ?? false;
-
-  const hasData =
-    simulation.running || hasRealData;
-
-  const ordersData = simulation.running
-    ? demoOrders
-    : emptyOrders;
+  const hasRealData = warehouse?.dataConnected ?? false;
+  const hasData = simulation.running || hasRealData;
 
   const trucksWaiting = simulation.running
     ? simulation.state.docks.trucksWaiting
@@ -113,13 +91,22 @@ export default function DashboardLiveContent() {
       : "Connectez votre ERP.";
 
   const aiAdvice = simulation.running
-    ? "Répartir les ressources selon la simulation."
+    ? "Répartir les ressources selon les volumes simulés."
     : hasRealData && analysis
       ? `${getRiskLabel(analysis.riskLevel)} — score IA ${analysis.score}/100.`
       : loading
         ? "Analyse opérationnelle en cours..."
         : error ??
           "Connectez votre ERP ou activez le Mode Démo.";
+
+  const executiveSummary = simulation.running
+    ? "Le Mode Démo simule actuellement une journée logistique complète. Les indicateurs, les quais et les recommandations évoluent en temps réel."
+    : hasRealData && analysis
+      ? `${getRiskLabel(analysis.riskLevel)}. ${
+          analysis.recommendations[0] ??
+          "Aucune action immédiate n'est nécessaire."
+        }`
+      : "Aucune activité réelle n'est encore disponible. Connectez votre ERP ou lancez le Mode Démo pour découvrir le fonctionnement complet d'OptiFlow AI.";
 
   return (
     <>
@@ -153,67 +140,120 @@ export default function DashboardLiveContent() {
         alerts={alerts}
       />
 
-      <WarehouseHealth
-        health={health}
-        sourceLabel={
-          simulation.running
-            ? "Simulation active"
-            : hasRealData
-              ? "Données ERP analysées par l'IA"
-              : "Aucune donnée"
-        }
-        hasData={hasData}
-      />
+      <section className="mb-6 rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-400">
+              Résumé exécutif IA
+            </p>
 
-      <WarehouseChart
-        hasData={hasData}
-        simulationRunning={simulation.running}
-        data={ordersData}
-      />
+            <p className="mt-2 max-w-5xl text-sm leading-6 text-slate-300">
+              {executiveSummary}
+            </p>
+          </div>
 
-      <LiveOperations
-        trucksWaiting={trucksWaiting}
-        occupiedDocks={occupiedDocks}
-        activeReceptions={activeReceptions}
-        completedToday={completedToday}
-      />
+          {!hasData && !loading && (
+            <button
+              type="button"
+              onClick={simulation.start}
+              className="inline-flex shrink-0 items-center justify-center rounded-xl bg-cyan-500 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-400"
+            >
+              Lancer le Mode Démo
+            </button>
+          )}
+        </div>
+      </section>
 
-      <ProgressCard
-        title="Préparation"
-        value={preparationProgress}
-      />
+      {!hasData ? (
+        <section className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/50 px-6 py-8 text-center">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-blue-800 bg-blue-500/10 text-sm font-black text-blue-300">
+            ERP
+          </div>
 
-      <ProgressCard
-        title="Expédition"
-        value={shippingProgress}
-      />
+          <h2 className="mt-4 text-xl font-bold text-white">
+            Votre cockpit est prêt
+          </h2>
 
-      <AiRecommendations
-        mainPriority={mainPriority}
-        aiAdvice={aiAdvice}
-        occupiedDocks={occupiedDocks}
-        hasData={hasData}
-      />
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+            Connectez une source de données pour suivre votre activité réelle,
+            ou utilisez le Mode Démo pour présenter immédiatement les capacités
+            d'OptiFlow AI.
+          </p>
 
-      <AIRecommendation
-        title="Conseil IA du jour"
-        message={
-          simulation.running
-            ? "Simulation en cours."
-            : hasRealData
-              ? analysis?.recommendations[0] ??
-                "Aucune action prioritaire détectée."
-              : "Connectez votre ERP ou lancez le Mode Démo."
-        }
-        gain={
-          simulation.running
-            ? "Suivi actif"
-            : hasRealData && analysis
-              ? `Score IA : ${analysis.score}/100`
-              : "En attente de données"
-        }
-      />
+          {loading && (
+            <p className="mt-4 text-sm font-semibold text-cyan-300">
+              Vérification des données en cours...
+            </p>
+          )}
+
+          {error && (
+            <p className="mt-4 text-sm font-semibold text-red-400">
+              {error}
+            </p>
+          )}
+        </section>
+      ) : (
+        <>
+          <WarehouseHealth
+            health={health}
+            sourceLabel={
+              simulation.running
+                ? "Simulation active"
+                : "Données ERP analysées par l'IA"
+            }
+            hasData={hasData}
+          />
+
+          <WarehouseChart
+            hasData={hasData}
+            simulationRunning={simulation.running}
+            data={demoOrders}
+          />
+
+          <LiveOperations
+            trucksWaiting={trucksWaiting}
+            occupiedDocks={occupiedDocks}
+            activeReceptions={activeReceptions}
+            completedToday={completedToday}
+          />
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <ProgressCard
+              title="Préparation"
+              value={preparationProgress}
+            />
+
+            <ProgressCard
+              title="Expédition"
+              value={shippingProgress}
+            />
+          </div>
+
+          <AiRecommendations
+            mainPriority={mainPriority}
+            aiAdvice={aiAdvice}
+            occupiedDocks={occupiedDocks}
+            hasData={hasData}
+          />
+
+          <AIRecommendation
+            title="Conseil IA du jour"
+            message={
+              simulation.running
+                ? "Simulation en cours. Les recommandations sont actualisées selon l'évolution des opérations."
+                : analysis?.recommendations[0] ??
+                  "Aucune action prioritaire détectée."
+            }
+            gain={
+              simulation.running
+                ? "Suivi actif"
+                : analysis
+                  ? `Score IA : ${analysis.score}/100`
+                  : "En attente"
+            }
+          />
+        </>
+      )}
     </>
   );
 }
-
