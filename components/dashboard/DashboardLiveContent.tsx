@@ -1,17 +1,14 @@
 ﻿"use client";
 
-import {
-  CartesianGrid,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
+
+import AiCommandCenter from "./AiCommandCenter";
+import WarehouseHealth from "./WarehouseHealth";
+import WarehouseChart from "./WarehouseChart";
+import LiveOperations from "./LiveOperations";
+import AiRecommendations from "./AiRecommendations";
+
 import AIRecommendation from "../ui/AIRecommendation";
 import ProgressCard from "../ui/ProgressCard";
 
@@ -46,434 +43,96 @@ export default function DashboardLiveContent() {
 
   const hasRealData = warehouse.dataConnected;
 
-  const trucksWaiting = simulation.running
-    ? simulation.state.docks.trucksWaiting
-    : hasRealData
-      ? warehouse.receptions.planned
-      : 0;
-
-  const occupiedDocks = simulation.running
-    ? simulation.state.docks.occupied
-    : hasRealData
-      ? warehouse.receptions.occupiedDocks
-      : 0;
-
-  const activeReceptions = simulation.running
-    ? simulation.state.receptions.atDock +
-      simulation.state.receptions.unloading +
-      simulation.state.receptions.inspection
-    : hasRealData
-      ? warehouse.receptions.active
-      : 0;
-
-  const completedToday = simulation.running
-    ? simulation.state.receptions.completed
-    : hasRealData
-      ? warehouse.receptions.completed
-      : 0;
-
-  const health = simulation.running
-    ? simulation.state.kpis.warehouseHealth
-    : hasRealData
-      ? warehouse.healthScore
-      : 0;
-
-  const alerts = simulation.running
-    ? ["Surveiller la disponibilité des quais."]
-    : hasRealData
-      ? warehouse.alerts
-      : [];
-
-  const priorities = simulation.running
-    ? ["Anticiper les prochaines arrivées."]
-    : hasRealData
-      ? warehouse.priorities
-      : [];
-
   const ordersData = simulation.running
     ? demoOrders
     : emptyOrders;
 
-  const sourceLabel = simulation.running
-    ? "Simulation active"
-    : loading
-      ? "Actualisation des données..."
-      : error
-        ? "Données indisponibles"
-        : hasRealData
-          ? "Données réelles synchronisées"
-          : "En attente de données ERP";
-
-  const receptionProgress =
-    hasRealData && warehouse.receptions.total > 0
-      ? Math.round(
-          (warehouse.receptions.completed /
-            warehouse.receptions.total) *
-            100
-        )
-      : 0;
-
-  const actions = [
-    {
-      icon: "🚛",
-      title: `${trucksWaiting} camion${
-        trucksWaiting > 1 ? "s" : ""
-      } en attente`,
-      priority:
-        trucksWaiting >= 5
-          ? "Priorité haute"
-          : trucksWaiting > 0
-            ? "À planifier"
-            : "Stable",
-      color:
-        trucksWaiting >= 5
-          ? "border-orange-500"
-          : "border-cyan-500",
-    },
-    {
-      icon: "🚪",
-      title: `${occupiedDocks}/6 quais occupés`,
-      priority:
-        occupiedDocks >= 5
-          ? "Critique"
-          : occupiedDocks > 0
-            ? "Temps réel"
-            : "Disponible",
-      color:
-        occupiedDocks >= 5
-          ? "border-red-500"
-          : "border-emerald-500",
-    },
-    {
-      icon: "📦",
-      title: `${activeReceptions} réception${
-        activeReceptions > 1 ? "s" : ""
-      } active${activeReceptions > 1 ? "s" : ""}`,
-      priority:
-        activeReceptions >= 10
-          ? "Volume élevé"
-          : activeReceptions > 0
-            ? "En cours"
-            : "Aucune activité",
-      color: "border-cyan-500",
-    },
-    {
-      icon: "\u2705",
-      title: `${completedToday} opération${
-        completedToday > 1 ? "s" : ""
-      } terminée${completedToday > 1 ? "s" : ""}`,
-      priority:
-        completedToday > 0
-          ? "Réception validée"
-          : "Aucune opération",
-      color: "border-emerald-500",
-    },
-  ];
-
-  const mainAlert =
-    alerts[0] ??
-    (hasRealData
-      ? "Aucune alerte critique détectée."
-      : "Aucune alerte disponible.");
-
-  const mainPriority =
-    priorities[0] ??
-    (hasRealData
-      ? "Maintenir le suivi des opérations."
-      : "Aucune priorité disponible.");
-
-  const aiAdvice = simulation.running
-    ? "Répartir les ressources selon l’occupation simulée."
-    : occupiedDocks >= 5
-      ? "Accélérer la libération d’un quai pour éviter une saturation."
-      : trucksWaiting > 0
-        ? "Préparer les quais disponibles pour les prochaines réceptions."
-        : hasRealData
-          ? "L’activité est stable. Maintenir le suivi des réceptions."
-          : "Connectez une source ERP ou créez une réception.";
+  const health = simulation.running
+    ? simulation.state.kpis.warehouseHealth
+    : hasRealData
+    ? warehouse.healthScore
+    : 0;
 
   return (
     <>
-      <section className="mb-8 rounded-xl border border-cyan-900 bg-[#081422] p-6 shadow-lg">
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-widest text-cyan-400">
-              Centre de pilotage
-            </p>
+      <AiCommandCenter
+  health={health}
+  hasData={hasRealData}
+  simulationRunning={simulation.running}
+  mainPriority="Maintenir le suivi des opérations."
+  aiAdvice={
+    simulation.running
+      ? "Simulation en cours."
+      : hasRealData
+        ? "Les données ERP sont synchronisées."
+        : "Connectez votre ERP ou activez le Mode Démo."
+  }
+  alerts={[]}
+/>
 
-            <h2 className="mt-1 text-2xl font-bold text-white">
-              Poste de commandement
-            </h2>
+      <WarehouseHealth
+  health={health}
+  sourceLabel={
+    simulation.running
+      ? "Simulation active"
+      : hasRealData
+        ? "Données ERP"
+        : "Aucune donnée"
+  }
+  hasData={simulation.running || hasRealData}
+/>
 
-            <p className="mt-2 text-sm text-gray-400">
-              {sourceLabel}
-            </p>
-          </div>
+      <WarehouseChart
+        hasData={simulation.running || hasRealData}
+        simulationRunning={simulation.running}
+        data={ordersData}
+      />
 
-          <div
-            className={`rounded-full px-4 py-2 text-sm font-semibold ${
-              hasRealData || simulation.running
-                ? "bg-emerald-500/20 text-emerald-400"
-                : "bg-slate-800 text-slate-400"
-            }`}
-          >
-            IA{" "}
-            {hasRealData || simulation.running
-              ? "ACTIVE"
-              : "EN ATTENTE"}{" "}
-            · {health}%
-          </div>
-        </div>
+      <LiveOperations
+  trucksWaiting={0}
+  occupiedDocks={0}
+  activeReceptions={0}
+  completedToday={0}
+/>
 
-        <div className="mb-5 h-2 overflow-hidden rounded-full bg-slate-800">
-          <div
-            className="h-full rounded-full bg-cyan-400 transition-all duration-500"
-            style={{ width: `${health}%` }}
-          />
-        </div>
+      <ProgressCard
+        title="Préparation"
+        value={simulation.running ? 78 : 0}
+      />
 
-        <div className="grid gap-4 md:grid-cols-2">
-          {actions.map((action) => (
-            <div
-              key={action.title}
-              className={`rounded-lg border-l-4 ${action.color} bg-[#0d1d31] p-4 transition hover:scale-[1.01]`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-2xl">
-                  {action.icon}
-                </span>
+      <ProgressCard
+        title="Expédition"
+        value={simulation.running ? 92 : 0}
+      />
 
-                <span className="rounded bg-slate-800 px-2 py-1 text-xs text-cyan-300">
-                  {action.priority}
-                </span>
-              </div>
+      <AiRecommendations
+  mainPriority="Maintenir le suivi des opérations."
+  aiAdvice={
+    simulation.running
+      ? "Simulation en cours."
+      : hasRealData
+        ? "Les données ERP sont synchronisées."
+        : "Connectez votre ERP ou activez le Mode Démo."
+  }
+  occupiedDocks={0}
+  hasData={simulation.running || hasRealData}
+/>
 
-              <p className="mt-4 font-medium text-white">
-                {action.title}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mb-8 rounded-2xl border border-slate-800 bg-slate-900 p-6">
-        <p className="text-sm font-semibold text-blue-400">
-          Analyse IA
-        </p>
-
-        <h2 className="mt-1 text-2xl font-bold text-white">
-          Santé de l’entrepôt : {health} %
-        </h2>
-
-        <p className="mt-1 text-sm text-slate-400">
-          Statut : {sourceLabel}
-        </p>
-
-        <div className="mt-5 grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl border border-red-900 bg-red-950/30 p-4">
-            <h3 className="mb-2 font-semibold text-red-400">
-              Alertes
-            </h3>
-
-            <p className="text-sm text-slate-300">
-              {mainAlert}
-            </p>
-          </div>
-
-          <div className="rounded-xl border border-emerald-900 bg-emerald-950/30 p-4">
-            <h3 className="mb-2 font-semibold text-emerald-400">
-              Priorités
-            </h3>
-
-            <p className="text-sm text-slate-300">
-              {mainPriority}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-4 rounded-xl bg-slate-800 p-4">
-          <h3 className="mb-1 font-semibold text-white">
-            Conseil IA
-          </h3>
-
-          <p className="text-sm text-slate-300">
-            {aiAdvice}
-          </p>
-        </div>
-
-        <p className="mt-4 text-sm font-medium text-slate-300">
-          Palettes enregistrées :{" "}
-          {simulation.running
-            ? "Données simulées"
-            : hasRealData ? warehouse.receptions.totalPallets : 0}
-        </p>
-
-        <p className="mt-1 text-sm font-medium text-slate-300">
-          Palettes réceptionnées :{" "}
-          {simulation.running
-            ? "Données simulées"
-            : hasRealData ? warehouse.receptions.receivedPallets : 0}
-        </p>
-      </section>
-
-      <section className="mb-8 rounded-2xl border border-blue-900 bg-slate-900 p-6">
-        <h2 className="text-2xl font-bold text-white">
-          🤖 Centre de commande IA
-        </h2>
-
-        <p
-          className={`mt-3 font-bold ${
-            hasRealData || simulation.running
-              ? "text-green-400"
-              : "text-slate-400"
-          }`}
-        >
-          État de l’entrepôt : {health} %
-        </p>
-
-        <p className="mt-2 text-gray-300">
-          {hasRealData || simulation.running
-            ? "OptiFlow AI analyse les données opérationnelles."
-            : "Aucune donnée opérationnelle disponible."}
-        </p>
-
-        <div className="mt-5 rounded-xl border border-slate-700 bg-slate-800 p-4">
-          <p className="font-bold text-orange-400">
-            {alerts.length > 0
-              ? "PRIORITÉ À SURVEILLER"
-              : "ACTIVITÉ STABLE"}
-          </p>
-
-          <h3 className="mt-1 text-xl font-bold text-white">
-            {mainPriority}
-          </h3>
-
-          <p className="mt-2 text-gray-300">
-            {aiAdvice}
-          </p>
-        </div>
-      </section>
-
-      <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
-        <div className="space-y-6 xl:col-span-2">
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-lg">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-white">
-                📈 Évolution des commandes
-              </h2>
-
-              <p className="text-sm text-slate-400">
-                {simulation.running
-                  ? "Volume simulé sur les 7 derniers jours"
-                  : "Les commandes seront alimentées par le flux ERP"}
-              </p>
-            </div>
-
-            <div className="h-72">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={ordersData}>
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="#1e293b"
-                  />
-
-                  <XAxis
-                    dataKey="day"
-                    stroke="#94a3b8"
-                  />
-
-                  <YAxis stroke="#94a3b8" />
-
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "#020617",
-                      border: "1px solid #1e293b",
-                      borderRadius: "12px",
-                      color: "#ffffff",
-                    }}
-                  />
-
-                  <Line
-                    type="monotone"
-                    dataKey="commandes"
-                    stroke="#3b82f6"
-                    strokeWidth={3}
-                    dot={{ r: 5 }}
-                    activeDot={{ r: 7 }}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          <ProgressCard
-            title="Préparation"
-            value={simulation.running ? 78 : 0}
-          />
-
-          <ProgressCard
-            title="Expédition"
-            value={simulation.running ? 92 : 0}
-          />
-
-          <ProgressCard
-            title="Réception"
-            value={
-              simulation.running ? 65 : receptionProgress
-            }
-          />
-
-          <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-            <h2 className="mb-5 text-2xl font-bold text-white">
-              🤖 Recommandations de l’IA
-            </h2>
-
-            {hasRealData || simulation.running ? (
-              <div className="space-y-4">
-                <div className="rounded-xl border border-slate-700 bg-slate-800 p-4">
-                  <h3 className="font-bold text-blue-400">
-                    Priorité opérationnelle
-                  </h3>
-
-                  <p className="mt-1 text-gray-300">
-                    {mainPriority}
-                  </p>
-                </div>
-
-                <div className="rounded-xl border border-slate-700 bg-slate-800 p-4">
-                  <h3 className="font-bold text-blue-400">
-                    Analyse des quais
-                  </h3>
-
-                  <p className="mt-1 text-gray-300">
-                    {occupiedDocks}/6 quais sont actuellement
-                    occupés.
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="rounded-xl border border-dashed border-slate-700 bg-slate-800/50 p-6 text-center text-slate-400">
-                Aucune recommandation disponible.
-              </div>
-            )}
-          </div>
-        </div>
-
-        <AIRecommendation
-          title="Conseil IA du jour"
-          message={aiAdvice}
-          gain={
-            hasRealData || simulation.running
-              ? "Suivi actif"
-              : "0 min"
-          }
-        />
-      </div>
+      <AIRecommendation
+        title="Conseil IA du jour"
+        message={
+          simulation.running
+            ? "Simulation en cours."
+            : hasRealData
+            ? "Les données ERP sont synchronisées."
+            : "Connectez votre ERP ou lancez le Mode Démo."
+        }
+        gain={
+          simulation.running || hasRealData
+            ? "Suivi actif"
+            : "En attente"
+        }
+      />
     </>
   );
 }
-
-
-
-
-
