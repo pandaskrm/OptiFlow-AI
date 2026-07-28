@@ -100,19 +100,21 @@ export default function DashboardLiveContent() {
 
   const alerts = simulation.running
     ? ["Surveiller les prochains quais."]
-    : analysis?.predictions.length
+    : hasRealData && analysis?.predictions.length
       ? analysis.predictions
       : warehouse?.alerts ?? [];
 
   const mainPriority = simulation.running
     ? "Optimiser les flux de réception."
-    : analysis?.recommendations[0] ??
-      warehouse?.priorities[0] ??
-      "Connectez votre ERP.";
+    : hasRealData
+      ? analysis?.recommendations[0] ??
+        warehouse?.priorities[0] ??
+        "Aucune priorité opérationnelle."
+      : "Connectez votre ERP.";
 
   const aiAdvice = simulation.running
     ? "Répartir les ressources selon la simulation."
-    : analysis
+    : hasRealData && analysis
       ? `${getRiskLabel(analysis.riskLevel)} — score IA ${analysis.score}/100.`
       : loading
         ? "Analyse opérationnelle en cours..."
@@ -177,15 +179,17 @@ export default function DashboardLiveContent() {
         message={
           simulation.running
             ? "Simulation en cours."
-            : analysis?.recommendations[0] ??
-              "Connectez votre ERP ou lancez le Mode Démo."
+            : hasRealData
+              ? analysis?.recommendations[0] ??
+                "Aucune action prioritaire détectée."
+              : "Connectez votre ERP ou lancez le Mode Démo."
         }
         gain={
           simulation.running
             ? "Suivi actif"
-            : analysis
+            : hasRealData && analysis
               ? `Score IA : ${analysis.score}/100`
-              : "En attente"
+              : "En attente de données"
         }
       />
     </>
