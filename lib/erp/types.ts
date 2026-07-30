@@ -24,5 +24,6 @@ export type ErpConnection = {
 export type ErpDataSource = {
   provider: ErpProvider;
   connected: boolean;
+  name: string;
   lastSyncAt: string | null;
 };

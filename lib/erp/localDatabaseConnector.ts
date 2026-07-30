@@ -1,4 +1,4 @@
-import type { ErpConnector } from "./erpConnector";
+﻿import type { ErpConnector } from "./erpConnector";
 import type { ErpDataSource } from "./types";
 
 export class LocalDatabaseConnector implements ErpConnector {
@@ -6,6 +6,7 @@ export class LocalDatabaseConnector implements ErpConnector {
     return {
       provider: "local",
       connected: false,
+      name: "Base locale",
       lastSyncAt: null,
     };
   }
