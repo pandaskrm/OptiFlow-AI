@@ -47,11 +47,10 @@ model Company {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  memberships    Membership[]
-  invitations    Invitation[]
-  warehouses     Warehouse[]
-  auditLogs      AuditLog[]
-  erpConnections ErpConnection[]
+  memberships Membership[]
+  invitations Invitation[]
+  warehouses  Warehouse[]
+  auditLogs   AuditLog[]
 
   receptions  Reception[]
   orders      Order[]
@@ -184,10 +183,10 @@ model AuditLog {
 }
 
 /**
- * DONNÃ‰ES LOGISTIQUES
+ * DONNÉES LOGISTIQUES
  * companyId reste facultatif pendant la transition afin de ne pas casser
- * les API actuelles. Il deviendra obligatoire quand lâ€™isolation multi-client
- * sera branchÃ©e dans les services.
+ * les API actuelles. Il deviendra obligatoire quand l’isolation multi-client
+ * sera branchée dans les services.
  */
 
 model Reception {
@@ -215,7 +214,7 @@ model Order {
   customer      String
   carrier       String?
   priority      String    @default("Normale")
-  status        String    @default("Ã€ prÃ©parer")
+  status        String    @default("À préparer")
   totalLines    Int       @default(0)
   preparedLines Int       @default(0)
   scheduledAt   DateTime?
@@ -236,7 +235,7 @@ model Shipment {
   customer    String
   carrier     String
   dock        String?
-  status      String    @default("Ã€ expÃ©dier")
+  status      String    @default("À expédier")
   pallets     Int       @default(0)
   packages    Int       @default(0)
   scheduledAt DateTime?
@@ -273,7 +272,7 @@ model Workforce {
   name           String
   team           String?
   zone           String?
-  status         String   @default("PrÃ©sent")
+  status         String   @default("Présent")
   workedMinutes  Int      @default(0)
   processedUnits Int      @default(0)
   workDate       DateTime @default(now())
@@ -284,34 +283,4 @@ model Workforce {
   company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
 
   @@index([companyId])
-}
-
-/**
- * CONNEXIONS ERP
- * Une configuration ERP appartient obligatoirement à une entreprise.
- * Les informations sensibles devront être chiffrées côté serveur.
- */
-
-model ErpConnection {
-  id                String    @id @default(cuid())
-  companyId         String
-  provider          String
-  name              String
-  apiUrl            String?
-  apiKeyEncrypted   String?
-  externalCompanyId String?
-  isEnabled         Boolean   @default(false)
-  status            String    @default("DISCONNECTED")
-  lastTestedAt      DateTime?
-  lastSyncedAt      DateTime?
-  lastError         String?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-
-  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-
-  @@unique([companyId, name])
-  @@index([companyId])
-  @@index([provider])
-  @@index([status])
 }

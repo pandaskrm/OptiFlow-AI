@@ -4,6 +4,7 @@ export type ErpProvider =
   | "sage"
   | "odoo"
   | "dynamics"
+  | "cegid"
   | "api"
   | "csv";
 

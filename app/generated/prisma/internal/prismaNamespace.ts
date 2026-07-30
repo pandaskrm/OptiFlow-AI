@@ -397,7 +397,8 @@ export const ModelName = {
   Order: 'Order',
   Shipment: 'Shipment',
   Inventory: 'Inventory',
-  Workforce: 'Workforce'
+  Workforce: 'Workforce',
+  ErpConnection: 'ErpConnection'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "membership" | "session" | "passwordResetToken" | "invitation" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce"
+    modelProps: "user" | "company" | "membership" | "session" | "passwordResetToken" | "invitation" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce" | "erpConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1453,6 +1454,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ErpConnection: {
+      payload: Prisma.$ErpConnectionPayload<ExtArgs>
+      fields: Prisma.ErpConnectionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ErpConnectionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ErpConnectionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>
+        }
+        findFirst: {
+          args: Prisma.ErpConnectionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ErpConnectionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>
+        }
+        findMany: {
+          args: Prisma.ErpConnectionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>[]
+        }
+        create: {
+          args: Prisma.ErpConnectionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>
+        }
+        createMany: {
+          args: Prisma.ErpConnectionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ErpConnectionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>[]
+        }
+        delete: {
+          args: Prisma.ErpConnectionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>
+        }
+        update: {
+          args: Prisma.ErpConnectionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>
+        }
+        deleteMany: {
+          args: Prisma.ErpConnectionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ErpConnectionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ErpConnectionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>[]
+        }
+        upsert: {
+          args: Prisma.ErpConnectionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ErpConnectionPayload>
+        }
+        aggregate: {
+          args: Prisma.ErpConnectionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateErpConnection>
+        }
+        groupBy: {
+          args: Prisma.ErpConnectionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ErpConnectionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ErpConnectionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ErpConnectionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1719,6 +1794,26 @@ export const WorkforceScalarFieldEnum = {
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
 
 
+export const ErpConnectionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  provider: 'provider',
+  name: 'name',
+  apiUrl: 'apiUrl',
+  apiKeyEncrypted: 'apiKeyEncrypted',
+  externalCompanyId: 'externalCompanyId',
+  isEnabled: 'isEnabled',
+  status: 'status',
+  lastTestedAt: 'lastTestedAt',
+  lastSyncedAt: 'lastSyncedAt',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ErpConnectionScalarFieldEnum = (typeof ErpConnectionScalarFieldEnum)[keyof typeof ErpConnectionScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1899,6 +1994,7 @@ export type GlobalOmitConfig = {
   shipment?: Prisma.ShipmentOmit
   inventory?: Prisma.InventoryOmit
   workforce?: Prisma.WorkforceOmit
+  erpConnection?: Prisma.ErpConnectionOmit
 }
 
 /* Types for Logging */
