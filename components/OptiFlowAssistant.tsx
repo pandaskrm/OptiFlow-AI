@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -623,6 +623,15 @@ const response = await fetch("/api/assistant/chat", {
   };
 
   setMessages((current) => [...current, assistantMessage]);
+
+  if (
+    typeof payload.action === "string" &&
+    payload.action.startsWith("/")
+  ) {
+    window.setTimeout(() => {
+      router.push(payload.action);
+    }, 700);
+  }
 } catch {
   setMessages((current) => [
     ...current,
