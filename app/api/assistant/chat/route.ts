@@ -172,7 +172,30 @@ ${MORNING_BRIEF}\n${context}`,
       );
     }
 
-    return NextResponse.json({ answer });
+    const lower = safeMessages.at(-1)?.content.toLowerCase() ?? "";
+
+let action: string | null = null;
+
+if (lower.includes("dashboard") || lower.includes("tableau de bord")) {
+  action = "/dashboard";
+} else if (lower.includes("réception") || lower.includes("reception")) {
+  action = "/reception";
+} else if (lower.includes("expédition") || lower.includes("expedition")) {
+  action = "/shipping";
+} else if (lower.includes("stock")) {
+  action = "/stock";
+} else if (lower.includes("préparation") || lower.includes("preparation")) {
+  action = "/preparation";
+} else if (lower.includes("équipe") || lower.includes("equipe")) {
+  action = "/team";
+} else if (lower.includes("paramètre") || lower.includes("erp")) {
+  action = "/parametres";
+}
+
+return NextResponse.json({
+  answer,
+  action,
+});
   } catch (error) {
     console.error("Erreur assistant OptiFlow AI :", error);
 
@@ -191,4 +214,5 @@ ${MORNING_BRIEF}\n${context}`,
     );
   }
 }
+
 
