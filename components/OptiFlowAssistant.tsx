@@ -760,6 +760,8 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
               />
             )}
 
+            
+
             <AssistantQuickActions />
 
             <div ref={messagesEndRef} />
@@ -830,4 +832,5 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
     </div>
   );
 }
+
 
