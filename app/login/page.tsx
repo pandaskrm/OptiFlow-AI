@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -77,29 +77,29 @@ export default function LoginPage() {
 </div>
 
             <h1 className="mt-6 max-w-xl text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
-              Pilotez votre entrep?t avec l?IA.
+              Pilotez votre entrepôt avec l’IA.
             </h1>
 
             <p className="mt-4 max-w-xl text-base leading-7 text-cyan-50/90 sm:text-lg">
-              Une plateforme unique pour superviser les op?rations, les ?quipes,
-              les quais et les performances en temps r?el.
+              Une plateforme unique pour superviser les opérations, les équipes,
+              les quais et les performances en temps réel.
             </p>
           </div>
 
           <div className="relative mt-8 grid gap-3 sm:grid-cols-2">
             {[
-              "Pilotage temps r?el",
-              "KPI op?rationnels",
-              "Gestion des ?quipes",
-              "R?les et permissions",
-              "Multi-entrep?ts",
+              "Pilotage temps réel",
+              "KPI opérationnels",
+              "Gestion des équipes",
+              "Rôles et permissions",
+              "Multi-entrepôts",
               "Recommandations IA",
             ].map((item) => (
               <div
                 key={item}
                 className="rounded-xl border border-white/15 bg-white/10 p-3 backdrop-blur"
               >
-                <p className="font-semibold">? {item}</p>
+                <p className="font-semibold">✓ {item}</p>
               </div>
             ))}
           </div>
@@ -108,7 +108,7 @@ export default function LoginPage() {
         <section className="flex items-center p-6 sm:p-8 lg:p-10">
           <div className="mx-auto w-full max-w-lg">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-cyan-400">
-              Espace s?curis?
+              Espace sécurisé
             </p>
 
             <h2 className="mt-2 text-3xl font-black text-white sm:text-4xl">
@@ -116,7 +116,7 @@ export default function LoginPage() {
             </h2>
 
             <p className="mt-3 text-sm leading-6 text-slate-400">
-              Acc?dez ? votre environnement OptiFlow AI et ? vos outils de
+              Accédez à votre environnement OptiFlow AI et à vos outils de
               pilotage logistique.
             </p>
 
@@ -153,7 +153,7 @@ export default function LoginPage() {
                     type="button"
                     className="text-sm font-medium text-cyan-400 transition hover:text-cyan-300"
                   >
-                    Mot de passe oubli? ?
+                    Mot de passe oublié ?
                   </button>
                 </div>
                 <div className="relative">
@@ -209,13 +209,13 @@ export default function LoginPage() {
                 href="/register"
                 className="flex h-14 w-full items-center justify-center rounded-xl border border-slate-700 text-base font-semibold text-slate-300 transition hover:border-cyan-500 hover:text-white"
               >
-                Cr?er une entreprise
+                Créer une entreprise
               </Link>
             </form>
 
             <div className="mt-6 border-t border-slate-800 pt-4">
               <p className="text-center text-sm text-slate-500">
-                ? 2026 OptiFlow AI ? Plateforme logistique intelligente
+                © 2026 OptiFlow AI • Plateforme logistique intelligente
               </p>
             </div>
           </div>
