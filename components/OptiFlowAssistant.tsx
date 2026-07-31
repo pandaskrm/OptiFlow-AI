@@ -45,7 +45,7 @@ const navigationCommands: NavigationCommand[] = [
   {
     keywords: ["preparation", "preparations"],
     destination: "/preparation",
-    label: "la prÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©paration",
+    label: "la préparation",
   },
   {
     keywords: ["expedition", "expeditions", "shipping"],
@@ -87,7 +87,7 @@ const navigationCommands: NavigationCommand[] = [
 const pageNames: Record<string, string> = {
   "/dashboard": "Tableau de bord",
   "/reception": "Receptions",
-  "/preparation": "PrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©paration",
+  "/preparation": "Préparation",
   "/shipping": "Expeditions",
   "/stock": "Stock",
   "/team": "Equipe",
@@ -111,7 +111,7 @@ const suggestedQuestions: Record<string, string[]> = {
     "Retourne au tableau de bord",
   ],
   "/preparation": [
-    "Analyse la prÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©paration",
+    "Analyse la préparation",
     "Montre-moi l'equipe",
     "Ouvre le stock",
     "Retourne au tableau de bord",
@@ -124,14 +124,14 @@ const suggestedQuestions: Record<string, string[]> = {
   ],
   "/stock": [
     "Analyse le stock",
-    "Ouvre la prÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©paration",
+    "Ouvre la préparation",
     "Montre-moi les receptions",
     "Retourne au tableau de bord",
   ],
   "/team": [
     "Comment creer un utilisateur ?",
     "Ouvre les parametres",
-    "Montre-moi la prÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©paration",
+    "Montre-moi la préparation",
     "Retourne au tableau de bord",
   ],
   "/executive": [
@@ -384,13 +384,13 @@ export default function OptiFlowAssistant() {
           payload &&
           typeof payload.error === "string"
             ? payload.error
-            : "La synchronisation ERP n'a pas pu ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âªtre lancÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©e.";
+            : "La synchronisation ERP n'a pas pu être lancée.";
 
         const additionalHelp =
           response.status === 404
-            ? " Ouvrez les paramÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨tres ERP pour enregistrer une connexion."
+            ? " Ouvrez les paramètres ERP pour enregistrer une connexion."
             : response.status === 403
-              ? " Cette action nÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©cessite un compte administrateur ou propriÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©taire."
+              ? " Cette action nécessite un compte administrateur ou propriétaire."
               : "";
 
         setMessages((current) => [
@@ -411,7 +411,7 @@ export default function OptiFlowAssistant() {
           id: Date.now(),
           author: "assistant",
           content:
-            "La synchronisation ERP est terminÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©e avec succÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨s. Les donnÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©es d'OptiFlow AI peuvent maintenant ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âªtre actualisÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©es.",
+            "La synchronisation ERP est terminée avec succès. Les données d'OptiFlow AI peuvent maintenant être actualisées.",
         },
       ]);
     } catch {
@@ -421,7 +421,7 @@ export default function OptiFlowAssistant() {
           id: Date.now(),
           author: "assistant",
           content:
-            "Impossible de contacter le service de synchronisation ERP. VÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©rifiez votre connexion puis rÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©essayez.",
+            "Impossible de contacter le service de synchronisation ERP. Vérifiez votre connexion puis réessayez.",
         },
       ]);
     } finally {
@@ -485,7 +485,7 @@ export default function OptiFlowAssistant() {
           {
             id: Date.now() + 1,
             author: "assistant",
-            content: "La synchronisation ERP a ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©tÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© annulÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©e.",
+            content: "La synchronisation ERP a été annulée.",
           },
         ]);
 
@@ -498,7 +498,7 @@ export default function OptiFlowAssistant() {
           id: Date.now() + 1,
           author: "assistant",
           content:
-            "RÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©pondez par ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â« Oui, je confirme ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â» pour lancer la synchronisation ERP, ou par ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â« Annuler ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â».",
+            "Répondez par « Oui, je confirme » pour lancer la synchronisation ERP, ou par « Annuler ».",
         },
       ]);
 
@@ -545,7 +545,7 @@ export default function OptiFlowAssistant() {
           id: Date.now() + 1,
           author: "assistant",
           content:
-            "La synchronisation va rÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©cupÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©rer les derniÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res donnÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©es de votre ERP. Confirmez-vous son lancement ?",
+            "La synchronisation va récupérer les dernières données de votre ERP. Confirmez-vous son lancement ?",
         },
       ]);
 
@@ -647,7 +647,7 @@ const response = await fetch("/api/assistant/chat", {
           dock: receptionData.dock,
           pallets: Number(receptionData.pallets),
           scheduledAt: receptionData.scheduledAt,
-          status: "PlanifiÃƒÂ©e",
+          status: "Planifiée",
         }),
       });
 
@@ -658,17 +658,17 @@ const response = await fetch("/api/assistant/chat", {
       if (!creationResponse.ok) {
         throw new Error(
           creationPayload?.message ||
-            "Impossible de crÃƒÂ©er la rÃƒÂ©ception.",
+            "Impossible de créer la réception.",
         );
       }
 
       payload.answer =
-        `${visibleAnswer}\n\nÃ¢Å“â€¦ RÃƒÂ©ception ${creationPayload.number} crÃƒÂ©ÃƒÂ©e avec succÃƒÂ¨s.`;
+        `${visibleAnswer}\n\n✅ Réception ${creationPayload.number} créée avec succès.`;
 
       payload.action = "/reception";
     } catch (creationError) {
       payload.answer =
-        `${visibleAnswer}\n\nÃ¢Å¡Â Ã¯Â¸Â La rÃƒÂ©ception n'a pas pu ÃƒÂªtre crÃƒÂ©ÃƒÂ©e : ${
+        `${visibleAnswer}\n\n⚠️ La réception n'a pas pu être créée : ${
           creationError instanceof Error
             ? creationError.message
             : "erreur inconnue"
@@ -684,7 +684,7 @@ const response = await fetch("/api/assistant/chat", {
     content:
       payload.answer ??
       payload.error ??
-      "Je n'ai pas rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©ussi ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â  rÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©pondre.",
+      "Je n'ai pas réussi à répondre.",
   };
 
   setMessages((current) => [...current, assistantMessage]);
