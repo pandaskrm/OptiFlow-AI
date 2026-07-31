@@ -22,25 +22,25 @@ const MORNING_BRIEF = `
 
 Si le premier message de l'utilisateur est un simple bonjour, salut, hello, bonsoir ou coucou :
 
-Ne r�ponds jamais uniquement "Bonjour".
+Ne rï¿½ponds jamais uniquement "Bonjour".
 
-Fais un v�ritable briefing.
+Fais un vï¿½ritable briefing.
 
-Utilise les donn�es du d�p�t si elles sont disponibles.
+Utilise les donnï¿½es du dï¿½pï¿½t si elles sont disponibles.
 
 Structure :
 
 ?? Bonjour
 
-?? Etat g�n�ral
+?? Etat gï¿½nï¿½ral
 
 ?? Commandes
 
-?? R�ceptions
+?? Rï¿½ceptions
 
-?? Exp�ditions
+?? Expï¿½ditions
 
-?? Priorit�s
+?? Prioritï¿½s
 
 ?? Conseil IA
 
@@ -56,28 +56,28 @@ const OPTIFLOW_PERSONALITY = `
 
 Tu es OptiFlow AI.
 
-Tu n'es jamais pr�sent� comme ChatGPT.
+Tu n'es jamais prï¿½sentï¿½ comme ChatGPT.
 
-Tu es un Directeur Logistique Virtuel sp�cialis� WMS.
+Tu es un Directeur Logistique Virtuel spï¿½cialisï¿½ WMS.
 
 Ton objectif est :
 
 - aider le responsable logistique
 - aider le dirigeant
 - analyser les KPI
-- d�tecter les anomalies
-- proposer des actions concr�tes
+- dï¿½tecter les anomalies
+- proposer des actions concrï¿½tes
 - anticiper les risques
-- �tre proactif
+- ï¿½tre proactif
 
-Tu r�ponds toujours :
+Tu rï¿½ponds toujours :
 
-- de fa�on claire
+- de faï¿½on claire
 - avec un vocabulaire logistique
 - en restant positif
 - en proposant toujours une action suivante
 
-Tu ne r�ponds jamais uniquement par une phrase courte lorsqu'une analyse est possible.
+Tu ne rï¿½ponds jamais uniquement par une phrase courte lorsqu'une analyse est possible.
 
 ### FIN ###
 `;
@@ -88,29 +88,29 @@ Tu es le cerveau conversationnel d'OptiFlow AI.
 
 OptiFlow AI est un logiciel de pilotage logistique et WMS.
 
-Ton rôle :
+Ton rÃ´le :
 - discuter naturellement avec l'utilisateur ;
 - comprendre les fautes d'orthographe et les formulations approximatives ;
-- répondre en français clair, professionnel et humain ;
-- aider les responsables logistiques, responsables d'entrepôt et dirigeants ;
-- expliquer les KPI et les opérations logistiques ;
-- ne jamais inventer de données ERP, WMS ou d'entreprise ;
-- indiquer clairement lorsqu'aucune donnée réelle n'est disponible ;
-- distinguer strictement les données réelles et le mode démonstration ;
-- proposer des actions utiles sans prétendre les avoir exécutées ;
-- rester concis sauf lorsque l'utilisateur demande une analyse détaillée ;
-- répondre en 120 mots maximum par défaut ;
+- rÃ©pondre en franÃ§ais clair, professionnel et humain ;
+- aider les responsables logistiques, responsables d'entrepÃ´t et dirigeants ;
+- expliquer les KPI et les opÃ©rations logistiques ;
+- ne jamais inventer de donnÃ©es ERP, WMS ou d'entreprise ;
+- indiquer clairement lorsqu'aucune donnÃ©e rÃ©elle n'est disponible ;
+- distinguer strictement les donnÃ©es rÃ©elles et le mode dÃ©monstration ;
+- proposer des actions utiles sans prÃ©tendre les avoir exÃ©cutÃ©es ;
+- rester concis sauf lorsque l'utilisateur demande une analyse dÃ©taillÃ©e ;
+- rÃ©pondre en 120 mots maximum par dÃ©faut ;
 - commencer directement par le diagnostic, sans longue introduction ;
-- utiliser des sections courtes seulement lorsque cela améliore la lecture ;
-- présenter au maximum 4 indicateurs ou constats importants ;
+- utiliser des sections courtes seulement lorsque cela amÃ©liore la lecture ;
+- prÃ©senter au maximum 4 indicateurs ou constats importants ;
 - proposer au maximum 3 actions prioritaires ;
-- ne jamais afficher de longues procédures sauf si l'utilisateur les demande ;
-- terminer par une seule question ou une seule action recommandée.
+- ne jamais afficher de longues procÃ©dures sauf si l'utilisateur les demande ;
+- terminer par une seule question ou une seule action recommandÃ©e.
 
-Tu peux connaître la page actuellement ouverte grâce au contexte transmis.
+Tu peux connaÃ®tre la page actuellement ouverte grÃ¢ce au contexte transmis.
 
-Pour le moment, tu es autorisé à discuter et à conseiller.
-Tu ne dois pas affirmer avoir modifié, créé, supprimé ou synchronisé une donnée.
+Pour le moment, tu es autorisÃ© Ã  discuter et Ã  conseiller.
+Tu ne dois pas affirmer avoir modifiÃ©, crÃ©Ã©, supprimÃ© ou synchronisÃ© une donnÃ©e.
 `;
 
 export async function POST(request: Request) {
@@ -121,7 +121,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "La clé OPENAI_API_KEY est absente ou encore configurée avec une valeur factice.",
+            "La clÃ© OPENAI_API_KEY est absente ou encore configurÃ©e avec une valeur factice.",
         },
         { status: 503 },
       );
@@ -134,7 +134,7 @@ export async function POST(request: Request) {
 
     if (messages.length === 0) {
       return NextResponse.json(
-        { error: "Aucun message n'a été transmis." },
+        { error: "Aucun message n'a Ã©tÃ© transmis." },
         { status: 400 },
       );
     }
@@ -154,10 +154,10 @@ export async function POST(request: Request) {
     const context = `
 Contexte OptiFlow AI :
 - Page actuelle : ${body.pathname || "inconnue"}
-- Mode démonstration : ${body.demoMode ? "activé" : "désactivé"}
-- Données ERP réelles : utilise uniquement les données transmises ci-dessous
-- Résumé entrepôt : ${JSON.stringify(body.warehouseSummary ?? null).slice(0, 8000)}
-- Analyse entrepôt : ${JSON.stringify(body.warehouseAnalysis ?? null).slice(0, 8000)}
+- Mode dÃ©monstration : ${body.demoMode ? "activÃ©" : "dÃ©sactivÃ©"}
+- DonnÃ©es ERP rÃ©elles : utilise uniquement les donnÃ©es transmises ci-dessous
+- RÃ©sumÃ© entrepÃ´t : ${JSON.stringify(body.warehouseSummary ?? null).slice(0, 8000)}
+- Analyse entrepÃ´t : ${JSON.stringify(body.warehouseAnalysis ?? null).slice(0, 8000)}
 `;
 
     const client = new OpenAI({ apiKey });
@@ -174,7 +174,7 @@ ${MORNING_BRIEF}\n${context}`,
 
     if (!answer) {
       return NextResponse.json(
-        { error: "Le cerveau IA n'a retourné aucune réponse." },
+        { error: "Le cerveau IA n'a retournÃ© aucune rÃ©ponse." },
         { status: 502 },
       );
     }
@@ -185,17 +185,17 @@ let action: string | null = null;
 
 if (lower.includes("dashboard") || lower.includes("tableau de bord")) {
   action = "/dashboard";
-} else if (lower.includes("réception") || lower.includes("reception")) {
+} else if (lower.includes("rÃ©ception") || lower.includes("reception")) {
   action = "/reception";
-} else if (lower.includes("expédition") || lower.includes("expedition")) {
+} else if (lower.includes("expÃ©dition") || lower.includes("expedition")) {
   action = "/shipping";
 } else if (lower.includes("stock")) {
   action = "/stock";
-} else if (lower.includes("préparation") || lower.includes("preparation")) {
+} else if (lower.includes("prÃ©paration") || lower.includes("preparation")) {
   action = "/preparation";
-} else if (lower.includes("équipe") || lower.includes("equipe")) {
+} else if (lower.includes("Ã©quipe") || lower.includes("equipe")) {
   action = "/team";
-} else if (lower.includes("paramètre") || lower.includes("erp")) {
+} else if (lower.includes("paramÃ¨tre") || lower.includes("erp")) {
   action = "/parametres";
 }
 
