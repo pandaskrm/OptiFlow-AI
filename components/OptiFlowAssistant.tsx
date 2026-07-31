@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import OptiFlowMascot from "./OptiFlowMascot";
+import AssistantQuickActions from "./assistant/AssistantQuickActions";
 import ErpSetupWizard from "./ErpSetupWizard";
 
 type Message = {
@@ -693,6 +694,9 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
           <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
             {messages.map((message) => (
+
+<>
+
               <div
                 key={message.id}
                 className={
@@ -711,7 +715,11 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                   {message.content}
                 </div>
               </div>
-            ))}
+            
+<AssistantQuickActions />
+</>
+
+))}
 
             {thinking && (
               <div className="flex justify-start">
