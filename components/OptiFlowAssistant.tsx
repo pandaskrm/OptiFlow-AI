@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
@@ -45,7 +45,7 @@ const navigationCommands: NavigationCommand[] = [
   {
     keywords: ["preparation", "preparations"],
     destination: "/preparation",
-    label: "la prÃ©paration",
+    label: "la prÃƒÂ©paration",
   },
   {
     keywords: ["expedition", "expeditions", "shipping"],
@@ -87,7 +87,7 @@ const navigationCommands: NavigationCommand[] = [
 const pageNames: Record<string, string> = {
   "/dashboard": "Tableau de bord",
   "/reception": "Receptions",
-  "/preparation": "PrÃ©paration",
+  "/preparation": "PrÃƒÂ©paration",
   "/shipping": "Expeditions",
   "/stock": "Stock",
   "/team": "Equipe",
@@ -111,7 +111,7 @@ const suggestedQuestions: Record<string, string[]> = {
     "Retourne au tableau de bord",
   ],
   "/preparation": [
-    "Analyse la prÃ©paration",
+    "Analyse la prÃƒÂ©paration",
     "Montre-moi l'equipe",
     "Ouvre le stock",
     "Retourne au tableau de bord",
@@ -124,14 +124,14 @@ const suggestedQuestions: Record<string, string[]> = {
   ],
   "/stock": [
     "Analyse le stock",
-    "Ouvre la prÃ©paration",
+    "Ouvre la prÃƒÂ©paration",
     "Montre-moi les receptions",
     "Retourne au tableau de bord",
   ],
   "/team": [
     "Comment creer un utilisateur ?",
     "Ouvre les parametres",
-    "Montre-moi la prÃ©paration",
+    "Montre-moi la prÃƒÂ©paration",
     "Retourne au tableau de bord",
   ],
   "/executive": [
@@ -384,13 +384,13 @@ export default function OptiFlowAssistant() {
           payload &&
           typeof payload.error === "string"
             ? payload.error
-            : "La synchronisation ERP n'a pas pu Ãªtre lancÃ©e.";
+            : "La synchronisation ERP n'a pas pu ÃƒÂªtre lancÃƒÂ©e.";
 
         const additionalHelp =
           response.status === 404
-            ? " Ouvrez les paramÃ¨tres ERP pour enregistrer une connexion."
+            ? " Ouvrez les paramÃƒÂ¨tres ERP pour enregistrer une connexion."
             : response.status === 403
-              ? " Cette action nÃ©cessite un compte administrateur ou propriÃ©taire."
+              ? " Cette action nÃƒÂ©cessite un compte administrateur ou propriÃƒÂ©taire."
               : "";
 
         setMessages((current) => [
@@ -411,7 +411,7 @@ export default function OptiFlowAssistant() {
           id: Date.now(),
           author: "assistant",
           content:
-            "La synchronisation ERP est terminÃ©e avec succÃ¨s. Les donnÃ©es d'OptiFlow AI peuvent maintenant Ãªtre actualisÃ©es.",
+            "La synchronisation ERP est terminÃƒÂ©e avec succÃƒÂ¨s. Les donnÃƒÂ©es d'OptiFlow AI peuvent maintenant ÃƒÂªtre actualisÃƒÂ©es.",
         },
       ]);
     } catch {
@@ -421,7 +421,7 @@ export default function OptiFlowAssistant() {
           id: Date.now(),
           author: "assistant",
           content:
-            "Impossible de contacter le service de synchronisation ERP. VÃ©rifiez votre connexion puis rÃ©essayez.",
+            "Impossible de contacter le service de synchronisation ERP. VÃƒÂ©rifiez votre connexion puis rÃƒÂ©essayez.",
         },
       ]);
     } finally {
@@ -485,7 +485,7 @@ export default function OptiFlowAssistant() {
           {
             id: Date.now() + 1,
             author: "assistant",
-            content: "La synchronisation ERP a Ã©tÃ© annulÃ©e.",
+            content: "La synchronisation ERP a ÃƒÂ©tÃƒÂ© annulÃƒÂ©e.",
           },
         ]);
 
@@ -498,7 +498,7 @@ export default function OptiFlowAssistant() {
           id: Date.now() + 1,
           author: "assistant",
           content:
-            "RÃ©pondez par Â« Oui, je confirme Â» pour lancer la synchronisation ERP, ou par Â« Annuler Â».",
+            "RÃƒÂ©pondez par Ã‚Â« Oui, je confirme Ã‚Â» pour lancer la synchronisation ERP, ou par Ã‚Â« Annuler Ã‚Â».",
         },
       ]);
 
@@ -545,7 +545,7 @@ export default function OptiFlowAssistant() {
           id: Date.now() + 1,
           author: "assistant",
           content:
-            "La synchronisation va rÃ©cupÃ©rer les derniÃ¨res donnÃ©es de votre ERP. Confirmez-vous son lancement ?",
+            "La synchronisation va rÃƒÂ©cupÃƒÂ©rer les derniÃƒÂ¨res donnÃƒÂ©es de votre ERP. Confirmez-vous son lancement ?",
         },
       ]);
 
@@ -605,7 +605,9 @@ const response = await fetch("/api/assistant/chat", {
     body: JSON.stringify({
       messages: history,
       pathname,
-      demoMode: false,
+      demoMode: pathname === "/demo",
+      warehouseSummary,
+      warehouseAnalysis,
     }),
   });
 
@@ -617,7 +619,7 @@ const response = await fetch("/api/assistant/chat", {
     content:
       payload.answer ??
       payload.error ??
-      "Je n'ai pas réussi à répondre.",
+      "Je n'ai pas rÃ©ussi Ã  rÃ©pondre.",
   };
 
   setMessages((current) => [...current, assistantMessage]);
@@ -716,7 +718,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 </div>
               </div>
             
-<AssistantQuickActions />
+
 </>
 
 ))}
@@ -757,6 +759,8 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 onClose={() => setAssistantAction("NONE")}
               />
             )}
+
+            <AssistantQuickActions />
 
             <div ref={messagesEndRef} />
           </div>
@@ -826,3 +830,4 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
     </div>
   );
 }
+
