@@ -47,3 +47,4 @@ next-env.d.ts
 .env*
 dev-backup-*.db
 dev.db
+.env.neon.local

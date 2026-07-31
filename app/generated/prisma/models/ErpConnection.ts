@@ -602,6 +602,7 @@ export type ErpConnectionCreateOrConnectWithoutCompanyInput = {
 
 export type ErpConnectionCreateManyCompanyInputEnvelope = {
   data: Prisma.ErpConnectionCreateManyCompanyInput | Prisma.ErpConnectionCreateManyCompanyInput[]
+  skipDuplicates?: boolean
 }
 
 export type ErpConnectionUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -1480,6 +1481,7 @@ export type ErpConnectionCreateManyArgs<ExtArgs extends runtime.Types.Extensions
    * The data used to create many ErpConnections.
    */
   data: Prisma.ErpConnectionCreateManyInput | Prisma.ErpConnectionCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1498,6 +1500,7 @@ export type ErpConnectionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * The data used to create many ErpConnections.
    */
   data: Prisma.ErpConnectionCreateManyInput | Prisma.ErpConnectionCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

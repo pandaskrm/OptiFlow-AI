@@ -648,6 +648,7 @@ export type ShipmentCreateOrConnectWithoutCompanyInput = {
 
 export type ShipmentCreateManyCompanyInputEnvelope = {
   data: Prisma.ShipmentCreateManyCompanyInput | Prisma.ShipmentCreateManyCompanyInput[]
+  skipDuplicates?: boolean
 }
 
 export type ShipmentUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -1525,6 +1526,7 @@ export type ShipmentCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * The data used to create many Shipments.
    */
   data: Prisma.ShipmentCreateManyInput | Prisma.ShipmentCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1543,6 +1545,7 @@ export type ShipmentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * The data used to create many Shipments.
    */
   data: Prisma.ShipmentCreateManyInput | Prisma.ShipmentCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

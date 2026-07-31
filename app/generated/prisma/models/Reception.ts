@@ -602,6 +602,7 @@ export type ReceptionCreateOrConnectWithoutCompanyInput = {
 
 export type ReceptionCreateManyCompanyInputEnvelope = {
   data: Prisma.ReceptionCreateManyCompanyInput | Prisma.ReceptionCreateManyCompanyInput[]
+  skipDuplicates?: boolean
 }
 
 export type ReceptionUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -1457,6 +1458,7 @@ export type ReceptionCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many Receptions.
    */
   data: Prisma.ReceptionCreateManyInput | Prisma.ReceptionCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1475,6 +1477,7 @@ export type ReceptionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Receptions.
    */
   data: Prisma.ReceptionCreateManyInput | Prisma.ReceptionCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

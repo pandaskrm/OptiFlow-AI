@@ -624,6 +624,7 @@ export type OrderCreateOrConnectWithoutCompanyInput = {
 
 export type OrderCreateManyCompanyInputEnvelope = {
   data: Prisma.OrderCreateManyCompanyInput | Prisma.OrderCreateManyCompanyInput[]
+  skipDuplicates?: boolean
 }
 
 export type OrderUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -1490,6 +1491,7 @@ export type OrderCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * The data used to create many Orders.
    */
   data: Prisma.OrderCreateManyInput | Prisma.OrderCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1508,6 +1510,7 @@ export type OrderCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extension
    * The data used to create many Orders.
    */
   data: Prisma.OrderCreateManyInput | Prisma.OrderCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

@@ -600,6 +600,7 @@ export type WorkforceCreateOrConnectWithoutCompanyInput = {
 
 export type WorkforceCreateManyCompanyInputEnvelope = {
   data: Prisma.WorkforceCreateManyCompanyInput | Prisma.WorkforceCreateManyCompanyInput[]
+  skipDuplicates?: boolean
 }
 
 export type WorkforceUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -1455,6 +1456,7 @@ export type WorkforceCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many Workforces.
    */
   data: Prisma.WorkforceCreateManyInput | Prisma.WorkforceCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1473,6 +1475,7 @@ export type WorkforceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Workforces.
    */
   data: Prisma.WorkforceCreateManyInput | Prisma.WorkforceCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

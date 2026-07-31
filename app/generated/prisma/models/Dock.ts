@@ -458,6 +458,7 @@ export type DockCreateOrConnectWithoutWarehouseInput = {
 
 export type DockCreateManyWarehouseInputEnvelope = {
   data: Prisma.DockCreateManyWarehouseInput | Prisma.DockCreateManyWarehouseInput[]
+  skipDuplicates?: boolean
 }
 
 export type DockUpsertWithWhereUniqueWithoutWarehouseInput = {
@@ -1270,6 +1271,7 @@ export type DockCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * The data used to create many Docks.
    */
   data: Prisma.DockCreateManyInput | Prisma.DockCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1288,6 +1290,7 @@ export type DockCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * The data used to create many Docks.
    */
   data: Prisma.DockCreateManyInput | Prisma.DockCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

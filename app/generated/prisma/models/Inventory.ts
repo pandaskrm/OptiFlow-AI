@@ -558,6 +558,7 @@ export type InventoryCreateOrConnectWithoutCompanyInput = {
 
 export type InventoryCreateManyCompanyInputEnvelope = {
   data: Prisma.InventoryCreateManyCompanyInput | Prisma.InventoryCreateManyCompanyInput[]
+  skipDuplicates?: boolean
 }
 
 export type InventoryUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -1391,6 +1392,7 @@ export type InventoryCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many Inventories.
    */
   data: Prisma.InventoryCreateManyInput | Prisma.InventoryCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1409,6 +1411,7 @@ export type InventoryCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Inventories.
    */
   data: Prisma.InventoryCreateManyInput | Prisma.InventoryCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

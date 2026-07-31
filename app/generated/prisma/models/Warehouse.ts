@@ -582,6 +582,7 @@ export type WarehouseCreateOrConnectWithoutCompanyInput = {
 
 export type WarehouseCreateManyCompanyInputEnvelope = {
   data: Prisma.WarehouseCreateManyCompanyInput | Prisma.WarehouseCreateManyCompanyInput[]
+  skipDuplicates?: boolean
 }
 
 export type WarehouseUpsertWithWhereUniqueWithoutCompanyInput = {
@@ -1551,6 +1552,7 @@ export type WarehouseCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many Warehouses.
    */
   data: Prisma.WarehouseCreateManyInput | Prisma.WarehouseCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1569,6 +1571,7 @@ export type WarehouseCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Warehouses.
    */
   data: Prisma.WarehouseCreateManyInput | Prisma.WarehouseCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
