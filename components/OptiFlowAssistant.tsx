@@ -16,6 +16,14 @@ type PendingAction = "ERP_SYNC" | null;
 
 type AssistantAction = "NONE" | "ERP_SETUP";
 
+type AssistantSession = {
+  open: boolean;
+  messages: Message[];
+  assistantAction: AssistantAction;
+};
+
+const ASSISTANT_STORAGE_KEY = "optiflow_ai_assistant_session";
+
 type NavigationCommand = {
   keywords: string[];
   destination: string;
@@ -281,6 +289,7 @@ export default function OptiFlowAssistant() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [thinking, setThinking] = useState(false);
+  const [sessionLoaded, setSessionLoaded] = useState(false);
   const [pendingAction, setPendingAction] =
     useState<PendingAction>(null);
   const [assistantAction, setAssistantAction] =
@@ -295,6 +304,59 @@ export default function OptiFlowAssistant() {
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      const savedSession = window.localStorage.getItem(
+        ASSISTANT_STORAGE_KEY,
+      );
+
+      if (savedSession) {
+        const session = JSON.parse(
+          savedSession,
+        ) as Partial<AssistantSession>;
+
+        if (typeof session.open === "boolean") {
+          setOpen(session.open);
+        }
+
+        if (
+          Array.isArray(session.messages) &&
+          session.messages.length > 0
+        ) {
+          setMessages(session.messages);
+        }
+
+        if (
+          session.assistantAction === "NONE" ||
+          session.assistantAction === "ERP_SETUP"
+        ) {
+          setAssistantAction(session.assistantAction);
+        }
+      }
+    } catch {
+      window.localStorage.removeItem(ASSISTANT_STORAGE_KEY);
+    } finally {
+      setSessionLoaded(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!sessionLoaded) {
+      return;
+    }
+
+    const session: AssistantSession = {
+      open,
+      messages,
+      assistantAction,
+    };
+
+    window.localStorage.setItem(
+      ASSISTANT_STORAGE_KEY,
+      JSON.stringify(session),
+    );
+  }, [assistantAction, messages, open, sessionLoaded]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({
