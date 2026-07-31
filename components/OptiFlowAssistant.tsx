@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import OptiFlowMascot from "./OptiFlowMascot";
+import ErpSetupWizard from "./ErpSetupWizard";
 
 type Message = {
   id: number;
@@ -12,6 +13,8 @@ type Message = {
 };
 
 type PendingAction = "ERP_SYNC" | null;
+
+type AssistantAction = "NONE" | "ERP_SETUP";
 
 type NavigationCommand = {
   keywords: string[];
@@ -280,6 +283,8 @@ export default function OptiFlowAssistant() {
   const [thinking, setThinking] = useState(false);
   const [pendingAction, setPendingAction] =
     useState<PendingAction>(null);
+  const [assistantAction, setAssistantAction] =
+    useState<AssistantAction>("NONE");
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -431,6 +436,29 @@ export default function OptiFlowAssistant() {
           author: "assistant",
           content:
             "RÃ©pondez par Â« Oui, je confirme Â» pour lancer la synchronisation ERP, ou par Â« Annuler Â».",
+        },
+      ]);
+
+      return;
+    }
+
+    const requestsErpSetup =
+      normalizedQuestion.includes("erp") &&
+      (
+        normalizedQuestion.includes("connect") ||
+        normalizedQuestion.includes("configur")
+      );
+
+    if (requestsErpSetup) {
+      setAssistantAction("ERP_SETUP");
+
+      setMessages((current) => [
+        ...current,
+        {
+          id: Date.now() + 1,
+          author: "assistant",
+          content:
+            "Je lance l'assistant de connexion ERP et je vous guide etape par etape.",
         },
       ]);
 
@@ -599,6 +627,12 @@ export default function OptiFlowAssistant() {
                   ))}
                 </div>
               </div>
+            )}
+
+            {assistantAction === "ERP_SETUP" && (
+              <ErpSetupWizard
+                onClose={() => setAssistantAction("NONE")}
+              />
             )}
 
             <div ref={messagesEndRef} />
