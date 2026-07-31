@@ -1,4 +1,5 @@
-﻿import Sidebar from "../Sidebar";
+import OptiFlowAssistant from "../OptiFlowAssistant";
+import Sidebar from "../Sidebar";
 import Topbar from "../Topbar";
 
 type Props = {
@@ -17,6 +18,8 @@ export default function MainLayout({ children }: Props) {
           {children}
         </div>
       </div>
+
+      <OptiFlowAssistant />
     </main>
   );
 }
