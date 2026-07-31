@@ -613,6 +613,71 @@ const response = await fetch("/api/assistant/chat", {
 
   const payload = await response.json();
 
+  const CREATE_RECEPTION_COMMAND =
+    /\\[\\[CREATE_RECEPTION:(\\{.*?\\})\\]\\]/s;
+
+  const rawAnswer =
+    typeof payload.answer === "string"
+      ? payload.answer
+      : "";
+
+  const receptionCommand = rawAnswer.match(
+    CREATE_RECEPTION_COMMAND,
+  );
+
+  const visibleAnswer = rawAnswer
+    .replace(CREATE_RECEPTION_COMMAND, "")
+    .trim();
+
+  if (receptionCommand) {
+    try {
+      const receptionData = JSON.parse(receptionCommand[1]);
+
+      const creationResponse = await fetch("/api/receptions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          number:
+            receptionData.number ||
+            `REC-AI-${Date.now()}`,
+          supplier: receptionData.supplier,
+          carrier: receptionData.carrier,
+          dock: receptionData.dock,
+          pallets: Number(receptionData.pallets),
+          scheduledAt: receptionData.scheduledAt,
+          status: "Planifiée",
+        }),
+      });
+
+      const creationPayload = await creationResponse
+        .json()
+        .catch(() => null);
+
+      if (!creationResponse.ok) {
+        throw new Error(
+          creationPayload?.message ||
+            "Impossible de créer la réception.",
+        );
+      }
+
+      payload.answer =
+        `${visibleAnswer}\n\n✅ Réception ${creationPayload.number} créée avec succès.`;
+
+      payload.action = "/reception";
+    } catch (creationError) {
+      payload.answer =
+        `${visibleAnswer}\n\n⚠️ La réception n'a pas pu être créée : ${
+          creationError instanceof Error
+            ? creationError.message
+            : "erreur inconnue"
+        }`;
+    }
+  } else {
+    payload.answer = visibleAnswer || payload.answer;
+  }
+
   const assistantMessage: Message = {
     id: Date.now() + 1,
     author: "assistant",

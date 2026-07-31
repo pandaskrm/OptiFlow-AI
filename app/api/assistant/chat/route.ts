@@ -117,6 +117,23 @@ Quand tous les champs sont présents, réponds :
 
 Puis résume les données en six lignes maximum et demande une confirmation explicite.
 
+
+Après avoir reçu tous les champs obligatoires, demande explicitement :
+« Confirmez-vous la création de cette réception ? »
+
+Tu ne dois déclencher la création que si l'utilisateur confirme clairement.
+
+Après confirmation, termine ta réponse avec exactement une ligne technique invisible selon ce format :
+
+[[CREATE_RECEPTION:{"number":"REC-2026-001","supplier":"Fournisseur","carrier":"Transporteur","dock":"Quai 1","pallets":1,"scheduledAt":"2026-08-01T08:00"}]]
+
+Règles :
+- Le JSON doit être valide.
+- pallets doit être un nombre.
+- scheduledAt doit utiliser le format YYYY-MM-DDTHH:mm.
+- Si aucune référence n'est fournie, crée un numéro commençant par REC-AI-.
+- Ne produis jamais cette commande avant une confirmation explicite.
+
 ### FIN RECEPTION_WORKFLOW ###
 `;
 const SYSTEM_PROMPT = `
