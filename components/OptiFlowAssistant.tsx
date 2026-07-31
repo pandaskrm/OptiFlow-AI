@@ -581,7 +581,22 @@ try {
     content: message.content,
   }));
 
-  const response = await fetch("/api/assistant/chat", {
+  const [summaryResult, analysisResult] = await Promise.allSettled([
+fetch("/api/warehouse/summary").then(r=>r.json()),
+fetch("/api/warehouse/analysis").then(r=>r.json()),
+]);
+
+const warehouseSummary =
+summaryResult.status==="fulfilled"
+?summaryResult.value
+:null;
+
+const warehouseAnalysis =
+analysisResult.status==="fulfilled"
+?analysisResult.value
+:null;
+
+const response = await fetch("/api/assistant/chat", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

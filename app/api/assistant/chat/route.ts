@@ -12,6 +12,8 @@ type ChatRequest = {
   messages?: ChatMessage[];
   pathname?: string;
   demoMode?: boolean;
+  warehouseSummary?: unknown;
+warehouseAnalysis?: unknown;
 };
 
 const SYSTEM_PROMPT = `
@@ -79,7 +81,9 @@ export async function POST(request: Request) {
 Contexte OptiFlow AI :
 - Page actuelle : ${body.pathname || "inconnue"}
 - Mode démonstration : ${body.demoMode ? "activé" : "désactivé"}
-- Données ERP réelles : non transmises dans cette première version
+- Données ERP réelles : utilise uniquement les données transmises ci-dessous
+- Résumé entrepôt : ${JSON.stringify(body.warehouseSummary ?? null).slice(0, 8000)}
+- Analyse entrepôt : ${JSON.stringify(body.warehouseAnalysis ?? null).slice(0, 8000)}
 `;
 
     const client = new OpenAI({ apiKey });
