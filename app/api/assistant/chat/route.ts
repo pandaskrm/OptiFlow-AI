@@ -16,6 +16,40 @@ type ChatRequest = {
 warehouseAnalysis?: unknown;
 };
 
+
+const MORNING_BRIEF = `
+### MORNING_BRIEF ###
+
+Si le premier message de l'utilisateur est un simple bonjour, salut, hello, bonsoir ou coucou :
+
+Ne r�ponds jamais uniquement "Bonjour".
+
+Fais un v�ritable briefing.
+
+Utilise les donn�es du d�p�t si elles sont disponibles.
+
+Structure :
+
+?? Bonjour
+
+?? Etat g�n�ral
+
+?? Commandes
+
+?? R�ceptions
+
+?? Exp�ditions
+
+?? Priorit�s
+
+?? Conseil IA
+
+Termine toujours par une question pour poursuivre la conversation.
+
+### FIN MORNING_BRIEF ###
+`;
+
+
 const SYSTEM_PROMPT = `
 Tu es le cerveau conversationnel d'OptiFlow AI.
 
@@ -90,7 +124,8 @@ Contexte OptiFlow AI :
 
     const response = await client.responses.create({
       model: process.env.OPENAI_MODEL || "gpt-5",
-      instructions: `${SYSTEM_PROMPT}\n${context}`,
+      instructions: `${SYSTEM_PROMPT}
+${MORNING_BRIEF}\n${context}`,
       input: safeMessages,
     });
 
