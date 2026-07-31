@@ -33,7 +33,7 @@ const navigationCommands: NavigationCommand[] = [
   {
     keywords: ["preparation", "preparations"],
     destination: "/preparation",
-    label: "la préparation",
+    label: "la prÃ©paration",
   },
   {
     keywords: ["expedition", "expeditions", "shipping"],
@@ -75,7 +75,7 @@ const navigationCommands: NavigationCommand[] = [
 const pageNames: Record<string, string> = {
   "/dashboard": "Tableau de bord",
   "/reception": "Receptions",
-  "/preparation": "Préparation",
+  "/preparation": "PrÃ©paration",
   "/shipping": "Expeditions",
   "/stock": "Stock",
   "/team": "Equipe",
@@ -99,7 +99,7 @@ const suggestedQuestions: Record<string, string[]> = {
     "Retourne au tableau de bord",
   ],
   "/preparation": [
-    "Analyse la préparation",
+    "Analyse la prÃ©paration",
     "Montre-moi l'equipe",
     "Ouvre le stock",
     "Retourne au tableau de bord",
@@ -112,14 +112,14 @@ const suggestedQuestions: Record<string, string[]> = {
   ],
   "/stock": [
     "Analyse le stock",
-    "Ouvre la préparation",
+    "Ouvre la prÃ©paration",
     "Montre-moi les receptions",
     "Retourne au tableau de bord",
   ],
   "/team": [
     "Comment creer un utilisateur ?",
     "Ouvre les parametres",
-    "Montre-moi la préparation",
+    "Montre-moi la prÃ©paration",
     "Retourne au tableau de bord",
   ],
   "/executive": [
@@ -129,7 +129,8 @@ const suggestedQuestions: Record<string, string[]> = {
     "Montre-moi les expeditions",
   ],
   "/parametres": [
-    "Comment connecter mon ERP ?",`r`n    "Lance une synchronisation ERP",
+    "Comment connecter mon ERP ?",
+    "Lance une synchronisation ERP",
     "Comment creer un utilisateur ?",
     "Ouvre le tableau de bord",
     "Lance le mode Demo",
@@ -315,13 +316,13 @@ export default function OptiFlowAssistant() {
           payload &&
           typeof payload.error === "string"
             ? payload.error
-            : "La synchronisation ERP n'a pas pu être lancée.";
+            : "La synchronisation ERP n'a pas pu Ãªtre lancÃ©e.";
 
         const additionalHelp =
           response.status === 404
-            ? " Ouvrez les paramètres ERP pour enregistrer une connexion."
+            ? " Ouvrez les paramÃ¨tres ERP pour enregistrer une connexion."
             : response.status === 403
-              ? " Cette action nécessite un compte administrateur ou propriétaire."
+              ? " Cette action nÃ©cessite un compte administrateur ou propriÃ©taire."
               : "";
 
         setMessages((current) => [
@@ -342,7 +343,7 @@ export default function OptiFlowAssistant() {
           id: Date.now(),
           author: "assistant",
           content:
-            "La synchronisation ERP est terminée avec succès. Les données d'OptiFlow AI peuvent maintenant être actualisées.",
+            "La synchronisation ERP est terminÃ©e avec succÃ¨s. Les donnÃ©es d'OptiFlow AI peuvent maintenant Ãªtre actualisÃ©es.",
         },
       ]);
     } catch {
@@ -352,7 +353,7 @@ export default function OptiFlowAssistant() {
           id: Date.now(),
           author: "assistant",
           content:
-            "Impossible de contacter le service de synchronisation ERP. Vérifiez votre connexion puis réessayez.",
+            "Impossible de contacter le service de synchronisation ERP. VÃ©rifiez votre connexion puis rÃ©essayez.",
         },
       ]);
     } finally {
@@ -416,7 +417,7 @@ export default function OptiFlowAssistant() {
           {
             id: Date.now() + 1,
             author: "assistant",
-            content: "La synchronisation ERP a été annulée.",
+            content: "La synchronisation ERP a Ã©tÃ© annulÃ©e.",
           },
         ]);
 
@@ -429,7 +430,7 @@ export default function OptiFlowAssistant() {
           id: Date.now() + 1,
           author: "assistant",
           content:
-            "Répondez par « Oui, je confirme » pour lancer la synchronisation ERP, ou par « Annuler ».",
+            "RÃ©pondez par Â« Oui, je confirme Â» pour lancer la synchronisation ERP, ou par Â« Annuler Â».",
         },
       ]);
 
@@ -453,7 +454,7 @@ export default function OptiFlowAssistant() {
           id: Date.now() + 1,
           author: "assistant",
           content:
-            "La synchronisation va récupérer les dernières données de votre ERP. Confirmez-vous son lancement ?",
+            "La synchronisation va rÃ©cupÃ©rer les derniÃ¨res donnÃ©es de votre ERP. Confirmez-vous son lancement ?",
         },
       ]);
 
