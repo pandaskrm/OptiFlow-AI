@@ -428,7 +428,7 @@ export default function OptiFlowAssistant() {
     }
   }
 
-  function askQuestion(question: string) {
+  async function askQuestion(question: string) {
     const cleanQuestion = question.trim();
 
     if (!cleanQuestion || thinking) {
@@ -553,37 +553,75 @@ export default function OptiFlowAssistant() {
 
     setThinking(true);
 
-    const navigationCommand = findNavigationCommand(cleanQuestion);
+const navigationCommand = findNavigationCommand(cleanQuestion);
 
-    window.setTimeout(() => {
-      if (navigationCommand) {
-        const assistantMessage: Message = {
-          id: Date.now() + 1,
-          author: "assistant",
-          content: `J'ouvre ${navigationCommand.label}.`,
-        };
+if (navigationCommand) {
+  const assistantMessage: Message = {
+    id: Date.now() + 1,
+    author: "assistant",
+    content: `J'ouvre ${navigationCommand.label}.`,
+  };
 
-        setMessages((current) => [...current, assistantMessage]);
-        setThinking(false);
+  setMessages((current) => [...current, assistantMessage]);
+  setThinking(false);
 
-        window.setTimeout(() => {
-          router.push(navigationCommand.destination);
-        }, 500);
+  window.setTimeout(() => {
+    router.push(navigationCommand.destination);
+  }, 500);
 
-        return;
-      }
+  return;
+}
 
-      const assistantMessage: Message = {
-        id: Date.now() + 1,
-        author: "assistant",
-        content: createAnswer(cleanQuestion, currentPage),
-      };
+try {
+  const history = [
+    ...messages,
+    userMessage,
+  ].map((message) => ({
+    role: message.author,
+    content: message.content,
+  }));
 
-      setMessages((current) => [...current, assistantMessage]);
-      setThinking(false);
-    }, 650);
-  }
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const response = await fetch("/api/assistant/chat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      messages: history,
+      pathname,
+      demoMode: false,
+    }),
+  });
+
+  const payload = await response.json();
+
+  const assistantMessage: Message = {
+    id: Date.now() + 1,
+    author: "assistant",
+    content:
+      payload.answer ??
+      payload.error ??
+      "Je n'ai pas réussi à répondre.",
+  };
+
+  setMessages((current) => [...current, assistantMessage]);
+} catch {
+  setMessages((current) => [
+    ...current,
+    {
+      id: Date.now() + 1,
+      author: "assistant",
+      content:
+        "Impossible de contacter le cerveau OptiFlow AI.",
+    },
+  ]);
+} finally {
+  setThinking(false);
+}
+
+}
+
+function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     askQuestion(input);
   }
