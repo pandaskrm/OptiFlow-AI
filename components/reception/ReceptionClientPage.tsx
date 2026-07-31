@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSimulationV2 from "../../hooks/useSimulationV2";
 
 import ReceptionForm from "./ReceptionForm";
@@ -14,7 +14,25 @@ export default function ReceptionClientPage() {
 
   const simulation = useSimulationV2();
 
-  function refresh() {
+  
+  useEffect(() => {
+    function handleReceptionUpdate() {
+      setRefreshKey((current) => current + 1);
+    }
+
+    window.addEventListener(
+      "optiflow:receptions-updated",
+      handleReceptionUpdate,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "optiflow:receptions-updated",
+        handleReceptionUpdate,
+      );
+    };
+  }, []);
+function refresh() {
     setRefreshKey((prev) => prev + 1);
   }
 

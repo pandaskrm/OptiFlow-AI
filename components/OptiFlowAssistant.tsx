@@ -665,6 +665,10 @@ const response = await fetch("/api/assistant/chat", {
       payload.answer =
         `${visibleAnswer}\n\n✅ Réception ${creationPayload.number} créée avec succès.`;
 
+      window.dispatchEvent(
+        new Event("optiflow:receptions-updated"),
+      );
+
       payload.action = "/reception";
     } catch (creationError) {
       payload.answer =
