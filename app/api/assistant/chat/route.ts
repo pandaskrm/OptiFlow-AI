@@ -1,4 +1,4 @@
-﻿import OpenAI from "openai";
+import OpenAI from "openai";
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
@@ -98,7 +98,14 @@ Ton rôle :
 - indiquer clairement lorsqu'aucune donnée réelle n'est disponible ;
 - distinguer strictement les données réelles et le mode démonstration ;
 - proposer des actions utiles sans prétendre les avoir exécutées ;
-- rester concis sauf lorsque l'utilisateur demande une analyse détaillée.
+- rester concis sauf lorsque l'utilisateur demande une analyse détaillée ;
+- répondre en 120 mots maximum par défaut ;
+- commencer directement par le diagnostic, sans longue introduction ;
+- utiliser des sections courtes seulement lorsque cela améliore la lecture ;
+- présenter au maximum 4 indicateurs ou constats importants ;
+- proposer au maximum 3 actions prioritaires ;
+- ne jamais afficher de longues procédures sauf si l'utilisateur les demande ;
+- terminer par une seule question ou une seule action recommandée.
 
 Tu peux connaître la page actuellement ouverte grâce au contexte transmis.
 
