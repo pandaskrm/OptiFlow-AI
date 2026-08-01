@@ -1,4 +1,4 @@
-export type ErpProvider =
+﻿export type ErpProvider =
   | "local"
   | "sap"
   | "sage"
@@ -28,3 +28,47 @@ export type ErpDataSource = {
   name: string;
   lastSyncAt: string | null;
 };
+
+export type ErpReception = {
+  number: string;
+  supplier: string;
+  carrier: string;
+  dock: string;
+  pallets: number;
+  status: string;
+  scheduledAt: string;
+};
+
+export type ErpOrder = {
+  number: string;
+  customer: string;
+  priority: string;
+  status: string;
+};
+
+export type ErpShipment = {
+  number: string;
+  carrier: string;
+  status: string;
+};
+
+export type ErpStockItem = {
+  sku: string;
+  label: string;
+  quantity: number;
+};
+
+export type ErpEmployee = {
+  id: string;
+  fullName: string;
+  role: string;
+};
+
+export interface ErpConnectorData {
+  orders: ErpOrder[];
+  receptions: ErpReception[];
+  shipments: ErpShipment[];
+  stock: ErpStockItem[];
+  employees: ErpEmployee[];
+}
+

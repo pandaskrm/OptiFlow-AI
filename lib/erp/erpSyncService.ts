@@ -1,4 +1,5 @@
 import { prisma } from "../prisma";
+import { getErpConnector } from "./erpConnectorFactory";
 
 export type ErpSyncSummary = {
   orders: number;
@@ -88,7 +89,10 @@ export async function synchronizeErpConnection({
      */
     await new Promise((resolve) => setTimeout(resolve, 800));
 
-    const summary = createSimulatedSyncSummary();
+    const connector = getErpConnector(connection);
+
+const summary =
+  await connector.getSummary();
     const syncedAt = new Date();
 
     const updatedConnection = await prisma.erpConnection.update({
