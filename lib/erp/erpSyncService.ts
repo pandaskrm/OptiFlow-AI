@@ -261,6 +261,55 @@ export async function synchronizeErpConnection({
       importedShipments += 1;
     }
 
+    const erpStock = await connector.getStock();
+    let importedStockItems = 0;
+
+    for (const item of erpStock) {
+      if (!item.sku || !item.label) {
+        continue;
+      }
+
+      const quantity =
+        Number.isFinite(item.quantity) && Number(item.quantity) >= 0
+          ? Number(item.quantity)
+          : 0;
+
+      const reserved =
+        Number.isFinite(item.reserved) && Number(item.reserved) >= 0
+          ? Math.min(Number(item.reserved), quantity)
+          : 0;
+
+      const minimum =
+        Number.isFinite(item.minimum) && Number(item.minimum) >= 0
+          ? Number(item.minimum)
+          : 0;
+
+      await prisma.inventory.upsert({
+        where: {
+          sku: item.sku,
+        },
+        update: {
+          designation: item.label,
+          location: item.location || null,
+          quantity,
+          reserved,
+          minimum,
+          companyId,
+        },
+        create: {
+          sku: item.sku,
+          designation: item.label,
+          location: item.location || null,
+          quantity,
+          reserved,
+          minimum,
+          companyId,
+        },
+      });
+
+      importedStockItems += 1;
+    }
+
     const connectorSummary = await connector.getSummary();
 
     const summary = {
@@ -268,6 +317,7 @@ export async function synchronizeErpConnection({
       orders: importedOrders,
       receptions: importedReceptions,
       shipments: importedShipments,
+      stockItems: importedStockItems,
     };
 
     const syncedAt = new Date();

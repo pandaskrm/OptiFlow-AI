@@ -66,7 +66,10 @@ export type ErpShipment = {
 export type ErpStockItem = {
   sku: string;
   label: string;
+  location?: string | null;
   quantity: number;
+  reserved?: number;
+  minimum?: number;
 };
 
 export type ErpEmployee = {
