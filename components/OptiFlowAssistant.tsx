@@ -342,6 +342,16 @@ export default function OptiFlowAssistant() {
           Array.isArray(session.messages) &&
           session.messages.length > 0
         ) {
+          const lastAssistantMessage = [...session.messages]
+            .reverse()
+            .find(
+              (message) =>
+                message.author === "assistant",
+            );
+
+          lastSpokenMessageIdRef.current =
+            lastAssistantMessage?.id ?? null;
+
           setMessages(session.messages);
         }
 
@@ -380,7 +390,7 @@ export default function OptiFlowAssistant() {
     messagesEndRef.current?.scrollIntoView({
       behavior: "smooth",
     });
-  }, [messages, thinking]);
+  }, [messages]);
 
   useEffect(() => {
     const lastMessage = messages[messages.length - 1];
