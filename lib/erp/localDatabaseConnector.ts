@@ -1,5 +1,12 @@
 ﻿import type { ErpConnector } from "./erpConnector";
-import type { ErpDataSource } from "./types";
+import type {
+  ErpDataSource,
+  ErpEmployee,
+  ErpOrder,
+  ErpReception,
+  ErpShipment,
+  ErpStockItem,
+} from "./types";
 import type { ErpSyncSummary } from "./erpSyncService";
 
 export class LocalDatabaseConnector implements ErpConnector {
@@ -22,23 +29,23 @@ export class LocalDatabaseConnector implements ErpConnector {
     };
   }
 
-  async getOrders(): Promise<any[]> {
+  async getOrders(): Promise<ErpOrder[]> {
     return [];
   }
 
-  async getReceptions(): Promise<any[]> {
+  async getReceptions(): Promise<ErpReception[]> {
     return [];
   }
 
-  async getShipments(): Promise<any[]> {
+  async getShipments(): Promise<ErpShipment[]> {
     return [];
   }
 
-  async getStock(): Promise<any[]> {
+  async getStock(): Promise<ErpStockItem[]> {
     return [];
   }
 
-  async getEmployees(): Promise<any[]> {
+  async getEmployees(): Promise<ErpEmployee[]> {
     return [];
   }
 }

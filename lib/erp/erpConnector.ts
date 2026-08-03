@@ -1,14 +1,19 @@
-import type { ErpDataSource } from "./types";
+import type {
+  ErpDataSource,
+  ErpEmployee,
+  ErpOrder,
+  ErpReception,
+  ErpShipment,
+  ErpStockItem,
+} from "./types";
 import type { ErpSyncSummary } from "./erpSyncService";
 
 export interface ErpConnector {
   getDataSource(): Promise<ErpDataSource>;
   getSummary(): Promise<ErpSyncSummary>;
-
-  getOrders(): Promise<unknown[]>;
-  getReceptions(): Promise<unknown[]>;
-  getShipments(): Promise<unknown[]>;
-  getStock(): Promise<unknown[]>;
-  getEmployees(): Promise<unknown[]>;
-
+  getOrders(): Promise<ErpOrder[]>;
+  getReceptions(): Promise<ErpReception[]>;
+  getShipments(): Promise<ErpShipment[]>;
+  getStock(): Promise<ErpStockItem[]>;
+  getEmployees(): Promise<ErpEmployee[]>;
 }

@@ -50,19 +50,19 @@ export async function synchronizeErpConnection({
 
   if (!connection) {
     throw new ErpSyncError(
-      "La connexion ERP demandée est introuvable."
+      "La connexion ERP demandÃ©e est introuvable."
     );
   }
 
   if (!connection.isEnabled) {
     throw new ErpSyncError(
-      "La connexion ERP est désactivée."
+      "La connexion ERP est dÃ©sactivÃ©e."
     );
   }
 
   if (connection.status === "CONNECTING") {
     throw new ErpSyncError(
-      "Une synchronisation ERP est déjà en cours."
+      "Une synchronisation ERP est dÃ©jÃ  en cours."
     );
   }
 
@@ -81,18 +81,68 @@ export async function synchronizeErpConnection({
     /*
      * Simulation temporaire.
      *
-     * Ce bloc sera remplacé progressivement par :
-     * - la récupération des données du connecteur ERP ;
-     * - la validation des données ;
+     * Ce bloc sera remplacÃ© progressivement par :
+     * - la rÃ©cupÃ©ration des donnÃ©es du connecteur ERP ;
+     * - la validation des donnÃ©es ;
      * - l'enregistrement dans Prisma ;
-     * - le calcul du résumé réel.
+     * - le calcul du rÃ©sumÃ© rÃ©el.
      */
     await new Promise((resolve) => setTimeout(resolve, 800));
 
     const connector = getErpConnector(connection);
 
-const summary =
-  await connector.getSummary();
+
+    const erpReceptions = await connector.getReceptions();
+    let importedReceptions = 0;
+
+    for (const reception of erpReceptions) {
+      if (
+        !reception.number ||
+        !reception.supplier ||
+        !reception.carrier ||
+        !reception.dock ||
+        !Number.isFinite(reception.pallets) ||
+        reception.pallets <= 0 ||
+        !reception.scheduledAt
+      ) {
+        continue;
+      }
+
+      await prisma.reception.upsert({
+        where: {
+          number: reception.number,
+        },
+        update: {
+          supplier: reception.supplier,
+          carrier: reception.carrier,
+          dock: reception.dock,
+          pallets: reception.pallets,
+          status: reception.status || "Planifiée",
+          scheduledAt: reception.scheduledAt,
+          companyId,
+        },
+        create: {
+          number: reception.number,
+          supplier: reception.supplier,
+          carrier: reception.carrier,
+          dock: reception.dock,
+          pallets: reception.pallets,
+          status: reception.status || "Planifiée",
+          scheduledAt: reception.scheduledAt,
+          companyId,
+        },
+      });
+
+      importedReceptions += 1;
+    }
+
+    const connectorSummary = await connector.getSummary();
+
+    const summary = {
+      ...connectorSummary,
+      receptions: importedReceptions,
+    };
+
     const syncedAt = new Date();
 
     const updatedConnection = await prisma.erpConnection.update({
@@ -131,8 +181,8 @@ const summary =
       success: true,
       message:
         triggeredBy === "CRON"
-          ? "Synchronisation ERP automatique terminée avec succès."
-          : "Synchronisation ERP terminée avec succès.",
+          ? "Synchronisation ERP automatique terminÃ©e avec succÃ¨s."
+          : "Synchronisation ERP terminÃ©e avec succÃ¨s.",
       connection: {
         id: updatedConnection.id,
         provider: updatedConnection.provider,
