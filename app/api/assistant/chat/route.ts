@@ -174,7 +174,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "La clÃƒÂ© OPENAI_API_KEY est absente ou encore configurÃƒÂ©e avec une valeur factice.",
+            "La clé OPENAI_API_KEY est absente ou encore configurée avec une valeur factice.",
         },
         { status: 503 },
       );
@@ -239,7 +239,7 @@ let action: string | null = null;
 
 if (lower.includes("dashboard") || lower.includes("tableau de bord")) {
   action = "/dashboard";
-} else if (lower.includes("rÃƒÂ©ception") || lower.includes("reception")) {
+} else if (lower.includes("rÃƒÂ©ception") || lower.includes("réception")) {
   action = "/reception";
 } else if (lower.includes("expÃƒÂ©dition") || lower.includes("expedition")) {
   action = "/shipping";

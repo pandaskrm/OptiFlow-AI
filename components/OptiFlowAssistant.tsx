@@ -40,9 +40,9 @@ const navigationCommands: NavigationCommand[] = [
     label: "le tableau de bord",
   },
   {
-    keywords: ["reception", "receptions"],
+    keywords: ["réception", "réceptions"],
     destination: "/reception",
-    label: "les receptions",
+    label: "les réceptions",
   },
   {
     keywords: ["preparation", "preparations"],
@@ -88,7 +88,7 @@ const navigationCommands: NavigationCommand[] = [
 
 const pageNames: Record<string, string> = {
   "/dashboard": "Tableau de bord",
-  "/reception": "Receptions",
+  "/reception": "Réceptions",
   "/preparation": "Préparation",
   "/shipping": "Expeditions",
   "/stock": "Stock",
@@ -103,11 +103,11 @@ const suggestedQuestions: Record<string, string[]> = {
   "/dashboard": [
     "Analyse mon entrepot",
     "Pourquoi mes KPI sont a zero ?",
-    "Ouvre les receptions",
+    "Ouvre les réceptions",
     "Lance le mode Demo",
   ],
   "/reception": [
-    "Analyse les receptions",
+    "Analyse les réceptions",
     "Ouvre les expeditions",
     "Montre-moi le stock",
     "Retourne au tableau de bord",
@@ -120,14 +120,14 @@ const suggestedQuestions: Record<string, string[]> = {
   ],
   "/shipping": [
     "Analyse les expeditions",
-    "Ouvre les receptions",
+    "Ouvre les réceptions",
     "Montre-moi le stock",
     "Retourne au tableau de bord",
   ],
   "/stock": [
     "Analyse le stock",
     "Ouvre la préparation",
-    "Montre-moi les receptions",
+    "Montre-moi les réceptions",
     "Retourne au tableau de bord",
   ],
   "/team": [
@@ -152,7 +152,7 @@ const suggestedQuestions: Record<string, string[]> = {
   "/demo": [
     "Analyse le scenario actuel",
     "Ouvre le tableau de bord",
-    "Montre-moi les receptions",
+    "Montre-moi les réceptions",
     "Montre-moi la vue Direction",
   ],
 };
@@ -221,10 +221,10 @@ function createAnswer(question: string, currentPage: string) {
   }
 
   if (
-    normalizedQuestion.includes("reception") ||
+    normalizedQuestion.includes("réception") ||
     normalizedQuestion.includes("quai")
   ) {
-    return "Je peux suivre les receptions planifiees, les operations a quai, les dechargements, les controles et les retards.";
+    return "Je peux suivre les réceptions planifiees, les operations a quai, les dechargements, les controles et les retards.";
   }
 
   if (
@@ -260,7 +260,7 @@ function createAnswer(question: string, currentPage: string) {
     normalizedQuestion.includes("analyse") ||
     normalizedQuestion.includes("entrepot")
   ) {
-    return "Mon analyse controle la sante du depot, les commandes, les receptions, les expeditions, le stock, les equipes et les alertes prioritaires.";
+    return "Mon analyse controle la sante du depot, les commandes, les réceptions, les expeditions, le stock, les equipes et les alertes prioritaires.";
   }
 
   if (
@@ -653,7 +653,7 @@ const response = await fetch("/api/assistant/chat", {
       ? payload.answer
       : "";
 
-  const receptionCommand = rawAnswer.match(
+  const réceptionCommand = rawAnswer.match(
     CREATE_RECEPTION_COMMAND,
   );
 
@@ -661,24 +661,24 @@ const response = await fetch("/api/assistant/chat", {
     .replace(CREATE_RECEPTION_COMMAND, "")
     .trim();
 
-  if (receptionCommand) {
+  if (réceptionCommand) {
     try {
-      const receptionData = JSON.parse(receptionCommand[1]);
+      const réceptionData = JSON.parse(réceptionCommand[1]);
 
-      const creationResponse = await fetch("/api/receptions", {
+      const creationResponse = await fetch("/api/réceptions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           number:
-            receptionData.number ||
+            réceptionData.number ||
             `REC-AI-${Date.now()}`,
-          supplier: receptionData.supplier,
-          carrier: receptionData.carrier,
-          dock: receptionData.dock,
-          pallets: Number(receptionData.pallets),
-          scheduledAt: receptionData.scheduledAt,
+          supplier: réceptionData.supplier,
+          carrier: réceptionData.carrier,
+          dock: réceptionData.dock,
+          pallets: Number(réceptionData.pallets),
+          scheduledAt: réceptionData.scheduledAt,
           status: "Planifiée",
         }),
       });
@@ -698,7 +698,7 @@ const response = await fetch("/api/assistant/chat", {
         `${visibleAnswer}\n\n✅ Réception ${creationPayload.number} créée avec succès.`;
 
       window.dispatchEvent(
-        new Event("optiflow:receptions-updated"),
+        new Event("optiflow:réceptions-updated"),
       );
 
       payload.action = "/reception";
@@ -904,7 +904,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                   }
                 }}
                 rows={1}
-                placeholder="Exemple : ouvre les receptions"
+                placeholder="Exemple : ouvre les réceptions"
                 className="max-h-28 min-h-10 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-500"
               />
 
