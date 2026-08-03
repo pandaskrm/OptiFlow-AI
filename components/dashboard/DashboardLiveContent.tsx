@@ -2,8 +2,10 @@
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseAnalysis from "../../hooks/useWarehouseAnalysis";
+import { generateAiMissions } from "../../lib/ai/missionEngine";
 
 import AiCommandCenter from "./AiCommandCenter";
+import AiMissionCenter from "./AiMissionCenter";
 import WarehouseHealth from "./WarehouseHealth";
 import WarehouseChart from "./WarehouseChart";
 import LiveOperations from "./LiveOperations";
@@ -99,6 +101,55 @@ export default function DashboardLiveContent() {
         : error ??
           "Connectez votre ERP ou activez le Mode Démo.";
 
+  const missions = generateAiMissions({
+    dataConnected: hasRealData,
+    simulationRunning: simulation.running,
+    healthScore: health,
+    occupiedDocks,
+    totalDocks: simulation.running
+      ? simulation.state.docks.total
+      : 6,
+    receptions: {
+      planned: simulation.running
+        ? simulation.state.receptions.planned
+        : warehouse?.receptions.planned ?? 0,
+      active: activeReceptions,
+      late: simulation.running
+        ? simulation.state.docks.trucksWaiting
+        : warehouse?.receptions.late ?? 0,
+      completed: completedToday,
+    },
+    orders: {
+      waiting: simulation.running
+        ? simulation.state.kpis.orders
+        : warehouse?.orders.waiting ?? 0,
+      inPreparation: warehouse?.orders.inPreparation ?? 0,
+      priority: warehouse?.orders.priority ?? 0,
+      progress: preparationProgress,
+    },
+    shipments: {
+      waiting: simulation.running
+        ? simulation.state.shipping.waitingShipments
+        : warehouse?.shipments.waiting ?? 0,
+      ready: warehouse?.shipments.ready ?? 0,
+      progress: shippingProgress,
+    },
+    inventory: {
+      lowStockReferences:
+        warehouse?.inventory.lowStockReferences ?? 0,
+      unavailableReferences:
+        warehouse?.inventory.unavailableReferences ?? 0,
+    },
+    workforce: {
+      absent: warehouse?.workforce.absent ?? 0,
+      present: warehouse?.workforce.present ?? 0,
+      productivity:
+        warehouse?.workforce.productivity ?? 0,
+    },
+    alerts,
+    recommendations: analysis?.recommendations ?? [],
+  });
+
   const executiveSummary = simulation.running
     ? "Le Mode Démo simule actuellement une journée logistique complète. Les indicateurs, les quais et les recommandations évoluent en temps réel."
     : hasRealData && analysis
@@ -139,6 +190,8 @@ export default function DashboardLiveContent() {
         aiAdvice={aiAdvice}
         alerts={alerts}
       />
+
+      <AiMissionCenter missions={missions} />
 
       <section className="mb-6 rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
