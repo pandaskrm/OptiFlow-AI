@@ -310,6 +310,62 @@ export async function synchronizeErpConnection({
       importedStockItems += 1;
     }
 
+    const erpEmployees = await connector.getEmployees();
+    let importedEmployees = 0;
+
+    for (const employee of erpEmployees) {
+      if (!employee.id || !employee.fullName) {
+        continue;
+      }
+
+      const workedMinutes =
+        Number.isFinite(employee.workedMinutes) &&
+        Number(employee.workedMinutes) >= 0
+          ? Number(employee.workedMinutes)
+          : 0;
+
+      const processedUnits =
+        Number.isFinite(employee.processedUnits) &&
+        Number(employee.processedUnits) >= 0
+          ? Number(employee.processedUnits)
+          : 0;
+
+      const workDate =
+        employee.workDate &&
+        !Number.isNaN(Date.parse(employee.workDate))
+          ? new Date(employee.workDate)
+          : new Date();
+
+      await prisma.workforce.upsert({
+        where: {
+          employeeNumber: employee.id,
+        },
+        update: {
+          name: employee.fullName,
+          team: employee.team || employee.role || null,
+          zone: employee.zone || null,
+          status: employee.status || "Présent",
+          workedMinutes,
+          processedUnits,
+          workDate,
+          companyId,
+        },
+        create: {
+          employeeNumber: employee.id,
+          name: employee.fullName,
+          team: employee.team || employee.role || null,
+          zone: employee.zone || null,
+          status: employee.status || "Présent",
+          workedMinutes,
+          processedUnits,
+          workDate,
+          companyId,
+        },
+      });
+
+      importedEmployees += 1;
+    }
+
     const connectorSummary = await connector.getSummary();
 
     const summary = {
@@ -318,6 +374,7 @@ export async function synchronizeErpConnection({
       receptions: importedReceptions,
       shipments: importedShipments,
       stockItems: importedStockItems,
+      employees: importedEmployees,
     };
 
     const syncedAt = new Date();

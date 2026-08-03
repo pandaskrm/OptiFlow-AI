@@ -76,6 +76,12 @@ export type ErpEmployee = {
   id: string;
   fullName: string;
   role: string;
+  team?: string | null;
+  zone?: string | null;
+  status?: string;
+  workedMinutes?: number;
+  processedUnits?: number;
+  workDate?: string | null;
 };
 
 export interface ErpConnectorData {
