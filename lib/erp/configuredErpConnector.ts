@@ -85,29 +85,47 @@ export class ConfiguredErpConnector
     };
   }
 
+  private getDeltaQuery() {
+    return this.options.lastSyncAt
+      ? {
+          updatedSince:
+            this.options.lastSyncAt.toISOString(),
+        }
+      : {};
+  }
+
   async getOrders(): Promise<ErpOrder[]> {
-    return this.client.get<ErpOrder[]>("orders");
+    return this.client.get<ErpOrder[]>(
+      "orders",
+      this.getDeltaQuery(),
+    );
   }
 
   async getReceptions(): Promise<ErpReception[]> {
     return this.client.get<ErpReception[]>(
       "receptions",
+      this.getDeltaQuery(),
     );
   }
 
   async getShipments(): Promise<ErpShipment[]> {
     return this.client.get<ErpShipment[]>(
       "shipments",
+      this.getDeltaQuery(),
     );
   }
 
   async getStock(): Promise<ErpStockItem[]> {
-    return this.client.get<ErpStockItem[]>("stock");
+    return this.client.get<ErpStockItem[]>(
+      "stock",
+      this.getDeltaQuery(),
+    );
   }
 
   async getEmployees(): Promise<ErpEmployee[]> {
     return this.client.get<ErpEmployee[]>(
       "employees",
+      this.getDeltaQuery(),
     );
   }
 }

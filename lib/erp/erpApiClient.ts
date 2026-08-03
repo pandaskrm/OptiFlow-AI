@@ -5,6 +5,11 @@ type ErpApiClientOptions = {
   timeoutMs?: number;
 };
 
+type ErpApiQuery = Record<
+  string,
+  string | number | boolean | null | undefined
+>;
+
 export class ErpApiError extends Error {
   constructor(
     message: string,
@@ -26,8 +31,12 @@ export class ErpApiClient {
     this.timeoutMs = options.timeoutMs ?? 15000;
   }
 
-  async get<T>(path: string): Promise<T> {
+  async get<T>(
+    path: string,
+    query: ErpApiQuery = {},
+  ): Promise<T> {
     const controller = new AbortController();
+
     const timeoutId = setTimeout(
       () => controller.abort(),
       this.timeoutMs,
@@ -52,15 +61,26 @@ export class ErpApiClient {
         );
       }
 
-      const response = await fetch(
+      const url = new URL(
         `${this.baseUrl}/${path.replace(/^\/+/, "")}`,
-        {
-          method: "GET",
-          headers,
-          cache: "no-store",
-          signal: controller.signal,
-        },
       );
+
+      for (const [key, value] of Object.entries(query)) {
+        if (
+          value !== undefined &&
+          value !== null &&
+          value !== ""
+        ) {
+          url.searchParams.set(key, String(value));
+        }
+      }
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers,
+        cache: "no-store",
+        signal: controller.signal,
+      });
 
       if (!response.ok) {
         const details = await response
