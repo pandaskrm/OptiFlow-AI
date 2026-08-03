@@ -2,6 +2,7 @@
 
 
 import useVoiceAssistant from "../hooks/useVoiceAssistant";
+import { notifyWarehouseUpdate } from "../lib/warehouse/warehouseLiveStore";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -704,6 +705,12 @@ const response = await fetch("/api/assistant/chat", {
 
       payload.answer =
         `${visibleAnswer}\n\n✅ Réception ${creationPayload.number} créée avec succès.`;
+
+      notifyWarehouseUpdate();
+
+      window.dispatchEvent(
+        new Event("optiflow:receptions-updated"),
+      );
 
       window.dispatchEvent(
         new Event("optiflow:réceptions-updated"),
