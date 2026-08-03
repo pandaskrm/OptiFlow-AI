@@ -434,6 +434,7 @@ export default function OptiFlowAssistant() {
     moduleAssistance["/dashboard"];
 
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [input, setInput] = useState("");
   const [thinking, setThinking] = useState(false);
   const [sessionLoaded, setSessionLoaded] = useState(false);
@@ -624,6 +625,21 @@ export default function OptiFlowAssistant() {
     speak,
     voiceEnabled,
   ]);
+
+  function closeLibotWithAnimation(
+    destination?: string,
+  ) {
+    setClosing(true);
+
+    window.setTimeout(() => {
+      setOpen(false);
+      setClosing(false);
+
+      if (destination) {
+        router.push(destination);
+      }
+    }, 500);
+  }
 
   async function runErpSynchronization() {
     setPendingAction(null);
@@ -827,9 +843,10 @@ if (navigationCommand) {
   setThinking(false);
 
   window.setTimeout(() => {
-    setOpen(false);
-    router.push(navigationCommand.destination);
-  }, 500);
+    closeLibotWithAnimation(
+      navigationCommand.destination,
+    );
+  }, 1800);
 
   return;
 }
@@ -968,9 +985,10 @@ const response = await fetch("/api/assistant/chat", {
     payload.action.startsWith("/")
   ) {
     window.setTimeout(() => {
-      setOpen(false);
-      router.push(payload.action);
-    }, 700);
+      closeLibotWithAnimation(
+        payload.action,
+      );
+    }, 1800);
   }
 } catch {
   setMessages((current) => [
@@ -1008,7 +1026,13 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
   return (
     <div className="fixed bottom-20 right-3 z-[100] flex flex-col items-end sm:bottom-5 sm:right-5">
       {open && (
-        <section className="fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-cyan-400/20 bg-slate-950/98 shadow-2xl shadow-cyan-950/50 backdrop-blur-xl sm:static sm:mb-4 sm:h-[min(620px,calc(100vh-120px))] sm:w-[min(390px,calc(100vw-32px))] sm:rounded-3xl">
+        <section
+          className={`fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-cyan-400/20 bg-slate-950/98 shadow-2xl shadow-cyan-950/50 backdrop-blur-xl transition-all duration-500 ease-in-out sm:static sm:mb-4 sm:h-[min(620px,calc(100vh-120px))] sm:w-[min(390px,calc(100vw-32px))] sm:rounded-3xl ${
+            closing
+              ? "scale-90 translate-y-6 opacity-0"
+              : "scale-100 translate-y-0 opacity-100"
+          }`}
+        >
           <header className="relative overflow-hidden border-b border-slate-800 bg-gradient-to-r from-cyan-500/15 via-blue-500/10 to-slate-950 px-5 py-4">
             <div className="absolute -right-8 -top-10 h-28 w-28 rounded-full bg-cyan-400/10 blur-2xl" />
 
@@ -1035,7 +1059,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={() => closeLibotWithAnimation()}
                 aria-label="Fermer le copilote"
                 className="flex h-9 w-9 items-center justify-center rounded-xl text-xl text-slate-400 transition hover:bg-slate-800 hover:text-white"
               >
