@@ -1,3 +1,4 @@
+import { ErpApiClient } from "./erpApiClient";
 import type { ErpConnector } from "./erpConnector";
 import type {
   ErpConnectionStatus,
@@ -16,10 +17,13 @@ type ConfiguredErpConnectorOptions = {
   name: string;
   status: string;
   lastSyncAt: Date | null;
+  apiUrl: string;
+  apiKey: string | null;
+  externalCompanyId: string | null;
 };
 
 function normalizeConnectionStatus(
-  status: string
+  status: string,
 ): ErpConnectionStatus {
   switch (status.toUpperCase()) {
     case "CONNECTED":
@@ -33,19 +37,41 @@ function normalizeConnectionStatus(
   }
 }
 
-export class ConfiguredErpConnector implements ErpConnector {
+export class ConfiguredErpConnector
+  implements ErpConnector
+{
+  private readonly client: ErpApiClient;
+
   constructor(
-    private readonly options: ConfiguredErpConnectorOptions
-  ) {}
+    private readonly options:
+      ConfiguredErpConnectorOptions,
+  ) {
+    if (!options.apiUrl.trim()) {
+      throw new Error(
+        "L'URL de l'API ERP est absente.",
+      );
+    }
+
+    this.client = new ErpApiClient({
+      baseUrl: options.apiUrl,
+      apiKey: options.apiKey,
+      externalCompanyId:
+        options.externalCompanyId,
+    });
+  }
 
   async getDataSource(): Promise<ErpDataSource> {
-    const status = normalizeConnectionStatus(this.options.status);
+    const status = normalizeConnectionStatus(
+      this.options.status,
+    );
 
     return {
       provider: this.options.provider,
       connected: status === "connected",
       name: this.options.name,
-      lastSyncAt: this.options.lastSyncAt?.toISOString() ?? null,
+      lastSyncAt:
+        this.options.lastSyncAt?.toISOString() ??
+        null,
     };
   }
 
@@ -60,22 +86,28 @@ export class ConfiguredErpConnector implements ErpConnector {
   }
 
   async getOrders(): Promise<ErpOrder[]> {
-    return [];
+    return this.client.get<ErpOrder[]>("orders");
   }
 
   async getReceptions(): Promise<ErpReception[]> {
-    return [];
+    return this.client.get<ErpReception[]>(
+      "receptions",
+    );
   }
 
   async getShipments(): Promise<ErpShipment[]> {
-    return [];
+    return this.client.get<ErpShipment[]>(
+      "shipments",
+    );
   }
 
   async getStock(): Promise<ErpStockItem[]> {
-    return [];
+    return this.client.get<ErpStockItem[]>("stock");
   }
 
   async getEmployees(): Promise<ErpEmployee[]> {
-    return [];
+    return this.client.get<ErpEmployee[]>(
+      "employees",
+    );
   }
 }

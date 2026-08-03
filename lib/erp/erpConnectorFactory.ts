@@ -1,4 +1,5 @@
 import { ConfiguredErpConnector } from "./configuredErpConnector";
+import { decryptErpSecret } from "./crypto";
 import type { ErpConnector } from "./erpConnector";
 import { LocalDatabaseConnector } from "./localDatabaseConnector";
 import type { ErpProvider } from "./types";
@@ -9,6 +10,9 @@ type ErpConnectorFactoryConfig = {
   status: string;
   isEnabled: boolean;
   lastSyncedAt: Date | null;
+  apiUrl?: string | null;
+  apiKeyEncrypted?: string | null;
+  externalCompanyId?: string | null;
 };
 
 const supportedProviders: ErpProvider[] = [
@@ -22,14 +26,23 @@ const supportedProviders: ErpProvider[] = [
   "csv",
 ];
 
-function isErpProvider(value: string): value is ErpProvider {
-  return supportedProviders.includes(value as ErpProvider);
+function isErpProvider(
+  value: string,
+): value is ErpProvider {
+  return supportedProviders.includes(
+    value as ErpProvider,
+  );
 }
 
 export function getErpConnector(
-  config?: ErpConnectorFactoryConfig | null
+  config?: ErpConnectorFactoryConfig | null,
 ): ErpConnector {
-  if (!config || !config.isEnabled) {
+  if (
+    !config ||
+    !config.isEnabled ||
+    config.provider === "local" ||
+    config.provider === "csv"
+  ) {
     return new LocalDatabaseConnector();
   }
 
@@ -37,10 +50,18 @@ export function getErpConnector(
     return new LocalDatabaseConnector();
   }
 
+  const apiKey = config.apiKeyEncrypted
+    ? decryptErpSecret(config.apiKeyEncrypted)
+    : null;
+
   return new ConfiguredErpConnector({
     provider: config.provider,
     name: config.name,
     status: config.status,
     lastSyncAt: config.lastSyncedAt,
+    apiUrl: config.apiUrl ?? "",
+    apiKey,
+    externalCompanyId:
+      config.externalCompanyId ?? null,
   });
 }

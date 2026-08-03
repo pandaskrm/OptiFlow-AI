@@ -31,3 +31,31 @@ export function encryptErpSecret(value: string) {
     encrypted.toString("base64"),
   ].join(".");
 }
+
+export function decryptErpSecret(value: string) {
+  const [ivValue, authTagValue, encryptedValue] =
+    value.split(".");
+
+  if (!ivValue || !authTagValue || !encryptedValue) {
+    throw new Error("Clé ERP chiffrée invalide.");
+  }
+
+  const decipher = crypto.createDecipheriv(
+    "aes-256-gcm",
+    getEncryptionKey(),
+    Buffer.from(ivValue, "base64"),
+  );
+
+  decipher.setAuthTag(
+    Buffer.from(authTagValue, "base64"),
+  );
+
+  const decrypted = Buffer.concat([
+    decipher.update(
+      Buffer.from(encryptedValue, "base64"),
+    ),
+    decipher.final(),
+  ]);
+
+  return decrypted.toString("utf8");
+}
