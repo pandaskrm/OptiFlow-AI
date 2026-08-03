@@ -157,7 +157,7 @@ export default function useVoiceAssistant() {
 
       const cleanText = text
         .replace(/\[\[[\s\S]*?\]\]/g, "")
-        .replace(/[✅⚠️📦🚛📊🤖🟢🟠🔴]/g, "")
+        .replace(/[✅⚠️📦🚛📊🤖🟢🟠🔴]/gu, "")
         .trim();
 
       if (!cleanText) {
@@ -167,18 +167,43 @@ export default function useVoiceAssistant() {
       const utterance = new SpeechSynthesisUtterance(cleanText);
 
       utterance.lang = "fr-FR";
-      utterance.rate = 1;
-      utterance.pitch = 1;
+      utterance.rate = 0.92;
+      utterance.pitch = 0.88;
       utterance.volume = 1;
 
-      const voices = window.speechSynthesis.getVoices();
+      const voices =
+        window.speechSynthesis.getVoices();
 
-      const frenchVoice = voices.find((voice) =>
-        voice.lang.toLowerCase().startsWith("fr"),
+      const frenchVoices = voices.filter(
+        (voice) =>
+          voice.lang
+            .toLowerCase()
+            .startsWith("fr"),
       );
 
-      if (frenchVoice) {
-        utterance.voice = frenchVoice;
+      const preferredNames = [
+        "microsoft denise",
+        "microsoft henri",
+        "google français",
+        "google francais",
+        "audrey",
+        "thomas",
+      ];
+
+      const selectedVoice =
+        preferredNames
+          .map((preferredName) =>
+            frenchVoices.find((voice) =>
+              voice.name
+                .toLowerCase()
+                .includes(preferredName),
+            ),
+          )
+          .find(Boolean) ??
+        frenchVoices[0];
+
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
       }
 
       utterance.onstart = () => setSpeaking(true);

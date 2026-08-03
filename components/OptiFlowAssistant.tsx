@@ -626,6 +626,54 @@ export default function OptiFlowAssistant() {
     voiceEnabled,
   ]);
 
+  useEffect(() => {
+    const pendingModule =
+      window.sessionStorage.getItem(
+        "optiflow_ai_pending_module_help",
+      );
+
+    if (pendingModule !== currentPage) {
+      return;
+    }
+
+    if (open) {
+      window.sessionStorage.removeItem(
+        "optiflow_ai_pending_module_help",
+      );
+      return;
+    }
+
+    const timeout = window.setTimeout(() => {
+      if (document.visibilityState !== "visible") {
+        return;
+      }
+
+      window.sessionStorage.removeItem(
+        "optiflow_ai_pending_module_help",
+      );
+
+      const moduleHelp =
+        currentAssistance.introduction.replace(
+          /^Vous êtes[^.]*\.\s*/,
+          "",
+        );
+
+      speak(
+        `Module ${pageName} chargé. ${moduleHelp}`,
+      );
+    }, 2500);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [
+    currentAssistance.introduction,
+    currentPage,
+    open,
+    pageName,
+    speak,
+  ]);
+
   function closeLibotWithAnimation(
     destination?: string,
   ) {
@@ -636,6 +684,11 @@ export default function OptiFlowAssistant() {
       setClosing(false);
 
       if (destination) {
+        window.sessionStorage.setItem(
+          "optiflow_ai_pending_module_help",
+          destination,
+        );
+
         router.push(destination);
       }
     }, 500);
@@ -1269,16 +1322,6 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
             </p>
           </form>
         </section>
-      )}
-      {!open && (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className="mb-2 max-w-[250px] rounded-2xl border border-cyan-500/20 bg-slate-950/95 px-3 py-2 text-left text-xs font-semibold leading-5 text-slate-200 shadow-xl backdrop-blur-xl transition hover:border-cyan-400/40 hover:text-cyan-200"
-        >
-          <span className="mr-1">💡</span>
-          {currentAssistance.teaser}
-        </button>
       )}
 
 
