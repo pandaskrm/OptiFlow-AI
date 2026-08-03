@@ -28,6 +28,9 @@ type AssistantSession = {
 
 const ASSISTANT_STORAGE_KEY = "optiflow_ai_assistant_session";
 
+const ASSISTANT_SESSION_DATE_KEY =
+  "optiflow_ai_assistant_session_date";
+
 type NavigationCommand = {
   keywords: string[];
   destination: string;
@@ -326,7 +329,31 @@ export default function OptiFlowAssistant() {
 
   useEffect(() => {
     try {
-      const savedSession = window.localStorage.getItem(
+      const currentSessionDate =
+        new Date().toISOString().slice(0, 10);
+
+      const storedSessionDate =
+        window.sessionStorage.getItem(
+          ASSISTANT_SESSION_DATE_KEY,
+        );
+
+      if (
+        storedSessionDate !== currentSessionDate
+      ) {
+        window.sessionStorage.removeItem(
+          ASSISTANT_STORAGE_KEY,
+        );
+
+        window.sessionStorage.removeItem(
+          "optiflow_ai_last_spoken_message",
+        );
+
+        window.sessionStorage.setItem(
+          ASSISTANT_SESSION_DATE_KEY,
+          currentSessionDate,
+        );
+      }
+      const savedSession = window.sessionStorage.getItem(
         ASSISTANT_STORAGE_KEY,
       );
 
@@ -364,7 +391,7 @@ export default function OptiFlowAssistant() {
         }
       }
     } catch {
-      window.localStorage.removeItem(ASSISTANT_STORAGE_KEY);
+      window.sessionStorage.removeItem(ASSISTANT_STORAGE_KEY);
     } finally {
       setSessionLoaded(true);
     }
@@ -381,9 +408,14 @@ export default function OptiFlowAssistant() {
       assistantAction,
     };
 
-    window.localStorage.setItem(
+    window.sessionStorage.setItem(
       ASSISTANT_STORAGE_KEY,
       JSON.stringify(session),
+    );
+
+    window.sessionStorage.setItem(
+      ASSISTANT_SESSION_DATE_KEY,
+      new Date().toISOString().slice(0, 10),
     );
   }, [assistantAction, messages, open, sessionLoaded]);
 
