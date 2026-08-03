@@ -20,7 +20,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="min-h-screen w-60 shrink-0 border-r border-slate-800 bg-slate-950 px-4 py-5 text-white">
+    <aside className="hidden min-h-screen w-60 shrink-0 border-r border-slate-800 bg-slate-950 px-4 py-5 text-white lg:block">
       <div className="mb-7">
         <h1 className="text-2xl font-black leading-tight text-cyan-400">
           OptiFlow AI
