@@ -41,7 +41,9 @@ export async function synchronizeErpConnection({
   actorId = null,
   triggeredBy,
 }: SynchronizeErpOptions) {
-  const connection = await prisma.erpConnection.findFirst({
+    const syncStartedAt = new Date();
+
+const connection = await prisma.erpConnection.findFirst({
     where: {
       id: connectionId,
       companyId,
@@ -65,6 +67,10 @@ export async function synchronizeErpConnection({
       "Une synchronisation ERP est dÃ©jÃ  en cours."
     );
   }
+  const syncMode = connection.lastSyncedAt
+    ? "DELTA"
+    : "FULL";
+
 
   await prisma.erpConnection.update({
     where: {
@@ -378,6 +384,10 @@ export async function synchronizeErpConnection({
     };
 
     const syncedAt = new Date();
+    const syncCompletedAt = new Date();
+    const durationMs =
+      syncCompletedAt.getTime() -
+      syncStartedAt.getTime();
 
     const updatedConnection = await prisma.erpConnection.update({
       where: {
@@ -405,6 +415,11 @@ export async function synchronizeErpConnection({
           provider: connection.provider,
           name: connection.name,
           triggeredBy,
+          syncMode,
+          status: "SUCCESS",
+          startedAt: syncStartedAt.toISOString(),
+          completedAt: syncCompletedAt.toISOString(),
+          durationMs,
           summary,
           syncedAt: syncedAt.toISOString(),
         }),
@@ -425,9 +440,18 @@ export async function synchronizeErpConnection({
         lastSyncedAt: updatedConnection.lastSyncedAt,
       },
       summary,
+      syncMode,
+      durationMs,
+      startedAt: syncStartedAt,
+      completedAt: syncCompletedAt,
       syncedAt,
     };
   } catch (error) {
+    const syncFailedAt = new Date();
+    const durationMs =
+      syncFailedAt.getTime() -
+      syncStartedAt.getTime();
+
     const errorMessage =
       error instanceof Error
         ? error.message
@@ -457,6 +481,11 @@ export async function synchronizeErpConnection({
           provider: connection.provider,
           name: connection.name,
           triggeredBy,
+          syncMode,
+          status: "FAILED",
+          startedAt: syncStartedAt.toISOString(),
+          completedAt: syncFailedAt.toISOString(),
+          durationMs,
           error: errorMessage,
         }),
       },
