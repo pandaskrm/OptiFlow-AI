@@ -136,10 +136,66 @@ export async function synchronizeErpConnection({
       importedReceptions += 1;
     }
 
+    const erpOrders = await connector.getOrders();
+    let importedOrders = 0;
+
+    for (const order of erpOrders) {
+      if (!order.number || !order.customer) {
+        continue;
+      }
+
+      const totalLines =
+        Number.isFinite(order.totalLines) && Number(order.totalLines) >= 0
+          ? Number(order.totalLines)
+          : 0;
+
+      const preparedLines =
+        Number.isFinite(order.preparedLines) &&
+        Number(order.preparedLines) >= 0
+          ? Math.min(Number(order.preparedLines), totalLines)
+          : 0;
+
+      const scheduledAt =
+        order.scheduledAt &&
+        !Number.isNaN(Date.parse(order.scheduledAt))
+          ? new Date(order.scheduledAt)
+          : null;
+
+      await prisma.order.upsert({
+        where: {
+          number: order.number,
+        },
+        update: {
+          customer: order.customer,
+          carrier: order.carrier || null,
+          priority: order.priority || "Normale",
+          status: order.status || "À préparer",
+          totalLines,
+          preparedLines,
+          scheduledAt,
+          companyId,
+        },
+        create: {
+          number: order.number,
+          customer: order.customer,
+          carrier: order.carrier || null,
+          priority: order.priority || "Normale",
+          status: order.status || "À préparer",
+          totalLines,
+          preparedLines,
+          scheduledAt,
+          companyId,
+        },
+      });
+
+      importedOrders += 1;
+    }
+
     const connectorSummary = await connector.getSummary();
 
     const summary = {
       ...connectorSummary,
+      orders: importedOrders,
       receptions: importedReceptions,
     };
 

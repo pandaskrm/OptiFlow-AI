@@ -1,4 +1,4 @@
-﻿export type ErpProvider =
+export type ErpProvider =
   | "local"
   | "sap"
   | "sage"
@@ -42,8 +42,12 @@ export type ErpReception = {
 export type ErpOrder = {
   number: string;
   customer: string;
+  carrier?: string | null;
   priority: string;
   status: string;
+  totalLines?: number;
+  preparedLines?: number;
+  scheduledAt?: string | null;
 };
 
 export type ErpShipment = {
