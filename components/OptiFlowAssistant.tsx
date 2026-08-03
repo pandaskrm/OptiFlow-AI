@@ -653,7 +653,7 @@ const response = await fetch("/api/assistant/chat", {
       ? payload.answer
       : "";
 
-  const réceptionCommand = rawAnswer.match(
+  const receptionCommand = rawAnswer.match(
     CREATE_RECEPTION_COMMAND,
   );
 
@@ -661,24 +661,32 @@ const response = await fetch("/api/assistant/chat", {
     .replace(CREATE_RECEPTION_COMMAND, "")
     .trim();
 
-  if (réceptionCommand) {
+  if (receptionCommand) {
     try {
-      const réceptionData = JSON.parse(réceptionCommand[1]);
+      const receptionData = JSON.parse(receptionCommand[1]);
 
-      const creationResponse = await fetch("/api/réceptions", {
+      const creationResponse = await fetch("/api/receptions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           number:
-            réceptionData.number ||
+            receptionData.number ||
             `REC-AI-${Date.now()}`,
-          supplier: réceptionData.supplier,
-          carrier: réceptionData.carrier,
-          dock: réceptionData.dock,
-          pallets: Number(réceptionData.pallets),
-          scheduledAt: réceptionData.scheduledAt,
+          supplier: receptionData.supplier,
+          carrier:
+            typeof receptionData.carrier === "string" &&
+            receptionData.carrier.trim()
+              ? receptionData.carrier.trim()
+              : "Non renseigné",
+          dock:
+            typeof receptionData.dock === "string" &&
+            receptionData.dock.trim()
+              ? receptionData.dock.trim()
+              : "À attribuer",
+          pallets: Number(receptionData.pallets),
+          scheduledAt: receptionData.scheduledAt,
           status: "Planifiée",
         }),
       });

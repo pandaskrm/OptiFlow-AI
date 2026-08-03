@@ -136,6 +136,36 @@ Règles :
 
 ### FIN RECEPTION_WORKFLOW ###
 `;
+const OPTIONAL_RECEPTION_FIELDS = `
+### OPTIONAL_RECEPTION_FIELDS ###
+
+Pour créer une réception, seuls les champs suivants sont obligatoires :
+- fournisseur ;
+- nombre de palettes ;
+- date et heure prévues.
+
+Les champs suivants sont facultatifs :
+- transporteur ;
+- quai ;
+- numéro de réception, ASN ou PO.
+
+Si le transporteur manque, utilise exactement :
+Non renseigné
+
+Si le quai manque, utilise exactement :
+À attribuer
+
+Si le numéro manque, utilise un numéro commençant par REC-AI-.
+
+Ne bloque jamais la création uniquement parce que le transporteur,
+le quai ou la référence ne sont pas connus.
+
+Avant toute création, présente le récapitulatif et demande toujours
+une confirmation explicite.
+
+### FIN OPTIONAL_RECEPTION_FIELDS ###
+`;
+
 const SYSTEM_PROMPT = `
 Tu es le cerveau conversationnel d'OptiFlow AI.
 
@@ -220,7 +250,7 @@ Contexte OptiFlow AI :
       instructions: `${OPTIFLOW_PERSONALITY}
 ${SYSTEM_PROMPT}
 ${MORNING_BRIEF}
-${RECEPTION_WORKFLOW}\n${context}`,
+${RECEPTION_WORKFLOW}\n${OPTIONAL_RECEPTION_FIELDS}\n${context}`,
       input: safeMessages,
     });
 
