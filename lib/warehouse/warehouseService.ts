@@ -421,7 +421,7 @@ function buildPriorities({
 
   if (plannedReceptions > 0) {
     priorities.push(
-      "PrÃ©parer les quais pour les prochaines rÃ©ceptions planifiÃ©es."
+      "Préparer les quais pour les prochaines réceptions planifiées."
     );
   }
 
