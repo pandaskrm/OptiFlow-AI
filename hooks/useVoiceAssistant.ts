@@ -59,15 +59,33 @@ function prepareSpeechText(text: string) {
 }
 
 function getAdaptiveSpeechRate(text: string) {
+  const isMobile =
+    window.matchMedia("(max-width: 768px)").matches ||
+    /Android|iPhone|iPad|iPod/i.test(
+      navigator.userAgent,
+    );
+
+  if (isMobile) {
+    if (text.length < 140) {
+      return 1.05;
+    }
+
+    if (text.length < 450) {
+      return 1.12;
+    }
+
+    return 1.19;
+  }
+
   if (text.length < 140) {
-    return 1;
+    return 0.96;
   }
 
   if (text.length < 450) {
-    return 1.08;
+    return 1.03;
   }
 
-  return 1.16;
+  return 1.1;
 }
 
 export default function useVoiceAssistant() {
