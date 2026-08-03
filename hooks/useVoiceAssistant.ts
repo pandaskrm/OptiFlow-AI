@@ -36,6 +36,40 @@ type VoiceWindow = Window & {
   webkitSpeechRecognition?: SpeechRecognitionConstructor;
 };
 
+function prepareSpeechText(text: string) {
+  return text
+    .replace(/\[\[[\s\S]*?\]\]/g, "")
+    .replace(/[→➡⇒➜➤►]/gu, ". ")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^[-*•▪◦]\s+/gm, ". ")
+    .replace(/[*_`~]/g, "")
+    .replace(/\n+/g, ". ")
+    .replace(/\bFIFO\b/gi, "fifo")
+    .replace(/\bFEFO\b/gi, "féfo")
+    .replace(/\bWMS\b/gi, "double vé, ème, esse")
+    .replace(/\bERP\b/gi, "é, erre, pé")
+    .replace(/\bKPI\b/gi, "ka, pé, i")
+    .replace(/\bAPI\b/gi, "a, pé, i")
+    .replace(/\bIA\b/g, "i a")
+    .replace(/[\p{Extended_Pictographic}\uFE0F]/gu, "")
+    .replace(/\s*\.\s*\.\s*/g, ". ")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\.{2,}/g, ".")
+    .trim();
+}
+
+function getAdaptiveSpeechRate(text: string) {
+  if (text.length < 140) {
+    return 1;
+  }
+
+  if (text.length < 450) {
+    return 1.08;
+  }
+
+  return 1.16;
+}
+
 export default function useVoiceAssistant() {
   const recognitionRef =
     useRef<SpeechRecognitionInstance | null>(null);
@@ -155,10 +189,8 @@ export default function useVoiceAssistant() {
 
       window.speechSynthesis.cancel();
 
-      const cleanText = text
-        .replace(/\[\[[\s\S]*?\]\]/g, "")
-        .replace(/[✅⚠️📦🚛📊🤖🟢🟠🔴]/gu, "")
-        .trim();
+      const cleanText =
+        prepareSpeechText(text);
 
       if (!cleanText) {
         return;
@@ -167,8 +199,8 @@ export default function useVoiceAssistant() {
       const utterance = new SpeechSynthesisUtterance(cleanText);
 
       utterance.lang = "fr-FR";
-      utterance.rate = 0.92;
-      utterance.pitch = 0.88;
+      utterance.rate = getAdaptiveSpeechRate(cleanText);
+      utterance.pitch = 0.98;
       utterance.volume = 1;
 
       const voices =
