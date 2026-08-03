@@ -191,12 +191,83 @@ export async function synchronizeErpConnection({
       importedOrders += 1;
     }
 
+    const erpShipments = await connector.getShipments();
+    let importedShipments = 0;
+
+    for (const shipment of erpShipments) {
+      if (
+        !shipment.number ||
+        !shipment.customer ||
+        !shipment.carrier
+      ) {
+        continue;
+      }
+
+      const pallets =
+        Number.isFinite(shipment.pallets) &&
+        Number(shipment.pallets) >= 0
+          ? Number(shipment.pallets)
+          : 0;
+
+      const packages =
+        Number.isFinite(shipment.packages) &&
+        Number(shipment.packages) >= 0
+          ? Number(shipment.packages)
+          : 0;
+
+      const scheduledAt =
+        shipment.scheduledAt &&
+        !Number.isNaN(Date.parse(shipment.scheduledAt))
+          ? new Date(shipment.scheduledAt)
+          : null;
+
+      const shippedAt =
+        shipment.shippedAt &&
+        !Number.isNaN(Date.parse(shipment.shippedAt))
+          ? new Date(shipment.shippedAt)
+          : null;
+
+      await prisma.shipment.upsert({
+        where: {
+          number: shipment.number,
+        },
+        update: {
+          orderNumber: shipment.orderNumber || null,
+          customer: shipment.customer,
+          carrier: shipment.carrier,
+          dock: shipment.dock || null,
+          status: shipment.status || "À expédier",
+          pallets,
+          packages,
+          scheduledAt,
+          shippedAt,
+          companyId,
+        },
+        create: {
+          number: shipment.number,
+          orderNumber: shipment.orderNumber || null,
+          customer: shipment.customer,
+          carrier: shipment.carrier,
+          dock: shipment.dock || null,
+          status: shipment.status || "À expédier",
+          pallets,
+          packages,
+          scheduledAt,
+          shippedAt,
+          companyId,
+        },
+      });
+
+      importedShipments += 1;
+    }
+
     const connectorSummary = await connector.getSummary();
 
     const summary = {
       ...connectorSummary,
       orders: importedOrders,
       receptions: importedReceptions,
+      shipments: importedShipments,
     };
 
     const syncedAt = new Date();

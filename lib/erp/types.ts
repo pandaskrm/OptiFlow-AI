@@ -52,8 +52,15 @@ export type ErpOrder = {
 
 export type ErpShipment = {
   number: string;
+  orderNumber?: string | null;
+  customer: string;
   carrier: string;
+  dock?: string | null;
   status: string;
+  pallets?: number;
+  packages?: number;
+  scheduledAt?: string | null;
+  shippedAt?: string | null;
 };
 
 export type ErpStockItem = {
