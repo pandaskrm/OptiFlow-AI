@@ -913,20 +913,83 @@ try {
     content: message.content,
   }));
 
-  const [summaryResult, analysisResult] = await Promise.allSettled([
-fetch("/api/warehouse/summary").then(r=>r.json()),
-fetch("/api/warehouse/analysis").then(r=>r.json()),
-]);
+  const warehouseContextKeywords = [
+  "analyse",
+  "kpi",
+  "entrepot",
+  "entrepôt",
+  "stock",
+  "rupture",
+  "retard",
+  "reception",
+  "réception",
+  "expedition",
+  "expédition",
+  "preparation",
+  "préparation",
+  "commande",
+  "quai",
+  "transporteur",
+  "priorite",
+  "priorité",
+  "alerte",
+  "briefing",
+  "resume",
+  "résumé",
+  "sante",
+  "santé",
+  "performance",
+  "charge",
+];
 
-const warehouseSummary =
-summaryResult.status==="fulfilled"
-?summaryResult.value
-:null;
+const needsWarehouseContext =
+  warehouseContextKeywords.some((keyword) =>
+    normalizedQuestion.includes(
+      normalizeText(keyword),
+    ),
+  );
 
-const warehouseAnalysis =
-analysisResult.status==="fulfilled"
-?analysisResult.value
-:null;
+let warehouseSummary = null;
+let warehouseAnalysis = null;
+
+if (needsWarehouseContext) {
+  const contextStartedAt = performance.now();
+
+  const [summaryResult, analysisResult] =
+    await Promise.allSettled([
+      fetch("/api/warehouse/summary", {
+        cache: "no-store",
+      }).then((response) => response.json()),
+
+      fetch("/api/warehouse/analysis", {
+        cache: "no-store",
+      }).then((response) => response.json()),
+    ]);
+
+  warehouseSummary =
+    summaryResult.status === "fulfilled"
+      ? summaryResult.value
+      : null;
+
+  warehouseAnalysis =
+    analysisResult.status === "fulfilled"
+      ? analysisResult.value
+      : null;
+
+  console.info(
+    "[Libot] Contexte entrepôt chargé en",
+    Math.round(
+      performance.now() - contextStartedAt,
+    ),
+    "ms",
+  );
+} else {
+  console.info(
+    "[Libot] Réponse rapide sans contexte entrepôt",
+  );
+}
+
+const assistantStartedAt = performance.now();
 
 const response = await fetch("/api/assistant/chat", {
     method: "POST",
@@ -943,6 +1006,14 @@ const response = await fetch("/api/assistant/chat", {
   });
 
   const payload = await response.json();
+
+  console.info(
+    "[Libot] Réponse IA reçue en",
+    Math.round(
+      performance.now() - assistantStartedAt,
+    ),
+    "ms",
+  );
 
   const CREATE_RECEPTION_COMMAND =
     /\[\[CREATE_RECEPTION:(\{[\s\S]*?\})\]\]/;
