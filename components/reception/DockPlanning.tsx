@@ -134,10 +134,10 @@ export default function DockPlanning({
   }, [refreshKey, simulation.running]);
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-6">
       <div className="mb-6">
         <h2 className="text-xl font-bold text-white">
-          ðŸ“ Occupation des quais
+          🚛 Occupation des quais
         </h2>
 
         <p className="mt-1 text-sm text-slate-400">
@@ -151,7 +151,7 @@ export default function DockPlanning({
           Chargement des quais...
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-6">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:grid-cols-6">
           {docks.map((dock) => {
             const reception = receptions.find(
               (item) =>
@@ -171,7 +171,7 @@ export default function DockPlanning({
             return (
               <div
                 key={dock}
-                className={`rounded-2xl border bg-slate-800 p-4 transition-all duration-700 hover:-translate-y-1 hover:shadow-lg ${
+                className={`rounded-2xl border bg-slate-800 p-3 transition-all duration-700 sm:p-4 hover:-translate-y-1 hover:shadow-lg ${
                   statusStyle[status] || statusStyle[STATUS_FREE]
                 }`}
               >
@@ -194,7 +194,7 @@ export default function DockPlanning({
                   </span>
                 </div>
 
-                <div className="mt-5 min-h-[120px] space-y-2">
+                <div className="mt-4 min-h-[90px] space-y-2 sm:mt-5 sm:min-h-[120px]">
                   {reception ? (
                     <>
                       <p className="text-sm text-slate-200">
@@ -224,7 +224,7 @@ export default function DockPlanning({
                       </div>
                     </>
                   ) : (
-                    <div className="flex h-full min-h-[100px] items-center justify-center rounded-xl border border-green-500/20 bg-green-500/10">
+                    <div className="flex h-full min-h-[72px] items-center justify-center rounded-xl border border-green-500/20 bg-green-500/10 sm:min-h-[100px]">
                       <p className="text-sm font-bold text-green-400">
                         🟢 Disponible
                       </p>

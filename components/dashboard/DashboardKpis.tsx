@@ -42,7 +42,7 @@ export default function DashboardKpis() {
           : "En attente de données ERP";
 
   return (
-    <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3 xl:grid-cols-6">
+    <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:mb-8 xl:grid-cols-6">
       <KpiCard
         title="Commandes"
         value={String(

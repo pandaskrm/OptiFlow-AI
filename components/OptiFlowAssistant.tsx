@@ -703,17 +703,12 @@ const response = await fetch("/api/assistant/chat", {
         );
       }
 
-      payload.answer =
-        `${visibleAnswer}\n\n✅ Réception ${creationPayload.number} créée avec succès.`;
+      payload.answer = "✅ Réception créée avec succès.";
 
       notifyWarehouseUpdate();
 
       window.dispatchEvent(
         new Event("optiflow:receptions-updated"),
-      );
-
-      window.dispatchEvent(
-        new Event("optiflow:réceptions-updated"),
       );
 
       payload.action = "/reception";
