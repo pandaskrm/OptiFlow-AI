@@ -393,20 +393,51 @@ export default function OptiFlowAssistant() {
   }, [messages]);
 
   useEffect(() => {
+    if (!sessionLoaded) {
+      return;
+    }
+
     const lastMessage = messages[messages.length - 1];
 
     if (
       !voiceEnabled ||
       !lastMessage ||
-      lastMessage.author !== "assistant" ||
-      lastMessage.id === lastSpokenMessageIdRef.current
+      lastMessage.author !== "assistant"
     ) {
       return;
     }
 
-    lastSpokenMessageIdRef.current = lastMessage.id;
+    const messageKey =
+      `${lastMessage.id}:${lastMessage.content}`;
+
+    const storedMessageKey =
+      window.sessionStorage.getItem(
+        "optiflow_ai_last_spoken_message",
+      );
+
+    if (
+      lastMessage.id ===
+        lastSpokenMessageIdRef.current ||
+      messageKey === storedMessageKey
+    ) {
+      return;
+    }
+
+    lastSpokenMessageIdRef.current =
+      lastMessage.id;
+
+    window.sessionStorage.setItem(
+      "optiflow_ai_last_spoken_message",
+      messageKey,
+    );
+
     speak(lastMessage.content);
-  }, [messages, speak, voiceEnabled]);
+  }, [
+    messages,
+    sessionLoaded,
+    speak,
+    voiceEnabled,
+  ]);
 
   async function runErpSynchronization() {
     setPendingAction(null);
