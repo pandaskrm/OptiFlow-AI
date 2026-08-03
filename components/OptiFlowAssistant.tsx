@@ -1,5 +1,7 @@
 "use client";
 
+
+import useVoiceAssistant from "../hooks/useVoiceAssistant";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -305,6 +307,20 @@ export default function OptiFlowAssistant() {
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const lastSpokenMessageIdRef = useRef<number | null>(null);
+
+  const {
+    supported: voiceSupported,
+    listening,
+    speaking,
+    voiceEnabled,
+    error: voiceError,
+    startListening,
+    stopListening,
+    speak,
+    stopSpeaking,
+    toggleVoice,
+  } = useVoiceAssistant();
 
   useEffect(() => {
     try {
@@ -364,6 +380,22 @@ export default function OptiFlowAssistant() {
       behavior: "smooth",
     });
   }, [messages, thinking]);
+
+  useEffect(() => {
+    const lastMessage = messages[messages.length - 1];
+
+    if (
+      !voiceEnabled ||
+      !lastMessage ||
+      lastMessage.author !== "assistant" ||
+      lastMessage.id === lastSpokenMessageIdRef.current
+    ) {
+      return;
+    }
+
+    lastSpokenMessageIdRef.current = lastMessage.id;
+    speak(lastMessage.content);
+  }, [messages, speak, voiceEnabled]);
 
   async function runErpSynchronization() {
     setPendingAction(null);
@@ -719,7 +751,19 @@ const response = await fetch("/api/assistant/chat", {
 
 function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    askQuestion(input);
+    void askQuestion(input);
+  }
+
+  function handleVoiceInput() {
+    if (listening) {
+      stopListening();
+      return;
+    }
+
+    startListening((transcript) => {
+      setInput(transcript);
+      void askQuestion(transcript);
+    });
   }
 
   return (
@@ -865,6 +909,27 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
               />
 
               <button
+                type="button"
+                onClick={handleVoiceInput}
+                disabled={!voiceSupported || thinking}
+                aria-label="Parler à OptiFlow AI"
+                title={
+                  voiceSupported
+                    ? listening
+                      ? "Arrêter l'écoute"
+                      : "Parler à OptiFlow AI"
+                    : "Reconnaissance vocale indisponible"
+                }
+                className={
+                  listening
+                    ? "flex h-10 w-10 shrink-0 animate-pulse items-center justify-center rounded-xl bg-red-500 text-white transition hover:bg-red-400"
+                    : "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 transition hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-30"
+                }
+              >
+                {listening ? "■" : "🎤"}
+              </button>
+
+              <button
                 type="submit"
                 disabled={!input.trim() || thinking}
                 aria-label="Envoyer la question"
@@ -874,8 +939,46 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
               </button>
             </div>
 
+            <div className="mt-2 flex flex-wrap items-center justify-center gap-3 text-[10px]">
+              <button
+                type="button"
+                onClick={toggleVoice}
+                className={
+                  voiceEnabled
+                    ? "font-semibold text-emerald-400 transition hover:text-emerald-300"
+                    : "font-semibold text-slate-500 transition hover:text-slate-300"
+                }
+              >
+                {voiceEnabled
+                  ? "🔊 Réponses vocales activées"
+                  : "🔇 Réponses vocales coupées"}
+              </button>
+
+              {speaking && (
+                <button
+                  type="button"
+                  onClick={stopSpeaking}
+                  className="font-semibold text-orange-400 transition hover:text-orange-300"
+                >
+                  Arrêter la lecture
+                </button>
+              )}
+
+              {listening && (
+                <span className="font-semibold text-red-400">
+                  Écoute en cours…
+                </span>
+              )}
+            </div>
+
+            {voiceError && (
+              <p className="mt-2 text-center text-[10px] font-semibold text-red-400">
+                {voiceError}
+              </p>
+            )}
+
             <p className="mt-2 text-center text-[10px] text-slate-600">
-              Le copilote peut repondre et naviguer dans OptiFlow AI.
+              Le copilote peut répondre, parler et naviguer dans OptiFlow AI.
             </p>
           </form>
         </section>
