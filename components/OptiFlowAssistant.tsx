@@ -308,6 +308,7 @@ export default function OptiFlowAssistant() {
   ]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const lastSpokenMessageIdRef = useRef<number | null>(null);
 
   const {
@@ -387,9 +388,22 @@ export default function OptiFlowAssistant() {
   }, [assistantAction, messages, open, sessionLoaded]);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: "smooth",
+    const container = messagesContainerRef.current;
+
+    if (!container) {
+      return;
+    }
+
+    const animationFrame = window.requestAnimationFrame(() => {
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: "smooth",
+      });
     });
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+    };
   }, [messages]);
 
   useEffect(() => {
@@ -867,7 +881,10 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
             </div>
           </header>
 
-          <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4">
+          <div
+            ref={messagesContainerRef}
+            className="flex-1 space-y-4 overflow-y-auto px-4 py-4"
+          >
             {messages.map((message) => (
 
 <>
