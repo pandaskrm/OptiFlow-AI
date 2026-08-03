@@ -1,31 +1,34 @@
-﻿"use client";
+"use client";
 
 type Action = {
   label: string;
   icon: string;
+  prompt: string;
 };
 
-const actions: Action[] = [
-  { icon: "📊", label: "Dashboard" },
-  { icon: "📦", label: "Réceptions" },
-  { icon: "🚚", label: "Expéditions" },
-  { icon: "📦", label: "Stock" },
-  { icon: "👥", label: "Équipe" },
-  { icon: "⚙️", label: "ERP" },
-  { icon: "📋", label: "Briefing" },
-];
+type AssistantQuickActionsProps = {
+  actions: Action[];
+  onAction: (prompt: string) => void;
+};
 
-export default function AssistantQuickActions() {
+export default function AssistantQuickActions({
+  actions,
+  onAction,
+}: AssistantQuickActionsProps) {
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-2 gap-2">
       {actions.map((action) => (
         <button
           key={action.label}
           type="button"
-          className="flex min-h-16 flex-col items-center justify-center rounded-xl border border-slate-800 bg-slate-900 px-2 py-2 text-center transition hover:border-cyan-500/50 hover:bg-cyan-500/10"
+          onClick={() => onAction(action.prompt)}
+          className="flex min-h-20 flex-col items-center justify-center rounded-xl border border-slate-800 bg-slate-900 px-2 py-3 text-center transition hover:border-cyan-500/50 hover:bg-cyan-500/10 active:scale-[0.98]"
         >
-          <span className="text-lg">{action.icon}</span>
-          <span className="mt-1 text-[10px] font-medium text-slate-300">
+          <span className="text-xl">
+            {action.icon}
+          </span>
+
+          <span className="mt-2 text-[11px] font-semibold text-slate-300">
             {action.label}
           </span>
         </button>

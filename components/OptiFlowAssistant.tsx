@@ -161,6 +161,142 @@ const suggestedQuestions: Record<string, string[]> = {
   ],
 };
 
+
+type ContextAction = {
+  icon: string;
+  label: string;
+  prompt: string;
+};
+
+type ModuleAssistance = {
+  teaser: string;
+  introduction: string;
+  actions: ContextAction[];
+};
+
+const moduleAssistance: Record<string, ModuleAssistance> = {
+  "/dashboard": {
+    teaser: "Je peux analyser vos priorités du jour",
+    introduction:
+      "Vous êtes sur le tableau de bord. Je peux analyser vos KPI, expliquer les alertes et ouvrir les modules utiles.",
+    actions: [
+      { icon: "📊", label: "Analyser les KPI", prompt: "Analyse les KPI du tableau de bord" },
+      { icon: "🎯", label: "Priorités", prompt: "Donne-moi les priorités du jour" },
+      { icon: "📥", label: "Réceptions", prompt: "Ouvre les réceptions" },
+      { icon: "✨", label: "Mode Démo", prompt: "Lance le mode Démo" },
+    ],
+  },
+
+  "/reception": {
+    teaser: "Je peux créer une réception ou analyser les retards",
+    introduction:
+      "Vous êtes dans Réception. Je peux créer une réception, rechercher un dossier, attribuer un quai et analyser les retards.",
+    actions: [
+      { icon: "➕", label: "Créer", prompt: "Crée une nouvelle réception" },
+      { icon: "🚛", label: "Aujourd’hui", prompt: "Montre-moi les réceptions du jour" },
+      { icon: "📍", label: "Quais", prompt: "Analyse l'occupation des quais" },
+      { icon: "⚠️", label: "Retards", prompt: "Analyse les réceptions en retard" },
+    ],
+  },
+
+  "/preparation": {
+    teaser: "Je peux afficher les urgences de préparation",
+    introduction:
+      "Vous êtes dans Préparation. Je peux afficher les urgences, analyser la charge et suivre les performances.",
+    actions: [
+      { icon: "🚨", label: "Urgences", prompt: "Montre-moi les préparations urgentes" },
+      { icon: "📦", label: "Commandes", prompt: "Analyse les commandes en préparation" },
+      { icon: "👷", label: "Performance", prompt: "Analyse la performance des préparateurs" },
+      { icon: "📊", label: "Charge", prompt: "Analyse la charge de préparation" },
+    ],
+  },
+
+  "/shipping": {
+    teaser: "Je peux analyser les départs et les retards",
+    introduction:
+      "Vous êtes dans Expédition. Je peux suivre les départs, les transporteurs et les expéditions prioritaires.",
+    actions: [
+      { icon: "🚚", label: "Départs", prompt: "Montre-moi les départs du jour" },
+      { icon: "⚠️", label: "Retards", prompt: "Analyse les expéditions en retard" },
+      { icon: "📦", label: "Priorités", prompt: "Affiche les expéditions prioritaires" },
+      { icon: "🔎", label: "Transporteurs", prompt: "Analyse les transporteurs" },
+    ],
+  },
+
+  "/stock": {
+    teaser: "Je peux rechercher un article ou détecter les ruptures",
+    introduction:
+      "Vous êtes dans Stock. Je peux rechercher un article, analyser les ruptures et vous aider à préparer un inventaire.",
+    actions: [
+      { icon: "🔎", label: "Rechercher", prompt: "Je veux rechercher un article" },
+      { icon: "⚠️", label: "Ruptures", prompt: "Analyse les risques de rupture" },
+      { icon: "📋", label: "Inventaire", prompt: "Aide-moi à préparer un inventaire" },
+      { icon: "📈", label: "Analyse", prompt: "Analyse le stock" },
+    ],
+  },
+
+  "/team": {
+    teaser: "Je peux analyser la charge et les absences",
+    introduction:
+      "Vous êtes dans Équipe. Je peux afficher les absences, expliquer les horaires et aider à gérer les utilisateurs.",
+    actions: [
+      { icon: "👥", label: "Équipe", prompt: "Analyse l'équipe aujourd'hui" },
+      { icon: "📅", label: "Absences", prompt: "Montre-moi les absences" },
+      { icon: "⏱️", label: "Horaires", prompt: "Explique-moi les horaires de l'équipe" },
+      { icon: "➕", label: "Utilisateur", prompt: "Comment créer un utilisateur ?" },
+    ],
+  },
+
+  "/executive": {
+    teaser: "Je peux préparer votre synthèse dirigeant",
+    introduction:
+      "Vous êtes dans Direction. Je peux résumer les KPI, détecter les risques et présenter les priorités dirigeant.",
+    actions: [
+      { icon: "📊", label: "Synthèse", prompt: "Prépare un résumé dirigeant" },
+      { icon: "⚠️", label: "Risques", prompt: "Quels sont les principaux risques ?" },
+      { icon: "🎯", label: "Priorités", prompt: "Donne-moi les priorités dirigeant" },
+      { icon: "🏭", label: "Santé dépôt", prompt: "Analyse la santé de l'entrepôt" },
+    ],
+  },
+
+  "/ai": {
+    teaser: "Je peux analyser votre entrepôt",
+    introduction:
+      "Vous êtes dans IA OptiFlow. Je peux analyser l'entrepôt, expliquer les alertes et préparer votre briefing.",
+    actions: [
+      { icon: "🧠", label: "Analyse", prompt: "Analyse mon entrepôt" },
+      { icon: "🎯", label: "Missions", prompt: "Quelles sont mes missions prioritaires ?" },
+      { icon: "⚠️", label: "Alertes", prompt: "Analyse les alertes actuelles" },
+      { icon: "📋", label: "Briefing", prompt: "Prépare mon briefing opérationnel" },
+    ],
+  },
+
+  "/parametres": {
+    teaser: "Je peux vous guider dans la connexion ERP",
+    introduction:
+      "Vous êtes dans Paramètres. Je peux vous guider pour connecter l'ERP, synchroniser les données et gérer les utilisateurs.",
+    actions: [
+      { icon: "🔌", label: "Connecter ERP", prompt: "Comment connecter mon ERP ?" },
+      { icon: "🔄", label: "Synchroniser", prompt: "Lance une synchronisation ERP" },
+      { icon: "👤", label: "Utilisateur", prompt: "Comment créer un utilisateur ?" },
+      { icon: "🛡️", label: "Sécurité", prompt: "Explique-moi les rôles et permissions" },
+    ],
+  },
+
+  "/demo": {
+    teaser: "Je peux lancer et expliquer la démonstration",
+    introduction:
+      "Vous êtes dans le mode Démo. Je peux lancer le scénario, analyser les événements simulés et ouvrir les vues principales.",
+    actions: [
+      { icon: "▶️", label: "Démarrer", prompt: "Démarre la démonstration" },
+      { icon: "📊", label: "Analyser", prompt: "Analyse le scénario actuel" },
+      { icon: "📥", label: "Réceptions", prompt: "Montre-moi les réceptions" },
+      { icon: "🏢", label: "Direction", prompt: "Montre-moi la vue Direction" },
+    ],
+  },
+};
+
+
 function normalizeText(value: string) {
   return value
     .toLowerCase()
@@ -292,6 +428,10 @@ export default function OptiFlowAssistant() {
 
   const questions =
     suggestedQuestions[currentPage] ?? suggestedQuestions["/dashboard"];
+
+  const currentAssistance =
+    moduleAssistance[currentPage] ??
+    moduleAssistance["/dashboard"];
 
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -687,6 +827,7 @@ if (navigationCommand) {
   setThinking(false);
 
   window.setTimeout(() => {
+    setOpen(false);
     router.push(navigationCommand.destination);
   }, 500);
 
@@ -827,6 +968,7 @@ const response = await fetch("/api/assistant/chat", {
     payload.action.startsWith("/")
   ) {
     window.setTimeout(() => {
+      setOpen(false);
       router.push(payload.action);
     }, 700);
   }
@@ -917,6 +1059,31 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
             ref={messagesContainerRef}
             className="flex-1 space-y-4 overflow-y-auto px-4 py-4"
           >
+            {messages.length === 1 && (
+              <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-400">
+                  Assistant du module
+                </p>
+
+                <h3 className="mt-2 font-black text-white">
+                  {pageName}
+                </h3>
+
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  {currentAssistance.introduction}
+                </p>
+
+                <div className="mt-4">
+                  <AssistantQuickActions
+                    actions={currentAssistance.actions}
+                    onAction={(prompt) => {
+                      void askQuestion(prompt);
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+
             {messages.map((message) => (
 
 <>
@@ -981,10 +1148,6 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 onClose={() => setAssistantAction("NONE")}
               />
             )}
-
-            
-
-            {messages.length === 1 && <AssistantQuickActions />}
 
             <div ref={messagesEndRef} />
           </div>
@@ -1083,6 +1246,17 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
           </form>
         </section>
       )}
+      {!open && (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="mb-2 max-w-[250px] rounded-2xl border border-cyan-500/20 bg-slate-950/95 px-3 py-2 text-left text-xs font-semibold leading-5 text-slate-200 shadow-xl backdrop-blur-xl transition hover:border-cyan-400/40 hover:text-cyan-200"
+        >
+          <span className="mr-1">💡</span>
+          {currentAssistance.teaser}
+        </button>
+      )}
+
 
       <button
         type="button"
