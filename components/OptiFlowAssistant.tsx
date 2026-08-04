@@ -1151,7 +1151,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
     <div className="fixed bottom-20 right-3 z-[100] flex flex-col items-end sm:bottom-28 sm:right-6">
       {open && (
         <section
-          className={`fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-cyan-400/20 bg-slate-950/98 shadow-2xl shadow-cyan-950/50 backdrop-blur-xl transition-all duration-500 ease-in-out sm:static sm:mb-4 sm:h-[min(740px,calc(100vh-120px))] sm:w-[clamp(480px,34vw,540px)] sm:rounded-3xl ${
+          className={`fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-cyan-400/20 bg-slate-950/98 shadow-2xl shadow-cyan-950/50 backdrop-blur-xl transition-all duration-500 ease-in-out sm:static sm:mb-4 sm:h-[min(650px,calc(100vh-120px))] sm:w-[clamp(480px,34vw,540px)] sm:rounded-3xl ${
             closing
               ? "scale-90 translate-y-6 opacity-0"
               : "scale-100 translate-y-0 opacity-100"
