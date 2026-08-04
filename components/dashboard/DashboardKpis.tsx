@@ -39,7 +39,7 @@ export default function DashboardKpis() {
         ? "Actualisation..."
         : hasRealData
           ? "Données ERP synchronisées"
-          : "En attente de données ERP";
+          : "ERP non connecté";
 
   return (
     <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:mb-8 xl:grid-cols-6">

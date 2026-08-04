@@ -81,7 +81,7 @@ export default function KpiCard({
           </div>
 
           <span
-            className={`mt-3 hidden min-h-8 w-full items-center justify-center rounded-xl border px-2 py-1.5 text-center text-[10px] font-semibold leading-4 sm:flex ${style.badge}`}
+            className="hidden"
           >
             {trend}
           </span>
@@ -118,7 +118,7 @@ export default function KpiCard({
           </span>
         </div>
 
-        <p className="mt-2 truncate text-[10px] text-slate-600 sm:hidden">
+        <p className={`mt-3 truncate border-t border-slate-800/80 pt-3 text-[10px] font-medium sm:text-[11px] ${safeProgress === 0 ? "text-orange-300" : "text-slate-500"}`}>
           {trend}
         </p>
       </div>
