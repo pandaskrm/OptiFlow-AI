@@ -1151,7 +1151,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
     <div className="fixed bottom-20 right-3 z-[100] flex flex-col items-end sm:bottom-28 sm:right-6">
       {open && (
         <section
-          className={`fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-cyan-400/20 bg-slate-950/98 shadow-2xl shadow-cyan-950/50 backdrop-blur-xl transition-all duration-500 ease-in-out sm:static sm:mb-4 sm:h-[min(620px,calc(100vh-120px))] sm:w-[min(390px,calc(100vw-32px))] sm:rounded-3xl ${
+          className={`fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-cyan-400/20 bg-slate-950/98 shadow-2xl shadow-cyan-950/50 backdrop-blur-xl transition-all duration-500 ease-in-out sm:static sm:mb-4 sm:h-[min(700px,calc(100vh-140px))] sm:w-[min(460px,calc(100vw-48px))] sm:rounded-3xl ${
             closing
               ? "scale-90 translate-y-6 opacity-0"
               : "scale-100 translate-y-0 opacity-100"
@@ -1205,19 +1205,19 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
           <div
             ref={messagesContainerRef}
-            className="flex-1 space-y-4 overflow-y-auto px-4 py-4"
+            className="flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5"
           >
             {messages.length === 1 && (
               <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4">
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-400">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-300 sm:text-xs">
                   Assistant du module
                 </p>
 
-                <h3 className="mt-2 font-black text-white">
+                <h3 className="mt-2 text-lg font-black text-white sm:text-xl">
                   {pageName}
                 </h3>
 
-                <p className="mt-2 text-sm leading-6 text-slate-300">
+                <p className="mt-3 text-sm leading-6 text-slate-200 sm:text-base sm:leading-7">
                   {currentAssistance.introduction}
                 </p>
 
