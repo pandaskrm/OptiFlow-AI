@@ -56,7 +56,7 @@ const navigationCommands: NavigationCommand[] = [
   {
     keywords: ["expedition", "expeditions", "shipping"],
     destination: "/shipping",
-    label: "les expeditions",
+    label: "les expéditions",
   },
   {
     keywords: ["stock", "inventaire"],
@@ -94,13 +94,13 @@ const pageNames: Record<string, string> = {
   "/dashboard": "Tableau de bord",
   "/reception": "Réceptions",
   "/preparation": "Préparation",
-  "/shipping": "Expeditions",
+  "/shipping": "Expéditions",
   "/stock": "Stock",
-  "/team": "Equipe",
+  "/team": "Équipe",
   "/executive": "Direction",
-  "/parametres": "Parametres",
+  "/parametres": "Paramètres",
   "/audit": "Journal d'audit",
-  "/demo": "Mode Demo",
+  "/demo": "Mode Démo",
 };
 
 const suggestedQuestions: Record<string, string[]> = {
@@ -112,18 +112,18 @@ const suggestedQuestions: Record<string, string[]> = {
   ],
   "/reception": [
     "Analyse les réceptions",
-    "Ouvre les expeditions",
+    "Ouvre les expéditions",
     "Montre-moi le stock",
     "Retourne au tableau de bord",
   ],
   "/preparation": [
     "Analyse la préparation",
-    "Montre-moi l'equipe",
+    "Montre-moi l'équipe",
     "Ouvre le stock",
     "Retourne au tableau de bord",
   ],
   "/shipping": [
-    "Analyse les expeditions",
+    "Analyse les expéditions",
     "Ouvre les réceptions",
     "Montre-moi le stock",
     "Retourne au tableau de bord",
@@ -144,7 +144,7 @@ const suggestedQuestions: Record<string, string[]> = {
     "Prepare un resume dirigeant",
     "Analyse mon entrepot",
     "Ouvre le tableau de bord",
-    "Montre-moi les expeditions",
+    "Montre-moi les expéditions",
   ],
   "/parametres": [
     "Comment connecter mon ERP ?",
@@ -343,7 +343,7 @@ function createAnswer(question: string, currentPage: string) {
     normalizedQuestion.includes("kpi") ||
     normalizedQuestion.includes("zero")
   ) {
-    return "Les KPI affichent zero ou -- lorsque l'ERP n'est pas connecte et que le mode Demo est desactive. Les donnees reelles et les donnees de demonstration restent volontairement separees.";
+    return "Les KPI affichent zéro ou -- lorsque l'ERP n'est pas connecté et que le mode Démo est désactivé. Les données réelles et les données de démonstration restent volontairement séparées.";
   }
 
   if (
@@ -364,28 +364,28 @@ function createAnswer(question: string, currentPage: string) {
     normalizedQuestion.includes("réception") ||
     normalizedQuestion.includes("quai")
   ) {
-    return "Je peux suivre les réceptions planifiees, les operations a quai, les dechargements, les controles et les retards.";
+    return "Je peux suivre les réceptions planifiées, les opérations à quai, les déchargements, les contrôles et les retards.";
   }
 
   if (
     normalizedQuestion.includes("expedition") ||
     normalizedQuestion.includes("transporteur")
   ) {
-    return "Je peux vous aider a suivre les expeditions en attente, les retards transporteurs et les priorites de depart.";
+    return "Je peux vous aider à suivre les expéditions en attente, les retards transporteurs et les priorités de départ.";
   }
 
   if (
     normalizedQuestion.includes("stock") ||
     normalizedQuestion.includes("rupture")
   ) {
-    return "Je peux analyser les niveaux de stock, les mouvements et les risques de rupture lorsque les donnees de l'entreprise sont disponibles.";
+    return "Je peux analyser les niveaux de stock, les mouvements et les risques de rupture lorsque les données de l'entreprise sont disponibles.";
   }
 
   if (
     normalizedQuestion.includes("preparation") ||
     normalizedQuestion.includes("commande")
   ) {
-    return "Je peux vous aider a suivre les commandes en preparation, leur priorite, leur avancement et la charge de travail des preparateurs.";
+    return "Je peux vous aider à suivre les commandes en préparation, leur priorité, leur avancement et la charge de travail des préparateurs.";
   }
 
   if (
@@ -400,19 +400,19 @@ function createAnswer(question: string, currentPage: string) {
     normalizedQuestion.includes("analyse") ||
     normalizedQuestion.includes("entrepot")
   ) {
-    return "Mon analyse controle la sante du depot, les commandes, les réceptions, les expeditions, le stock, les equipes et les alertes prioritaires.";
+    return "Mon analyse contrôle la santé du dépôt, les commandes, les réceptions, les expéditions, le stock, les équipes et les alertes prioritaires.";
   }
 
   if (
     normalizedQuestion.includes("demo") ||
     normalizedQuestion.includes("simulation")
   ) {
-    return "Le mode Demo utilise des donnees logistiques fictives clairement identifiees et separees des donnees reelles.";
+    return "Le mode Démo utilise des données logistiques fictives clairement identifiées et séparées des données réelles.";
   }
 
   const currentPageName = pageNames[currentPage] ?? "OptiFlow AI";
 
-  return `Vous etes actuellement dans ${currentPageName}. Je peux repondre a vos questions ou ouvrir directement un autre module.`;
+  return `Vous êtes actuellement dans ${currentPageName}. Je peux répondre à vos questions ou ouvrir directement un autre module.`;
 }
 
 export default function OptiFlowAssistant() {
@@ -447,7 +447,7 @@ export default function OptiFlowAssistant() {
       id: 1,
       author: "assistant",
       content:
-        "Bonjour, je suis votre copilote OptiFlow AI. Je peux repondre a vos questions et ouvrir directement les modules du logiciel.",
+        "Bonjour, je suis votre copilote OptiFlow AI. Je peux répondre à vos questions et ouvrir directement les modules du logiciel.",
     },
   ]);
 
@@ -1148,7 +1148,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
   }
 
   return (
-    <div className="fixed bottom-20 right-3 z-[100] flex flex-col items-end sm:bottom-5 sm:right-5">
+    <div className="fixed bottom-20 right-3 z-[100] flex flex-col items-end sm:bottom-28 sm:right-6">
       {open && (
         <section
           className={`fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-cyan-400/20 bg-slate-950/98 shadow-2xl shadow-cyan-950/50 backdrop-blur-xl transition-all duration-500 ease-in-out sm:static sm:mb-4 sm:h-[min(620px,calc(100vh-120px))] sm:w-[min(390px,calc(100vw-32px))] sm:rounded-3xl ${
@@ -1404,7 +1404,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
             ? "Fermer le copilote OptiFlow AI"
             : "Ouvrir le copilote OptiFlow AI"
         }
-        className="relative flex h-14 w-14 items-center justify-center rounded-2xl sm:h-[72px] sm:w-[72px] sm:rounded-3xl border border-cyan-300/30 bg-gradient-to-br from-cyan-400 via-cyan-500 to-blue-600 shadow-2xl shadow-cyan-500/25 transition duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-cyan-400/40"
+        className="relative flex h-14 w-14 items-center justify-center rounded-2xl sm:h-[84px] sm:w-[84px] sm:rounded-3xl border border-cyan-300/30 bg-gradient-to-br from-cyan-400 via-cyan-500 to-blue-600 shadow-2xl shadow-cyan-500/25 transition duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-cyan-400/40"
       >
         <span className="absolute inset-0 animate-ping rounded-3xl border border-cyan-300/20 opacity-20" />
 
