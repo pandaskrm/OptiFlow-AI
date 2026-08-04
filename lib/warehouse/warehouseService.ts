@@ -89,23 +89,23 @@ export type WarehouseSummary = {
 };
 
 const LEGACY_RECEPTION_STATUS = {
-  PLANNED: "PlanifiÃ©e",
-  AT_DOCK: "Ã€ quai",
-  UNLOADING: "DÃ©chargement",
-  INSPECTION: "ContrÃ´le qualitÃ©",
-  COMPLETED: "TerminÃ©e",
+  PLANNED: "Planifiée",
+  AT_DOCK: "À quai",
+  UNLOADING: "Déchargement",
+  INSPECTION: "Contrôle qualité",
+  COMPLETED: "Terminée",
 } as const;
 
 const ORDER_STATUS = {
-  WAITING: ["Ã€ prÃ©parer", "A preparer", "En attente"],
-  PREPARING: ["En prÃ©paration", "En preparation"],
-  COMPLETED: ["TerminÃ©e", "Terminee", "PrÃ©parÃ©e", "Preparee"],
+  WAITING: ["À préparer", "A preparer", "En attente"],
+  PREPARING: ["En préparation", "En preparation"],
+  COMPLETED: ["Terminée", "Terminee", "Préparée", "Preparee"],
 } as const;
 
 const SHIPMENT_STATUS = {
-  WAITING: ["Ã€ expÃ©dier", "A expedier", "En attente"],
-  READY: ["PrÃªte", "Prete", "PrÃªt", "Pret"],
-  SHIPPED: ["ExpÃ©diÃ©e", "Expediee", "TerminÃ©e", "Terminee"],
+  WAITING: ["À expédier", "A expedier", "En attente"],
+  READY: ["Prête", "Prete", "Prêt", "Pret"],
+  SHIPPED: ["Expédiée", "Expediee", "Terminée", "Terminee"],
 } as const;
 
 function normalize(value: string) {
@@ -309,7 +309,7 @@ function buildAlerts({
 
   if (lateReceptions > 0) {
     alerts.push(
-      `${lateReceptions} rÃ©ception${
+      `${lateReceptions} réception${
         lateReceptions > 1 ? "s sont" : " est"
       } en retard.`
     );
@@ -317,7 +317,7 @@ function buildAlerts({
 
   if (occupiedDocks >= 5) {
     alerts.push(
-      `${occupiedDocks}/6 quais sont occupÃ©s : risque de saturation.`
+      `${occupiedDocks}/6 quais sont occupés : risque de saturation.`
     );
   }
 
@@ -325,13 +325,13 @@ function buildAlerts({
     alerts.push(
       `${priorityOrders} commande${
         priorityOrders > 1 ? "s prioritaires" : " prioritaire"
-      } Ã  traiter.`
+      } à traiter.`
     );
   }
 
   if (unavailableReferences > 0) {
     alerts.push(
-      `${unavailableReferences} rÃ©fÃ©rence${
+      `${unavailableReferences} référence${
         unavailableReferences > 1 ? "s sont" : " est"
       } indisponible en stock.`
     );
@@ -339,7 +339,7 @@ function buildAlerts({
 
   if (lowStockReferences > 0) {
     alerts.push(
-      `${lowStockReferences} rÃ©fÃ©rence${
+      `${lowStockReferences} référence${
         lowStockReferences > 1 ? "s sont" : " est"
       } sous le seuil minimum.`
     );
@@ -349,13 +349,13 @@ function buildAlerts({
     alerts.push(
       `${absentEmployees} collaborateur${
         absentEmployees > 1 ? "s sont" : " est"
-      } absent aujourdâ€™hui.`
+      } absent aujourd'hui.`
     );
   }
 
   if (waitingShipments > 0) {
     alerts.push(
-      `${waitingShipments} expÃ©dition${
+      `${waitingShipments} expédition${
         waitingShipments > 1 ? "s sont" : " est"
       } encore en attente.`
     );
@@ -385,13 +385,13 @@ function buildPriorities({
 
   if (lateReceptions > 0) {
     priorities.push(
-      "Traiter les rÃ©ceptions en retard et vÃ©rifier les crÃ©neaux transporteurs."
+      "Traiter les réceptions en retard et vérifier les créneaux transporteurs."
     );
   }
 
   if (occupiedDocks >= 5) {
     priorities.push(
-      "LibÃ©rer rapidement un quai pour Ã©viter une file dâ€™attente."
+      "Libérer rapidement un quai pour éviter une file d'attente."
     );
   }
 
@@ -403,19 +403,19 @@ function buildPriorities({
 
   if (waitingShipments > 0) {
     priorities.push(
-      "ContrÃ´ler les expÃ©ditions en attente avant leur heure de dÃ©part."
+      "Contrôler les expéditions en attente avant leur heure de départ."
     );
   }
 
   if (lowStockReferences > 0) {
     priorities.push(
-      "Analyser les rÃ©fÃ©rences sous seuil et lancer un rÃ©approvisionnement."
+      "Analyser les références sous seuil et lancer un réapprovisionnement."
     );
   }
 
   if (absentEmployees > 0) {
     priorities.push(
-      "RÃ©Ã©quilibrer les Ã©quipes selon les absences du jour."
+      "Rééquilibrer les équipes selon les absences du jour."
     );
   }
 
