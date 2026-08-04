@@ -1,11 +1,89 @@
 type OptiFlowMascotProps = {
   compact?: boolean;
+  truckOnly?: boolean;
+  headOnly?: boolean;
 };
 
 export default function OptiFlowMascot({
   compact = false,
+  truckOnly = false,
+  headOnly = false,
 }: OptiFlowMascotProps) {
   const size = compact ? 38 : 58;
+
+  if (headOnly) {
+    return (
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/25 bg-cyan-400/10 shadow-lg shadow-cyan-500/10">
+        <svg
+          width="36"
+          height="36"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <rect
+            x="10"
+            y="15"
+            width="44"
+            height="38"
+            rx="15"
+            fill="#DFF9FF"
+            stroke="#67E8F9"
+            strokeWidth="2"
+          />
+
+          <rect
+            x="16"
+            y="22"
+            width="32"
+            height="23"
+            rx="10"
+            fill="#0F172A"
+          />
+
+          <rect
+            x="21"
+            y="29"
+            width="7"
+            height="5"
+            rx="2.5"
+            fill="#67E8F9"
+          />
+
+          <rect
+            x="36"
+            y="29"
+            width="7"
+            height="5"
+            rx="2.5"
+            fill="#67E8F9"
+          />
+
+          <path
+            d="M24 38C28 42 36 42 40 38"
+            stroke="#67E8F9"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+
+          <path
+            d="M32 15V8"
+            stroke="#E0F2FE"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+          />
+
+          <circle
+            cx="32"
+            cy="6"
+            r="3.5"
+            fill="#34D399"
+          />
+        </svg>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -140,6 +218,7 @@ export default function OptiFlowMascot({
           />
 
           <rect
+            opacity={truckOnly ? 0 : 1}
             x="27"
             y="28"
             width="35"
@@ -149,6 +228,7 @@ export default function OptiFlowMascot({
           />
 
           <rect
+            opacity={truckOnly ? 0 : 1}
             x="29"
             y="30"
             width="31"
@@ -159,7 +239,10 @@ export default function OptiFlowMascot({
             strokeWidth="1.5"
           />
 
-          <g filter="url(#optiflowGlow)">
+          <g
+            opacity={truckOnly ? 0 : 1}
+            filter="url(#optiflowGlow)"
+          >
             <rect
               x="34"
               y="38"
@@ -206,6 +289,7 @@ export default function OptiFlowMascot({
           </g>
 
           <path
+            opacity={truckOnly ? 0 : 1}
             d="M37 47C41.2 50.4 48.8 50.4 53 47"
             stroke="#67E8F9"
             strokeWidth="2.2"
@@ -213,6 +297,7 @@ export default function OptiFlowMascot({
           />
 
           <path
+            opacity={truckOnly ? 0 : 1}
             d="M44.5 28V19"
             stroke="#E0F2FE"
             strokeWidth="2.4"
@@ -220,6 +305,7 @@ export default function OptiFlowMascot({
           />
 
           <circle
+            opacity={truckOnly ? 0 : 1}
             cx="44.5"
             cy="15"
             r="4"
