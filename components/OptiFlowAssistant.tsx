@@ -1247,8 +1247,8 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 <div
                   className={
                     message.author === "user"
-                      ? "max-w-[84%] rounded-2xl rounded-br-md bg-cyan-500 px-4 py-3 text-sm leading-relaxed text-slate-950"
-                      : "max-w-[88%] rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm leading-relaxed text-slate-200"
+                      ? "max-w-[84%] sm:max-w-[92%] rounded-2xl rounded-br-md bg-cyan-500 px-5 py-4 text-sm sm:text-[15px] sm:leading-7 leading-relaxed text-slate-950"
+                      : "max-w-[88%] sm:max-w-[96%] rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm leading-relaxed text-slate-200"
                   }
                 >
                   {message.content}
