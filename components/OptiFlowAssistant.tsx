@@ -1175,7 +1175,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                     </span>
                   </div>
 
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs sm:text-sm text-slate-400">
                     Copilote logistique intelligent
                   </p>
                 </div>
@@ -1185,16 +1185,16 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 type="button"
                 onClick={() => closeLibotWithAnimation()}
                 aria-label="Fermer le copilote"
-                className="flex h-9 w-9 items-center justify-center rounded-xl text-xl text-slate-400 transition hover:bg-slate-800 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-2xl text-xl text-slate-400 transition hover:bg-slate-800 hover:text-white"
               >
                 X
               </button>
             </div>
 
-            <div className="relative mt-3 flex items-center gap-2 rounded-xl border border-cyan-400/10 bg-slate-950/40 px-3 py-2">
+            <div className="relative mt-3 flex items-center gap-2 rounded-2xl border border-cyan-400/10 bg-slate-950/40 px-3 py-2">
               <span className="h-2 w-2 rounded-full bg-cyan-300" />
 
-              <p className="text-xs text-slate-300">
+              <p className="text-xs sm:text-sm text-slate-300">
                 Contexte actuel :
                 <span className="ml-1 font-semibold text-cyan-300">
                   {pageName}
@@ -1205,19 +1205,19 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
           <div
             ref={messagesContainerRef}
-            className="flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5"
+            className="flex-1 space-y-6 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5"
           >
             {messages.length === 1 && (
               <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4">
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-300 sm:text-xs">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-300 sm:text-xs sm:text-sm">
                   Assistant du module
                 </p>
 
-                <h3 className="mt-2 text-lg font-black text-white sm:text-xl">
+                <h3 className="mt-2 text-lg sm:text-2xl font-black text-white sm:text-xl">
                   {pageName}
                 </h3>
 
-                <p className="mt-3 text-sm leading-6 text-slate-200 sm:text-[17px] sm:leading-7">
+                <p className="mt-3 text-sm sm:text-base sm:leading-7 leading-6 text-slate-200 sm:text-[17px] sm:leading-7">
                   {currentAssistance.introduction}
                 </p>
 
@@ -1282,7 +1282,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                       key={question}
                       type="button"
                       onClick={() => askQuestion(question)}
-                      className="rounded-xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-left text-xs text-slate-300 transition hover:border-cyan-500/40 hover:bg-cyan-500/5 hover:text-cyan-200"
+                      className="rounded-2xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-left text-xs sm:text-sm text-slate-300 transition hover:border-cyan-500/40 hover:bg-cyan-500/5 hover:text-cyan-200"
                     >
                       {question}
                     </button>
@@ -1316,7 +1316,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 }}
                 rows={1}
                 placeholder="Exemple : ouvre les réceptions"
-                className="max-h-28 min-h-10 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-500"
+                className="max-h-28 min-h-10 sm:h-12 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-500"
               />
 
               <button
@@ -1333,8 +1333,8 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 }
                 className={
                   listening
-                    ? "flex h-10 w-10 shrink-0 animate-pulse items-center justify-center rounded-xl bg-red-500 text-white transition hover:bg-red-400"
-                    : "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 transition hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-30"
+                    ? "flex h-10 sm:h-12 w-10 shrink-0 animate-pulse items-center justify-center rounded-2xl bg-red-500 text-white transition hover:bg-red-400"
+                    : "flex h-10 sm:h-12 w-10 shrink-0 items-center justify-center rounded-2xl border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 transition hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-30"
                 }
               >
                 {listening ? "■" : "🎤"}
@@ -1344,7 +1344,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 type="submit"
                 disabled={!input.trim() || thinking}
                 aria-label="Envoyer la question"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-500 font-bold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-10 sm:h-12 w-10 shrink-0 items-center justify-center rounded-2xl bg-cyan-500 font-bold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Go
               </button>
