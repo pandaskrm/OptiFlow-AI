@@ -1248,7 +1248,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                   className={
                     message.author === "user"
                       ? "max-w-[84%] sm:max-w-[92%] rounded-2xl rounded-br-md bg-cyan-500 px-5 py-4 text-sm sm:text-[15px] sm:leading-7 leading-relaxed text-slate-950"
-                      : "max-w-[88%] sm:max-w-[96%] rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm leading-relaxed text-slate-200"
+                      : "max-w-[88%] sm:max-w-[96%] rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm leading-relaxed text-slate-200 sm:px-5 sm:py-4 sm:text-[15px] sm:leading-7"
                   }
                 >
                   {message.content}
@@ -1273,7 +1273,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
             {messages.length <= 2 && (
               <div>
                 <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                  Actions suggerees
+                  Actions suggérées
                 </p>
 
                 <div className="grid gap-2">
@@ -1282,7 +1282,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                       key={question}
                       type="button"
                       onClick={() => askQuestion(question)}
-                      className="rounded-2xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-left text-xs sm:text-sm text-slate-300 transition hover:border-cyan-500/40 hover:bg-cyan-500/5 hover:text-cyan-200"
+                      className="rounded-2xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-left text-xs text-slate-300 transition hover:border-cyan-500/40 hover:bg-cyan-500/5 hover:text-cyan-200 sm:min-h-12 sm:px-4 sm:py-3 sm:text-sm"
                     >
                       {question}
                     </button>
@@ -1316,7 +1316,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 }}
                 rows={1}
                 placeholder="Exemple : ouvre les réceptions"
-                className="max-h-28 min-h-10 sm:h-12 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-500"
+                className="max-h-28 min-h-10 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-500 sm:min-h-14 sm:px-3 sm:py-3 sm:text-base"
               />
 
               <button
@@ -1344,7 +1344,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 type="submit"
                 disabled={!input.trim() || thinking}
                 aria-label="Envoyer la question"
-                className="flex h-10 sm:h-12 w-10 shrink-0 items-center justify-center rounded-2xl bg-cyan-500 font-bold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-cyan-500 font-bold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-40 sm:h-14 sm:w-14 sm:text-sm"
               >
                 Go
               </button>
