@@ -81,7 +81,7 @@ export default function KpiCard({
           </div>
 
           <span
-            className={`hidden max-w-[120px] rounded-full border px-2.5 py-1 text-right text-[10px] font-semibold leading-4 sm:block ${style.badge}`}
+            className={`mt-3 hidden min-h-8 w-full items-center justify-center rounded-xl border px-2 py-1.5 text-center text-[10px] font-semibold leading-4 sm:flex ${style.badge}`}
           >
             {trend}
           </span>
