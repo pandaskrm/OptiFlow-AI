@@ -1205,7 +1205,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
           <div
             ref={messagesContainerRef}
-            className="flex-1 space-y-6 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5"
+            className="flex-1 space-y-4 overflow-y-auto px-4 py-4 sm:px-5 sm:py-4"
           >
             {messages.length === 1 && (
               <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4">
@@ -1248,7 +1248,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                   className={
                     message.author === "user"
                       ? "max-w-[84%] sm:max-w-[92%] rounded-2xl rounded-br-md bg-cyan-500 px-5 py-4 text-sm sm:text-[15px] sm:leading-7 leading-relaxed text-slate-950"
-                      : "max-w-[88%] sm:max-w-[96%] rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm leading-relaxed text-slate-200 sm:px-5 sm:py-4 sm:text-[15px] sm:leading-7"
+                      : "max-w-[88%] sm:max-w-[96%] rounded-2xl rounded-bl-md border border-slate-700/80 bg-slate-900/90 px-4 py-3 text-sm leading-relaxed text-slate-100 shadow-sm sm:px-5 sm:py-4 sm:text-base sm:font-medium sm:leading-7"
                   }
                 >
                   {message.content}
@@ -1272,17 +1272,17 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
             {messages.length <= 2 && (
               <div>
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-300 sm:text-xs">
                   Actions suggérées
                 </p>
 
-                <div className="grid gap-2">
+                <div className="grid gap-2 sm:gap-3">
                   {questions.map((question) => (
                     <button
                       key={question}
                       type="button"
                       onClick={() => askQuestion(question)}
-                      className="rounded-2xl border border-slate-800 bg-slate-900/70 px-3 py-2.5 text-left text-xs text-slate-300 transition hover:border-cyan-500/40 hover:bg-cyan-500/5 hover:text-cyan-200 sm:min-h-12 sm:px-4 sm:py-3 sm:text-sm"
+                      className="group rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2.5 text-left text-xs font-medium text-slate-200 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-cyan-500/10 hover:text-white sm:min-h-14 sm:px-4 sm:py-3.5 sm:text-[15px] sm:font-semibold"
                     >
                       {question}
                     </button>
