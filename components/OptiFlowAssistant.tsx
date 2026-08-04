@@ -1148,7 +1148,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
   }
 
   return (
-    <div className="fixed bottom-20 right-3 z-[100] flex flex-col items-end sm:bottom-28 sm:right-6">
+    <div className="fixed bottom-20 right-3 z-[100] flex flex-col items-end sm:bottom-4 sm:right-5">
       {open && (
         <section
           className={`fixed inset-0 flex h-[100dvh] w-screen flex-col overflow-hidden border border-cyan-400/20 bg-slate-950/98 shadow-2xl shadow-cyan-950/50 backdrop-blur-xl transition-all duration-300 ease-out sm:static sm:mb-4 sm:h-[min(590px,calc(100vh-120px))] sm:w-[clamp(480px,34vw,540px)] sm:rounded-3xl ${
@@ -1404,7 +1404,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
             ? "Fermer le copilote OptiFlow AI"
             : "Ouvrir le copilote OptiFlow AI"
         }
-        className="relative flex h-14 w-14 items-center justify-center rounded-2xl sm:h-[84px] sm:w-[84px] sm:rounded-3xl border border-cyan-300/30 bg-gradient-to-br from-cyan-400 via-cyan-500 to-blue-600 shadow-2xl shadow-cyan-500/25 transition duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-cyan-400/40"
+        className="relative flex h-14 w-14 items-center justify-center rounded-2xl sm:h-16 sm:w-16 sm:rounded-2xl border border-cyan-300/30 bg-gradient-to-br from-cyan-400 via-cyan-500 to-blue-600 shadow-2xl shadow-cyan-500/25 transition duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-cyan-400/40"
       >
         <span className="absolute inset-0 animate-ping rounded-3xl border border-cyan-300/20 opacity-20" />
 
