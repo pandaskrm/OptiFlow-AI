@@ -40,21 +40,25 @@ export default async function ParametresPage() {
           </p>
         </div>
 
-        <div className="grid gap-6 xl:grid-cols-2">
-          <section className="rounded-2xl border border-slate-700 bg-slate-900 p-6">
-            <div className="flex items-center justify-between">
+        <div className="grid gap-5 xl:grid-cols-2">
+          <section className="rounded-2xl border border-slate-700 bg-slate-900 p-5 shadow-lg">
+            <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold text-cyan-400">
-                  Entreprise
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-400">
+                  Informations entreprise
                 </p>
 
                 <h2 className="mt-1 text-2xl font-bold text-white">
                   {company.name}
                 </h2>
               </div>
+
+              <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-300">
+                Active
+              </span>
             </div>
 
-            <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+            <dl className="mt-4 grid gap-3 sm:grid-cols-2">
               <Info label="SIRET" value={company.siret ?? "Non renseigné"} />
               <Info label="E-mail" value={company.email ?? "Non renseigné"} />
               <Info
@@ -72,22 +76,34 @@ export default async function ParametresPage() {
             </dl>
           </section>
 
-          <section className="rounded-2xl border border-slate-700 bg-slate-900 p-6">
-            <p className="text-sm font-semibold text-cyan-400">
-              Administrateur connecté
-            </p>
+          <section className="rounded-2xl border border-slate-700 bg-slate-900 p-5 shadow-lg">
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-cyan-400/25 bg-cyan-400/10 text-lg font-black text-cyan-300">
+                {auth.user.firstName?.slice(0, 1).toUpperCase()}
+                {auth.user.lastName?.slice(0, 1).toUpperCase()}
+              </div>
 
-            <h2 className="mt-1 text-2xl font-bold text-white">
-              {auth.user.firstName} {auth.user.lastName}
-            </h2>
+              <div className="min-w-0">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-400">
+                  Compte connecté
+                </p>
 
-            <div className="mt-6 space-y-4">
-              <Info label="E-mail" value={auth.user.email} />
+                <h2 className="mt-1 truncate text-lg font-bold text-white">
+                  {auth.user.email}
+                </h2>
+              </div>
+            </div>
+
+            <dl className="mt-4 grid gap-3 sm:grid-cols-2">
               <Info
                 label="Rôle"
                 value={roleLabels[auth.membership.role] ?? auth.membership.role}
               />
-            </div>
+              <Info
+                label="Niveau d'accès"
+                value="Compte administrateur"
+              />
+            </dl>
           </section>
         </div>
 
@@ -106,12 +122,12 @@ type InfoProps = {
 
 function Info({ label, value }: InfoProps) {
   return (
-    <div className="rounded-xl border border-slate-700 bg-slate-800/70 p-4">
+    <div className="rounded-xl border border-slate-700 bg-slate-800/70 p-3.5">
       <dt className="text-xs uppercase tracking-wider text-slate-500">
         {label}
       </dt>
 
-      <dd className="mt-2 font-semibold text-slate-100">{value}</dd>
+      <dd className="mt-1.5 break-words font-semibold text-slate-100">{value}</dd>
     </div>
   );
 }
