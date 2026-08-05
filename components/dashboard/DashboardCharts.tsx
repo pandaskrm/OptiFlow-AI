@@ -41,7 +41,7 @@ export default function DashboardCharts() {
             📈 Activité des réceptions
           </h2>
 
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-slate-500">
             Évolution en temps réel
           </p>
         </div>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useMemo, useState } from "react";
 
@@ -69,7 +69,7 @@ export default function NotificationCenter() {
     <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
       <div className="flex flex-col gap-4 border-b border-slate-100 px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
             Activité en direct
           </p>
 
@@ -77,7 +77,7 @@ export default function NotificationCenter() {
             Centre de notifications
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm font-medium text-slate-700">
             Alertes opérationnelles et événements récents.
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function NotificationCenter() {
               Aucune notification
             </p>
 
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm font-medium text-slate-700">
               Les nouveaux événements apparaîtront ici automatiquement.
             </p>
           </div>
@@ -140,7 +140,7 @@ export default function NotificationCenter() {
                     </p>
                   </div>
 
-                  <time className="shrink-0 text-xs font-medium text-slate-400">
+                  <time className="shrink-0 text-xs font-medium text-slate-500">
                     {event.time}
                   </time>
                 </div>

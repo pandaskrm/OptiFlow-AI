@@ -51,7 +51,7 @@ export default function MobileNavigation() {
           <p className="text-lg font-black leading-none text-cyan-400">
             OptiFlow AI
           </p>
-          <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-slate-500">
+          <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-slate-600">
             Warehouse Intelligence
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function MobileNavigation() {
                 <h2 className="text-2xl font-black text-cyan-400">
                   OptiFlow AI
                 </h2>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-slate-600">
                   Menu principal
                 </p>
               </div>
@@ -122,7 +122,7 @@ export default function MobileNavigation() {
               <p className="text-xs font-bold text-cyan-300">
                 OptiFlow AI V1.0
               </p>
-              <p className="mt-1 text-xs text-slate-400">
+              <p className="mt-1 text-xs font-medium text-slate-600">
                 Version candidate
               </p>
             </div>
@@ -141,7 +141,7 @@ export default function MobileNavigation() {
               className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl text-[10px] font-semibold transition ${
                 active
                   ? "text-cyan-300"
-                  : "text-slate-500"
+                  : "text-slate-600"
               }`}
             >
               <span
@@ -161,7 +161,7 @@ export default function MobileNavigation() {
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
-          className="flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl text-[10px] font-semibold text-slate-500"
+          className="flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl text-[10px] font-semibold text-slate-600"
         >
           <span className="flex h-8 w-8 items-center justify-center rounded-lg text-lg">
             •••

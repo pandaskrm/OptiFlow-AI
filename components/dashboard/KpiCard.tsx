@@ -70,7 +70,7 @@ export default function KpiCard({
             </span>
 
             <div className="min-w-0">
-              <p className="hidden text-[10px] font-semibold uppercase tracking-wider text-slate-500 sm:block">
+              <p className="hidden text-[10px] font-semibold uppercase tracking-wider text-slate-600 sm:block">
                 Indicateur
               </p>
 
@@ -92,7 +92,7 @@ export default function KpiCard({
             {value}
           </p>
 
-          <p className="pb-1 text-[11px] font-semibold text-slate-400 sm:text-xs">
+          <p className="pb-1 text-[11px] font-semibold text-slate-500 sm:text-xs">
             {safeProgress} %
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function KpiCard({
         </div>
 
         <div className="mt-2 flex items-center justify-between gap-2 text-[10px] sm:mt-3 sm:text-xs">
-          <span className="truncate text-slate-500">
+          <span className="truncate text-slate-600">
             Performance
           </span>
 
@@ -118,7 +118,7 @@ export default function KpiCard({
           </span>
         </div>
 
-        <p className={`mt-2 truncate border-t border-slate-800/80 pt-2 text-[10px] font-medium sm:text-[11px] ${safeProgress === 0 ? "text-orange-300" : "text-slate-500"}`}>
+        <p className={`mt-2 truncate border-t border-slate-800/80 pt-2 text-[10px] font-medium sm:text-[11px] ${safeProgress === 0 ? "text-orange-300" : "text-slate-600"}`}>
           {trend}
         </p>
       </div>

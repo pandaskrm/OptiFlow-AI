@@ -7,7 +7,7 @@ export default async function Topbar() {
   return (
     <header className="flex items-center justify-between gap-4 border-b border-slate-800 px-5 py-4 lg:px-6">
       <div>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           Voici le résumé intelligent de votre entreprise.
         </p>
       </div>

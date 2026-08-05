@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
@@ -112,7 +112,7 @@ function ExecutiveRealData() {
 
   if (loading) {
     return (
-      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
+      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-500">
         Chargement de la Vue Direction...
       </div>
     );
@@ -152,7 +152,7 @@ function ExecutiveRealData() {
                 : "border-slate-600 bg-slate-800"
             }`}
           >
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Statut global
             </p>
 
@@ -177,7 +177,7 @@ function ExecutiveRealData() {
             key={card.label}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
           >
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               {card.label}
             </p>
 
@@ -201,7 +201,7 @@ function ExecutiveRealData() {
                   {warehouse.healthScore}
                 </p>
 
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm font-medium text-slate-700">
                   sur 100
                 </p>
               </div>
@@ -231,7 +231,7 @@ function ExecutiveRealData() {
                 key={item.label}
                 className="flex items-center justify-between rounded-xl bg-slate-50 p-3"
               >
-                <span className="text-sm text-slate-600">
+                <span className="text-sm font-medium text-slate-700">
                   {item.label}
                 </span>
 
@@ -250,7 +250,7 @@ function ExecutiveRealData() {
               Performance opérationnelle
             </h2>
 
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Consolidation automatique des flux ERP.
             </p>
           </div>
@@ -261,7 +261,7 @@ function ExecutiveRealData() {
                 key={operation.label}
                 className="rounded-2xl bg-slate-50 p-5"
               >
-                <p className="text-sm text-slate-500">
+                <p className="text-sm font-medium text-slate-700">
                   {operation.label}
                 </p>
 
@@ -269,7 +269,7 @@ function ExecutiveRealData() {
                   {operation.value}%
                 </p>
 
-                <p className="mt-2 text-xs text-slate-500">
+                <p className="mt-2 text-xs text-slate-600">
                   {operation.detail}
                 </p>
 
@@ -290,7 +290,7 @@ function ExecutiveRealData() {
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm font-semibold text-slate-500">
+              <p className="text-sm font-semibold text-slate-600">
                 Planning réception
               </p>
 
@@ -299,7 +299,7 @@ function ExecutiveRealData() {
                   <p className="text-2xl font-bold text-slate-950">
                     {warehouse.receptions.scheduledToday}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-600">
                     Aujourd’hui
                   </p>
                 </div>
@@ -308,7 +308,7 @@ function ExecutiveRealData() {
                   <p className="text-2xl font-bold text-slate-950">
                     {warehouse.receptions.scheduledTomorrow}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-600">
                     Demain
                   </p>
                 </div>
@@ -317,7 +317,7 @@ function ExecutiveRealData() {
                   <p className="text-2xl font-bold text-red-500">
                     {warehouse.receptions.late}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-600">
                     En retard
                   </p>
                 </div>
@@ -325,7 +325,7 @@ function ExecutiveRealData() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm font-semibold text-slate-500">
+              <p className="text-sm font-semibold text-slate-600">
                 Quais et palettes
               </p>
 
@@ -334,7 +334,7 @@ function ExecutiveRealData() {
                   <p className="text-2xl font-bold text-slate-950">
                     {warehouse.receptions.occupiedDocks}/6
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-600">
                     Quais occupés
                   </p>
                 </div>
@@ -343,7 +343,7 @@ function ExecutiveRealData() {
                   <p className="text-2xl font-bold text-slate-950">
                     {warehouse.receptions.totalPallets}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-600">
                     Palettes prévues
                   </p>
                 </div>
@@ -352,7 +352,7 @@ function ExecutiveRealData() {
                   <p className="text-2xl font-bold text-emerald-600">
                     {warehouse.receptions.receivedPallets}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-600">
                     Réceptionnées
                   </p>
                 </div>
@@ -368,7 +368,7 @@ function ExecutiveRealData() {
             Équipes
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm font-medium text-slate-700">
             Présence et capacité opérationnelle.
           </p>
 
@@ -378,7 +378,7 @@ function ExecutiveRealData() {
                 key={card.label}
                 className="rounded-2xl bg-slate-50 p-4"
               >
-                <p className="text-sm text-slate-500">
+                <p className="text-sm font-medium text-slate-700">
                   {card.label}
                 </p>
 
@@ -395,7 +395,7 @@ function ExecutiveRealData() {
             Stock
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm font-medium text-slate-700">
             Disponibilité et risques de rupture.
           </p>
 
@@ -405,7 +405,7 @@ function ExecutiveRealData() {
                 key={card.label}
                 className="rounded-2xl bg-slate-50 p-4"
               >
-                <p className="text-sm text-slate-500">
+                <p className="text-sm font-medium text-slate-700">
                   {card.label}
                 </p>
 
@@ -474,7 +474,7 @@ function ExecutiveRealData() {
                   </div>
                 ))
             ) : (
-              <div className="rounded-2xl border border-dashed border-white/10 bg-white/5 p-6 text-center text-slate-400">
+              <div className="rounded-2xl border border-dashed border-white/10 bg-white/5 p-6 text-center text-slate-500">
                 Aucune décision prioritaire actuellement.
               </div>
             )}

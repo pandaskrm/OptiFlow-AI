@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,7 +26,7 @@ export default function Sidebar() {
           OptiFlow AI
         </h1>
 
-        <p className="mt-1.5 text-xs leading-5 text-slate-400">
+        <p className="mt-1.5 text-xs leading-5 text-slate-500">
           Warehouse Intelligence Platform
         </p>
       </div>
@@ -61,7 +61,7 @@ export default function Sidebar() {
 
         <p className="mt-1 text-xl font-bold">V1.0</p>
 
-        <p className="mt-1.5 text-xs text-slate-400">
+        <p className="mt-1.5 text-xs font-medium text-slate-600">
           Version candidate
         </p>
       </div>

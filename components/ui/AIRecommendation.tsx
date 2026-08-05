@@ -1,4 +1,4 @@
-﻿type AIRecommendationProps = {
+type AIRecommendationProps = {
   title: string;
   message: string;
   gain: string;

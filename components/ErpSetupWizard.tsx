@@ -40,7 +40,7 @@ export default function ErpSetupWizard({
           <h3 className="mt-1 font-bold text-white">
             Connexion de votre ERP
           </h3>
-          <p className="mt-1 text-xs text-slate-400">
+          <p className="mt-1 text-xs font-medium text-slate-600">
             Etape {step} sur 3
           </p>
         </div>
@@ -48,7 +48,7 @@ export default function ErpSetupWizard({
         <button
           type="button"
           onClick={onClose}
-          className="rounded-lg px-2 py-1 text-sm text-slate-400 hover:bg-slate-800 hover:text-white"
+          className="rounded-lg px-2 py-1 text-sm text-slate-500 hover:bg-slate-800 hover:text-white"
         >
           X
         </button>
@@ -98,7 +98,7 @@ export default function ErpSetupWizard({
       {step === 2 && (
         <div className="space-y-3">
           <div>
-            <label className="mb-1 block text-xs text-slate-400">
+            <label className="mb-1 block text-xs font-medium text-slate-600">
               URL de connexion
             </label>
             <input
@@ -110,7 +110,7 @@ export default function ErpSetupWizard({
           </div>
 
           <div>
-            <label className="mb-1 block text-xs text-slate-400">
+            <label className="mb-1 block text-xs font-medium text-slate-600">
               Cle API ou jeton
             </label>
             <input
@@ -152,12 +152,12 @@ export default function ErpSetupWizard({
             <p className="mt-1 text-xs text-slate-300">
               ERP : {provider}
             </p>
-            <p className="mt-1 break-all text-xs text-slate-400">
+            <p className="mt-1 break-all text-xs font-medium text-slate-600">
               URL : {url}
             </p>
           </div>
 
-          <p className="text-xs leading-relaxed text-slate-400">
+          <p className="text-xs leading-relaxed text-slate-500">
             Ouvrez maintenant les parametres ERP pour enregistrer,
             tester la connexion et lancer la premiere synchronisation.
           </p>

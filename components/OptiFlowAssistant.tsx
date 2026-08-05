@@ -1175,7 +1175,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                     </span>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-slate-400">
+                  <p className="text-xs sm:text-sm text-slate-500">
                     Copilote logistique intelligent
                   </p>
                 </div>
@@ -1185,7 +1185,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 type="button"
                 onClick={() => closeLibotWithAnimation()}
                 aria-label="Fermer le copilote"
-                className="flex h-9 w-9 items-center justify-center rounded-2xl text-xl text-slate-400 transition hover:bg-slate-800 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-2xl text-xl text-slate-500 transition hover:bg-slate-800 hover:text-white"
               >
                 X
               </button>
@@ -1316,7 +1316,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 }}
                 rows={1}
                 placeholder="Exemple : ouvre les réceptions"
-                className="max-h-28 min-h-10 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-500 sm:min-h-14 sm:px-3 sm:py-3 sm:text-base"
+                className="max-h-28 min-h-10 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-600 sm:min-h-14 sm:px-3 sm:py-3 sm:text-base"
               />
 
               <button
@@ -1357,7 +1357,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 className={
                   voiceEnabled
                     ? "font-semibold text-emerald-400 transition hover:text-emerald-300"
-                    : "font-semibold text-slate-500 transition hover:text-slate-300"
+                    : "font-semibold text-slate-600 transition hover:text-slate-300"
                 }
               >
                 {voiceEnabled

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import useSimulationV2 from "../../hooks/useSimulationV2";
@@ -140,14 +140,14 @@ export default function DockPlanning({
           🚛 Occupation des quais
         </h2>
 
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mt-1 text-sm text-slate-500">
           Suivi en direct des quais : arrivée, déchargement,
           contrôle et disponibilité.
         </p>
       </div>
 
       {loading && !simulation.running ? (
-        <div className="rounded-xl border border-slate-800 bg-slate-950 p-6 text-center text-slate-400">
+        <div className="rounded-xl border border-slate-800 bg-slate-950 p-6 text-center text-slate-500">
           Chargement des quais...
         </div>
       ) : (
@@ -205,12 +205,12 @@ export default function DockPlanning({
                         📦 {reception.supplier}
                       </p>
 
-                      <p className="text-sm text-slate-400">
+                      <p className="text-sm text-slate-500">
                         Palettes : {reception.pallets}
                       </p>
 
                       <div className="pt-3">
-                        <div className="mb-1 flex justify-between text-xs text-slate-400">
+                        <div className="mb-1 flex justify-between text-xs font-medium text-slate-600">
                           <span>Progression</span>
                           <span>{progress}%</span>
                         </div>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
@@ -37,7 +37,7 @@ export default function MissionControlBar() {
     <section className="rounded-2xl border border-cyan-900 bg-gradient-to-r from-[#081422] to-[#10253d] p-5 shadow-xl">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
         <div>
-          <p className="text-xs uppercase text-slate-400">
+          <p className="text-xs uppercase text-slate-500">
             État global
           </p>
           <p className="mt-2 text-2xl font-bold text-emerald-400">
@@ -46,7 +46,7 @@ export default function MissionControlBar() {
         </div>
 
         <div>
-          <p className="text-xs uppercase text-slate-400">
+          <p className="text-xs uppercase text-slate-500">
             Camions
           </p>
           <p className="mt-2 text-2xl font-bold text-white">
@@ -55,7 +55,7 @@ export default function MissionControlBar() {
         </div>
 
         <div>
-          <p className="text-xs uppercase text-slate-400">
+          <p className="text-xs uppercase text-slate-500">
             Quais occupés
           </p>
           <p className="mt-2 text-2xl font-bold text-white">
@@ -64,7 +64,7 @@ export default function MissionControlBar() {
         </div>
 
         <div>
-          <p className="text-xs uppercase text-slate-400">
+          <p className="text-xs uppercase text-slate-500">
             Réceptions
           </p>
           <p className="mt-2 text-2xl font-bold text-white">

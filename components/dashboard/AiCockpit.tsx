@@ -13,7 +13,7 @@ export default function AiCockpit() {
             Analyse temps réel
           </h2>
 
-          <p className="text-slate-400 mt-1">
+          <p className="text-slate-500 mt-1">
             Dernière analyse : il y a quelques secondes
           </p>
         </div>
@@ -33,7 +33,7 @@ export default function AiCockpit() {
       <div className="grid grid-cols-2 gap-4 mt-8">
 
         <div className="rounded-xl bg-slate-800 p-4">
-          <p className="text-slate-400 text-sm">
+          <p className="text-slate-500 text-sm">
             🚚 Camions attendus
           </p>
 
@@ -43,7 +43,7 @@ export default function AiCockpit() {
         </div>
 
         <div className="rounded-xl bg-slate-800 p-4">
-          <p className="text-slate-400 text-sm">
+          <p className="text-slate-500 text-sm">
             📦 Palettes à traiter
           </p>
 
@@ -53,7 +53,7 @@ export default function AiCockpit() {
         </div>
 
         <div className="rounded-xl bg-slate-800 p-4">
-          <p className="text-slate-400 text-sm">
+          <p className="text-slate-500 text-sm">
             🚪 Quais disponibles
           </p>
 
@@ -63,7 +63,7 @@ export default function AiCockpit() {
         </div>
 
         <div className="rounded-xl bg-slate-800 p-4">
-          <p className="text-slate-400 text-sm">
+          <p className="text-slate-500 text-sm">
             ⚠️ Alertes
           </p>
 

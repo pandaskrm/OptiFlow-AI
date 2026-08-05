@@ -191,7 +191,7 @@ export default function AuditTable() {
               Activité de l’entreprise
             </h2>
 
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               {total} événement{total > 1 ? "s" : ""} enregistré
               {total > 1 ? "s" : ""}
             </p>
@@ -239,7 +239,7 @@ export default function AuditTable() {
                   <tr>
                     <td
                       colSpan={5}
-                      className="px-6 py-12 text-center text-slate-500"
+                      className="px-6 py-12 text-center text-slate-600"
                     >
                       Chargement du journal d’audit…
                     </td>
@@ -248,7 +248,7 @@ export default function AuditTable() {
                   <tr>
                     <td
                       colSpan={5}
-                      className="px-6 py-12 text-center text-slate-500"
+                      className="px-6 py-12 text-center text-slate-600"
                     >
                       Aucun événement enregistré.
                     </td>
@@ -269,7 +269,7 @@ export default function AuditTable() {
                         </p>
 
                         {log.actor ? (
-                          <p className="text-xs text-slate-500">
+                          <p className="text-xs text-slate-600">
                             {log.actor.email}
                           </p>
                         ) : null}
@@ -286,7 +286,7 @@ export default function AuditTable() {
                       </td>
 
                       <td
-                        className="px-6 py-4 font-mono text-xs text-slate-500"
+                        className="px-6 py-4 font-mono text-xs text-slate-600"
                         title={log.entityId ?? undefined}
                       >
                         {getEntityLabel(log)}
@@ -300,7 +300,7 @@ export default function AuditTable() {
         )}
 
         <div className="flex items-center justify-between border-t px-6 py-4">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-medium text-slate-700">
             Page {page} sur {totalPages}
           </p>
 

@@ -50,7 +50,7 @@ export default function PreparationAnalytics() {
           <h2 className="text-lg font-bold text-slate-950">
             Statistiques préparation
           </h2>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-medium text-slate-700">
             Comparaison des commandes préparées.
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function PreparationAnalytics() {
             className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
               mode === "week"
                 ? "bg-slate-950 text-white"
-                : "text-slate-500 hover:text-slate-950"
+                : "text-slate-600 hover:text-slate-950"
             }`}
           >
             Semaine
@@ -72,7 +72,7 @@ export default function PreparationAnalytics() {
             className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
               mode === "month"
                 ? "bg-slate-950 text-white"
-                : "text-slate-500 hover:text-slate-950"
+                : "text-slate-600 hover:text-slate-950"
             }`}
           >
             Mois
@@ -84,14 +84,14 @@ export default function PreparationAnalytics() {
         <>
           <div className="mb-5 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm text-slate-500">Semaine actuelle</p>
+              <p className="text-sm font-medium text-slate-700">Semaine actuelle</p>
               <p className="mt-1 text-lg font-bold text-slate-950">
                 {currentWeekTotal.toLocaleString("fr-FR")} commandes
               </p>
             </div>
 
             <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm text-slate-500">Semaine précédente</p>
+              <p className="text-sm font-medium text-slate-700">Semaine précédente</p>
               <p className="mt-1 text-lg font-bold text-slate-950">
                 {previousWeekTotal.toLocaleString("fr-FR")} commandes
               </p>
@@ -126,7 +126,7 @@ export default function PreparationAnalytics() {
 
                 <div className="text-center">
                   <p className="text-sm font-bold text-slate-950">{item.day}</p>
-                  <p className="text-xs text-slate-500">{item.date}</p>
+                  <p className="text-xs text-slate-600">{item.date}</p>
                   <p className="text-xs font-bold text-cyan-700">{item.orders}</p>
                 </div>
               </div>
@@ -137,14 +137,14 @@ export default function PreparationAnalytics() {
         <>
           <div className="mb-5 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm text-slate-500">Mois actuel</p>
+              <p className="text-sm font-medium text-slate-700">Mois actuel</p>
               <p className="mt-1 text-lg font-bold text-slate-950">
                 {currentMonthTotal.toLocaleString("fr-FR")} commandes
               </p>
             </div>
 
             <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm text-slate-500">Mois précédent</p>
+              <p className="text-sm font-medium text-slate-700">Mois précédent</p>
               <p className="mt-1 text-lg font-bold text-slate-950">
                 {previousMonthTotal.toLocaleString("fr-FR")} commandes
               </p>
@@ -186,7 +186,7 @@ export default function PreparationAnalytics() {
                   </div>
                 </div>
 
-                <p className="text-xs font-semibold text-slate-500">{index + 1}</p>
+                <p className="text-xs font-semibold text-slate-600">{index + 1}</p>
                 <p className="text-xs font-bold text-cyan-700">{orders}</p>
               </div>
             ))}

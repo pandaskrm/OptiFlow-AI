@@ -53,7 +53,7 @@ export default function ScenarioSelector() {
             🎬 Mode Démo
           </h2>
 
-          <p className="mt-1 text-sm text-slate-400">
+          <p className="mt-1 text-sm text-slate-500">
             Choisissez un scénario ou lancez la démonstration automatique.
           </p>
         </div>

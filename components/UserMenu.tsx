@@ -98,13 +98,13 @@ export default function UserMenu({
           <span className="block text-sm font-semibold text-white">
             {firstName} {lastName}
           </span>
-          <span className="block text-xs text-slate-400">
+          <span className="block text-xs font-medium text-slate-600">
             {formatRole(role)}
           </span>
         </span>
 
         <span
-          className={`text-xs text-slate-400 transition ${
+          className={`text-xs font-medium text-slate-600 transition ${
             open ? "rotate-180" : ""
           }`}
         >
@@ -127,7 +127,7 @@ export default function UserMenu({
                 <p className="truncate font-semibold text-white">
                   {firstName} {lastName}
                 </p>
-                <p className="truncate text-xs text-slate-400">
+                <p className="truncate text-xs font-medium text-slate-600">
                   {email}
                 </p>
                 <p className="mt-1 truncate text-xs text-cyan-300">
@@ -185,7 +185,7 @@ export default function UserMenu({
               <span className="block text-sm font-semibold text-red-400">
                 {loggingOut ? "Déconnexion..." : "Se déconnecter"}
               </span>
-              <span className="block text-xs text-slate-500">
+              <span className="block text-xs text-slate-600">
                 Fermer votre session en toute sécurité
               </span>
             </button>
@@ -214,7 +214,7 @@ function MenuLink({
       <span className="block text-sm font-medium text-slate-100">
         {title}
       </span>
-      <span className="block text-xs text-slate-500">
+      <span className="block text-xs text-slate-600">
         {description}
       </span>
     </Link>

@@ -79,7 +79,7 @@ export default function PreparationTable() {
           <h2 className="text-xl font-bold text-slate-950">
             Commandes en préparation
           </h2>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-medium text-slate-700">
             Activité live des préparateurs et commandes du jour.
           </p>
         </div>
@@ -91,7 +91,7 @@ export default function PreparationTable() {
 
       <div className="overflow-hidden rounded-2xl border border-slate-200">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 text-slate-500">
+          <thead className="bg-slate-50 text-slate-600">
             <tr>
               <th className="px-4 py-3">Commande</th>
               <th className="px-4 py-3">Client</th>

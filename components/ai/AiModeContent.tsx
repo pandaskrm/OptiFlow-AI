@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
@@ -205,7 +205,7 @@ function AiRealData() {
 
   if (loading) {
     return (
-      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
+      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-500">
         Chargement du centre de décision IA...
       </div>
     );
@@ -245,7 +245,7 @@ function AiRealData() {
                 : "border-slate-600 bg-slate-800"
             }`}
           >
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Statut de l’analyse
             </p>
 
@@ -270,7 +270,7 @@ function AiRealData() {
             key={card.label}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
           >
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               {card.label}
             </p>
 
@@ -287,7 +287,7 @@ function AiRealData() {
             Brief IA du jour
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm font-medium text-slate-700">
             Synthèse automatique de l’exploitation.
           </p>
 
@@ -299,7 +299,7 @@ function AiRealData() {
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Réceptions aujourd’hui
               </p>
 
@@ -309,7 +309,7 @@ function AiRealData() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Réceptions demain
               </p>
 
@@ -319,7 +319,7 @@ function AiRealData() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Collaborateurs présents
               </p>
 
@@ -329,7 +329,7 @@ function AiRealData() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Références sous seuil
               </p>
 
@@ -355,7 +355,7 @@ function AiRealData() {
           </p>
 
           <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Score global
             </p>
 
@@ -363,7 +363,7 @@ function AiRealData() {
               {warehouse.healthScore}
             </p>
 
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-slate-500">
               sur 100
             </p>
           </div>
@@ -376,7 +376,7 @@ function AiRealData() {
             Performance globale
           </h2>
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-medium text-slate-700">
             Consolidation automatique des principaux flux.
           </p>
         </div>
@@ -388,7 +388,7 @@ function AiRealData() {
               className="rounded-2xl bg-slate-50 p-5"
             >
               <div className="flex items-center justify-between">
-                <p className="text-sm text-slate-500">
+                <p className="text-sm font-medium text-slate-700">
                   {card.label}
                 </p>
 
@@ -416,7 +416,7 @@ function AiRealData() {
             Décisions recommandées
           </h2>
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-medium text-slate-700">
             Actions classées automatiquement par niveau de priorité.
           </p>
         </div>
@@ -499,7 +499,7 @@ function AiRealData() {
                 </div>
               ))
             ) : (
-              <div className="rounded-2xl border border-dashed border-white/10 bg-white/5 p-6 text-center text-slate-400">
+              <div className="rounded-2xl border border-dashed border-white/10 bg-white/5 p-6 text-center text-slate-500">
                 Aucune action prioritaire actuellement.
               </div>
             )}

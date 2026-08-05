@@ -31,7 +31,7 @@ export default function PreparationLiveChart() {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <h2 className="text-xl font-bold text-slate-950">Activité live</h2>
-      <p className="text-sm text-slate-500">Commandes préparées par heure.</p>
+      <p className="text-sm font-medium text-slate-700">Commandes préparées par heure.</p>
 
       <div className="mt-6 flex h-48 items-end gap-4">
         {data.map((item) => (
@@ -42,7 +42,7 @@ export default function PreparationLiveChart() {
                 style={{ height: `${(item.orders / max) * 100}%` }}
               />
             </div>
-            <p className="text-xs font-semibold text-slate-500">{item.hour}</p>
+            <p className="text-xs font-semibold text-slate-600">{item.hour}</p>
             <p className="text-sm font-bold text-slate-950">{item.orders}</p>
           </div>
         ))}

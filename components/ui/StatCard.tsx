@@ -27,7 +27,7 @@ export default function StatCard({
         )}
       </div>
 
-      <h3 className="mb-2 text-sm text-slate-400">
+      <h3 className="mb-2 text-sm text-slate-500">
         {title}
       </h3>
 

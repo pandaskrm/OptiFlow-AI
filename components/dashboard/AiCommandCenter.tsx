@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 type RiskLevel = "LOW" | "MEDIUM" | "HIGH" | null;
 
@@ -43,7 +43,7 @@ function getRiskClass(riskLevel: RiskLevel) {
     return "text-emerald-400";
   }
 
-  return "text-slate-400";
+  return "text-slate-500";
 }
 
 export default function AiCommandCenter({
@@ -81,7 +81,7 @@ export default function AiCommandCenter({
               Centre de commande IA
             </h2>
 
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-500">
               Analyse de la santé de l'entrepôt, des risques et des
               actions prioritaires.
             </p>
@@ -91,7 +91,7 @@ export default function AiCommandCenter({
             className={`inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-wider ${
               active
                 ? "border-emerald-700 bg-emerald-500/10 text-emerald-400"
-                : "border-slate-700 bg-slate-800 text-slate-400"
+                : "border-slate-700 bg-slate-800 text-slate-500"
             }`}
           >
             <span
@@ -107,7 +107,7 @@ export default function AiCommandCenter({
 
       <div className="grid gap-4 border-b border-slate-800 p-6 sm:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Santé globale
           </p>
 
@@ -121,7 +121,7 @@ export default function AiCommandCenter({
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Score IA
           </p>
 
@@ -129,13 +129,13 @@ export default function AiCommandCenter({
             {aiScore === null ? "—" : aiScore}
           </p>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             {aiScore === null ? "En attente de données" : "Sur 100"}
           </p>
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Niveau de risque
           </p>
 
@@ -143,13 +143,13 @@ export default function AiCommandCenter({
             {getRiskLabel(riskLevel)}
           </p>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             Analyse opérationnelle
           </p>
         </div>
 
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
-          <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Source des données
           </p>
 
@@ -157,7 +157,7 @@ export default function AiCommandCenter({
             {dataSource}
           </p>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             {active ? "Synchronisation active" : "Connexion requise"}
           </p>
         </div>

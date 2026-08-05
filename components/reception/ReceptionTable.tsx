@@ -278,14 +278,14 @@ export default function ReceptionTable({
           Pilotage opérationnel
         </h2>
 
-        <p className="mt-1 text-sm leading-6 text-slate-400">
+        <p className="mt-1 text-sm leading-6 text-slate-500">
           Suivi des rendez-vous, camions, quais et
           opérations de réception.
         </p>
       </header>
 
       {loading ? (
-        <div className="p-8 text-center text-slate-400">
+        <div className="p-8 text-center text-slate-500">
           Chargement des réceptions...
         </div>
       ) : receptions.length === 0 ? (
@@ -298,7 +298,7 @@ export default function ReceptionTable({
             Aucune réception enregistrée
           </p>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             Créez une réception depuis le formulaire ou
             avec le copilote vocal.
           </p>
@@ -338,7 +338,7 @@ export default function ReceptionTable({
                   <div className="p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-600">
                           Réception
                         </p>
 
@@ -362,7 +362,7 @@ export default function ReceptionTable({
 
                     <div className="mt-4 grid grid-cols-2 gap-3">
                       <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
-                        <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                        <p className="text-[10px] uppercase tracking-wider text-slate-600">
                           Date prévue
                         </p>
                         <p className="mt-1 font-bold text-white">
@@ -374,13 +374,13 @@ export default function ReceptionTable({
                       </div>
 
                       <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
-                        <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                        <p className="text-[10px] uppercase tracking-wider text-slate-600">
                           Quai
                         </p>
                         <p className="mt-1 font-bold text-white">
                           {item.dock || "À attribuer"}
                         </p>
-                        <p className="mt-1 text-sm text-slate-400">
+                        <p className="mt-1 text-sm text-slate-500">
                           {item.pallets} palette(s)
                         </p>
                       </div>
@@ -389,7 +389,7 @@ export default function ReceptionTable({
                     <div className="mt-3 rounded-xl border border-slate-800 bg-slate-900/80 p-3">
                       <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
-                          <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                          <p className="text-[10px] uppercase tracking-wider text-slate-600">
                             Transporteur
                           </p>
                           <p className="mt-1 truncate text-sm font-semibold text-slate-200">
@@ -410,7 +410,7 @@ export default function ReceptionTable({
 
                     <div className="mt-4">
                       <div className="mb-2 flex items-center justify-between text-xs">
-                        <span className="text-slate-500">
+                        <span className="text-slate-600">
                           Progression
                         </span>
                         <span className="font-bold text-cyan-300">
@@ -451,7 +451,7 @@ export default function ReceptionTable({
                         disabled={
                           isCompleted || isLoading
                         }
-                        className="min-h-12 rounded-xl bg-cyan-500 px-3 py-3 text-sm font-black text-slate-950 transition active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+                        className="min-h-12 rounded-xl bg-cyan-500 px-3 py-3 text-sm font-black text-slate-950 transition active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-500"
                       >
                         {isLoading
                           ? "Chargement..."
@@ -589,7 +589,7 @@ export default function ReceptionTable({
 
                         <td className="p-4">
                           <div className="w-32">
-                            <div className="mb-1 text-xs text-slate-400">
+                            <div className="mb-1 text-xs font-medium text-slate-600">
                               {progress} %
                             </div>
 
@@ -632,7 +632,7 @@ export default function ReceptionTable({
                             disabled={
                               isCompleted || isLoading
                             }
-                            className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold hover:bg-blue-500 disabled:bg-slate-700 disabled:text-slate-400"
+                            className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold hover:bg-blue-500 disabled:bg-slate-700 disabled:text-slate-500"
                           >
                             {isLoading
                               ? "Chargement..."

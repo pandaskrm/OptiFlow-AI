@@ -263,7 +263,7 @@ export default function ErpConnectionForm() {
   if (loading) {
     return (
       <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-lg">
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           Chargement de la configuration ERP...
         </p>
       </section>
@@ -289,13 +289,13 @@ export default function ErpConnectionForm() {
               {status}
             </span>
 
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-600">
               Dernière synchronisation : {formatSyncDate(lastSyncedAt)}
             </span>
           </div>
         </div>
 
-        <p className="mt-2 text-sm leading-6 text-slate-400">
+        <p className="mt-2 text-sm leading-6 text-slate-500">
           Sélectionnez votre ERP et renseignez les informations nécessaires à la
           synchronisation avec OptiFlow AI.
         </p>
@@ -330,7 +330,7 @@ export default function ErpConnectionForm() {
             ))}
           </select>
 
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm font-medium text-slate-700">
             {selectedProvider?.description}
           </p>
         </div>
@@ -344,7 +344,7 @@ export default function ErpConnectionForm() {
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder="Exemple : ERP principal"
-            className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
+            className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20"
           />
         </div>
 
@@ -358,7 +358,7 @@ export default function ErpConnectionForm() {
             onChange={(event) => setApiUrl(event.target.value)}
             placeholder="https://erp.entreprise.fr/api"
             disabled={provider === "local" || provider === "csv"}
-            className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+            className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
           />
         </div>
 
@@ -372,7 +372,7 @@ export default function ErpConnectionForm() {
             onChange={(event) => setCompanyId(event.target.value)}
             placeholder="Exemple : societe-001"
             disabled={provider === "local" || provider === "csv"}
-            className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+            className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
           />
         </div>
 
@@ -391,7 +391,7 @@ export default function ErpConnectionForm() {
                 : "Votre clé API sécurisée"
             }
             disabled={provider === "local" || provider === "csv"}
-            className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+            className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-50"
           />
 
           {hasSavedApiKey && (
@@ -429,13 +429,13 @@ export default function ErpConnectionForm() {
 
       {syncSummary && (
         <div className="mt-5">
-          <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-slate-400">
+          <h3 className="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-slate-500">
             Résumé de la synchronisation
           </h3>
 
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-              <p className="text-xs uppercase tracking-wide text-slate-500">
+              <p className="text-xs uppercase tracking-wide text-slate-600">
                 Commandes
               </p>
               <p className="mt-2 text-2xl font-black text-white">
@@ -444,7 +444,7 @@ export default function ErpConnectionForm() {
             </div>
 
             <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-              <p className="text-xs uppercase tracking-wide text-slate-500">
+              <p className="text-xs uppercase tracking-wide text-slate-600">
                 Expéditions
               </p>
               <p className="mt-2 text-2xl font-black text-white">
@@ -453,7 +453,7 @@ export default function ErpConnectionForm() {
             </div>
 
             <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-              <p className="text-xs uppercase tracking-wide text-slate-500">
+              <p className="text-xs uppercase tracking-wide text-slate-600">
                 Réceptions
               </p>
               <p className="mt-2 text-2xl font-black text-white">
@@ -462,7 +462,7 @@ export default function ErpConnectionForm() {
             </div>
 
             <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-              <p className="text-xs uppercase tracking-wide text-slate-500">
+              <p className="text-xs uppercase tracking-wide text-slate-600">
                 Articles en stock
               </p>
               <p className="mt-2 text-2xl font-black text-white">
@@ -471,7 +471,7 @@ export default function ErpConnectionForm() {
             </div>
 
             <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-              <p className="text-xs uppercase tracking-wide text-slate-500">
+              <p className="text-xs uppercase tracking-wide text-slate-600">
                 Collaborateurs
               </p>
               <p className="mt-2 text-2xl font-black text-white">
@@ -514,7 +514,7 @@ export default function ErpConnectionForm() {
       </div>
 
       {!enabled && (
-        <p className="mt-3 text-xs text-slate-500">
+        <p className="mt-3 text-xs text-slate-600">
           Activez et enregistrez la connexion ERP avant de lancer une
           synchronisation.
         </p>

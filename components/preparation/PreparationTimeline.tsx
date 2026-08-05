@@ -24,7 +24,7 @@ export default function PreparationTimeline() {
   return (
     <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
       <h2 className="text-xl font-bold">Timeline préparation</h2>
-      <p className="text-sm text-slate-400">Événements opérationnels en direct.</p>
+      <p className="text-sm text-slate-500">Événements opérationnels en direct.</p>
 
       <div className="mt-6 space-y-4">
         {events.map((event, index) => (
@@ -34,7 +34,7 @@ export default function PreparationTimeline() {
                 index === active ? "bg-cyan-400" : "bg-slate-700"
               }`}
             />
-            <p className={index === active ? "font-semibold text-cyan-200" : "text-slate-400"}>
+            <p className={index === active ? "font-semibold text-cyan-200" : "text-slate-500"}>
               {event}
             </p>
           </div>

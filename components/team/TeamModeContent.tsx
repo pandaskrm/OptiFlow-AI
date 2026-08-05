@@ -109,7 +109,7 @@ function TeamRealData() {
 
   if (loading) {
     return (
-      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
+      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-500">
         Chargement du module Équipe...
       </div>
     );
@@ -149,7 +149,7 @@ function TeamRealData() {
                 : "border-slate-600 bg-slate-800"
             }`}
           >
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Statut équipe
             </p>
 
@@ -174,7 +174,7 @@ function TeamRealData() {
             key={card.label}
             className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
           >
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               {card.label}
             </p>
 
@@ -191,13 +191,13 @@ function TeamRealData() {
             Capacité opérationnelle
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm font-medium text-slate-700">
             Indicateurs calculés depuis les données d’activité.
           </p>
 
           <div className="mt-4 grid gap-3 md:grid-cols-3">
             <div className="rounded-xl bg-slate-50 p-4">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Taux de présence
               </p>
 
@@ -207,7 +207,7 @@ function TeamRealData() {
             </div>
 
             <div className="rounded-xl bg-slate-50 p-4">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Heures enregistrées
               </p>
 
@@ -217,7 +217,7 @@ function TeamRealData() {
             </div>
 
             <div className="rounded-xl bg-slate-50 p-4">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Unités traitées
               </p>
 
@@ -272,7 +272,7 @@ function TeamRealData() {
           </div>
 
           <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Recommandation
             </p>
 
@@ -290,7 +290,7 @@ function TeamRealData() {
               Horaires de référence
             </h2>
 
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm font-medium text-slate-700">
               Organisation fixe de la semaine de travail.
             </p>
           </div>
@@ -302,7 +302,7 @@ function TeamRealData() {
 
         <div className="overflow-x-auto rounded-2xl border border-slate-200">
           <table className="w-full min-w-[720px] text-left text-[11px]">
-            <thead className="bg-slate-50 text-slate-500">
+            <thead className="bg-slate-50 text-slate-600">
               <tr>
                 <th className="px-2 py-1.5">
                   Jour
@@ -365,7 +365,7 @@ function TeamRealData() {
 
         <div className="mt-2 grid gap-2 md:grid-cols-4">
           <div className="rounded-lg border border-slate-200 p-2.5">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Présents
             </p>
 
@@ -375,7 +375,7 @@ function TeamRealData() {
           </div>
 
           <div className="rounded-lg border border-slate-200 p-2.5">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Absents
             </p>
 
@@ -385,7 +385,7 @@ function TeamRealData() {
           </div>
 
           <div className="rounded-lg border border-slate-200 p-2.5">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Renforts
             </p>
 
@@ -395,7 +395,7 @@ function TeamRealData() {
           </div>
 
           <div className="rounded-lg border border-slate-200 p-2.5">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               En pause
             </p>
 

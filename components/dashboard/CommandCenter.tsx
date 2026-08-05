@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 
@@ -69,7 +69,7 @@ export default function CommandCenter() {
           className={`rounded-full px-4 py-2 text-sm font-semibold ${
             state.running
               ? "bg-emerald-500/20 text-emerald-400"
-              : "bg-slate-800 text-slate-400"
+              : "bg-slate-800 text-slate-500"
           }`}
         >
           IA {state.running ? "ACTIVE" : "EN ATTENTE"} · {health}%

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
@@ -61,7 +61,7 @@ function StockRealData() {
 
   if (loading) {
     return (
-      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
+      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-500">
         Chargement du module Stock...
       </div>
     );
@@ -101,7 +101,7 @@ function StockRealData() {
                 : "border-slate-600 bg-slate-800"
             }`}
           >
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Statut stock
             </p>
 
@@ -126,7 +126,7 @@ function StockRealData() {
             key={card.label}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
           >
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               {card.label}
             </p>
 
@@ -143,13 +143,13 @@ function StockRealData() {
             Disponibilité globale
           </h2>
 
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm font-medium text-slate-700">
             Répartition calculée depuis les données de stock ERP.
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Total
               </p>
 
@@ -159,7 +159,7 @@ function StockRealData() {
             </div>
 
             <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Réservé
               </p>
 
@@ -169,7 +169,7 @@ function StockRealData() {
             </div>
 
             <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Disponible
               </p>
 
@@ -180,7 +180,7 @@ function StockRealData() {
           </div>
 
           <div className="mt-6 rounded-2xl border border-slate-200 p-5">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Taux de disponibilité
             </p>
 
@@ -237,7 +237,7 @@ function StockRealData() {
           </div>
 
           <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Recommandation
             </p>
 
@@ -253,13 +253,13 @@ function StockRealData() {
           Risques de rupture
         </h2>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm font-medium text-slate-700">
           Synthèse des références nécessitant une action.
         </p>
 
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 p-5">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Références suivies
             </p>
 

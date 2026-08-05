@@ -31,7 +31,7 @@ export default function WarehouseChart({
           📈 Évolution des commandes
         </h2>
 
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           {simulationRunning
             ? "Volume simulé sur les 7 derniers jours"
             : "Données issues de votre ERP"}
@@ -83,7 +83,7 @@ export default function WarehouseChart({
               Aucune donnée ERP disponible
             </h3>
 
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 text-slate-500">
               Connectez votre ERP ou activez le Mode Démo
               pour afficher les statistiques.
             </p>

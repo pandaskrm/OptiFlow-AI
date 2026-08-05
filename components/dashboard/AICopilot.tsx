@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { Reception } from "../../types/reception";
@@ -66,14 +66,14 @@ export default function AICopilot() {
 
           <div>
             <h2 className="text-3xl font-bold text-white">Copilote IA</h2>
-            <p className="text-slate-400">
+            <p className="text-slate-500">
               Analyse intelligente de votre activité logistique
             </p>
           </div>
         </div>
 
         <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-3 text-center">
-          <p className="text-xs uppercase tracking-wide text-slate-400">
+          <p className="text-xs uppercase tracking-wide text-slate-500">
             Santé entrepôt
           </p>
           <p className="text-3xl font-bold text-emerald-400">
@@ -94,26 +94,26 @@ export default function AICopilot() {
 
       <div className="mt-8 grid gap-4 md:grid-cols-4">
         <div className="rounded-xl bg-slate-800/60 p-5">
-          <p className="text-sm text-slate-400">Réceptions</p>
+          <p className="text-sm text-slate-500">Réceptions</p>
           <p className="mt-2 text-3xl font-bold text-white">{brief.total}</p>
         </div>
 
         <div className="rounded-xl bg-slate-800/60 p-5">
-          <p className="text-sm text-slate-400">Risque</p>
+          <p className="text-sm text-slate-500">Risque</p>
           <p className="mt-2 text-3xl font-bold text-orange-400">
             {brief.risk}
           </p>
         </div>
 
         <div className="rounded-xl bg-slate-800/60 p-5">
-          <p className="text-sm text-slate-400">Confiance IA</p>
+          <p className="text-sm text-slate-500">Confiance IA</p>
           <p className="mt-2 text-3xl font-bold text-cyan-400">
             {brief.confidence}%
           </p>
         </div>
 
         <div className="rounded-xl bg-slate-800/60 p-5">
-          <p className="text-sm text-slate-400">Alertes</p>
+          <p className="text-sm text-slate-500">Alertes</p>
           <p className="mt-2 text-3xl font-bold text-orange-400">
             {brief.alerts.length}
           </p>

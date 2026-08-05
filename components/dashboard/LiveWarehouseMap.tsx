@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 
@@ -50,7 +50,7 @@ export default function LiveWarehouseMap() {
             Entrepôt en temps réel
           </h2>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             Vue opérationnelle des camions, quais, zones et décisions IA.
           </p>
         </div>
@@ -59,7 +59,7 @@ export default function LiveWarehouseMap() {
           className={`rounded-full px-4 py-2 text-sm font-semibold ${
             running
               ? "bg-emerald-500/10 text-emerald-300"
-              : "bg-slate-800 text-slate-400"
+              : "bg-slate-800 text-slate-500"
           }`}
         >
           {running ? "Simulation active" : "Simulation arrêtée"}
@@ -78,7 +78,7 @@ export default function LiveWarehouseMap() {
                 🚛 {trucksWaiting}
               </p>
 
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-slate-500">
                 camions en approche
               </p>
             </div>
@@ -92,7 +92,7 @@ export default function LiveWarehouseMap() {
                 📦 {activeReceptions}
               </p>
 
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-slate-500">
                 dossiers actifs
               </p>
             </div>
@@ -104,7 +104,7 @@ export default function LiveWarehouseMap() {
                 Zone quais
               </p>
 
-              <p className="text-xs text-slate-400">
+              <p className="text-xs font-medium text-slate-600">
                 {occupiedDocks}/{state.docks.total} occupés
               </p>
             </div>
@@ -127,7 +127,7 @@ export default function LiveWarehouseMap() {
                     </div>
                   )}
 
-                  <p className="mt-2 text-xs text-slate-400">
+                  <p className="mt-2 text-xs font-medium text-slate-600">
                     Quai
                   </p>
 
@@ -152,7 +152,7 @@ export default function LiveWarehouseMap() {
 
             <div className="mt-6 grid gap-3 md:grid-cols-3">
               <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
-                <p className="text-xs text-slate-400">
+                <p className="text-xs font-medium text-slate-600">
                   Zone A
                 </p>
 
@@ -166,7 +166,7 @@ export default function LiveWarehouseMap() {
               </div>
 
               <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
-                <p className="text-xs text-slate-400">
+                <p className="text-xs font-medium text-slate-600">
                   Équipe
                 </p>
 
@@ -180,7 +180,7 @@ export default function LiveWarehouseMap() {
               </div>
 
               <div className="rounded-xl border border-slate-700 bg-slate-900/70 p-4">
-                <p className="text-xs text-slate-400">
+                <p className="text-xs font-medium text-slate-600">
                   Flux palettes
                 </p>
 
@@ -205,7 +205,7 @@ export default function LiveWarehouseMap() {
                 ✅ {completedToday}
               </p>
 
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-slate-500">
                 opérations aujourd'hui
               </p>
             </div>
@@ -219,7 +219,7 @@ export default function LiveWarehouseMap() {
                 {aiDecision}
               </p>
 
-              <p className="mt-2 text-xs text-slate-400">
+              <p className="mt-2 text-xs font-medium text-slate-600">
                 Scénario : {state.scenario}
               </p>
             </div>

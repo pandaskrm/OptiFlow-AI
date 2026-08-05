@@ -23,14 +23,14 @@ export default function PreparationTeamStatus() {
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <div className="mb-5">
         <h2 className="text-xl font-bold text-slate-950">Équipe du jour</h2>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm font-medium text-slate-700">
           Présence, absences et répartition opérationnelle.
         </p>
       </div>
 
       <div className="mb-6 grid gap-3 md:grid-cols-5">
         <div className="rounded-2xl bg-slate-50 p-4">
-          <p className="text-sm text-slate-500">Prévus</p>
+          <p className="text-sm font-medium text-slate-700">Prévus</p>
           <p className="text-2xl font-bold text-slate-950">{planned}</p>
         </div>
 

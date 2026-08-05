@@ -18,14 +18,14 @@ export default function ShippingAnalytics() {
       <div className="mb-5 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-bold text-slate-950">Statistiques expédition</h2>
-          <p className="text-sm text-slate-500">Comparaison avec la période précédente.</p>
+          <p className="text-sm font-medium text-slate-700">Comparaison avec la période précédente.</p>
         </div>
 
         <div className="flex rounded-2xl bg-slate-100 p-1">
           <button
             onClick={() => setMode("week")}
             className={`rounded-xl px-4 py-2 text-sm font-semibold ${
-              mode === "week" ? "bg-slate-950 text-white" : "text-slate-500"
+              mode === "week" ? "bg-slate-950 text-white" : "text-slate-600"
             }`}
           >
             Semaine
@@ -33,7 +33,7 @@ export default function ShippingAnalytics() {
           <button
             onClick={() => setMode("month")}
             className={`rounded-xl px-4 py-2 text-sm font-semibold ${
-              mode === "month" ? "bg-slate-950 text-white" : "text-slate-500"
+              mode === "month" ? "bg-slate-950 text-white" : "text-slate-600"
             }`}
           >
             Mois
@@ -43,11 +43,11 @@ export default function ShippingAnalytics() {
 
       <div className="mb-5 grid gap-4 md:grid-cols-3">
         <div className="rounded-2xl bg-slate-50 p-4">
-          <p className="text-sm text-slate-500">Période actuelle</p>
+          <p className="text-sm font-medium text-slate-700">Période actuelle</p>
           <p className="text-lg font-bold text-slate-950">{total} expéditions</p>
         </div>
         <div className="rounded-2xl bg-slate-50 p-4">
-          <p className="text-sm text-slate-500">Période précédente</p>
+          <p className="text-sm font-medium text-slate-700">Période précédente</p>
           <p className="text-lg font-bold text-slate-950">{previousTotal} expéditions</p>
         </div>
         <div className="rounded-2xl bg-emerald-50 p-4">

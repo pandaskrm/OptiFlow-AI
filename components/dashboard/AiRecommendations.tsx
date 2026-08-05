@@ -52,7 +52,7 @@ export default function AiRecommendations({
           </div>
         </div>
       ) : (
-        <div className="rounded-xl border border-dashed border-slate-700 bg-slate-800/50 p-6 text-center text-slate-400">
+        <div className="rounded-xl border border-dashed border-slate-700 bg-slate-800/50 p-6 text-center text-slate-500">
           Connectez votre ERP ou activez le Mode Démo pour obtenir des recommandations IA.
         </div>
       )}

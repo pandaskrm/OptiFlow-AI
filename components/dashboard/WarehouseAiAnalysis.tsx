@@ -10,7 +10,7 @@ export default function WarehouseAiAnalysis() {
         <h2 className="text-2xl font-bold text-slate-900">
           Santé de l'entrepôt : {analysis.healthScore} %
         </h2>
-        <p className="text-sm text-slate-500">Statut : {analysis.status}</p>
+        <p className="text-sm font-medium text-slate-700">Statut : {analysis.status}</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -34,8 +34,8 @@ export default function WarehouseAiAnalysis() {
       </div>
 
       <div className="mt-4 rounded-xl bg-slate-50 p-4">
-        <h3 className="mb-1 font-semibold text-slate-800">Conseil IA</h3>
-        <p className="text-sm text-slate-600">{analysis.aiAdvice}</p>
+        <h3 className="mb-1 font-semibold text-slate-900">Conseil IA</h3>
+        <p className="text-sm font-medium text-slate-700">{analysis.aiAdvice}</p>
       </div>
 
       <p className="mt-4 text-sm font-medium text-slate-700">

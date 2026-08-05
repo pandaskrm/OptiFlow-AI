@@ -39,7 +39,7 @@ export default function CommercialDemoPanel() {
           Démonstration commerciale
         </h2>
 
-        <p className="mt-2 text-slate-400">
+        <p className="mt-2 text-slate-500">
           Présentez OptiFlow AI en quelques minutes avec un scénario réaliste.
         </p>
       </div>

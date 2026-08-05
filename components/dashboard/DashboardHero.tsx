@@ -195,7 +195,7 @@ export default function DashboardHero() {
               </span>
             )}
 
-            <span className="text-sm text-slate-400">
+            <span className="text-sm text-slate-500">
               Centre de commandement
             </span>
           </div>

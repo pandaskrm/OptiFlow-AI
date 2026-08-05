@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseAnalysis from "../../hooks/useWarehouseAnalysis";
@@ -227,7 +227,7 @@ export default function DashboardLiveContent() {
             Votre cockpit est prêt
           </h2>
 
-          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+          <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
             Connectez une source de données pour suivre votre activité réelle,
             ou utilisez le Mode Démo pour présenter immédiatement les capacités
             d'OptiFlow AI.

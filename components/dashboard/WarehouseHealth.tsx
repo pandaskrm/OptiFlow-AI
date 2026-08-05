@@ -23,7 +23,7 @@ export default function WarehouseHealth({
             {health}%
           </h2>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             {sourceLabel}
           </p>
         </div>
@@ -32,7 +32,7 @@ export default function WarehouseHealth({
           className={`rounded-full px-4 py-2 text-sm font-bold ${
             hasData
               ? "bg-emerald-500/20 text-emerald-400"
-              : "bg-slate-800 text-slate-400"
+              : "bg-slate-800 text-slate-500"
           }`}
         >
           {hasData ? "CONNECTÉ" : "AUCUNE DONNÉE"}

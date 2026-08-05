@@ -236,7 +236,7 @@ export default function UsersAdminPanel() {
             Utilisateurs de l’entreprise
           </h2>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             {users.length} collaborateur
             {users.length > 1 ? "s" : ""}
           </p>
@@ -390,7 +390,7 @@ export default function UsersAdminPanel() {
               <tr>
                 <td
                   colSpan={6}
-                  className="px-4 py-8 text-center text-slate-400"
+                  className="px-4 py-8 text-center text-slate-500"
                 >
                   Chargement des collaborateurs...
                 </td>
@@ -399,7 +399,7 @@ export default function UsersAdminPanel() {
               <tr>
                 <td
                   colSpan={6}
-                  className="px-4 py-8 text-center text-slate-400"
+                  className="px-4 py-8 text-center text-slate-500"
                 >
                   Aucun collaborateur.
                 </td>
@@ -458,7 +458,7 @@ export default function UsersAdminPanel() {
                       </span>
                     </td>
 
-                    <td className="px-4 py-4 text-slate-400">
+                    <td className="px-4 py-4 text-slate-500">
                       {user.lastLoginAt
                         ? new Intl.DateTimeFormat("fr-FR", {
                             dateStyle: "short",
@@ -543,7 +543,7 @@ function Field({
         value={value}
         placeholder={placeholder}
         onChange={(event) => onChange(event.target.value)}
-        className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none placeholder:text-slate-500 focus:border-cyan-500"
+        className="h-12 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none placeholder:text-slate-600 focus:border-cyan-500"
       />
     </label>
   );

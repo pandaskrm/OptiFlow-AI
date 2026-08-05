@@ -24,13 +24,13 @@ export default function ShippingTimeline() {
   return (
     <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
       <h2 className="text-xl font-bold">Timeline expédition</h2>
-      <p className="text-sm text-slate-400">Événements transport en direct.</p>
+      <p className="text-sm text-slate-500">Événements transport en direct.</p>
 
       <div className="mt-6 space-y-4">
         {events.map((event, index) => (
           <div key={event} className="flex gap-4">
             <div className={`mt-1 h-3 w-3 rounded-full ${index === active ? "bg-cyan-400" : "bg-slate-700"}`} />
-            <p className={index === active ? "font-semibold text-cyan-200" : "text-slate-400"}>
+            <p className={index === active ? "font-semibold text-cyan-200" : "text-slate-500"}>
               {event}
             </p>
           </div>

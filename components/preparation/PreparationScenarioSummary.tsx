@@ -71,7 +71,7 @@ export default function PreparationScenarioSummary() {
             key={card.label}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
           >
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               {card.label}
             </p>
 

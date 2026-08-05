@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 
@@ -88,7 +88,7 @@ export default function DashboardHeader() {
                 Bonjour Kevin 👋
               </h1>
 
-              <p className="text-sm capitalize text-slate-400">
+              <p className="text-sm capitalize text-slate-500">
                 {currentDate || "Chargement..."}
               </p>
             </div>
@@ -98,7 +98,7 @@ export default function DashboardHeader() {
                 {activityTitle}
               </p>
 
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-slate-500">
                 {activityMessage}
               </p>
             </div>
@@ -107,7 +107,7 @@ export default function DashboardHeader() {
           <div className="flex flex-col gap-3 xl:items-end">
             <div className="grid w-full gap-2 sm:grid-cols-3 xl:w-auto">
               <div className="min-w-[150px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                <p className="text-[10px] uppercase tracking-wider text-slate-600">
                   Source
                 </p>
                 <p className="mt-1 text-sm font-bold text-white">
@@ -116,7 +116,7 @@ export default function DashboardHeader() {
               </div>
 
               <div className="min-w-[130px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                <p className="text-[10px] uppercase tracking-wider text-slate-600">
                   Santé dépôt
                 </p>
                 <p className="mt-1 text-sm font-bold text-white">
@@ -125,7 +125,7 @@ export default function DashboardHeader() {
               </div>
 
               <div className="min-w-[130px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-wider text-slate-500">
+                <p className="text-[10px] uppercase tracking-wider text-slate-600">
                   Intelligence IA
                 </p>
                 <p className="mt-1 text-sm font-bold text-white">

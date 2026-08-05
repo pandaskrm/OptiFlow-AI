@@ -27,7 +27,7 @@ export default function OrdersChart() {
         <h2 className="text-xl font-bold text-white">
           📈 Évolution des commandes
         </h2>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-500">
           Volume traité sur les 7 derniers jours
         </p>
       </div>

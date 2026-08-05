@@ -100,7 +100,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-number"
-            className="text-sm text-slate-400"
+            className="text-sm text-slate-500"
           >
             Numéro de réception
           </label>
@@ -121,7 +121,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-supplier"
-            className="text-sm text-slate-400"
+            className="text-sm text-slate-500"
           >
             Fournisseur
           </label>
@@ -142,7 +142,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-carrier"
-            className="text-sm text-slate-400"
+            className="text-sm text-slate-500"
           >
             Transporteur
           </label>
@@ -163,7 +163,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-dock"
-            className="text-sm text-slate-400"
+            className="text-sm text-slate-500"
           >
             Quai prévu
           </label>
@@ -190,7 +190,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-pallets"
-            className="text-sm text-slate-400"
+            className="text-sm text-slate-500"
           >
             Nombre de palettes
           </label>
@@ -212,7 +212,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-scheduled-at"
-            className="text-sm text-slate-400"
+            className="text-sm text-slate-500"
           >
             Date et heure prévues de la réception
           </label>

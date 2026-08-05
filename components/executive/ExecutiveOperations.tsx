@@ -10,7 +10,7 @@ export default function ExecutiveOperations() {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <h2 className="text-xl font-bold text-slate-950">Modules opérationnels</h2>
-      <p className="text-sm text-slate-500">État de chaque zone clé.</p>
+      <p className="text-sm font-medium text-slate-700">État de chaque zone clé.</p>
 
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         {executiveOperations.map((item) => (
@@ -24,7 +24,7 @@ export default function ExecutiveOperations() {
 
             <p className="mt-3 text-3xl font-black text-slate-950">{item.score}/100</p>
             <p className="text-sm font-semibold text-cyan-700">{item.volume}</p>
-            <p className="mt-3 text-sm text-slate-500">{item.insight}</p>
+            <p className="mt-3 text-sm font-medium text-slate-700">{item.insight}</p>
           </div>
         ))}
       </div>

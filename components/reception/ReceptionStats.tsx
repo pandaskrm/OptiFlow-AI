@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import useSimulationV2 from "../../hooks/useSimulationV2";

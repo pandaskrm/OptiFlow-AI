@@ -109,7 +109,7 @@ export default function ReceptionDemoTable() {
           📋 Pilotage des réceptions (Démo)
         </h2>
 
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mt-1 text-sm text-slate-500">
           Les réceptions changent selon le scénario actif.
         </p>
       </div>
@@ -146,7 +146,7 @@ export default function ReceptionDemoTable() {
 
               <td className="p-4">
                 <div className="w-40">
-                  <div className="mb-1 text-xs text-slate-400">
+                  <div className="mb-1 text-xs font-medium text-slate-600">
                     {row.progress} %
                   </div>
 

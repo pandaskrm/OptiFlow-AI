@@ -98,7 +98,7 @@ export default function AiMissionCenter({
             Priorités opérationnelles
           </h2>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             Actions recommandées à partir des données de
             l’entrepôt.
           </p>
@@ -113,7 +113,7 @@ export default function AiMissionCenter({
             <button
               type="button"
               onClick={resetMissions}
-              className="text-xs font-semibold text-slate-400 transition hover:text-white"
+              className="text-xs font-semibold text-slate-500 transition hover:text-white"
             >
               Réinitialiser
             </button>
@@ -134,7 +134,7 @@ export default function AiMissionCenter({
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-600">
                     Mission {index + 1} · {mission.category}
                   </p>
 
@@ -159,7 +159,7 @@ export default function AiMissionCenter({
                   <p className="font-bold text-orange-300">
                     Impact
                   </p>
-                  <p className="mt-1 text-slate-400">
+                  <p className="mt-1 text-slate-500">
                     {mission.impact}
                   </p>
                 </div>
@@ -177,7 +177,7 @@ export default function AiMissionCenter({
                   <p className="font-bold text-emerald-300">
                     Gain attendu
                   </p>
-                  <p className="mt-1 text-slate-400">
+                  <p className="mt-1 text-slate-500">
                     {mission.estimatedGain}
                   </p>
                 </div>

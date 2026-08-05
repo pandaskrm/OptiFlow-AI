@@ -139,7 +139,7 @@ export default function DashboardStats({ refreshKey }: DashboardStatsProps) {
                     </span>
 
                     <div>
-                      <p className="text-xs uppercase tracking-wider text-slate-500">
+                      <p className="text-xs uppercase tracking-wider text-slate-600">
                         Indicateur
                       </p>
 
@@ -160,7 +160,7 @@ export default function DashboardStats({ refreshKey }: DashboardStatsProps) {
                     {stat.suffix ?? ""}
                   </p>
 
-                  <p className="pb-1 text-sm font-medium text-slate-400">
+                  <p className="pb-1 text-sm font-medium text-slate-500">
                     {stat.detail}
                   </p>
                 </div>
@@ -179,7 +179,7 @@ export default function DashboardStats({ refreshKey }: DashboardStatsProps) {
                 </div>
 
                 <div className="mt-3 flex items-center justify-between text-xs">
-                  <span className="text-slate-500">
+                  <span className="text-slate-600">
                     Niveau actuel
                   </span>
 

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
@@ -99,7 +99,7 @@ function PreparationRealData() {
 
   if (loading) {
     return (
-      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-400">
+      <div className="rounded-3xl border border-slate-800 bg-slate-950 p-10 text-center text-slate-500">
         Chargement du module Préparation...
       </div>
     );
@@ -139,7 +139,7 @@ function PreparationRealData() {
                 : "border-slate-600 bg-slate-800"
             }`}
           >
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Statut opérationnel
             </p>
 
@@ -164,7 +164,7 @@ function PreparationRealData() {
             key={card.label}
             className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
           >
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               {card.label}
             </p>
 
@@ -182,14 +182,14 @@ function PreparationRealData() {
               Performance préparation
             </h2>
 
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Avancement calculé depuis les lignes reçues de l’ERP.
             </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Lignes totales
               </p>
 
@@ -199,7 +199,7 @@ function PreparationRealData() {
             </div>
 
             <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Lignes préparées
               </p>
 
@@ -209,7 +209,7 @@ function PreparationRealData() {
             </div>
 
             <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Restantes
               </p>
 
@@ -245,7 +245,7 @@ function PreparationRealData() {
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 À préparer
               </p>
 
@@ -255,7 +255,7 @@ function PreparationRealData() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 En cours
               </p>
 
@@ -265,7 +265,7 @@ function PreparationRealData() {
             </div>
 
             <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Terminées
               </p>
 
@@ -298,7 +298,7 @@ function PreparationRealData() {
           </div>
 
           <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Recommandation
             </p>
 
@@ -308,13 +308,13 @@ function PreparationRealData() {
           </div>
 
           <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-slate-500">
               Productivité
             </p>
 
             <p className="mt-2 text-3xl font-bold text-cyan-300">
               {workforce.productivity}
-              <span className="ml-2 text-sm font-normal text-slate-400">
+              <span className="ml-2 text-sm font-normal text-slate-500">
                 unités/heure
               </span>
             </p>
@@ -328,7 +328,7 @@ function PreparationRealData() {
             Équipe du jour
           </h2>
 
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-medium text-slate-700">
             Effectifs et capacité reçus depuis le flux ERP.
           </p>
         </div>
@@ -339,7 +339,7 @@ function PreparationRealData() {
               key={card.label}
               className="rounded-2xl bg-slate-50 p-4"
             >
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 {card.label}
               </p>
 
@@ -352,7 +352,7 @@ function PreparationRealData() {
 
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 p-4">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Minutes travaillées
             </p>
 
@@ -362,7 +362,7 @@ function PreparationRealData() {
           </div>
 
           <div className="rounded-2xl border border-slate-200 p-4">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Unités traitées
             </p>
 
@@ -372,7 +372,7 @@ function PreparationRealData() {
           </div>
 
           <div className="rounded-2xl border border-slate-200 p-4">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm font-medium text-slate-700">
               Productivité
             </p>
 
@@ -383,7 +383,7 @@ function PreparationRealData() {
         </div>
 
         {!hasWorkforce && (
-          <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-500">
+          <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600">
             Aucune donnée d’équipe reçue pour le moment.
           </div>
         )}
@@ -397,7 +397,7 @@ function PreparationRealData() {
                 Commandes en préparation
               </h2>
 
-              <p className="text-sm text-slate-500">
+              <p className="text-sm font-medium text-slate-700">
                 Synthèse du flux Commandes central.
               </p>
             </div>
@@ -406,7 +406,7 @@ function PreparationRealData() {
               className={`rounded-full px-3 py-1 text-xs font-bold ${
                 hasOrders
                   ? "bg-emerald-100 text-emerald-700"
-                  : "bg-slate-100 text-slate-500"
+                  : "bg-slate-100 text-slate-600"
               }`}
             >
               {hasOrders
@@ -417,7 +417,7 @@ function PreparationRealData() {
 
           <div className="overflow-hidden rounded-2xl border border-slate-200">
             <table className="w-full text-left text-sm">
-              <thead className="bg-slate-50 text-slate-500">
+              <thead className="bg-slate-50 text-slate-600">
                 <tr>
                   <th className="px-4 py-3">
                     Indicateur
@@ -487,7 +487,7 @@ function PreparationRealData() {
             </table>
           </div>
 
-          <p className="mt-4 text-sm text-slate-500">
+          <p className="mt-4 text-sm font-medium text-slate-700">
             Le détail ligne par ligne des commandes sera alimenté
             par la future API Commandes ERP.
           </p>

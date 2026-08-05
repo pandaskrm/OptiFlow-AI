@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
@@ -40,7 +40,7 @@ export default function DashboardAlerts() {
             </div>
           ))
         ) : (
-          <div className="rounded-xl border border-slate-700 bg-slate-950/40 p-4 text-sm text-slate-400">
+          <div className="rounded-xl border border-slate-700 bg-slate-950/40 p-4 text-sm text-slate-500">
             {warehouse.loading
               ? "Chargement des alertes..."
               : hasRealData

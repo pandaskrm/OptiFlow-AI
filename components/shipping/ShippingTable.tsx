@@ -74,7 +74,7 @@ export default function ShippingTable() {
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-slate-950">Expéditions live</h2>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm font-medium text-slate-700">
             Suivi des départs transporteurs en temps réel.
           </p>
         </div>
@@ -86,7 +86,7 @@ export default function ShippingTable() {
 
       <div className="overflow-hidden rounded-2xl border border-slate-200">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 text-slate-500">
+          <thead className="bg-slate-50 text-slate-600">
             <tr>
               <th className="px-4 py-3">Expédition</th>
               <th className="px-4 py-3">Client</th>

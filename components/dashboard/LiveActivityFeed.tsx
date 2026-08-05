@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 
@@ -12,7 +12,7 @@ export default function LiveActivityFeed() {
           Centre d'activité
         </h2>
 
-        <p className="mt-4 text-sm text-slate-400">
+        <p className="mt-4 text-sm text-slate-500">
           Lancez le Mode Démo pour suivre les événements en temps réel.
         </p>
       </div>
@@ -82,7 +82,7 @@ export default function LiveActivityFeed() {
                     {item.title}
                   </span>
 
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-slate-600">
                     {new Date(item.createdAt).toLocaleTimeString("fr-FR", {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -96,7 +96,7 @@ export default function LiveActivityFeed() {
               </div>
             ))
           ) : (
-            <div className="rounded-lg border border-dashed border-slate-700 p-4 text-sm text-slate-400">
+            <div className="rounded-lg border border-dashed border-slate-700 p-4 text-sm text-slate-500">
               Aucun événement enregistré pour le moment.
             </div>
           )}

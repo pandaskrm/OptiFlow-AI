@@ -31,7 +31,7 @@ export default function PickerPerformance() {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <h2 className="text-xl font-bold text-slate-950">Performance préparateurs</h2>
-      <p className="text-sm text-slate-500">Classement opérationnel en direct.</p>
+      <p className="text-sm font-medium text-slate-700">Classement opérationnel en direct.</p>
 
       <div className="mt-5 space-y-3">
         {pickers.map((picker, index) => (
@@ -43,12 +43,12 @@ export default function PickerPerformance() {
               <p className="font-bold text-slate-950">
                 #{index + 1} {picker.name}
               </p>
-              <p className="text-sm text-slate-500">{picker.status}</p>
+              <p className="text-sm font-medium text-slate-700">{picker.status}</p>
             </div>
 
             <div className="text-right">
               <p className="text-lg font-bold text-slate-950">{picker.rate}%</p>
-              <p className="text-xs text-slate-500">{picker.orders} commandes</p>
+              <p className="text-xs text-slate-600">{picker.orders} commandes</p>
             </div>
           </div>
         ))}

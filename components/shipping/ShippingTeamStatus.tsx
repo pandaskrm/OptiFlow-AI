@@ -15,11 +15,11 @@ export default function ShippingTeamStatus() {
   return (
     <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <h2 className="text-xl font-bold text-slate-950">Équipe expédition</h2>
-      <p className="text-sm text-slate-500">Présence et répartition des équipes.</p>
+      <p className="text-sm font-medium text-slate-700">Présence et répartition des équipes.</p>
 
       <div className="mt-5 grid gap-3 md:grid-cols-4">
         <div className="rounded-2xl bg-slate-50 p-4">
-          <p className="text-sm text-slate-500">Prévus</p>
+          <p className="text-sm font-medium text-slate-700">Prévus</p>
           <p className="text-2xl font-bold text-slate-950">18</p>
         </div>
         <div className="rounded-2xl bg-emerald-50 p-4">

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../../hooks/useSimulationV2";
 
@@ -51,7 +51,7 @@ export default function LiveWarehouseMap() {
             Plan vivant de l'entrepôt
           </h2>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-500">
             Vue opérationnelle des quais, zones, flux et décisions IA.
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function LiveWarehouseMap() {
           className={`rounded-full px-4 py-2 text-sm font-semibold ${
             simulation.running
               ? "bg-emerald-500/10 text-emerald-300"
-              : "bg-slate-800 text-slate-400"
+              : "bg-slate-800 text-slate-500"
           }`}
         >
           {simulation.running
@@ -110,7 +110,7 @@ export default function LiveWarehouseMap() {
           <div className="mb-4 flex items-center justify-between">
             <p className="font-bold text-white">🚛 Zone quais</p>
 
-            <p className="text-xs text-slate-400">
+            <p className="text-xs font-medium text-slate-600">
               {simulation.running
                 ? "Flux entrant en temps réel"
                 : "Aucune donnée opérationnelle"}
@@ -147,7 +147,7 @@ export default function LiveWarehouseMap() {
               {simulation.running ? "📦 📦 📦 📦" : "—"}
             </p>
 
-            <p className="mt-3 text-xs text-slate-400">
+            <p className="mt-3 text-xs font-medium text-slate-600">
               {simulation.running ? "Flux normal" : "En attente"}
             </p>
           </div>
@@ -159,7 +159,7 @@ export default function LiveWarehouseMap() {
               {simulation.running ? "👷 👷 👷 👷" : "—"}
             </p>
 
-            <p className="mt-3 text-xs text-slate-400">
+            <p className="mt-3 text-xs font-medium text-slate-600">
               {simulation.running ? "Équipe active" : "En attente"}
             </p>
           </div>
@@ -171,7 +171,7 @@ export default function LiveWarehouseMap() {
               {simulation.running ? "🚚 🚚 📦" : "—"}
             </p>
 
-            <p className="mt-3 text-xs text-slate-400">
+            <p className="mt-3 text-xs font-medium text-slate-600">
               {simulation.running
                 ? "Départs en préparation"
                 : "En attente"}

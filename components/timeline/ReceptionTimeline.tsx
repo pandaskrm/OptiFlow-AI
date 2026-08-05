@@ -21,7 +21,7 @@ export default function ReceptionTimeline({ reception }: Props) {
             🚚 Timeline de la réception
           </h2>
 
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-slate-500">
             Suivi complet des opérations en temps réel
           </p>
 
@@ -29,7 +29,7 @@ export default function ReceptionTimeline({ reception }: Props) {
 
         <div className="rounded-xl border border-cyan-500/30 bg-cyan-500/10 px-6 py-4 text-center">
 
-          <p className="text-xs uppercase tracking-wider text-slate-400">
+          <p className="text-xs uppercase tracking-wider text-slate-500">
             Progression
           </p>
 
@@ -86,7 +86,7 @@ export default function ReceptionTimeline({ reception }: Props) {
                         {step.label}
                       </h3>
 
-                      <p className="text-sm text-slate-400">
+                      <p className="text-sm text-slate-500">
                         {step.description}
                       </p>
 
@@ -118,7 +118,7 @@ export default function ReceptionTimeline({ reception }: Props) {
 
                   <div className="mt-4 rounded-xl bg-slate-900/60 p-4">
 
-                    <p className="text-sm text-slate-400">
+                    <p className="text-sm text-slate-500">
                       ⏱ Heure estimée
                     </p>
 

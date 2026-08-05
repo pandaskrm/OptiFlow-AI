@@ -45,7 +45,7 @@ export default function LiveOperations({
         >
           <div className="text-3xl">{card.icon}</div>
 
-          <p className="mt-3 text-sm text-slate-400">
+          <p className="mt-3 text-sm text-slate-500">
             {card.label}
           </p>
 
