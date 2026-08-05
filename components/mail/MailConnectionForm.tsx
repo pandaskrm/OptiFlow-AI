@@ -116,7 +116,7 @@ export default function MailConnectionForm() {
     setIsError(false);
 
     try {
-      const response = await fetch("/api/mail/config", {
+      const response = await fetch("/api/mail/test", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -133,9 +133,17 @@ export default function MailConnectionForm() {
         );
       }
 
+      setStatus(
+        data.connection?.status ??
+          (data as MailConnectionResponse & {
+            status?: string;
+          }).status ??
+          "CONNECTED",
+      );
+
       setMessage(
         data.message ??
-          "Configuration cohérente.",
+          "Connexion Microsoft 365 réussie.",
       );
     } catch (error) {
       setIsError(true);
