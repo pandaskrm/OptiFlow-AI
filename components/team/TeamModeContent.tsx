@@ -252,7 +252,7 @@ function TeamRealData() {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
+        <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-4 text-white shadow-xl">
           <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
             Analyse IA
           </p>
@@ -261,7 +261,7 @@ function TeamRealData() {
             Équilibre des ressources
           </h2>
 
-          <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
+          <div className="mt-3 rounded-xl border border-red-500/20 bg-red-500/10 p-3">
             <p className="text-sm text-red-300">
               Alerte
             </p>
@@ -295,32 +295,32 @@ function TeamRealData() {
             </p>
           </div>
 
-          <span className="rounded-full bg-cyan-100 px-4 py-2 text-sm font-bold text-cyan-700">
+          <span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-bold text-cyan-700">
             Contrat : 39 h / semaine
           </span>
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-slate-200">
-          <table className="w-full min-w-[800px] text-left text-sm">
+          <table className="w-full min-w-[760px] text-left text-xs">
             <thead className="bg-slate-50 text-slate-500">
               <tr>
-                <th className="px-4 py-3">
+                <th className="px-3 py-2">
                   Jour
                 </th>
 
-                <th className="px-4 py-3">
+                <th className="px-3 py-2">
                   Matin
                 </th>
 
-                <th className="px-4 py-3">
+                <th className="px-3 py-2">
                   Après-midi
                 </th>
 
-                <th className="px-4 py-3">
+                <th className="px-3 py-2">
                   Pauses
                 </th>
 
-                <th className="px-4 py-3">
+                <th className="px-3 py-2">
                   Durée d’une pause
                 </th>
               </tr>
@@ -332,23 +332,23 @@ function TeamRealData() {
                   key={row.day}
                   className="border-t border-slate-200"
                 >
-                  <td className="px-4 py-4 font-bold text-slate-950">
+                  <td className="px-3 py-2 font-bold text-slate-950">
                     {row.day}
                   </td>
 
-                  <td className="px-4 py-4 text-slate-600">
+                  <td className="px-3 py-2 text-slate-600">
                     {row.morning}
                   </td>
 
-                  <td className="px-4 py-4 text-slate-600">
+                  <td className="px-3 py-2 text-slate-600">
                     {row.afternoon}
                   </td>
 
-                  <td className="px-4 py-4 text-slate-600">
+                  <td className="px-3 py-2 text-slate-600">
                     {row.breaks}
                   </td>
 
-                  <td className="px-4 py-4 text-slate-600">
+                  <td className="px-3 py-2 text-slate-600">
                     10 minutes
                   </td>
                 </tr>
@@ -363,8 +363,8 @@ function TeamRealData() {
           Synthèse des ressources
         </h2>
 
-        <div className="mt-5 grid gap-4 md:grid-cols-4">
-          <div className="rounded-2xl border border-slate-200 p-5">
+        <div className="mt-3 grid gap-3 md:grid-cols-4">
+          <div className="rounded-xl border border-slate-200 p-3">
             <p className="text-sm text-slate-500">
               Présents
             </p>
@@ -374,7 +374,7 @@ function TeamRealData() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 p-5">
+          <div className="rounded-xl border border-slate-200 p-3">
             <p className="text-sm text-slate-500">
               Absents
             </p>
@@ -384,7 +384,7 @@ function TeamRealData() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 p-5">
+          <div className="rounded-xl border border-slate-200 p-3">
             <p className="text-sm text-slate-500">
               Renforts
             </p>
@@ -394,7 +394,7 @@ function TeamRealData() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 p-5">
+          <div className="rounded-xl border border-slate-200 p-3">
             <p className="text-sm text-slate-500">
               En pause
             </p>
