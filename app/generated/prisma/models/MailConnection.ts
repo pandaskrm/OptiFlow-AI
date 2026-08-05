@@ -321,6 +321,7 @@ export type MailConnectionWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"MailConnection"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MailConnection"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+  mailMessages?: Prisma.MailMessageListRelationFilter
 }
 
 export type MailConnectionOrderByWithRelationInput = {
@@ -343,6 +344,7 @@ export type MailConnectionOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
+  mailMessages?: Prisma.MailMessageOrderByRelationAggregateInput
 }
 
 export type MailConnectionWhereUniqueInput = Prisma.AtLeast<{
@@ -369,6 +371,7 @@ export type MailConnectionWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"MailConnection"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"MailConnection"> | Date | string
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+  mailMessages?: Prisma.MailMessageListRelationFilter
 }, "id" | "companyId_emailAddress">
 
 export type MailConnectionOrderByWithAggregationInput = {
@@ -440,6 +443,7 @@ export type MailConnectionCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutMailConnectionsInput
+  mailMessages?: Prisma.MailMessageCreateNestedManyWithoutConnectionInput
 }
 
 export type MailConnectionUncheckedCreateInput = {
@@ -461,6 +465,7 @@ export type MailConnectionUncheckedCreateInput = {
   lastError?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutConnectionInput
 }
 
 export type MailConnectionUpdateInput = {
@@ -482,6 +487,7 @@ export type MailConnectionUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutMailConnectionsNestedInput
+  mailMessages?: Prisma.MailMessageUpdateManyWithoutConnectionNestedInput
 }
 
 export type MailConnectionUncheckedUpdateInput = {
@@ -503,6 +509,7 @@ export type MailConnectionUncheckedUpdateInput = {
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutConnectionNestedInput
 }
 
 export type MailConnectionCreateManyInput = {
@@ -575,6 +582,11 @@ export type MailConnectionListRelationFilter = {
 
 export type MailConnectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type MailConnectionNullableScalarRelationFilter = {
+  is?: Prisma.MailConnectionWhereInput | null
+  isNot?: Prisma.MailConnectionWhereInput | null
 }
 
 export type MailConnectionCompanyIdEmailAddressCompoundUniqueInput = {
@@ -695,6 +707,22 @@ export type MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput = {
   deleteMany?: Prisma.MailConnectionScalarWhereInput | Prisma.MailConnectionScalarWhereInput[]
 }
 
+export type MailConnectionCreateNestedOneWithoutMailMessagesInput = {
+  create?: Prisma.XOR<Prisma.MailConnectionCreateWithoutMailMessagesInput, Prisma.MailConnectionUncheckedCreateWithoutMailMessagesInput>
+  connectOrCreate?: Prisma.MailConnectionCreateOrConnectWithoutMailMessagesInput
+  connect?: Prisma.MailConnectionWhereUniqueInput
+}
+
+export type MailConnectionUpdateOneWithoutMailMessagesNestedInput = {
+  create?: Prisma.XOR<Prisma.MailConnectionCreateWithoutMailMessagesInput, Prisma.MailConnectionUncheckedCreateWithoutMailMessagesInput>
+  connectOrCreate?: Prisma.MailConnectionCreateOrConnectWithoutMailMessagesInput
+  upsert?: Prisma.MailConnectionUpsertWithoutMailMessagesInput
+  disconnect?: Prisma.MailConnectionWhereInput | boolean
+  delete?: Prisma.MailConnectionWhereInput | boolean
+  connect?: Prisma.MailConnectionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MailConnectionUpdateToOneWithWhereWithoutMailMessagesInput, Prisma.MailConnectionUpdateWithoutMailMessagesInput>, Prisma.MailConnectionUncheckedUpdateWithoutMailMessagesInput>
+}
+
 export type MailConnectionCreateWithoutCompanyInput = {
   id?: string
   provider: string
@@ -713,6 +741,7 @@ export type MailConnectionCreateWithoutCompanyInput = {
   lastError?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mailMessages?: Prisma.MailMessageCreateNestedManyWithoutConnectionInput
 }
 
 export type MailConnectionUncheckedCreateWithoutCompanyInput = {
@@ -733,6 +762,7 @@ export type MailConnectionUncheckedCreateWithoutCompanyInput = {
   lastError?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutConnectionInput
 }
 
 export type MailConnectionCreateOrConnectWithoutCompanyInput = {
@@ -785,6 +815,106 @@ export type MailConnectionScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"MailConnection"> | Date | string
 }
 
+export type MailConnectionCreateWithoutMailMessagesInput = {
+  id?: string
+  provider: string
+  emailAddress: string
+  host?: string | null
+  port?: number
+  username?: string | null
+  passwordEncrypted?: string | null
+  tenantId?: string | null
+  clientId?: string | null
+  clientSecretEncrypted?: string | null
+  isEnabled?: boolean
+  status?: string
+  lastTestedAt?: Date | string | null
+  lastSyncedAt?: Date | string | null
+  lastError?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutMailConnectionsInput
+}
+
+export type MailConnectionUncheckedCreateWithoutMailMessagesInput = {
+  id?: string
+  companyId: string
+  provider: string
+  emailAddress: string
+  host?: string | null
+  port?: number
+  username?: string | null
+  passwordEncrypted?: string | null
+  tenantId?: string | null
+  clientId?: string | null
+  clientSecretEncrypted?: string | null
+  isEnabled?: boolean
+  status?: string
+  lastTestedAt?: Date | string | null
+  lastSyncedAt?: Date | string | null
+  lastError?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type MailConnectionCreateOrConnectWithoutMailMessagesInput = {
+  where: Prisma.MailConnectionWhereUniqueInput
+  create: Prisma.XOR<Prisma.MailConnectionCreateWithoutMailMessagesInput, Prisma.MailConnectionUncheckedCreateWithoutMailMessagesInput>
+}
+
+export type MailConnectionUpsertWithoutMailMessagesInput = {
+  update: Prisma.XOR<Prisma.MailConnectionUpdateWithoutMailMessagesInput, Prisma.MailConnectionUncheckedUpdateWithoutMailMessagesInput>
+  create: Prisma.XOR<Prisma.MailConnectionCreateWithoutMailMessagesInput, Prisma.MailConnectionUncheckedCreateWithoutMailMessagesInput>
+  where?: Prisma.MailConnectionWhereInput
+}
+
+export type MailConnectionUpdateToOneWithWhereWithoutMailMessagesInput = {
+  where?: Prisma.MailConnectionWhereInput
+  data: Prisma.XOR<Prisma.MailConnectionUpdateWithoutMailMessagesInput, Prisma.MailConnectionUncheckedUpdateWithoutMailMessagesInput>
+}
+
+export type MailConnectionUpdateWithoutMailMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  emailAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  host?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  port?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutMailConnectionsNestedInput
+}
+
+export type MailConnectionUncheckedUpdateWithoutMailMessagesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  provider?: Prisma.StringFieldUpdateOperationsInput | string
+  emailAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  host?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  port?: Prisma.IntFieldUpdateOperationsInput | number
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type MailConnectionCreateManyCompanyInput = {
   id?: string
   provider: string
@@ -823,6 +953,7 @@ export type MailConnectionUpdateWithoutCompanyInput = {
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mailMessages?: Prisma.MailMessageUpdateManyWithoutConnectionNestedInput
 }
 
 export type MailConnectionUncheckedUpdateWithoutCompanyInput = {
@@ -843,6 +974,7 @@ export type MailConnectionUncheckedUpdateWithoutCompanyInput = {
   lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutConnectionNestedInput
 }
 
 export type MailConnectionUncheckedUpdateManyWithoutCompanyInput = {
@@ -866,6 +998,35 @@ export type MailConnectionUncheckedUpdateManyWithoutCompanyInput = {
 }
 
 
+/**
+ * Count Type MailConnectionCountOutputType
+ */
+
+export type MailConnectionCountOutputType = {
+  mailMessages: number
+}
+
+export type MailConnectionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  mailMessages?: boolean | MailConnectionCountOutputTypeCountMailMessagesArgs
+}
+
+/**
+ * MailConnectionCountOutputType without action
+ */
+export type MailConnectionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MailConnectionCountOutputType
+   */
+  select?: Prisma.MailConnectionCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MailConnectionCountOutputType without action
+ */
+export type MailConnectionCountOutputTypeCountMailMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MailMessageWhereInput
+}
+
 
 export type MailConnectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -887,6 +1048,8 @@ export type MailConnectionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   createdAt?: boolean
   updatedAt?: boolean
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  mailMessages?: boolean | Prisma.MailConnection$mailMessagesArgs<ExtArgs>
+  _count?: boolean | Prisma.MailConnectionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mailConnection"]>
 
 export type MailConnectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -957,6 +1120,8 @@ export type MailConnectionSelectScalar = {
 export type MailConnectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "provider" | "emailAddress" | "host" | "port" | "username" | "passwordEncrypted" | "tenantId" | "clientId" | "clientSecretEncrypted" | "isEnabled" | "status" | "lastTestedAt" | "lastSyncedAt" | "lastError" | "createdAt" | "updatedAt", ExtArgs["result"]["mailConnection"]>
 export type MailConnectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
+  mailMessages?: boolean | Prisma.MailConnection$mailMessagesArgs<ExtArgs>
+  _count?: boolean | Prisma.MailConnectionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MailConnectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -969,6 +1134,7 @@ export type $MailConnectionPayload<ExtArgs extends runtime.Types.Extensions.Inte
   name: "MailConnection"
   objects: {
     company: Prisma.$CompanyPayload<ExtArgs>
+    mailMessages: Prisma.$MailMessagePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1384,6 +1550,7 @@ readonly fields: MailConnectionFieldRefs;
 export interface Prisma__MailConnectionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  mailMessages<T extends Prisma.MailConnection$mailMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MailConnection$mailMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MailMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1829,6 +1996,30 @@ export type MailConnectionDeleteManyArgs<ExtArgs extends runtime.Types.Extension
    * Limit how many MailConnections to delete.
    */
   limit?: number
+}
+
+/**
+ * MailConnection.mailMessages
+ */
+export type MailConnection$mailMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MailMessage
+   */
+  select?: Prisma.MailMessageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MailMessage
+   */
+  omit?: Prisma.MailMessageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MailMessageInclude<ExtArgs> | null
+  where?: Prisma.MailMessageWhereInput
+  orderBy?: Prisma.MailMessageOrderByWithRelationInput | Prisma.MailMessageOrderByWithRelationInput[]
+  cursor?: Prisma.MailMessageWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MailMessageScalarFieldEnum | Prisma.MailMessageScalarFieldEnum[]
 }
 
 /**

@@ -53,6 +53,7 @@ model Company {
   auditLogs       AuditLog[]
   erpConnections  ErpConnection[]
   mailConnections MailConnection[]
+  mailMessages    MailMessage[]
 
   receptions  Reception[]
   orders      Order[]
@@ -70,8 +71,9 @@ model Membership {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company  Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  messages MailMessage[]
 
   @@unique([userId, companyId])
   @@index([companyId])
@@ -204,8 +206,9 @@ model Reception {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  companyId String?
-  company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId    String?
+  company      Company?      @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  mailMessages MailMessage[]
 
   @@index([companyId])
 }
@@ -297,6 +300,45 @@ model Workforce {
  * CONNEXIONS DE MESSAGERIE
  */
 
+/**
+ * E-MAILS LOGISTIQUES ENTRANTS
+ */
+
+model MailMessage {
+  id                String    @id @default(cuid())
+  companyId         String
+  connectionId      String?
+  receptionId       Int?
+  externalId        String
+  internetMessageId String?
+  subject           String
+  senderEmail       String
+  senderName        String?
+  receivedAt        DateTime
+  bodyText          String?
+  bodyHtml          String?
+  status            String    @default("NEW")
+  classification    String?
+  confidence        Float?
+  extractedData     Json?
+  processingError   String?
+  processedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  company      Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  connection   MailConnection? @relation(fields: [connectionId], references: [id], onDelete: SetNull)
+  reception    Reception?      @relation(fields: [receptionId], references: [id], onDelete: SetNull)
+  membership   Membership?     @relation(fields: [membershipId], references: [id])
+  membershipId String?
+
+  @@unique([companyId, externalId])
+  @@index([companyId, status])
+  @@index([connectionId])
+  @@index([receptionId])
+  @@index([receivedAt])
+}
+
 model MailConnection {
   id                    String    @id @default(cuid())
   companyId             String
@@ -317,7 +359,8 @@ model MailConnection {
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 
-  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  mailMessages MailMessage[]
 
   @@unique([companyId, emailAddress])
   @@index([companyId])

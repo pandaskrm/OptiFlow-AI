@@ -398,6 +398,7 @@ export const ModelName = {
   Shipment: 'Shipment',
   Inventory: 'Inventory',
   Workforce: 'Workforce',
+  MailMessage: 'MailMessage',
   MailConnection: 'MailConnection',
   ErpConnection: 'ErpConnection'
 } as const
@@ -415,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "membership" | "session" | "passwordResetToken" | "invitation" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce" | "mailConnection" | "erpConnection"
+    modelProps: "user" | "company" | "membership" | "session" | "passwordResetToken" | "invitation" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce" | "mailMessage" | "mailConnection" | "erpConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1455,6 +1456,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MailMessage: {
+      payload: Prisma.$MailMessagePayload<ExtArgs>
+      fields: Prisma.MailMessageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MailMessageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MailMessageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>
+        }
+        findFirst: {
+          args: Prisma.MailMessageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MailMessageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>
+        }
+        findMany: {
+          args: Prisma.MailMessageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>[]
+        }
+        create: {
+          args: Prisma.MailMessageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>
+        }
+        createMany: {
+          args: Prisma.MailMessageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MailMessageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>[]
+        }
+        delete: {
+          args: Prisma.MailMessageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>
+        }
+        update: {
+          args: Prisma.MailMessageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>
+        }
+        deleteMany: {
+          args: Prisma.MailMessageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MailMessageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MailMessageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>[]
+        }
+        upsert: {
+          args: Prisma.MailMessageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailMessagePayload>
+        }
+        aggregate: {
+          args: Prisma.MailMessageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMailMessage>
+        }
+        groupBy: {
+          args: Prisma.MailMessageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MailMessageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MailMessageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MailMessageCountAggregateOutputType> | number
+        }
+      }
+    }
     MailConnection: {
       payload: Prisma.$MailConnectionPayload<ExtArgs>
       fields: Prisma.MailConnectionFieldRefs
@@ -1872,6 +1947,33 @@ export const WorkforceScalarFieldEnum = {
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
 
 
+export const MailMessageScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  connectionId: 'connectionId',
+  receptionId: 'receptionId',
+  externalId: 'externalId',
+  internetMessageId: 'internetMessageId',
+  subject: 'subject',
+  senderEmail: 'senderEmail',
+  senderName: 'senderName',
+  receivedAt: 'receivedAt',
+  bodyText: 'bodyText',
+  bodyHtml: 'bodyHtml',
+  status: 'status',
+  classification: 'classification',
+  confidence: 'confidence',
+  extractedData: 'extractedData',
+  processingError: 'processingError',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  membershipId: 'membershipId'
+} as const
+
+export type MailMessageScalarFieldEnum = (typeof MailMessageScalarFieldEnum)[keyof typeof MailMessageScalarFieldEnum]
+
+
 export const MailConnectionScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -1924,6 +2026,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -1938,6 +2048,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -2006,6 +2125,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 /**
@@ -2132,6 +2265,7 @@ export type GlobalOmitConfig = {
   shipment?: Prisma.ShipmentOmit
   inventory?: Prisma.InventoryOmit
   workforce?: Prisma.WorkforceOmit
+  mailMessage?: Prisma.MailMessageOmit
   mailConnection?: Prisma.MailConnectionOmit
   erpConnection?: Prisma.ErpConnectionOmit
 }

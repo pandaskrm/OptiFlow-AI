@@ -65,6 +65,7 @@ export const ModelName = {
   Shipment: 'Shipment',
   Inventory: 'Inventory',
   Workforce: 'Workforce',
+  MailMessage: 'MailMessage',
   MailConnection: 'MailConnection',
   ErpConnection: 'ErpConnection'
 } as const
@@ -315,6 +316,33 @@ export const WorkforceScalarFieldEnum = {
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
 
 
+export const MailMessageScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  connectionId: 'connectionId',
+  receptionId: 'receptionId',
+  externalId: 'externalId',
+  internetMessageId: 'internetMessageId',
+  subject: 'subject',
+  senderEmail: 'senderEmail',
+  senderName: 'senderName',
+  receivedAt: 'receivedAt',
+  bodyText: 'bodyText',
+  bodyHtml: 'bodyHtml',
+  status: 'status',
+  classification: 'classification',
+  confidence: 'confidence',
+  extractedData: 'extractedData',
+  processingError: 'processingError',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  membershipId: 'membershipId'
+} as const
+
+export type MailMessageScalarFieldEnum = (typeof MailMessageScalarFieldEnum)[keyof typeof MailMessageScalarFieldEnum]
+
+
 export const MailConnectionScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -367,6 +395,14 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -381,4 +417,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

@@ -88,6 +88,11 @@ export type Inventory = Prisma.InventoryModel
  */
 export type Workforce = Prisma.WorkforceModel
 /**
+ * Model MailMessage
+ * 
+ */
+export type MailMessage = Prisma.MailMessageModel
+/**
  * Model MailConnection
  * 
  */
