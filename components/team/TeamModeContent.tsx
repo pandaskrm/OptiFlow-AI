@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
@@ -124,7 +124,7 @@ function TeamRealData() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <section className="rounded-2xl border border-white/10 bg-slate-950 p-5 text-white shadow-xl">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400">
           Module équipe
@@ -168,11 +168,11 @@ function TeamRealData() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
         {cards.map((card) => (
           <div
             key={card.label}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+            className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
           >
             <p className="text-sm text-slate-500">
               {card.label}
@@ -185,8 +185,8 @@ function TeamRealData() {
         ))}
       </section>
 
-      <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
           <h2 className="text-xl font-bold text-slate-950">
             Capacité opérationnelle
           </h2>
@@ -195,8 +195,8 @@ function TeamRealData() {
             Indicateurs calculés depuis les données d’activité.
           </p>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-5">
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="rounded-xl bg-slate-50 p-4">
               <p className="text-sm text-slate-500">
                 Taux de présence
               </p>
@@ -206,7 +206,7 @@ function TeamRealData() {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-5">
+            <div className="rounded-xl bg-slate-50 p-4">
               <p className="text-sm text-slate-500">
                 Heures enregistrées
               </p>
@@ -216,7 +216,7 @@ function TeamRealData() {
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-5">
+            <div className="rounded-xl bg-slate-50 p-4">
               <p className="text-sm text-slate-500">
                 Unités traitées
               </p>
@@ -227,7 +227,7 @@ function TeamRealData() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-2xl border border-slate-200 p-5">
+          <div className="mt-4 rounded-xl border border-slate-200 p-4">
             <div className="mb-3 flex items-center justify-between">
               <p className="font-semibold text-slate-700">
                 Présence de l’équipe
@@ -283,7 +283,7 @@ function TeamRealData() {
         </section>
       </div>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-xl font-bold text-slate-950">
@@ -358,7 +358,7 @@ function TeamRealData() {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <h2 className="text-xl font-bold text-slate-950">
           Synthèse des ressources
         </h2>
