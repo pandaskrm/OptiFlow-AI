@@ -72,6 +72,11 @@ export type PasswordResetToken = Prisma.PasswordResetTokenModel
  */
 export type Invitation = Prisma.InvitationModel
 /**
+ * Model Carrier
+ * 
+ */
+export type Carrier = Prisma.CarrierModel
+/**
  * Model Warehouse
  * 
  */

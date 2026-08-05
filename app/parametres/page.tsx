@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 
+import CarrierAdminPanel from "../../components/settings/CarrierAdminPanel";
 import ErpConnectionForm from "../../components/erp/ErpConnectionForm";
 import MailConnectionForm from "../../components/mail/MailConnectionForm";
 import MainLayout from "../../components/layout/MainLayout";
@@ -111,6 +112,8 @@ export default async function ParametresPage() {
         <MailConnectionForm />
 
         <ErpConnectionForm />
+
+        <CarrierAdminPanel />
 
         <UsersAdminPanel />
       </div>

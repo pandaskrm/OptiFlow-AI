@@ -57,6 +57,7 @@ export const ModelName = {
   Session: 'Session',
   PasswordResetToken: 'PasswordResetToken',
   Invitation: 'Invitation',
+  Carrier: 'Carrier',
   Warehouse: 'Warehouse',
   Dock: 'Dock',
   AuditLog: 'AuditLog',
@@ -177,6 +178,30 @@ export const InvitationScalarFieldEnum = {
 } as const
 
 export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum]
+
+
+export const CarrierScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  name: 'name',
+  code: 'code',
+  contactName: 'contactName',
+  email: 'email',
+  secondaryEmail: 'secondaryEmail',
+  phone: 'phone',
+  averageLeadTimeHours: 'averageLeadTimeHours',
+  notes: 'notes',
+  supportsPallet: 'supportsPallet',
+  supportsParcel: 'supportsParcel',
+  supportsExpress: 'supportsExpress',
+  supportsNational: 'supportsNational',
+  supportsInternational: 'supportsInternational',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CarrierScalarFieldEnum = (typeof CarrierScalarFieldEnum)[keyof typeof CarrierScalarFieldEnum]
 
 
 export const WarehouseScalarFieldEnum = {
