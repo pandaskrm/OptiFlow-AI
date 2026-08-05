@@ -65,6 +65,7 @@ export const ModelName = {
   Shipment: 'Shipment',
   Inventory: 'Inventory',
   Workforce: 'Workforce',
+  MailConnection: 'MailConnection',
   ErpConnection: 'ErpConnection'
 } as const
 
@@ -312,6 +313,30 @@ export const WorkforceScalarFieldEnum = {
 } as const
 
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
+
+
+export const MailConnectionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  provider: 'provider',
+  emailAddress: 'emailAddress',
+  host: 'host',
+  port: 'port',
+  username: 'username',
+  passwordEncrypted: 'passwordEncrypted',
+  tenantId: 'tenantId',
+  clientId: 'clientId',
+  clientSecretEncrypted: 'clientSecretEncrypted',
+  isEnabled: 'isEnabled',
+  status: 'status',
+  lastTestedAt: 'lastTestedAt',
+  lastSyncedAt: 'lastSyncedAt',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MailConnectionScalarFieldEnum = (typeof MailConnectionScalarFieldEnum)[keyof typeof MailConnectionScalarFieldEnum]
 
 
 export const ErpConnectionScalarFieldEnum = {

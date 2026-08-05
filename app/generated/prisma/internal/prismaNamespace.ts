@@ -398,6 +398,7 @@ export const ModelName = {
   Shipment: 'Shipment',
   Inventory: 'Inventory',
   Workforce: 'Workforce',
+  MailConnection: 'MailConnection',
   ErpConnection: 'ErpConnection'
 } as const
 
@@ -414,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "membership" | "session" | "passwordResetToken" | "invitation" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce" | "erpConnection"
+    modelProps: "user" | "company" | "membership" | "session" | "passwordResetToken" | "invitation" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce" | "mailConnection" | "erpConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1454,6 +1455,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MailConnection: {
+      payload: Prisma.$MailConnectionPayload<ExtArgs>
+      fields: Prisma.MailConnectionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MailConnectionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MailConnectionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>
+        }
+        findFirst: {
+          args: Prisma.MailConnectionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MailConnectionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>
+        }
+        findMany: {
+          args: Prisma.MailConnectionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>[]
+        }
+        create: {
+          args: Prisma.MailConnectionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>
+        }
+        createMany: {
+          args: Prisma.MailConnectionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MailConnectionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>[]
+        }
+        delete: {
+          args: Prisma.MailConnectionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>
+        }
+        update: {
+          args: Prisma.MailConnectionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>
+        }
+        deleteMany: {
+          args: Prisma.MailConnectionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MailConnectionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MailConnectionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>[]
+        }
+        upsert: {
+          args: Prisma.MailConnectionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailConnectionPayload>
+        }
+        aggregate: {
+          args: Prisma.MailConnectionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMailConnection>
+        }
+        groupBy: {
+          args: Prisma.MailConnectionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MailConnectionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MailConnectionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MailConnectionCountAggregateOutputType> | number
+        }
+      }
+    }
     ErpConnection: {
       payload: Prisma.$ErpConnectionPayload<ExtArgs>
       fields: Prisma.ErpConnectionFieldRefs
@@ -1797,6 +1872,30 @@ export const WorkforceScalarFieldEnum = {
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
 
 
+export const MailConnectionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  provider: 'provider',
+  emailAddress: 'emailAddress',
+  host: 'host',
+  port: 'port',
+  username: 'username',
+  passwordEncrypted: 'passwordEncrypted',
+  tenantId: 'tenantId',
+  clientId: 'clientId',
+  clientSecretEncrypted: 'clientSecretEncrypted',
+  isEnabled: 'isEnabled',
+  status: 'status',
+  lastTestedAt: 'lastTestedAt',
+  lastSyncedAt: 'lastSyncedAt',
+  lastError: 'lastError',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MailConnectionScalarFieldEnum = (typeof MailConnectionScalarFieldEnum)[keyof typeof MailConnectionScalarFieldEnum]
+
+
 export const ErpConnectionScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -2033,6 +2132,7 @@ export type GlobalOmitConfig = {
   shipment?: Prisma.ShipmentOmit
   inventory?: Prisma.InventoryOmit
   workforce?: Prisma.WorkforceOmit
+  mailConnection?: Prisma.MailConnectionOmit
   erpConnection?: Prisma.ErpConnectionOmit
 }
 

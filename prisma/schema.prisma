@@ -47,11 +47,12 @@ model Company {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  memberships    Membership[]
-  invitations    Invitation[]
-  warehouses     Warehouse[]
-  auditLogs      AuditLog[]
-  erpConnections ErpConnection[]
+  memberships     Membership[]
+  invitations     Invitation[]
+  warehouses      Warehouse[]
+  auditLogs       AuditLog[]
+  erpConnections  ErpConnection[]
+  mailConnections MailConnection[]
 
   receptions  Reception[]
   orders      Order[]
@@ -291,6 +292,36 @@ model Workforce {
  * Une configuration ERP appartient obligatoirement à une entreprise.
  * Les informations sensibles devront être chiffrées côté serveur.
  */
+
+/**
+ * CONNEXIONS DE MESSAGERIE
+ */
+
+model MailConnection {
+  id                    String    @id @default(cuid())
+  companyId             String
+  provider              String
+  emailAddress          String
+  host                  String?
+  port                  Int       @default(993)
+  username              String?
+  passwordEncrypted     String?
+  tenantId              String?
+  clientId              String?
+  clientSecretEncrypted String?
+  isEnabled             Boolean   @default(false)
+  status                String    @default("DISCONNECTED")
+  lastTestedAt          DateTime?
+  lastSyncedAt          DateTime?
+  lastError             String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, emailAddress])
+  @@index([companyId])
+}
 
 model ErpConnection {
   id                String    @id @default(cuid())

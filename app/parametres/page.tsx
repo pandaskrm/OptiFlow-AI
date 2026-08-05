@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import ErpConnectionForm from "../../components/erp/ErpConnectionForm";
+import MailConnectionForm from "../../components/mail/MailConnectionForm";
 import MainLayout from "../../components/layout/MainLayout";
 import UsersAdminPanel from "../../components/settings/UsersAdminPanel";
 import { getCurrentSession } from "../../lib/auth/session";
@@ -106,6 +107,8 @@ export default async function ParametresPage() {
             </dl>
           </section>
         </div>
+
+        <MailConnectionForm />
 
         <ErpConnectionForm />
 
