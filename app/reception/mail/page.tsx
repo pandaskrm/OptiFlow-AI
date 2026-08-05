@@ -2,6 +2,7 @@
 import { redirect } from "next/navigation";
 
 import MainLayout from "../../../components/layout/MainLayout";
+import MailSyncButton from "../../../components/mail/MailSyncButton";
 import { getCurrentSession } from "../../../lib/auth/session";
 import { prisma } from "../../../lib/prisma";
 
@@ -80,7 +81,14 @@ export default async function ReceptionMailPage() {
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-start justify-end gap-3">
+              <MailSyncButton
+                disabled={
+                  !connection?.isEnabled ||
+                  connection.status !== "CONNECTED"
+                }
+              />
+
               <span
                 className={`rounded-full border px-3 py-1 text-xs font-bold uppercase ${
                   connection?.isEnabled
@@ -99,6 +107,13 @@ export default async function ReceptionMailPage() {
               >
                 Configurer
               </Link>
+
+              {connection?.lastSyncedAt && (
+                <p className="w-full text-right text-xs text-slate-400">
+                  Dernière synchronisation :{" "}
+                  {formatDate(connection.lastSyncedAt)}
+                </p>
+              )}
             </div>
           </div>
         </section>

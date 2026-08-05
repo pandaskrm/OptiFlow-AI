@@ -13,12 +13,25 @@ type MicrosoftGraphError = {
   error_description?: string;
 };
 
+export type MicrosoftGraphMessage = {
+  id: string;
+  internetMessageId?: string | null;
+  subject?: string | null;
+  receivedDateTime?: string | null;
+  from?: {
+    emailAddress?: {
+      name?: string | null;
+      address?: string | null;
+    };
+  } | null;
+  body?: {
+    contentType?: "text" | "html" | string;
+    content?: string | null;
+  } | null;
+};
+
 type MicrosoftGraphMessagesResponse = {
-  value?: Array<{
-    id: string;
-    subject?: string;
-    receivedDateTime?: string;
-  }>;
+  value?: MicrosoftGraphMessage[];
 };
 
 async function readErrorMessage(
@@ -39,12 +52,11 @@ async function readErrorMessage(
   }
 }
 
-export async function testMicrosoftGraphConnection({
+async function getMicrosoftGraphToken({
   tenantId,
   clientId,
   clientSecret,
-  mailbox,
-}: MicrosoftGraphConnection) {
+}: Omit<MicrosoftGraphConnection, "mailbox">) {
   const tokenBody = new URLSearchParams({
     client_id: clientId,
     client_secret: clientSecret,
@@ -52,7 +64,7 @@ export async function testMicrosoftGraphConnection({
     scope: "https://graph.microsoft.com/.default",
   });
 
-  const tokenResponse = await fetch(
+  const response = await fetch(
     `https://login.microsoftonline.com/${encodeURIComponent(
       tenantId,
     )}/oauth2/v2.0/token`,
@@ -67,57 +79,128 @@ export async function testMicrosoftGraphConnection({
     },
   );
 
-  if (!tokenResponse.ok) {
+  if (!response.ok) {
     throw new Error(
       await readErrorMessage(
-        tokenResponse,
+        response,
         "Authentification Microsoft 365 refusée.",
       ),
     );
   }
 
-  const tokenData = (await tokenResponse.json()) as {
+  const data = (await response.json()) as {
     access_token?: string;
   };
 
-  if (!tokenData.access_token) {
+  if (!data.access_token) {
     throw new Error(
       "Microsoft n'a retourné aucun jeton d'accès.",
     );
   }
 
-  const messagesResponse = await fetch(
+  return data.access_token;
+}
+
+export async function testMicrosoftGraphConnection({
+  tenantId,
+  clientId,
+  clientSecret,
+  mailbox,
+}: MicrosoftGraphConnection) {
+  const accessToken = await getMicrosoftGraphToken({
+    tenantId,
+    clientId,
+    clientSecret,
+  });
+
+  const response = await fetch(
     `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
       mailbox,
     )}/mailFolders/inbox/messages?$top=1&$select=id,subject,receivedDateTime`,
     {
       headers: {
-        Authorization: `Bearer ${tokenData.access_token}`,
+        Authorization: `Bearer ${accessToken}`,
         Accept: "application/json",
       },
       cache: "no-store",
     },
   );
 
-  if (!messagesResponse.ok) {
+  if (!response.ok) {
     throw new Error(
       await readErrorMessage(
-        messagesResponse,
+        response,
         "La boîte Outlook est inaccessible.",
       ),
     );
   }
 
-  const messages =
-    (await messagesResponse.json()) as MicrosoftGraphMessagesResponse;
+  const data =
+    (await response.json()) as MicrosoftGraphMessagesResponse;
 
   return {
     mailbox,
     accessible: true,
     sampleMessageFound:
-      Array.isArray(messages.value) &&
-      messages.value.length > 0,
+      Array.isArray(data.value) &&
+      data.value.length > 0,
     sampleSubject:
-      messages.value?.[0]?.subject ?? null,
+      data.value?.[0]?.subject ?? null,
   };
+}
+
+export async function listMicrosoftGraphMessages({
+  tenantId,
+  clientId,
+  clientSecret,
+  mailbox,
+}: MicrosoftGraphConnection) {
+  const accessToken = await getMicrosoftGraphToken({
+    tenantId,
+    clientId,
+    clientSecret,
+  });
+
+  const query = new URLSearchParams({
+    "$top": "50",
+    "$orderby": "receivedDateTime desc",
+    "$select": [
+      "id",
+      "internetMessageId",
+      "subject",
+      "receivedDateTime",
+      "from",
+      "body",
+    ].join(","),
+  });
+
+  const response = await fetch(
+    `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
+      mailbox,
+    )}/mailFolders/inbox/messages?${query.toString()}`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/json",
+        Prefer: 'outlook.body-content-type="html"',
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      await readErrorMessage(
+        response,
+        "Impossible de lire les e-mails Outlook.",
+      ),
+    );
+  }
+
+  const data =
+    (await response.json()) as MicrosoftGraphMessagesResponse;
+
+  return Array.isArray(data.value)
+    ? data.value
+    : [];
 }
