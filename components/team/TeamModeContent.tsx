@@ -178,7 +178,7 @@ function TeamRealData() {
               {card.label}
             </p>
 
-            <p className="mt-2 text-3xl font-bold text-slate-950">
+            <p className="mt-2 text-2xl font-bold text-slate-950">
               {card.value}
             </p>
           </div>
@@ -201,7 +201,7 @@ function TeamRealData() {
                 Taux de présence
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-slate-950">
+              <p className="mt-2 text-2xl font-bold text-slate-950">
                 {attendanceRate}%
               </p>
             </div>
@@ -211,7 +211,7 @@ function TeamRealData() {
                 Heures enregistrées
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-slate-950">
+              <p className="mt-2 text-2xl font-bold text-slate-950">
                 {workedHours} h
               </p>
             </div>
@@ -221,7 +221,7 @@ function TeamRealData() {
                 Unités traitées
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-emerald-600">
+              <p className="mt-2 text-2xl font-bold text-emerald-600">
                 {workforce.processedUnits}
               </p>
             </div>
@@ -296,31 +296,31 @@ function TeamRealData() {
           </div>
 
           <span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-bold text-cyan-700">
-            Contrat : 39 h / semaine
+            39 h / semaine
           </span>
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-slate-200">
-          <table className="w-full min-w-[760px] text-left text-xs">
+          <table className="w-full min-w-[720px] text-left text-[11px]">
             <thead className="bg-slate-50 text-slate-500">
               <tr>
-                <th className="px-3 py-2">
+                <th className="px-2 py-1.5">
                   Jour
                 </th>
 
-                <th className="px-3 py-2">
+                <th className="px-2 py-1.5">
                   Matin
                 </th>
 
-                <th className="px-3 py-2">
+                <th className="px-2 py-1.5">
                   Après-midi
                 </th>
 
-                <th className="px-3 py-2">
+                <th className="px-2 py-1.5">
                   Pauses
                 </th>
 
-                <th className="px-3 py-2">
+                <th className="px-2 py-1.5">
                   Durée d’une pause
                 </th>
               </tr>
@@ -332,23 +332,23 @@ function TeamRealData() {
                   key={row.day}
                   className="border-t border-slate-200"
                 >
-                  <td className="px-3 py-2 font-bold text-slate-950">
+                  <td className="px-2 py-1.5 font-bold text-slate-950">
                     {row.day}
                   </td>
 
-                  <td className="px-3 py-2 text-slate-600">
+                  <td className="px-2 py-1.5 text-slate-600">
                     {row.morning}
                   </td>
 
-                  <td className="px-3 py-2 text-slate-600">
+                  <td className="px-2 py-1.5 text-slate-600">
                     {row.afternoon}
                   </td>
 
-                  <td className="px-3 py-2 text-slate-600">
+                  <td className="px-2 py-1.5 text-slate-600">
                     {row.breaks}
                   </td>
 
-                  <td className="px-3 py-2 text-slate-600">
+                  <td className="px-2 py-1.5 text-slate-600">
                     10 minutes
                   </td>
                 </tr>
@@ -363,43 +363,43 @@ function TeamRealData() {
           Synthèse des ressources
         </h2>
 
-        <div className="mt-3 grid gap-3 md:grid-cols-4">
-          <div className="rounded-xl border border-slate-200 p-3">
+        <div className="mt-2 grid gap-2 md:grid-cols-4">
+          <div className="rounded-lg border border-slate-200 p-2.5">
             <p className="text-sm text-slate-500">
               Présents
             </p>
 
-            <p className="mt-2 text-3xl font-bold text-emerald-600">
+            <p className="mt-2 text-2xl font-bold text-emerald-600">
               {workforce.present}
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-200 p-3">
+          <div className="rounded-lg border border-slate-200 p-2.5">
             <p className="text-sm text-slate-500">
               Absents
             </p>
 
-            <p className="mt-2 text-3xl font-bold text-red-600">
+            <p className="mt-2 text-2xl font-bold text-red-600">
               {workforce.absent}
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-200 p-3">
+          <div className="rounded-lg border border-slate-200 p-2.5">
             <p className="text-sm text-slate-500">
               Renforts
             </p>
 
-            <p className="mt-2 text-3xl font-bold text-cyan-600">
+            <p className="mt-2 text-2xl font-bold text-cyan-600">
               {workforce.reinforcement}
             </p>
           </div>
 
-          <div className="rounded-xl border border-slate-200 p-3">
+          <div className="rounded-lg border border-slate-200 p-2.5">
             <p className="text-sm text-slate-500">
               En pause
             </p>
 
-            <p className="mt-2 text-3xl font-bold text-orange-500">
+            <p className="mt-2 text-2xl font-bold text-orange-500">
               {workforce.paused}
             </p>
           </div>
@@ -412,7 +412,7 @@ function TeamRealData() {
 function TeamDemoState() {
   return (
     <div className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-10 text-center text-white">
-      <h1 className="text-3xl font-bold">
+      <h1 className="text-2xl font-bold">
         Mode Démo Équipe
       </h1>
 
