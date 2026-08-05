@@ -220,7 +220,7 @@ function AiRealData() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-5 text-white shadow-xl">
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400">
           Centre de décision
@@ -264,25 +264,25 @@ function AiRealData() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
         {cards.map((card) => (
           <div
             key={card.label}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+            className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
           >
             <p className="text-sm font-medium text-slate-700">
               {card.label}
             </p>
 
-            <p className="mt-2 text-3xl font-bold text-slate-950">
+            <p className="mt-2 text-2xl font-bold text-slate-950">
               {card.value}
             </p>
           </div>
         ))}
       </section>
 
-      <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
           <h2 className="text-xl font-bold text-slate-950">
             Brief IA du jour
           </h2>
@@ -291,56 +291,56 @@ function AiRealData() {
             Synthèse automatique de l’exploitation.
           </p>
 
-          <div className="mt-5 rounded-2xl bg-slate-50 p-5">
+          <div className="mt-3 rounded-xl bg-slate-50 p-4">
             <p className="leading-7 text-slate-700">
               {globalSummary}
             </p>
           </div>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-slate-200 p-5">
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            <div className="rounded-xl border border-slate-200 p-4">
               <p className="text-sm font-medium text-slate-700">
                 Réceptions aujourd’hui
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-slate-950">
+              <p className="mt-2 text-2xl font-bold text-slate-950">
                 {warehouse.receptions.scheduledToday}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 p-5">
+            <div className="rounded-xl border border-slate-200 p-4">
               <p className="text-sm font-medium text-slate-700">
                 Réceptions demain
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-slate-950">
+              <p className="mt-2 text-2xl font-bold text-slate-950">
                 {warehouse.receptions.scheduledTomorrow}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 p-5">
+            <div className="rounded-xl border border-slate-200 p-4">
               <p className="text-sm font-medium text-slate-700">
                 Collaborateurs présents
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-emerald-600">
+              <p className="mt-2 text-2xl font-bold text-emerald-600">
                 {warehouse.workforce.present}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 p-5">
+            <div className="rounded-xl border border-slate-200 p-4">
               <p className="text-sm font-medium text-slate-700">
                 Références sous seuil
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-orange-500">
+              <p className="mt-2 text-2xl font-bold text-orange-500">
                 {warehouse.inventory.lowStockReferences}
               </p>
             </div>
           </div>
         </section>
 
-        <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
+        <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-4 text-white shadow-xl">
           <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
             Recommandation principale
           </p>
@@ -354,7 +354,7 @@ function AiRealData() {
               "L’activité est stable. Maintenir le suivi opérationnel."}
           </p>
 
-          <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-4">
             <p className="text-sm text-slate-500">
               Score global
             </p>
@@ -370,7 +370,7 @@ function AiRealData() {
         </section>
       </div>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <div className="mb-5">
           <h2 className="text-xl font-bold text-slate-950">
             Performance globale
@@ -410,7 +410,7 @@ function AiRealData() {
         </div>
       </section>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <div className="mb-5">
           <h2 className="text-xl font-bold text-slate-950">
             Décisions recommandées
@@ -477,7 +477,7 @@ function AiRealData() {
           </div>
         </section>
 
-        <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
+        <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-4 text-white shadow-xl">
           <h2 className="text-xl font-bold">
             Plan d’action recommandé
           </h2>
@@ -513,7 +513,7 @@ function AiRealData() {
 function AiDemoState() {
   return (
     <div className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-10 text-center text-white">
-      <h1 className="text-3xl font-bold">
+      <h1 className="text-2xl font-bold">
         Mode Démo IA
       </h1>
 
