@@ -42,7 +42,7 @@ export default function DashboardKpis() {
           : "ERP non connecté";
 
   return (
-    <div className="mb-6 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 xl:mb-8 xl:grid-cols-6">
+    <div className="mb-4 grid grid-cols-2 gap-3 sm:gap-3 md:grid-cols-3 xl:mb-5 xl:grid-cols-6">
       <KpiCard
         title="Commandes"
         value={String(

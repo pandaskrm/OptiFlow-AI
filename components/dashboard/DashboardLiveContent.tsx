@@ -193,8 +193,8 @@ export default function DashboardLiveContent() {
 
       <AiMissionCenter missions={missions} />
 
-      <section className="mb-6 rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <section className="mb-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-400">
               Résumé exécutif IA
@@ -218,7 +218,7 @@ export default function DashboardLiveContent() {
       </section>
 
       {!hasData ? (
-        <section className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/50 px-6 py-8 text-center">
+        <section className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/50 px-5 py-6 text-center">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-blue-800 bg-blue-500/10 text-sm font-black text-blue-300">
             ERP
           </div>

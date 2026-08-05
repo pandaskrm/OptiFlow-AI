@@ -71,9 +71,9 @@ export default function DashboardHeader() {
       : "Connectez un ERP ou lancez le Mode Démo.";
 
   return (
-    <header className="mb-4 space-y-3">
-      <div className="overflow-hidden rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950/30 px-5 py-4 shadow-lg">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+    <header className="mb-3 space-y-2">
+      <div className="overflow-hidden rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950/30 px-5 py-3 shadow-lg">
+        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-300">
@@ -83,7 +83,7 @@ export default function DashboardHeader() {
               <LiveClock />
             </div>
 
-            <div className="mt-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:gap-4">
+            <div className="mt-2 flex flex-col gap-1 sm:flex-row sm:items-end sm:gap-4">
               <h1 className="text-2xl font-black tracking-tight text-white">
                 Bonjour Kevin 👋
               </h1>
@@ -93,7 +93,7 @@ export default function DashboardHeader() {
               </p>
             </div>
 
-            <div className="mt-3 flex flex-col gap-1">
+            <div className="mt-2 flex flex-col gap-1">
               <p className="text-sm font-semibold text-white">
                 {activityTitle}
               </p>

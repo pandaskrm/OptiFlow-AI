@@ -49,14 +49,14 @@ export default function CommandCenter() {
   ];
 
   return (
-    <section className="rounded-xl border border-cyan-900 bg-[#081422] p-6 shadow-lg">
-      <div className="mb-6 flex items-center justify-between">
+    <section className="rounded-xl border border-cyan-900 bg-[#081422] p-4 shadow-lg">
+      <div className="mb-4 flex items-center justify-between">
         <div>
           <p className="text-xs uppercase tracking-widest text-cyan-400">
             Centre de pilotage
           </p>
 
-          <h2 className="mt-1 text-2xl font-bold text-white">
+          <h2 className="mt-1 text-xl font-bold text-white">
             Poste de commandement
           </h2>
 
@@ -76,7 +76,7 @@ export default function CommandCenter() {
         </div>
       </div>
 
-      <div className="mb-5 h-2 overflow-hidden rounded-full bg-slate-800">
+      <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-slate-800">
         <div
           className="h-full rounded-full bg-cyan-400 transition-all duration-500"
           style={{ width: `${health}%` }}
@@ -87,7 +87,7 @@ export default function CommandCenter() {
         {actions.map((action) => (
           <div
             key={action.title}
-            className={`rounded-lg border-l-4 ${action.color} bg-[#0d1d31] p-4 transition hover:scale-[1.02]`}
+            className={`rounded-lg border-l-4 ${action.color} bg-[#0d1d31] p-3 transition hover:scale-[1.02]`}
           >
             <div className="flex items-center justify-between">
               <span className="text-2xl">{action.icon}</span>
@@ -97,7 +97,7 @@ export default function CommandCenter() {
               </span>
             </div>
 
-            <p className="mt-4 font-medium text-white">
+            <p className="mt-2 font-medium text-white">
               {action.title}
             </p>
           </div>
