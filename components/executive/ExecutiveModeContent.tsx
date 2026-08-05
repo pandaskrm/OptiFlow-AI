@@ -128,14 +128,14 @@ function ExecutiveRealData() {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="rounded-3xl border border-white/10 bg-slate-950 p-8 text-white shadow-2xl">
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
+      <section className="rounded-2xl border border-white/10 bg-slate-950 p-5 text-white shadow-xl">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400">
           Vue Direction
         </p>
 
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight lg:text-5xl">
+            <h1 className="text-2xl font-bold tracking-tight lg:text-4xl">
               Santé globale de l’exploitation
             </h1>
 
