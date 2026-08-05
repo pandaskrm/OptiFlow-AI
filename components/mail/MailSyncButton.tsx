@@ -10,8 +10,11 @@ type SyncResponse = {
   result?: {
     imported: number;
     scanned: number;
+    arrivalCandidates: number;
     duplicates: number;
     ignored: number;
+    attachmentsImported: number;
+    attachmentsIgnored: number;
   };
 };
 

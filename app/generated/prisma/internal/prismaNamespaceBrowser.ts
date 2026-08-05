@@ -66,6 +66,7 @@ export const ModelName = {
   Inventory: 'Inventory',
   Workforce: 'Workforce',
   MailMessage: 'MailMessage',
+  MailAttachment: 'MailAttachment',
   MailConnection: 'MailConnection',
   ErpConnection: 'ErpConnection'
 } as const
@@ -341,6 +342,22 @@ export const MailMessageScalarFieldEnum = {
 } as const
 
 export type MailMessageScalarFieldEnum = (typeof MailMessageScalarFieldEnum)[keyof typeof MailMessageScalarFieldEnum]
+
+
+export const MailAttachmentScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  externalId: 'externalId',
+  name: 'name',
+  contentType: 'contentType',
+  size: 'size',
+  isInline: 'isInline',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MailAttachmentScalarFieldEnum = (typeof MailAttachmentScalarFieldEnum)[keyof typeof MailAttachmentScalarFieldEnum]
 
 
 export const MailConnectionScalarFieldEnum = {

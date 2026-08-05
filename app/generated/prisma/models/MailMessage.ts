@@ -348,6 +348,7 @@ export type MailMessageWhereInput = {
   connection?: Prisma.XOR<Prisma.MailConnectionNullableScalarRelationFilter, Prisma.MailConnectionWhereInput> | null
   reception?: Prisma.XOR<Prisma.ReceptionNullableScalarRelationFilter, Prisma.ReceptionWhereInput> | null
   membership?: Prisma.XOR<Prisma.MembershipNullableScalarRelationFilter, Prisma.MembershipWhereInput> | null
+  attachments?: Prisma.MailAttachmentListRelationFilter
 }
 
 export type MailMessageOrderByWithRelationInput = {
@@ -376,6 +377,7 @@ export type MailMessageOrderByWithRelationInput = {
   connection?: Prisma.MailConnectionOrderByWithRelationInput
   reception?: Prisma.ReceptionOrderByWithRelationInput
   membership?: Prisma.MembershipOrderByWithRelationInput
+  attachments?: Prisma.MailAttachmentOrderByRelationAggregateInput
 }
 
 export type MailMessageWhereUniqueInput = Prisma.AtLeast<{
@@ -408,6 +410,7 @@ export type MailMessageWhereUniqueInput = Prisma.AtLeast<{
   connection?: Prisma.XOR<Prisma.MailConnectionNullableScalarRelationFilter, Prisma.MailConnectionWhereInput> | null
   reception?: Prisma.XOR<Prisma.ReceptionNullableScalarRelationFilter, Prisma.ReceptionWhereInput> | null
   membership?: Prisma.XOR<Prisma.MembershipNullableScalarRelationFilter, Prisma.MembershipWhereInput> | null
+  attachments?: Prisma.MailAttachmentListRelationFilter
 }, "id" | "companyId_externalId">
 
 export type MailMessageOrderByWithAggregationInput = {
@@ -488,6 +491,7 @@ export type MailMessageCreateInput = {
   connection?: Prisma.MailConnectionCreateNestedOneWithoutMailMessagesInput
   reception?: Prisma.ReceptionCreateNestedOneWithoutMailMessagesInput
   membership?: Prisma.MembershipCreateNestedOneWithoutMessagesInput
+  attachments?: Prisma.MailAttachmentCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageUncheckedCreateInput = {
@@ -512,6 +516,7 @@ export type MailMessageUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   membershipId?: string | null
+  attachments?: Prisma.MailAttachmentUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageUpdateInput = {
@@ -536,6 +541,7 @@ export type MailMessageUpdateInput = {
   connection?: Prisma.MailConnectionUpdateOneWithoutMailMessagesNestedInput
   reception?: Prisma.ReceptionUpdateOneWithoutMailMessagesNestedInput
   membership?: Prisma.MembershipUpdateOneWithoutMessagesNestedInput
+  attachments?: Prisma.MailAttachmentUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateInput = {
@@ -560,6 +566,7 @@ export type MailMessageUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachments?: Prisma.MailAttachmentUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageCreateManyInput = {
@@ -725,6 +732,11 @@ export type MailMessageSumOrderByAggregateInput = {
   confidence?: Prisma.SortOrder
 }
 
+export type MailMessageScalarRelationFilter = {
+  is?: Prisma.MailMessageWhereInput
+  isNot?: Prisma.MailMessageWhereInput
+}
+
 export type MailMessageCreateNestedManyWithoutCompanyInput = {
   create?: Prisma.XOR<Prisma.MailMessageCreateWithoutCompanyInput, Prisma.MailMessageUncheckedCreateWithoutCompanyInput> | Prisma.MailMessageCreateWithoutCompanyInput[] | Prisma.MailMessageUncheckedCreateWithoutCompanyInput[]
   connectOrCreate?: Prisma.MailMessageCreateOrConnectWithoutCompanyInput | Prisma.MailMessageCreateOrConnectWithoutCompanyInput[]
@@ -867,6 +879,20 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type MailMessageCreateNestedOneWithoutAttachmentsInput = {
+  create?: Prisma.XOR<Prisma.MailMessageCreateWithoutAttachmentsInput, Prisma.MailMessageUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.MailMessageCreateOrConnectWithoutAttachmentsInput
+  connect?: Prisma.MailMessageWhereUniqueInput
+}
+
+export type MailMessageUpdateOneRequiredWithoutAttachmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.MailMessageCreateWithoutAttachmentsInput, Prisma.MailMessageUncheckedCreateWithoutAttachmentsInput>
+  connectOrCreate?: Prisma.MailMessageCreateOrConnectWithoutAttachmentsInput
+  upsert?: Prisma.MailMessageUpsertWithoutAttachmentsInput
+  connect?: Prisma.MailMessageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MailMessageUpdateToOneWithWhereWithoutAttachmentsInput, Prisma.MailMessageUpdateWithoutAttachmentsInput>, Prisma.MailMessageUncheckedUpdateWithoutAttachmentsInput>
+}
+
 export type MailMessageCreateNestedManyWithoutConnectionInput = {
   create?: Prisma.XOR<Prisma.MailMessageCreateWithoutConnectionInput, Prisma.MailMessageUncheckedCreateWithoutConnectionInput> | Prisma.MailMessageCreateWithoutConnectionInput[] | Prisma.MailMessageUncheckedCreateWithoutConnectionInput[]
   connectOrCreate?: Prisma.MailMessageCreateOrConnectWithoutConnectionInput | Prisma.MailMessageCreateOrConnectWithoutConnectionInput[]
@@ -930,6 +956,7 @@ export type MailMessageCreateWithoutCompanyInput = {
   connection?: Prisma.MailConnectionCreateNestedOneWithoutMailMessagesInput
   reception?: Prisma.ReceptionCreateNestedOneWithoutMailMessagesInput
   membership?: Prisma.MembershipCreateNestedOneWithoutMessagesInput
+  attachments?: Prisma.MailAttachmentCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageUncheckedCreateWithoutCompanyInput = {
@@ -953,6 +980,7 @@ export type MailMessageUncheckedCreateWithoutCompanyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   membershipId?: string | null
+  attachments?: Prisma.MailAttachmentUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageCreateOrConnectWithoutCompanyInput = {
@@ -1029,6 +1057,7 @@ export type MailMessageCreateWithoutMembershipInput = {
   company: Prisma.CompanyCreateNestedOneWithoutMailMessagesInput
   connection?: Prisma.MailConnectionCreateNestedOneWithoutMailMessagesInput
   reception?: Prisma.ReceptionCreateNestedOneWithoutMailMessagesInput
+  attachments?: Prisma.MailAttachmentCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageUncheckedCreateWithoutMembershipInput = {
@@ -1052,6 +1081,7 @@ export type MailMessageUncheckedCreateWithoutMembershipInput = {
   processedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  attachments?: Prisma.MailAttachmentUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageCreateOrConnectWithoutMembershipInput = {
@@ -1101,6 +1131,7 @@ export type MailMessageCreateWithoutReceptionInput = {
   company: Prisma.CompanyCreateNestedOneWithoutMailMessagesInput
   connection?: Prisma.MailConnectionCreateNestedOneWithoutMailMessagesInput
   membership?: Prisma.MembershipCreateNestedOneWithoutMessagesInput
+  attachments?: Prisma.MailAttachmentCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageUncheckedCreateWithoutReceptionInput = {
@@ -1124,6 +1155,7 @@ export type MailMessageUncheckedCreateWithoutReceptionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   membershipId?: string | null
+  attachments?: Prisma.MailAttachmentUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageCreateOrConnectWithoutReceptionInput = {
@@ -1152,6 +1184,118 @@ export type MailMessageUpdateManyWithWhereWithoutReceptionInput = {
   data: Prisma.XOR<Prisma.MailMessageUpdateManyMutationInput, Prisma.MailMessageUncheckedUpdateManyWithoutReceptionInput>
 }
 
+export type MailMessageCreateWithoutAttachmentsInput = {
+  id?: string
+  externalId: string
+  internetMessageId?: string | null
+  subject: string
+  senderEmail: string
+  senderName?: string | null
+  receivedAt: Date | string
+  bodyText?: string | null
+  bodyHtml?: string | null
+  status?: string
+  classification?: string | null
+  confidence?: number | null
+  extractedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  processingError?: string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company: Prisma.CompanyCreateNestedOneWithoutMailMessagesInput
+  connection?: Prisma.MailConnectionCreateNestedOneWithoutMailMessagesInput
+  reception?: Prisma.ReceptionCreateNestedOneWithoutMailMessagesInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutMessagesInput
+}
+
+export type MailMessageUncheckedCreateWithoutAttachmentsInput = {
+  id?: string
+  companyId: string
+  connectionId?: string | null
+  receptionId?: number | null
+  externalId: string
+  internetMessageId?: string | null
+  subject: string
+  senderEmail: string
+  senderName?: string | null
+  receivedAt: Date | string
+  bodyText?: string | null
+  bodyHtml?: string | null
+  status?: string
+  classification?: string | null
+  confidence?: number | null
+  extractedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  processingError?: string | null
+  processedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  membershipId?: string | null
+}
+
+export type MailMessageCreateOrConnectWithoutAttachmentsInput = {
+  where: Prisma.MailMessageWhereUniqueInput
+  create: Prisma.XOR<Prisma.MailMessageCreateWithoutAttachmentsInput, Prisma.MailMessageUncheckedCreateWithoutAttachmentsInput>
+}
+
+export type MailMessageUpsertWithoutAttachmentsInput = {
+  update: Prisma.XOR<Prisma.MailMessageUpdateWithoutAttachmentsInput, Prisma.MailMessageUncheckedUpdateWithoutAttachmentsInput>
+  create: Prisma.XOR<Prisma.MailMessageCreateWithoutAttachmentsInput, Prisma.MailMessageUncheckedCreateWithoutAttachmentsInput>
+  where?: Prisma.MailMessageWhereInput
+}
+
+export type MailMessageUpdateToOneWithWhereWithoutAttachmentsInput = {
+  where?: Prisma.MailMessageWhereInput
+  data: Prisma.XOR<Prisma.MailMessageUpdateWithoutAttachmentsInput, Prisma.MailMessageUncheckedUpdateWithoutAttachmentsInput>
+}
+
+export type MailMessageUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  confidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  extractedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  processingError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneRequiredWithoutMailMessagesNestedInput
+  connection?: Prisma.MailConnectionUpdateOneWithoutMailMessagesNestedInput
+  reception?: Prisma.ReceptionUpdateOneWithoutMailMessagesNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutMessagesNestedInput
+}
+
+export type MailMessageUncheckedUpdateWithoutAttachmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  connectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  externalId?: Prisma.StringFieldUpdateOperationsInput | string
+  internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subject?: Prisma.StringFieldUpdateOperationsInput | string
+  senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bodyText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bodyHtml?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  classification?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  confidence?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  extractedData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  processingError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type MailMessageCreateWithoutConnectionInput = {
   id?: string
   externalId: string
@@ -1173,6 +1317,7 @@ export type MailMessageCreateWithoutConnectionInput = {
   company: Prisma.CompanyCreateNestedOneWithoutMailMessagesInput
   reception?: Prisma.ReceptionCreateNestedOneWithoutMailMessagesInput
   membership?: Prisma.MembershipCreateNestedOneWithoutMessagesInput
+  attachments?: Prisma.MailAttachmentCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageUncheckedCreateWithoutConnectionInput = {
@@ -1196,6 +1341,7 @@ export type MailMessageUncheckedCreateWithoutConnectionInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   membershipId?: string | null
+  attachments?: Prisma.MailAttachmentUncheckedCreateNestedManyWithoutMessageInput
 }
 
 export type MailMessageCreateOrConnectWithoutConnectionInput = {
@@ -1268,6 +1414,7 @@ export type MailMessageUpdateWithoutCompanyInput = {
   connection?: Prisma.MailConnectionUpdateOneWithoutMailMessagesNestedInput
   reception?: Prisma.ReceptionUpdateOneWithoutMailMessagesNestedInput
   membership?: Prisma.MembershipUpdateOneWithoutMessagesNestedInput
+  attachments?: Prisma.MailAttachmentUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateWithoutCompanyInput = {
@@ -1291,6 +1438,7 @@ export type MailMessageUncheckedUpdateWithoutCompanyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachments?: Prisma.MailAttachmentUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateManyWithoutCompanyInput = {
@@ -1360,6 +1508,7 @@ export type MailMessageUpdateWithoutMembershipInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutMailMessagesNestedInput
   connection?: Prisma.MailConnectionUpdateOneWithoutMailMessagesNestedInput
   reception?: Prisma.ReceptionUpdateOneWithoutMailMessagesNestedInput
+  attachments?: Prisma.MailAttachmentUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateWithoutMembershipInput = {
@@ -1383,6 +1532,7 @@ export type MailMessageUncheckedUpdateWithoutMembershipInput = {
   processedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.MailAttachmentUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateManyWithoutMembershipInput = {
@@ -1452,6 +1602,7 @@ export type MailMessageUpdateWithoutReceptionInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutMailMessagesNestedInput
   connection?: Prisma.MailConnectionUpdateOneWithoutMailMessagesNestedInput
   membership?: Prisma.MembershipUpdateOneWithoutMessagesNestedInput
+  attachments?: Prisma.MailAttachmentUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateWithoutReceptionInput = {
@@ -1475,6 +1626,7 @@ export type MailMessageUncheckedUpdateWithoutReceptionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachments?: Prisma.MailAttachmentUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateManyWithoutReceptionInput = {
@@ -1544,6 +1696,7 @@ export type MailMessageUpdateWithoutConnectionInput = {
   company?: Prisma.CompanyUpdateOneRequiredWithoutMailMessagesNestedInput
   reception?: Prisma.ReceptionUpdateOneWithoutMailMessagesNestedInput
   membership?: Prisma.MembershipUpdateOneWithoutMessagesNestedInput
+  attachments?: Prisma.MailAttachmentUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateWithoutConnectionInput = {
@@ -1567,6 +1720,7 @@ export type MailMessageUncheckedUpdateWithoutConnectionInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachments?: Prisma.MailAttachmentUncheckedUpdateManyWithoutMessageNestedInput
 }
 
 export type MailMessageUncheckedUpdateManyWithoutConnectionInput = {
@@ -1592,6 +1746,35 @@ export type MailMessageUncheckedUpdateManyWithoutConnectionInput = {
   membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
+
+/**
+ * Count Type MailMessageCountOutputType
+ */
+
+export type MailMessageCountOutputType = {
+  attachments: number
+}
+
+export type MailMessageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  attachments?: boolean | MailMessageCountOutputTypeCountAttachmentsArgs
+}
+
+/**
+ * MailMessageCountOutputType without action
+ */
+export type MailMessageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MailMessageCountOutputType
+   */
+  select?: Prisma.MailMessageCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MailMessageCountOutputType without action
+ */
+export type MailMessageCountOutputTypeCountAttachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MailAttachmentWhereInput
+}
 
 
 export type MailMessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1620,6 +1803,8 @@ export type MailMessageSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   connection?: boolean | Prisma.MailMessage$connectionArgs<ExtArgs>
   reception?: boolean | Prisma.MailMessage$receptionArgs<ExtArgs>
   membership?: boolean | Prisma.MailMessage$membershipArgs<ExtArgs>
+  attachments?: boolean | Prisma.MailMessage$attachmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.MailMessageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["mailMessage"]>
 
 export type MailMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1708,6 +1893,8 @@ export type MailMessageInclude<ExtArgs extends runtime.Types.Extensions.Internal
   connection?: boolean | Prisma.MailMessage$connectionArgs<ExtArgs>
   reception?: boolean | Prisma.MailMessage$receptionArgs<ExtArgs>
   membership?: boolean | Prisma.MailMessage$membershipArgs<ExtArgs>
+  attachments?: boolean | Prisma.MailMessage$attachmentsArgs<ExtArgs>
+  _count?: boolean | Prisma.MailMessageCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MailMessageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
@@ -1729,6 +1916,7 @@ export type $MailMessagePayload<ExtArgs extends runtime.Types.Extensions.Interna
     connection: Prisma.$MailConnectionPayload<ExtArgs> | null
     reception: Prisma.$ReceptionPayload<ExtArgs> | null
     membership: Prisma.$MembershipPayload<ExtArgs> | null
+    attachments: Prisma.$MailAttachmentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2150,6 +2338,7 @@ export interface Prisma__MailMessageClient<T, Null = never, ExtArgs extends runt
   connection<T extends Prisma.MailMessage$connectionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MailMessage$connectionArgs<ExtArgs>>): Prisma.Prisma__MailConnectionClient<runtime.Types.Result.GetResult<Prisma.$MailConnectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   reception<T extends Prisma.MailMessage$receptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MailMessage$receptionArgs<ExtArgs>>): Prisma.Prisma__ReceptionClient<runtime.Types.Result.GetResult<Prisma.$ReceptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   membership<T extends Prisma.MailMessage$membershipArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MailMessage$membershipArgs<ExtArgs>>): Prisma.Prisma__MembershipClient<runtime.Types.Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  attachments<T extends Prisma.MailMessage$attachmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MailMessage$attachmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MailAttachmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2655,6 +2844,30 @@ export type MailMessage$membershipArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.MembershipInclude<ExtArgs> | null
   where?: Prisma.MembershipWhereInput
+}
+
+/**
+ * MailMessage.attachments
+ */
+export type MailMessage$attachmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MailAttachment
+   */
+  select?: Prisma.MailAttachmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MailAttachment
+   */
+  omit?: Prisma.MailAttachmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MailAttachmentInclude<ExtArgs> | null
+  where?: Prisma.MailAttachmentWhereInput
+  orderBy?: Prisma.MailAttachmentOrderByWithRelationInput | Prisma.MailAttachmentOrderByWithRelationInput[]
+  cursor?: Prisma.MailAttachmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MailAttachmentScalarFieldEnum | Prisma.MailAttachmentScalarFieldEnum[]
 }
 
 /**

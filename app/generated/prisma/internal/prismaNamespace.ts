@@ -399,6 +399,7 @@ export const ModelName = {
   Inventory: 'Inventory',
   Workforce: 'Workforce',
   MailMessage: 'MailMessage',
+  MailAttachment: 'MailAttachment',
   MailConnection: 'MailConnection',
   ErpConnection: 'ErpConnection'
 } as const
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "membership" | "session" | "passwordResetToken" | "invitation" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce" | "mailMessage" | "mailConnection" | "erpConnection"
+    modelProps: "user" | "company" | "membership" | "session" | "passwordResetToken" | "invitation" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1530,6 +1531,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MailAttachment: {
+      payload: Prisma.$MailAttachmentPayload<ExtArgs>
+      fields: Prisma.MailAttachmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MailAttachmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MailAttachmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>
+        }
+        findFirst: {
+          args: Prisma.MailAttachmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MailAttachmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>
+        }
+        findMany: {
+          args: Prisma.MailAttachmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>[]
+        }
+        create: {
+          args: Prisma.MailAttachmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>
+        }
+        createMany: {
+          args: Prisma.MailAttachmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MailAttachmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>[]
+        }
+        delete: {
+          args: Prisma.MailAttachmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>
+        }
+        update: {
+          args: Prisma.MailAttachmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.MailAttachmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MailAttachmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MailAttachmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.MailAttachmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MailAttachmentPayload>
+        }
+        aggregate: {
+          args: Prisma.MailAttachmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMailAttachment>
+        }
+        groupBy: {
+          args: Prisma.MailAttachmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MailAttachmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MailAttachmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MailAttachmentCountAggregateOutputType> | number
+        }
+      }
+    }
     MailConnection: {
       payload: Prisma.$MailConnectionPayload<ExtArgs>
       fields: Prisma.MailConnectionFieldRefs
@@ -1974,6 +2049,22 @@ export const MailMessageScalarFieldEnum = {
 export type MailMessageScalarFieldEnum = (typeof MailMessageScalarFieldEnum)[keyof typeof MailMessageScalarFieldEnum]
 
 
+export const MailAttachmentScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  externalId: 'externalId',
+  name: 'name',
+  contentType: 'contentType',
+  size: 'size',
+  isInline: 'isInline',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MailAttachmentScalarFieldEnum = (typeof MailAttachmentScalarFieldEnum)[keyof typeof MailAttachmentScalarFieldEnum]
+
+
 export const MailConnectionScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -2141,6 +2232,20 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
+
+/**
+ * Reference to a field of type 'Bytes'
+ */
+export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
+    
+
+
+/**
+ * Reference to a field of type 'Bytes[]'
+ */
+export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -2266,6 +2371,7 @@ export type GlobalOmitConfig = {
   inventory?: Prisma.InventoryOmit
   workforce?: Prisma.WorkforceOmit
   mailMessage?: Prisma.MailMessageOmit
+  mailAttachment?: Prisma.MailAttachmentOmit
   mailConnection?: Prisma.MailConnectionOmit
   erpConnection?: Prisma.ErpConnectionOmit
 }

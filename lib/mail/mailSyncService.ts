@@ -1,11 +1,17 @@
 ﻿import { decryptMailSecret } from "./crypto";
-import { listMicrosoftGraphMessages } from "./providers/microsoftGraph";
+import {
+  listMicrosoftGraphFileAttachments,
+  listMicrosoftGraphMessages,
+} from "./providers/microsoftGraph";
 import { prisma } from "../prisma";
 
 type SynchronizeMailInput = {
   companyId: string;
   actorId: string;
 };
+
+const ARRIVAL_KEYWORD = "arrivage";
+const MAX_ATTACHMENT_SIZE = 10 * 1024 * 1024;
 
 function normalizeReceivedAt(value?: string | null) {
   if (!value) {
@@ -17,6 +23,46 @@ function normalizeReceivedAt(value?: string | null) {
   return Number.isNaN(date.getTime())
     ? new Date()
     : date;
+}
+
+function htmlToPlainText(value: string) {
+  return value
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function isArrivalMessage({
+  subject,
+  body,
+}: {
+  subject?: string | null;
+  body?: string | null;
+}) {
+  const searchableText = [
+    subject ?? "",
+    body ? htmlToPlainText(body) : "",
+  ]
+    .join(" ")
+    .toLocaleLowerCase("fr-FR");
+
+  return searchableText.includes(ARRIVAL_KEYWORD);
+}
+
+function isExcelAttachment(name: string) {
+  const normalizedName =
+    name.toLocaleLowerCase("fr-FR");
+
+  return (
+    normalizedName.endsWith(".xlsx") ||
+    normalizedName.endsWith(".xls")
+  );
 }
 
 export async function synchronizeMicrosoftMailbox({
@@ -69,19 +115,37 @@ export async function synchronizeMicrosoftMailbox({
         mailbox: connection.emailAddress,
       });
 
+    let arrivalCandidates = 0;
     let imported = 0;
     let duplicates = 0;
     let ignored = 0;
+    let attachmentsImported = 0;
+    let attachmentsIgnored = 0;
 
     for (const graphMessage of graphMessages) {
       const senderEmail =
         graphMessage.from?.emailAddress?.address?.trim() ??
         "";
 
-      if (!graphMessage.id || !senderEmail) {
+      const bodyContent =
+        graphMessage.body?.content?.trim() || null;
+
+      if (
+        !graphMessage.id ||
+        !senderEmail ||
+        !isArrivalMessage({
+          subject: graphMessage.subject,
+          body: bodyContent,
+        })
+      ) {
         ignored += 1;
         continue;
       }
+
+      arrivalCandidates += 1;
+
+      const contentType =
+        graphMessage.body?.contentType?.toLowerCase();
 
       const existing =
         await prisma.mailMessage.findUnique({
@@ -91,52 +155,107 @@ export async function synchronizeMicrosoftMailbox({
               externalId: graphMessage.id,
             },
           },
-          select: {
-            id: true,
+          include: {
+            attachments: {
+              select: {
+                externalId: true,
+              },
+            },
           },
         });
 
+      const message =
+        existing ??
+        (await prisma.mailMessage.create({
+          data: {
+            companyId,
+            connectionId: connection.id,
+            externalId: graphMessage.id,
+            internetMessageId:
+              graphMessage.internetMessageId ?? null,
+            subject:
+              graphMessage.subject?.trim() ||
+              "Arrivage sans objet",
+            senderEmail,
+            senderName:
+              graphMessage.from?.emailAddress?.name?.trim() ||
+              null,
+            receivedAt: normalizeReceivedAt(
+              graphMessage.receivedDateTime,
+            ),
+            bodyHtml:
+              contentType === "html"
+                ? bodyContent
+                : null,
+            bodyText:
+              contentType === "html"
+                ? null
+                : bodyContent,
+            status: "NEW",
+            classification: "ARRIVAGE",
+          },
+        }));
+
       if (existing) {
         duplicates += 1;
+      } else {
+        imported += 1;
+      }
+
+      if (!graphMessage.hasAttachments) {
         continue;
       }
 
-      const bodyContent =
-        graphMessage.body?.content?.trim() || null;
+      const graphAttachments =
+        await listMicrosoftGraphFileAttachments({
+          tenantId: connection.tenantId,
+          clientId: connection.clientId,
+          clientSecret,
+          mailbox: connection.emailAddress,
+          messageId: graphMessage.id,
+        });
 
-      const contentType =
-        graphMessage.body?.contentType?.toLowerCase();
+      const existingAttachmentIds = new Set(
+        existing?.attachments.map(
+          (attachment) => attachment.externalId,
+        ) ?? [],
+      );
 
-      await prisma.mailMessage.create({
-        data: {
-          companyId,
-          connectionId: connection.id,
-          externalId: graphMessage.id,
-          internetMessageId:
-            graphMessage.internetMessageId ?? null,
-          subject:
-            graphMessage.subject?.trim() ||
-            "Sans objet",
-          senderEmail,
-          senderName:
-            graphMessage.from?.emailAddress?.name?.trim() ||
-            null,
-          receivedAt: normalizeReceivedAt(
-            graphMessage.receivedDateTime,
-          ),
-          bodyHtml:
-            contentType === "html"
-              ? bodyContent
-              : null,
-          bodyText:
-            contentType === "html"
-              ? null
-              : bodyContent,
-          status: "NEW",
-        },
-      });
+      for (const attachment of graphAttachments) {
+        if (
+          existingAttachmentIds.has(attachment.id)
+        ) {
+          continue;
+        }
 
-      imported += 1;
+        if (
+          attachment.isInline ||
+          !isExcelAttachment(attachment.name) ||
+          attachment.size > MAX_ATTACHMENT_SIZE
+        ) {
+          attachmentsIgnored += 1;
+          continue;
+        }
+
+        const content = Buffer.from(
+          attachment.contentBytes,
+          "base64",
+        );
+
+        await prisma.mailAttachment.create({
+          data: {
+            messageId: message.id,
+            externalId: attachment.id,
+            name: attachment.name,
+            contentType: attachment.contentType,
+            size: attachment.size,
+            isInline: attachment.isInline,
+            content,
+          },
+        });
+
+        attachmentsImported += 1;
+      }
     }
 
     const synchronizedAt = new Date();
@@ -161,20 +280,28 @@ export async function synchronizeMicrosoftMailbox({
         entityId: connection.id,
         details: JSON.stringify({
           mailbox: connection.emailAddress,
+          keyword: ARRIVAL_KEYWORD,
           scanned: graphMessages.length,
+          arrivalCandidates,
           imported,
           duplicates,
           ignored,
+          attachmentsImported,
+          attachmentsIgnored,
         }),
       },
     });
 
     return {
       mailbox: connection.emailAddress,
+      keyword: ARRIVAL_KEYWORD,
       scanned: graphMessages.length,
+      arrivalCandidates,
       imported,
       duplicates,
       ignored,
+      attachmentsImported,
+      attachmentsIgnored,
       synchronizedAt,
     };
   } catch (error) {
@@ -202,6 +329,7 @@ export async function synchronizeMicrosoftMailbox({
         entityId: connection.id,
         details: JSON.stringify({
           mailbox: connection.emailAddress,
+          keyword: ARRIVAL_KEYWORD,
           error: errorMessage,
         }),
       },

@@ -93,6 +93,11 @@ export type Workforce = Prisma.WorkforceModel
  */
 export type MailMessage = Prisma.MailMessageModel
 /**
+ * Model MailAttachment
+ * 
+ */
+export type MailAttachment = Prisma.MailAttachmentModel
+/**
  * Model MailConnection
  * 
  */

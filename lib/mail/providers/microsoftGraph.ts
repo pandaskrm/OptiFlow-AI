@@ -18,6 +18,7 @@ export type MicrosoftGraphMessage = {
   internetMessageId?: string | null;
   subject?: string | null;
   receivedDateTime?: string | null;
+  hasAttachments?: boolean;
   from?: {
     emailAddress?: {
       name?: string | null;
@@ -32,6 +33,38 @@ export type MicrosoftGraphMessage = {
 
 type MicrosoftGraphMessagesResponse = {
   value?: MicrosoftGraphMessage[];
+};
+
+type MicrosoftGraphAttachmentListItem = {
+  id: string;
+  name?: string | null;
+  contentType?: string | null;
+  size?: number | null;
+  isInline?: boolean;
+  "@odata.type"?: string;
+};
+
+type MicrosoftGraphAttachmentListResponse = {
+  value?: MicrosoftGraphAttachmentListItem[];
+};
+
+export type MicrosoftGraphFileAttachment = {
+  id: string;
+  name: string;
+  contentType: string | null;
+  size: number;
+  isInline: boolean;
+  contentBytes: string;
+};
+
+type MicrosoftGraphFileAttachmentResponse = {
+  id?: string;
+  name?: string | null;
+  contentType?: string | null;
+  size?: number | null;
+  isInline?: boolean;
+  contentBytes?: string | null;
+  "@odata.type"?: string;
 };
 
 async function readErrorMessage(
@@ -171,6 +204,7 @@ export async function listMicrosoftGraphMessages({
       "receivedDateTime",
       "from",
       "body",
+      "hasAttachments",
     ].join(","),
   });
 
@@ -203,4 +237,107 @@ export async function listMicrosoftGraphMessages({
   return Array.isArray(data.value)
     ? data.value
     : [];
+}
+
+export async function listMicrosoftGraphFileAttachments({
+  tenantId,
+  clientId,
+  clientSecret,
+  mailbox,
+  messageId,
+}: MicrosoftGraphConnection & {
+  messageId: string;
+}) {
+  const accessToken = await getMicrosoftGraphToken({
+    tenantId,
+    clientId,
+    clientSecret,
+  });
+
+  const listResponse = await fetch(
+    `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
+      mailbox,
+    )}/messages/${encodeURIComponent(
+      messageId,
+    )}/attachments?$select=id,name,contentType,size,isInline`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!listResponse.ok) {
+    throw new Error(
+      await readErrorMessage(
+        listResponse,
+        "Impossible de récupérer la liste des pièces jointes.",
+      ),
+    );
+  }
+
+  const listData =
+    (await listResponse.json()) as MicrosoftGraphAttachmentListResponse;
+
+  const attachments: MicrosoftGraphFileAttachment[] = [];
+
+  for (const attachment of listData.value ?? []) {
+    if (
+      !attachment.id ||
+      attachment["@odata.type"] !==
+        "#microsoft.graph.fileAttachment"
+    ) {
+      continue;
+    }
+
+    const fileResponse = await fetch(
+      `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
+        mailbox,
+      )}/messages/${encodeURIComponent(
+        messageId,
+      )}/attachments/${encodeURIComponent(
+        attachment.id,
+      )}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/json",
+        },
+        cache: "no-store",
+      },
+    );
+
+    if (!fileResponse.ok) {
+      throw new Error(
+        await readErrorMessage(
+          fileResponse,
+          `Impossible de télécharger ${attachment.name ?? "la pièce jointe"}.`,
+        ),
+      );
+    }
+
+    const file =
+      (await fileResponse.json()) as MicrosoftGraphFileAttachmentResponse;
+
+    if (
+      !file.id ||
+      !file.name ||
+      !file.contentBytes
+    ) {
+      continue;
+    }
+
+    attachments.push({
+      id: file.id,
+      name: file.name,
+      contentType: file.contentType ?? null,
+      size: file.size ?? 0,
+      isInline: file.isInline ?? false,
+      contentBytes: file.contentBytes,
+    });
+  }
+
+  return attachments;
 }

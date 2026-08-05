@@ -326,10 +326,11 @@ model MailMessage {
   createdAt         DateTime  @default(now())
   updatedAt         DateTime  @updatedAt
 
-  company      Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  connection   MailConnection? @relation(fields: [connectionId], references: [id], onDelete: SetNull)
-  reception    Reception?      @relation(fields: [receptionId], references: [id], onDelete: SetNull)
-  membership   Membership?     @relation(fields: [membershipId], references: [id])
+  company      Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  connection   MailConnection?  @relation(fields: [connectionId], references: [id], onDelete: SetNull)
+  reception    Reception?       @relation(fields: [receptionId], references: [id], onDelete: SetNull)
+  membership   Membership?      @relation(fields: [membershipId], references: [id])
+  attachments  MailAttachment[]
   membershipId String?
 
   @@unique([companyId, externalId])
@@ -337,6 +338,29 @@ model MailMessage {
   @@index([connectionId])
   @@index([receptionId])
   @@index([receivedAt])
+}
+
+/**
+ * PIÈCES JOINTES DES E-MAILS LOGISTIQUES
+ */
+
+model MailAttachment {
+  id          String   @id @default(cuid())
+  messageId   String
+  externalId  String
+  name        String
+  contentType String?
+  size        Int      @default(0)
+  isInline    Boolean  @default(false)
+  content     Bytes?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  message MailMessage @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, externalId])
+  @@index([messageId])
+  @@index([name])
 }
 
 model MailConnection {
