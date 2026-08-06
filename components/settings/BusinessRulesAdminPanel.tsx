@@ -42,6 +42,8 @@ export default function BusinessRulesAdminPanel() {
   );
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [importingLca, setImportingLca] =
+    useState(false);
   const [feedback, setFeedback] = useState("");
   const [isError, setIsError] = useState(false);
 
@@ -110,6 +112,56 @@ export default function BusinessRulesAdminPanel() {
     }),
     [rules],
   );
+
+  async function importLcaRules() {
+    const confirmed = window.confirm(
+      "Importer les clients prioritaires, grossistes et procédures export LCA ?",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setImportingLca(true);
+    setFeedback("");
+    setIsError(false);
+
+    try {
+      const response = await fetch(
+        "/api/business-rules/import-lca",
+        {
+          method: "POST",
+        },
+      );
+
+      const data =
+        (await response.json()) as RulesResponse & {
+          message?: string;
+        };
+
+      if (!response.ok || !data.rules) {
+        throw new Error(
+          data.error ??
+            "Import des règles LCA impossible.",
+        );
+      }
+
+      setRules(data.rules);
+      setFeedback(
+        data.message ??
+          "Règles LCA importées.",
+      );
+    } catch (error) {
+      setIsError(true);
+      setFeedback(
+        error instanceof Error
+          ? error.message
+          : "Import impossible.",
+      );
+    } finally {
+      setImportingLca(false);
+    }
+  }
 
   async function createRule(
     event: React.FormEvent<HTMLFormElement>,
@@ -294,6 +346,17 @@ export default function BusinessRulesAdminPanel() {
             contrôles spécifiques aux clients, pays,
             transporteurs ou articles.
           </p>
+
+          <button
+            type="button"
+            onClick={importLcaRules}
+            disabled={importingLca || saving}
+            className="mt-4 rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-2.5 text-sm font-bold text-cyan-200 transition hover:bg-cyan-500/20 disabled:opacity-50"
+          >
+            {importingLca
+              ? "Import des règles LCA..."
+              : "📥 Importer les règles LCA"}
+          </button>
         </div>
 
         <div className="grid grid-cols-2 gap-2 text-center sm:grid-cols-4">
