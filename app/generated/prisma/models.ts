@@ -10,6 +10,7 @@
  */
 export type * from './models/User'
 export type * from './models/Company'
+export type * from './models/BusinessRule'
 export type * from './models/Membership'
 export type * from './models/Session'
 export type * from './models/PasswordResetToken'

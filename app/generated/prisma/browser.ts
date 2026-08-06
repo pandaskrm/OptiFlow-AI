@@ -28,6 +28,11 @@ export type User = Prisma.UserModel
  */
 export type Company = Prisma.CompanyModel
 /**
+ * Model BusinessRule
+ * 
+ */
+export type BusinessRule = Prisma.BusinessRuleModel
+/**
  * Model Membership
  * 
  */

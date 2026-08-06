@@ -55,12 +55,43 @@ model Company {
   mailConnections MailConnection[]
   mailMessages    MailMessage[]
 
-  receptions  Reception[]
-  orders      Order[]
-  shipments   Shipment[]
-  inventories Inventory[]
-  workforce   Workforce[]
-  carriers    Carrier[]
+  receptions    Reception[]
+  orders        Order[]
+  shipments     Shipment[]
+  inventories   Inventory[]
+  workforce     Workforce[]
+  carriers      Carrier[]
+  businessRules BusinessRule[]
+}
+
+/**
+ * REGLES METIER CONFIGURABLES
+ * Chaque entreprise peut définir ses propres priorités,
+ * procédures, badges, checklists et actions.
+ */
+
+model BusinessRule {
+  id          String   @id @default(cuid())
+  companyId   String
+  name        String
+  scope       String
+  targetValue String
+  priority    String   @default("NORMALE")
+  badge       String?
+  color       String?
+  workflow    String?
+  explanation String?
+  checklist   Json?
+  actions     Json?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, scope, targetValue, name])
+  @@index([companyId, scope])
+  @@index([companyId, isActive])
 }
 
 model Membership {

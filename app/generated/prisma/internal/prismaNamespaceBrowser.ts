@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Company: 'Company',
+  BusinessRule: 'BusinessRule',
   Membership: 'Membership',
   Session: 'Session',
   PasswordResetToken: 'PasswordResetToken',
@@ -123,6 +124,27 @@ export const CompanyScalarFieldEnum = {
 } as const
 
 export type CompanyScalarFieldEnum = (typeof CompanyScalarFieldEnum)[keyof typeof CompanyScalarFieldEnum]
+
+
+export const BusinessRuleScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  name: 'name',
+  scope: 'scope',
+  targetValue: 'targetValue',
+  priority: 'priority',
+  badge: 'badge',
+  color: 'color',
+  workflow: 'workflow',
+  explanation: 'explanation',
+  checklist: 'checklist',
+  actions: 'actions',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BusinessRuleScalarFieldEnum = (typeof BusinessRuleScalarFieldEnum)[keyof typeof BusinessRuleScalarFieldEnum]
 
 
 export const MembershipScalarFieldEnum = {

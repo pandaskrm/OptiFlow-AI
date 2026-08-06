@@ -267,6 +267,7 @@ export type CompanyWhereInput = {
   inventories?: Prisma.InventoryListRelationFilter
   workforce?: Prisma.WorkforceListRelationFilter
   carriers?: Prisma.CarrierListRelationFilter
+  businessRules?: Prisma.BusinessRuleListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -297,6 +298,7 @@ export type CompanyOrderByWithRelationInput = {
   inventories?: Prisma.InventoryOrderByRelationAggregateInput
   workforce?: Prisma.WorkforceOrderByRelationAggregateInput
   carriers?: Prisma.CarrierOrderByRelationAggregateInput
+  businessRules?: Prisma.BusinessRuleOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -330,6 +332,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   inventories?: Prisma.InventoryListRelationFilter
   workforce?: Prisma.WorkforceListRelationFilter
   carriers?: Prisma.CarrierListRelationFilter
+  businessRules?: Prisma.BusinessRuleListRelationFilter
 }, "id">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -400,6 +403,7 @@ export type CompanyCreateInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -430,6 +434,7 @@ export type CompanyUncheckedCreateInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -460,6 +465,7 @@ export type CompanyUpdateInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -490,6 +496,7 @@ export type CompanyUncheckedUpdateInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -602,6 +609,20 @@ export type CompanyScalarRelationFilter = {
 export type CompanyNullableScalarRelationFilter = {
   is?: Prisma.CompanyWhereInput | null
   isNot?: Prisma.CompanyWhereInput | null
+}
+
+export type CompanyCreateNestedOneWithoutBusinessRulesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutBusinessRulesInput, Prisma.CompanyUncheckedCreateWithoutBusinessRulesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutBusinessRulesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutBusinessRulesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutBusinessRulesInput, Prisma.CompanyUncheckedCreateWithoutBusinessRulesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutBusinessRulesInput
+  upsert?: Prisma.CompanyUpsertWithoutBusinessRulesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutBusinessRulesInput, Prisma.CompanyUpdateWithoutBusinessRulesInput>, Prisma.CompanyUncheckedUpdateWithoutBusinessRulesInput>
 }
 
 export type CompanyCreateNestedOneWithoutMembershipsInput = {
@@ -796,6 +817,142 @@ export type CompanyUpdateOneRequiredWithoutErpConnectionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutErpConnectionsInput, Prisma.CompanyUpdateWithoutErpConnectionsInput>, Prisma.CompanyUncheckedUpdateWithoutErpConnectionsInput>
 }
 
+export type CompanyCreateWithoutBusinessRulesInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutBusinessRulesInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutBusinessRulesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutBusinessRulesInput, Prisma.CompanyUncheckedCreateWithoutBusinessRulesInput>
+}
+
+export type CompanyUpsertWithoutBusinessRulesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutBusinessRulesInput, Prisma.CompanyUncheckedUpdateWithoutBusinessRulesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutBusinessRulesInput, Prisma.CompanyUncheckedCreateWithoutBusinessRulesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutBusinessRulesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutBusinessRulesInput, Prisma.CompanyUncheckedUpdateWithoutBusinessRulesInput>
+}
+
+export type CompanyUpdateWithoutBusinessRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutBusinessRulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
 export type CompanyCreateWithoutMembershipsInput = {
   id?: string
   name: string
@@ -823,6 +980,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutMembershipsInput = {
@@ -852,6 +1010,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutMembershipsInput = {
@@ -897,6 +1056,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutMembershipsInput = {
@@ -926,6 +1086,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutInvitationsInput = {
@@ -955,6 +1116,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutInvitationsInput = {
@@ -984,6 +1146,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutInvitationsInput = {
@@ -1029,6 +1192,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutInvitationsInput = {
@@ -1058,6 +1222,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutCarriersInput = {
@@ -1087,6 +1252,7 @@ export type CompanyCreateWithoutCarriersInput = {
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutCarriersInput = {
@@ -1116,6 +1282,7 @@ export type CompanyUncheckedCreateWithoutCarriersInput = {
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutCarriersInput = {
@@ -1161,6 +1328,7 @@ export type CompanyUpdateWithoutCarriersInput = {
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutCarriersInput = {
@@ -1190,6 +1358,7 @@ export type CompanyUncheckedUpdateWithoutCarriersInput = {
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutWarehousesInput = {
@@ -1219,6 +1388,7 @@ export type CompanyCreateWithoutWarehousesInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutWarehousesInput = {
@@ -1248,6 +1418,7 @@ export type CompanyUncheckedCreateWithoutWarehousesInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutWarehousesInput = {
@@ -1293,6 +1464,7 @@ export type CompanyUpdateWithoutWarehousesInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutWarehousesInput = {
@@ -1322,6 +1494,7 @@ export type CompanyUncheckedUpdateWithoutWarehousesInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAuditLogsInput = {
@@ -1351,6 +1524,7 @@ export type CompanyCreateWithoutAuditLogsInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAuditLogsInput = {
@@ -1380,6 +1554,7 @@ export type CompanyUncheckedCreateWithoutAuditLogsInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAuditLogsInput = {
@@ -1425,6 +1600,7 @@ export type CompanyUpdateWithoutAuditLogsInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAuditLogsInput = {
@@ -1454,6 +1630,7 @@ export type CompanyUncheckedUpdateWithoutAuditLogsInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutReceptionsInput = {
@@ -1483,6 +1660,7 @@ export type CompanyCreateWithoutReceptionsInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutReceptionsInput = {
@@ -1512,6 +1690,7 @@ export type CompanyUncheckedCreateWithoutReceptionsInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutReceptionsInput = {
@@ -1557,6 +1736,7 @@ export type CompanyUpdateWithoutReceptionsInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutReceptionsInput = {
@@ -1586,6 +1766,7 @@ export type CompanyUncheckedUpdateWithoutReceptionsInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutOrdersInput = {
@@ -1615,6 +1796,7 @@ export type CompanyCreateWithoutOrdersInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutOrdersInput = {
@@ -1644,6 +1826,7 @@ export type CompanyUncheckedCreateWithoutOrdersInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutOrdersInput = {
@@ -1689,6 +1872,7 @@ export type CompanyUpdateWithoutOrdersInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutOrdersInput = {
@@ -1718,6 +1902,7 @@ export type CompanyUncheckedUpdateWithoutOrdersInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutShipmentsInput = {
@@ -1747,6 +1932,7 @@ export type CompanyCreateWithoutShipmentsInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutShipmentsInput = {
@@ -1776,6 +1962,7 @@ export type CompanyUncheckedCreateWithoutShipmentsInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutShipmentsInput = {
@@ -1821,6 +2008,7 @@ export type CompanyUpdateWithoutShipmentsInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutShipmentsInput = {
@@ -1850,6 +2038,7 @@ export type CompanyUncheckedUpdateWithoutShipmentsInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutInventoriesInput = {
@@ -1879,6 +2068,7 @@ export type CompanyCreateWithoutInventoriesInput = {
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutInventoriesInput = {
@@ -1908,6 +2098,7 @@ export type CompanyUncheckedCreateWithoutInventoriesInput = {
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutInventoriesInput = {
@@ -1953,6 +2144,7 @@ export type CompanyUpdateWithoutInventoriesInput = {
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutInventoriesInput = {
@@ -1982,6 +2174,7 @@ export type CompanyUncheckedUpdateWithoutInventoriesInput = {
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutWorkforceInput = {
@@ -2011,6 +2204,7 @@ export type CompanyCreateWithoutWorkforceInput = {
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutWorkforceInput = {
@@ -2040,6 +2234,7 @@ export type CompanyUncheckedCreateWithoutWorkforceInput = {
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutWorkforceInput = {
@@ -2085,6 +2280,7 @@ export type CompanyUpdateWithoutWorkforceInput = {
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutWorkforceInput = {
@@ -2114,6 +2310,7 @@ export type CompanyUncheckedUpdateWithoutWorkforceInput = {
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutMailMessagesInput = {
@@ -2143,6 +2340,7 @@ export type CompanyCreateWithoutMailMessagesInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutMailMessagesInput = {
@@ -2172,6 +2370,7 @@ export type CompanyUncheckedCreateWithoutMailMessagesInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutMailMessagesInput = {
@@ -2217,6 +2416,7 @@ export type CompanyUpdateWithoutMailMessagesInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutMailMessagesInput = {
@@ -2246,6 +2446,7 @@ export type CompanyUncheckedUpdateWithoutMailMessagesInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutMailConnectionsInput = {
@@ -2275,6 +2476,7 @@ export type CompanyCreateWithoutMailConnectionsInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutMailConnectionsInput = {
@@ -2304,6 +2506,7 @@ export type CompanyUncheckedCreateWithoutMailConnectionsInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutMailConnectionsInput = {
@@ -2349,6 +2552,7 @@ export type CompanyUpdateWithoutMailConnectionsInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutMailConnectionsInput = {
@@ -2378,6 +2582,7 @@ export type CompanyUncheckedUpdateWithoutMailConnectionsInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutErpConnectionsInput = {
@@ -2407,6 +2612,7 @@ export type CompanyCreateWithoutErpConnectionsInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutErpConnectionsInput = {
@@ -2436,6 +2642,7 @@ export type CompanyUncheckedCreateWithoutErpConnectionsInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutErpConnectionsInput = {
@@ -2481,6 +2688,7 @@ export type CompanyUpdateWithoutErpConnectionsInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutErpConnectionsInput = {
@@ -2510,6 +2718,7 @@ export type CompanyUncheckedUpdateWithoutErpConnectionsInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 
@@ -2531,6 +2740,7 @@ export type CompanyCountOutputType = {
   inventories: number
   workforce: number
   carriers: number
+  businessRules: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2547,6 +2757,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   inventories?: boolean | CompanyCountOutputTypeCountInventoriesArgs
   workforce?: boolean | CompanyCountOutputTypeCountWorkforceArgs
   carriers?: boolean | CompanyCountOutputTypeCountCarriersArgs
+  businessRules?: boolean | CompanyCountOutputTypeCountBusinessRulesArgs
 }
 
 /**
@@ -2650,6 +2861,13 @@ export type CompanyCountOutputTypeCountCarriersArgs<ExtArgs extends runtime.Type
   where?: Prisma.CarrierWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountBusinessRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BusinessRuleWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2679,6 +2897,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   inventories?: boolean | Prisma.Company$inventoriesArgs<ExtArgs>
   workforce?: boolean | Prisma.Company$workforceArgs<ExtArgs>
   carriers?: boolean | Prisma.Company$carriersArgs<ExtArgs>
+  businessRules?: boolean | Prisma.Company$businessRulesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -2748,6 +2967,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   inventories?: boolean | Prisma.Company$inventoriesArgs<ExtArgs>
   workforce?: boolean | Prisma.Company$workforceArgs<ExtArgs>
   carriers?: boolean | Prisma.Company$carriersArgs<ExtArgs>
+  businessRules?: boolean | Prisma.Company$businessRulesArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2769,6 +2989,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     inventories: Prisma.$InventoryPayload<ExtArgs>[]
     workforce: Prisma.$WorkforcePayload<ExtArgs>[]
     carriers: Prisma.$CarrierPayload<ExtArgs>[]
+    businessRules: Prisma.$BusinessRulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3192,6 +3413,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   inventories<T extends Prisma.Company$inventoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$inventoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   workforce<T extends Prisma.Company$workforceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$workforceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkforcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   carriers<T extends Prisma.Company$carriersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$carriersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CarrierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  businessRules<T extends Prisma.Company$businessRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$businessRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3937,6 +4159,30 @@ export type Company$carriersArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.CarrierScalarFieldEnum | Prisma.CarrierScalarFieldEnum[]
+}
+
+/**
+ * Company.businessRules
+ */
+export type Company$businessRulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BusinessRule
+   */
+  select?: Prisma.BusinessRuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BusinessRule
+   */
+  omit?: Prisma.BusinessRuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BusinessRuleInclude<ExtArgs> | null
+  where?: Prisma.BusinessRuleWhereInput
+  orderBy?: Prisma.BusinessRuleOrderByWithRelationInput | Prisma.BusinessRuleOrderByWithRelationInput[]
+  cursor?: Prisma.BusinessRuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BusinessRuleScalarFieldEnum | Prisma.BusinessRuleScalarFieldEnum[]
 }
 
 /**
