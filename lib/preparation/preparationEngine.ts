@@ -41,11 +41,11 @@ export function getPreparationStats() {
   const total = preparationOrders.length;
 
   const completed = preparationOrders.filter(
-    (order) => order.status === "Terminée"
+    (order) => order.status === "Termin\u00e9e"
   ).length;
 
   const inProgress = preparationOrders.filter(
-    (order) => order.status === "En préparation"
+    (order) => order.status === "En pr\u00e9paration"
   ).length;
 
   const urgent = preparationOrders.filter(
@@ -200,44 +200,60 @@ export function getPreparationPrediction(
   if (riskLevel === "HIGH") {
     return {
       ...base,
-      title: "Risque élevé sur l'objectif de préparation",
-      message: `${remainingLines} lignes restent à préparer. Fin estimée à ${projectedEnd}, soit ${delayMinutes} min après l'objectif.`,
-      recommendation: `Renforcer immédiatement la préparation avec ${reinforcementNeeded} collaborateur${reinforcementNeeded > 1 ? "s" : ""} et prioriser les commandes devant partir aujourd'hui.`,
+      title: "Risque Ã©levÃ© sur l'objectif de prÃ©paration",
+      message: `${remainingLines} lignes restent Ã  prÃ©parer. Fin estimÃ©e Ã  ${projectedEnd}, soit ${delayMinutes} min aprÃ¨s l'objectif.`,
+      recommendation: `Renforcer immÃ©diatement la prÃ©paration avec ${reinforcementNeeded} collaborateur${reinforcementNeeded > 1 ? "s" : ""} et prioriser les commandes devant partir aujourd'hui.`,
     };
   }
 
   if (riskLevel === "MEDIUM") {
     return {
       ...base,
-      title: "Objectif de préparation sous surveillance",
-      message: `${remainingLines} lignes restent à préparer. La fin est estimée à ${projectedEnd}, légèrement au-delà de l'objectif.`,
-      recommendation: `Prévoir ${reinforcementNeeded} renfort${reinforcementNeeded > 1 ? "s" : ""} si le rythme baisse dans les prochaines minutes.`,
+      title: "Objectif de prÃ©paration sous surveillance",
+      message: `${remainingLines} lignes restent Ã  prÃ©parer. La fin est estimÃ©e Ã  ${projectedEnd}, lÃ©gÃ¨rement au-delÃ  de l'objectif.`,
+      recommendation: `PrÃ©voir ${reinforcementNeeded} renfort${reinforcementNeeded > 1 ? "s" : ""} si le rythme baisse dans les prochaines minutes.`,
     };
   }
 
   return {
     ...base,
     reinforcementNeeded: 0,
-    title: "Objectif de préparation maîtrisé",
-    message: `${remainingLines} lignes restent à préparer. La fin est estimée à ${projectedEnd}.`,
+    title: "Objectif de prÃ©paration maÃ®trisÃ©",
+    message: `${remainingLines} lignes restent Ã  prÃ©parer. La fin est estimÃ©e Ã  ${projectedEnd}.`,
     recommendation:
-      "Maintenir la cadence actuelle et continuer à surveiller les commandes prioritaires.",
+      "Maintenir la cadence actuelle et continuer Ã  surveiller les commandes prioritaires.",
   };
 }
 
 export function getPreparationAiInsight(
   input?: PreparationOperationalInput
-) {
+): PreparationPrediction {
   if (input) {
     return getPreparationPrediction(input);
   }
 
-  const stats = getPreparationStats();
+  const demoNow = new Date();
+  demoNow.setHours(11, 20, 0, 0);
 
-  return {
-    title: "Analyse IA préparation",
-    message: `${stats.urgent} commandes prioritaires sont à surveiller. ${stats.inProgress} commandes sont actuellement en préparation. Le taux de service est de ${stats.serviceRate} %.`,
-    recommendation:
-      "Prioriser les commandes haute priorité et surveiller les commandes à fort volume.",
+  const demoInput: PreparationOperationalInput = {
+    orders: {
+      total: 486,
+      waiting: 87,
+      inPreparation: 27,
+      completed: 372,
+      priority: 18,
+      totalLines: 6840,
+      preparedLines: 5128,
+      progress: 75,
+      serviceRate: 98,
+    },
+    workforce: {
+      present: 24,
+      paused: 2,
+      reinforcement: 0,
+      productivity: 580,
+    },
   };
+
+  return getPreparationPrediction(demoInput, demoNow);
 }
