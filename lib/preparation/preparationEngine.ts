@@ -25,6 +25,11 @@ export type PreparationPrediction = {
   activeEmployees: number;
   projectedMinutes: number;
   projectedEnd: string;
+  delayMinutes: number;
+  currentHourlyCapacity: number;
+  requiredHourlyCapacity: number;
+  onTimeProbability: number;
+  confidenceScore: number;
   riskLevel: "LOW" | "MEDIUM" | "HIGH";
   reinforcementNeeded: number;
   title: string;
@@ -68,6 +73,10 @@ export function getPreparationStats() {
   };
 }
 
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
+
 function formatTime(date: Date) {
   return new Intl.DateTimeFormat("fr-FR", {
     hour: "2-digit",
@@ -92,19 +101,14 @@ export function getPreparationPrediction(
     workforce.present - workforce.paused
   );
 
-  const currentProductivity =
+  const currentHourlyCapacity =
     workforce.productivity > 0
       ? workforce.productivity
-      : 0;
-
-  const teamHourlyCapacity =
-    currentProductivity > 0
-      ? currentProductivity
       : activeEmployees * 45;
 
   const projectedMinutes =
-    remainingLines > 0 && teamHourlyCapacity > 0
-      ? Math.ceil((remainingLines / teamHourlyCapacity) * 60)
+    remainingLines > 0 && currentHourlyCapacity > 0
+      ? Math.ceil((remainingLines / currentHourlyCapacity) * 60)
       : 0;
 
   const projectedDate = new Date(
@@ -114,16 +118,11 @@ export function getPreparationPrediction(
   const deadline = new Date(now);
   deadline.setHours(14, 0, 0, 0);
 
-  const delayMinutes = Math.ceil(
+  const rawDelayMinutes = Math.ceil(
     (projectedDate.getTime() - deadline.getTime()) / 60_000
   );
 
-  const riskLevel: PreparationPrediction["riskLevel"] =
-    delayMinutes > 15
-      ? "HIGH"
-      : delayMinutes > 0
-        ? "MEDIUM"
-        : "LOW";
+  const delayMinutes = Math.max(0, rawDelayMinutes);
 
   const minutesUntilDeadline = Math.max(
     1,
@@ -134,12 +133,24 @@ export function getPreparationPrediction(
 
   const requiredHourlyCapacity =
     remainingLines > 0
-      ? (remainingLines / minutesUntilDeadline) * 60
+      ? Math.ceil((remainingLines / minutesUntilDeadline) * 60)
       : 0;
 
+  const capacityRatio =
+    requiredHourlyCapacity > 0
+      ? currentHourlyCapacity / requiredHourlyCapacity
+      : 1;
+
+  const riskLevel: PreparationPrediction["riskLevel"] =
+    delayMinutes > 15
+      ? "HIGH"
+      : delayMinutes > 0
+        ? "MEDIUM"
+        : "LOW";
+
   const estimatedEmployeeCapacity =
-    activeEmployees > 0 && teamHourlyCapacity > 0
-      ? teamHourlyCapacity / activeEmployees
+    activeEmployees > 0 && currentHourlyCapacity > 0
+      ? currentHourlyCapacity / activeEmployees
       : 45;
 
   const reinforcementNeeded =
@@ -150,47 +161,62 @@ export function getPreparationPrediction(
           Math.ceil(
             Math.max(
               0,
-              requiredHourlyCapacity - teamHourlyCapacity
+              requiredHourlyCapacity - currentHourlyCapacity
             ) / Math.max(1, estimatedEmployeeCapacity)
           )
         );
 
+  const onTimeProbability =
+    remainingLines === 0
+      ? 100
+      : clamp(Math.round(capacityRatio * 100), 5, 99);
+
+  const confidenceScore = clamp(
+    70 +
+      (orders.totalLines > 0 ? 8 : 0) +
+      (orders.preparedLines >= 0 ? 5 : 0) +
+      (workforce.present > 0 ? 7 : 0) +
+      (workforce.productivity > 0 ? 10 : 0),
+    70,
+    97
+  );
+
   const projectedEnd = formatTime(projectedDate);
+
+  const base = {
+    remainingLines,
+    activeEmployees,
+    projectedMinutes,
+    projectedEnd,
+    delayMinutes,
+    currentHourlyCapacity,
+    requiredHourlyCapacity,
+    onTimeProbability,
+    confidenceScore,
+    riskLevel,
+    reinforcementNeeded,
+  };
 
   if (riskLevel === "HIGH") {
     return {
-      remainingLines,
-      activeEmployees,
-      projectedMinutes,
-      projectedEnd,
-      riskLevel,
-      reinforcementNeeded,
+      ...base,
       title: "Risque élevé sur l'objectif de préparation",
-      message: `${remainingLines} lignes restent à préparer. Au rythme actuel, la fin est estimée à ${projectedEnd}.`,
+      message: `${remainingLines} lignes restent à préparer. Fin estimée à ${projectedEnd}, soit ${delayMinutes} min après l'objectif.`,
       recommendation: `Renforcer immédiatement la préparation avec ${reinforcementNeeded} collaborateur${reinforcementNeeded > 1 ? "s" : ""} et prioriser les commandes devant partir aujourd'hui.`,
     };
   }
 
   if (riskLevel === "MEDIUM") {
     return {
-      remainingLines,
-      activeEmployees,
-      projectedMinutes,
-      projectedEnd,
-      riskLevel,
-      reinforcementNeeded,
+      ...base,
       title: "Objectif de préparation sous surveillance",
-      message: `${remainingLines} lignes restent à préparer. La fin est actuellement estimée à ${projectedEnd}.`,
+      message: `${remainingLines} lignes restent à préparer. La fin est estimée à ${projectedEnd}, légèrement au-delà de l'objectif.`,
       recommendation: `Prévoir ${reinforcementNeeded} renfort${reinforcementNeeded > 1 ? "s" : ""} si le rythme baisse dans les prochaines minutes.`,
     };
   }
 
   return {
-    remainingLines,
-    activeEmployees,
-    projectedMinutes,
-    projectedEnd,
-    riskLevel,
+    ...base,
     reinforcementNeeded: 0,
     title: "Objectif de préparation maîtrisé",
     message: `${remainingLines} lignes restent à préparer. La fin est estimée à ${projectedEnd}.`,
