@@ -562,7 +562,7 @@ export default function PreparationModeContent() {
 
         <div className="flex flex-col gap-6">
           <PreparationDecisionPanel />
-          <PreparationAi />
+<PreparationAi />
           <PreparationTimeline />
         </div>
       </div>
