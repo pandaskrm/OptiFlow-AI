@@ -1,11 +1,14 @@
-import MainLayout from "../../components/layout/MainLayout";
+﻿import MainLayout from "../../components/layout/MainLayout";
 import CommercialDemoPanel from "../../components/dashboard/CommercialDemoPanel";
 import LiveWarehouseMap from "../../components/dashboard/livewarehouse/LiveWarehouseMap";
 import MissionControlBar from "../../components/dashboard/MissionControlBar";
+import DemoStation from "../../components/demo/DemoStation";
 
 export default function DemoPage() {
   return (
     <MainLayout>
+      <DemoStation />
+
       <div className="space-y-8">
         <MissionControlBar />
         <CommercialDemoPanel />
