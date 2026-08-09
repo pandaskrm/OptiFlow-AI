@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   demoStationSteps,
@@ -191,7 +191,7 @@ function EndOfDayReport({ snapshot }: { snapshot: DemoStationSnapshot }) {
   ];
 
   return (
-    <div className="mt-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5">
+    <div className="mt-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-300">
@@ -289,9 +289,14 @@ export default function DemoStation() {
   const [playing, setPlaying] = useState(false);
   const [index, setIndex] = useState(0);
   const [actionApplied, setActionApplied] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [voiceAvailable, setVoiceAvailable] = useState(true);
+  const mainScrollRef = useRef<HTMLElement | null>(null);
 
   const step: DemoStationStep = demoStationSteps[index];
   const snapshot = demoStationSnapshots[step.id];
+  const compactStep = step.id === 8 || step.id === 11 || step.id === 13;
+  const finalStep = step.id === 13;
 
   const progress = useMemo(
     () => Math.round(((index + 1) / demoStationSteps.length) * 100),
@@ -300,46 +305,127 @@ export default function DemoStation() {
 
   const finished = index === demoStationSteps.length - 1;
 
+  function stopLibot() {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+  }
+
+  function getLibotSpeech(stepId: number) {
+    const selectedStep =
+      demoStationSteps.find((item) => item.id === stepId) ?? step;
+
+    const selectedSnapshot = demoStationSnapshots[selectedStep.id];
+
+    if (selectedStep.id === 13) {
+      return `La journée est terminée. ${selectedSnapshot.ordersCompleted} commandes ont été terminées sur ${selectedSnapshot.ordersTotal}. ${selectedSnapshot.preparedLines.toLocaleString("fr-FR")} lignes, ${selectedSnapshot.preparedUnits.toLocaleString("fr-FR")} unités et ${selectedSnapshot.parcels.toLocaleString("fr-FR")} colis ont été préparés. ${selectedSnapshot.receptionsFinished} réceptions et ${selectedSnapshot.shipmentsFinished} expéditions ont été finalisées. Le ralentissement détecté à midi a été corrigé après réorganisation de l'équipe. La santé opérationnelle du dépôt termine à ${selectedSnapshot.warehouseHealth} pour cent. Aucun risque critique ne reste ouvert.`;
+    }
+
+    return selectedStep.libot;
+  }
+
+  function speakLibot(stepId = step.id) {
+    if (
+      !soundEnabled ||
+      typeof window === "undefined" ||
+      !("speechSynthesis" in window)
+    ) {
+      setVoiceAvailable(false);
+      return;
+    }
+
+    const synth = window.speechSynthesis;
+
+    synth.cancel();
+    synth.resume();
+
+    const speech = new SpeechSynthesisUtterance(getLibotSpeech(stepId));
+
+    speech.lang = "fr-FR";
+    speech.rate = 0.94;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    const voices = synth.getVoices();
+
+    const frenchVoice =
+      voices.find((voice) => voice.lang.toLowerCase() === "fr-fr") ??
+      voices.find((voice) => voice.lang.toLowerCase().startsWith("fr"));
+
+    if (frenchVoice) {
+      speech.voice = frenchVoice;
+    }
+
+    speech.onstart = () => setVoiceAvailable(true);
+    speech.onerror = () => setVoiceAvailable(false);
+
+    synth.speak(speech);
+  }
+
+  useEffect(() => {
+    if (!started) return;
+
+    mainScrollRef.current?.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [index, started]);
+
   useEffect(() => {
     if (!started || !playing || finished) return;
 
     const timer = window.setTimeout(() => {
-      setIndex((current) =>
-        Math.min(current + 1, demoStationSteps.length - 1)
-      );
+      setIndex((current) => {
+        const nextIndex = Math.min(
+          current + 1,
+          demoStationSteps.length - 1
+        );
+
+        if (nextIndex !== current) {
+          speakLibot(demoStationSteps[nextIndex].id);
+        }
+
+        return nextIndex;
+      });
     }, STEP_DURATION_MS);
 
     return () => window.clearTimeout(timer);
   }, [started, playing, index, finished]);
 
-  useEffect(() => {
-    if (finished) {
-      setPlaying(false);
-    }
-  }, [finished]);
-
   function startDemo() {
+    stopLibot();
     setIndex(0);
     setActionApplied(false);
     setStarted(true);
     setPlaying(true);
+
+    window.setTimeout(() => {
+      speakLibot(demoStationSteps[0].id);
+    }, 50);
   }
 
   function replay() {
+    stopLibot();
     setIndex(0);
     setActionApplied(false);
     setStarted(true);
     setPlaying(true);
+
+    window.setTimeout(() => {
+      speakLibot(demoStationSteps[0].id);
+    }, 50);
   }
 
   function next() {
-    setIndex((current) =>
-      Math.min(current + 1, demoStationSteps.length - 1)
-    );
+    const nextIndex = Math.min(index + 1, demoStationSteps.length - 1);
+    setIndex(nextIndex);
+    speakLibot(demoStationSteps[nextIndex].id);
   }
 
   function previous() {
-    setIndex((current) => Math.max(current - 1, 0));
+    const previousIndex = Math.max(index - 1, 0);
+    setIndex(previousIndex);
+    speakLibot(demoStationSteps[previousIndex].id);
   }
 
   function applyRecommendation() {
@@ -348,6 +434,7 @@ export default function DemoStation() {
     window.setTimeout(() => {
       setIndex(8);
       setPlaying(true);
+      speakLibot(demoStationSteps[8].id);
     }, 800);
   }
 
@@ -383,7 +470,7 @@ export default function DemoStation() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/85 p-3 backdrop-blur-md">
-      <div className="relative max-h-[96vh] w-full max-w-7xl overflow-hidden rounded-3xl border border-violet-500/30 bg-[#07111f] shadow-2xl shadow-violet-950/40">
+      <div className="relative flex h-[96vh] max-h-[96vh] w-full max-w-7xl flex-col overflow-hidden rounded-3xl border border-violet-500/30 bg-[#07111f] shadow-2xl shadow-violet-950/40">
         {!started ? (
           <div className="overflow-y-auto p-8 md:p-12">
             <button
@@ -448,7 +535,7 @@ export default function DemoStation() {
           </div>
         ) : (
           <>
-            <div className="border-b border-slate-800 bg-slate-950/70 px-5 py-4">
+            <div className="shrink-0 border-b border-slate-800 bg-slate-950/70 px-5 py-3">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.22em] text-violet-300">
@@ -460,19 +547,65 @@ export default function DemoStation() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => setPlaying((value) => !value)}
+                    onClick={() => {
+                      if (soundEnabled) {
+                        stopLibot();
+                        setSoundEnabled(false);
+                      } else {
+                        setSoundEnabled(true);
+                        window.setTimeout(() => speakLibot(), 50);
+                      }
+                    }}
+                    className="rounded-lg border border-cyan-500/30 px-3 py-2 text-sm font-semibold text-cyan-300 hover:bg-cyan-500/10"
+                  >
+                    {soundEnabled ? "🔊 Son" : "🔇 Muet"}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => speakLibot()}
+                    disabled={!soundEnabled}
+                    className="rounded-lg border border-violet-500/30 px-3 py-2 text-sm font-semibold text-violet-300 hover:bg-violet-500/10 disabled:opacity-40"
+                  >
+                    ↻ Réécouter
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (playing) {
+                        stopLibot();
+                        setPlaying(false);
+                      } else {
+                        setPlaying(true);
+                        speakLibot();
+                      }
+                    }}
                     disabled={finished}
                     className="rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800 disabled:opacity-40"
                   >
                     {playing ? "⏸ Pause" : "▶ Reprendre"}
                   </button>
 
+                  <span
+                    className={`hidden rounded-lg border px-2 py-2 text-xs font-bold xl:inline ${
+                      voiceAvailable
+                        ? "border-emerald-500/20 text-emerald-300"
+                        : "border-amber-500/20 text-amber-300"
+                    }`}
+                  >
+                    {voiceAvailable ? "Voix prête" : "Voix indisponible"}
+                  </span>
+
                   <button
                     type="button"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      stopLibot();
+                      setOpen(false);
+                    }}
                     className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-400 hover:text-white"
                   >
                     Quitter
@@ -487,13 +620,15 @@ export default function DemoStation() {
                 />
               </div>
 
-              <div className="mt-4">
-                <LiveMetrics snapshot={snapshot} />
-              </div>
+              {!finalStep ? (
+                <div className="mt-3">
+                  <LiveMetrics snapshot={snapshot} />
+                </div>
+              ) : null}
             </div>
 
-            <div className="grid max-h-[73vh] overflow-hidden lg:grid-cols-[1fr_330px]">
-              <main className="overflow-y-auto p-6 md:p-8">
+            <div className="grid min-h-0 flex-1 overflow-hidden lg:grid-cols-[1fr_310px]">
+              <main ref={mainScrollRef} className={`min-h-0 overflow-y-auto scroll-smooth pb-24 ${compactStep ? "p-4 md:p-4" : "p-5 md:p-6"}`}>
                 <div className="flex items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-700 bg-slate-900 text-2xl">
                     {step.icon}
@@ -535,6 +670,15 @@ export default function DemoStation() {
                         {step.libot}
                       </p>
 
+                      <button
+                        type="button"
+                        onClick={() => speakLibot()}
+                        disabled={!soundEnabled}
+                        className="mt-3 rounded-lg border border-cyan-500/30 px-3 py-1.5 text-xs font-bold text-cyan-300 hover:bg-cyan-500/10 disabled:opacity-40"
+                      >
+                        🔊 Réécouter Libot
+                      </button>
+
                       {step.id === 8 && !actionApplied ? (
                         <button
                           type="button"
@@ -548,14 +692,16 @@ export default function DemoStation() {
                   </div>
                 </div>
 
-                <OperationalPulse
-                  snapshot={snapshot}
-                  actionApplied={actionApplied}
-                />
+                {!finalStep ? (
+                  <OperationalPulse
+                    snapshot={snapshot}
+                    actionApplied={actionApplied}
+                  />
+                ) : null}
 
                 {finished ? <EndOfDayReport snapshot={snapshot} /> : null}
 
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                <div className="sticky bottom-0 z-20 -mx-4 mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-800 bg-[#07111f]/95 px-4 py-3 backdrop-blur">
                   <button
                     type="button"
                     onClick={previous}
@@ -595,7 +741,7 @@ export default function DemoStation() {
                 </div>
               </main>
 
-              <aside className="overflow-y-auto border-t border-slate-800 bg-slate-950/50 p-5 lg:border-l lg:border-t-0">
+              <aside className="min-h-0 overflow-y-auto border-t border-slate-800 bg-slate-950/50 p-4 lg:border-l lg:border-t-0">
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-slate-500">
                   Timeline
                 </p>
@@ -609,7 +755,10 @@ export default function DemoStation() {
                       <button
                         key={item.id}
                         type="button"
-                        onClick={() => setIndex(itemIndex)}
+                        onClick={() => {
+                          setIndex(itemIndex);
+                          speakLibot(item.id);
+                        }}
                         className={`w-full rounded-xl border p-3 text-left transition ${
                           active
                             ? "border-violet-500/50 bg-violet-500/10"
