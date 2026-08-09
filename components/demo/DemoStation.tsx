@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   demoStationSteps,
@@ -131,7 +131,7 @@ function OperationalPulse({
   actionApplied: boolean;
 }) {
   return (
-    <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
       <div className="rounded-xl border border-slate-800 bg-slate-950/50 p-3">
         <p className="text-xs text-slate-500">👥 Effectif</p>
         <p className="mt-1 font-black text-white">
@@ -191,7 +191,7 @@ function EndOfDayReport({ snapshot }: { snapshot: DemoStationSnapshot }) {
   ];
 
   return (
-    <div className="mt-6 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-5">
+    <div className="mt-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-300">
@@ -210,7 +210,7 @@ function EndOfDayReport({ snapshot }: { snapshot: DemoStationSnapshot }) {
         </div>
       </div>
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl bg-slate-950/50 p-3">
           <p className="text-xs text-slate-500">Commandes terminées</p>
           <p className="mt-1 text-2xl font-black text-white">
@@ -240,7 +240,7 @@ function EndOfDayReport({ snapshot }: { snapshot: DemoStationSnapshot }) {
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-3">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-slate-500">
           Performance préparation
         </p>
@@ -289,6 +289,8 @@ export default function DemoStation() {
   const [playing, setPlaying] = useState(false);
   const [index, setIndex] = useState(0);
   const [actionApplied, setActionApplied] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const mainScrollRef = useRef<HTMLElement | null>(null);
 
   const step: DemoStationStep = demoStationSteps[index];
   const snapshot = demoStationSnapshots[step.id];
@@ -299,6 +301,63 @@ export default function DemoStation() {
   );
 
   const finished = index === demoStationSteps.length - 1;
+
+  function stopLibot() {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+  }
+
+  function speakLibot(text = step.libot) {
+    if (
+      !soundEnabled ||
+      typeof window === "undefined" ||
+      !("speechSynthesis" in window)
+    ) {
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "fr-FR";
+    speech.rate = 0.96;
+    speech.pitch = 1;
+    speech.volume = 1;
+
+    const voices = window.speechSynthesis.getVoices();
+    const frenchVoice = voices.find((voice) =>
+      voice.lang.toLowerCase().startsWith("fr")
+    );
+
+    if (frenchVoice) {
+      speech.voice = frenchVoice;
+    }
+
+    window.speechSynthesis.speak(speech);
+  }
+
+  useEffect(() => {
+    if (!started) return;
+
+    mainScrollRef.current?.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    if (soundEnabled) {
+      const timer = window.setTimeout(() => {
+        speakLibot();
+      }, 350);
+
+      return () => {
+        window.clearTimeout(timer);
+        stopLibot();
+      };
+    }
+
+    stopLibot();
+  }, [index, started, soundEnabled]);
 
   useEffect(() => {
     if (!started || !playing || finished) return;
@@ -319,6 +378,7 @@ export default function DemoStation() {
   }, [finished]);
 
   function startDemo() {
+    stopLibot();
     setIndex(0);
     setActionApplied(false);
     setStarted(true);
@@ -326,6 +386,7 @@ export default function DemoStation() {
   }
 
   function replay() {
+    stopLibot();
     setIndex(0);
     setActionApplied(false);
     setStarted(true);
@@ -383,7 +444,7 @@ export default function DemoStation() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/85 p-3 backdrop-blur-md">
-      <div className="relative max-h-[96vh] w-full max-w-7xl overflow-hidden rounded-3xl border border-violet-500/30 bg-[#07111f] shadow-2xl shadow-violet-950/40">
+      <div className="relative h-[94vh] w-full max-w-7xl overflow-hidden rounded-3xl border border-violet-500/30 bg-[#07111f] shadow-2xl shadow-violet-950/40">
         {!started ? (
           <div className="overflow-y-auto p-8 md:p-12">
             <button
@@ -448,7 +509,7 @@ export default function DemoStation() {
           </div>
         ) : (
           <>
-            <div className="border-b border-slate-800 bg-slate-950/70 px-5 py-4">
+            <div className="border-b border-slate-800 bg-slate-950/70 px-5 py-3">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-[0.22em] text-violet-300">
@@ -460,10 +521,39 @@ export default function DemoStation() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     type="button"
-                    onClick={() => setPlaying((value) => !value)}
+                    onClick={() => {
+                      if (soundEnabled) {
+                        stopLibot();
+                        setSoundEnabled(false);
+                      } else {
+                        setSoundEnabled(true);
+                      }
+                    }}
+                    className="rounded-lg border border-cyan-500/30 px-3 py-2 text-sm font-semibold text-cyan-300 hover:bg-cyan-500/10"
+                  >
+                    {soundEnabled ? "🔊 Son" : "🔇 Muet"}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => speakLibot()}
+                    disabled={!soundEnabled}
+                    className="rounded-lg border border-violet-500/30 px-3 py-2 text-sm font-semibold text-violet-300 hover:bg-violet-500/10 disabled:opacity-40"
+                  >
+                    ↻ Réécouter Libot
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (playing) {
+                        stopLibot();
+                      }
+                      setPlaying((value) => !value);
+                    }}
                     disabled={finished}
                     className="rounded-lg border border-slate-700 px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800 disabled:opacity-40"
                   >
@@ -472,7 +562,10 @@ export default function DemoStation() {
 
                   <button
                     type="button"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      stopLibot();
+                      setOpen(false);
+                    }}
                     className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-400 hover:text-white"
                   >
                     Quitter
@@ -480,7 +573,7 @@ export default function DemoStation() {
                 </div>
               </div>
 
-              <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-800">
+              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-800">
                 <div
                   className="h-full rounded-full bg-violet-500 transition-all duration-700"
                   style={{ width: `${progress}%` }}
@@ -492,8 +585,8 @@ export default function DemoStation() {
               </div>
             </div>
 
-            <div className="grid max-h-[73vh] overflow-hidden lg:grid-cols-[1fr_330px]">
-              <main className="overflow-y-auto p-6 md:p-8">
+            <div className="grid h-[calc(94vh-190px)] min-h-0 overflow-hidden lg:grid-cols-[1fr_310px]">
+              <main ref={mainScrollRef} className="min-h-0 overflow-y-auto scroll-smooth p-5 pb-28 md:p-6 md:pb-28">
                 <div className="flex items-center gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-700 bg-slate-900 text-2xl">
                     {step.icon}
@@ -522,7 +615,7 @@ export default function DemoStation() {
                   </p>
                 </div>
 
-                <div className="mt-4 rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4">
+                <div className="mt-3 rounded-2xl border border-cyan-500/20 bg-cyan-500/5 p-4">
                   <div className="flex gap-4">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-xl">
                       🤖
