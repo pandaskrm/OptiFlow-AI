@@ -51,6 +51,8 @@ function prepareSpeechText(text: string) {
     .replace(/\bKPI\b/gi, "ka, pé, i")
     .replace(/\bAPI\b/gi, "a, pé, i")
     .replace(/\bIA\b/g, "i a")
+    .replace(/\bpréparateurs\b/gi, "préparatteurs")
+    .replace(/\bpréparateur\b/gi, "préparatteur")
     .replace(/[\p{Extended_Pictographic}\uFE0F]/gu, "")
     .replace(/\s*\.\s*\.\s*/g, ". ")
     .replace(/\s{2,}/g, " ")
