@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import useVoiceAssistant from "../../hooks/useVoiceAssistant";
 
 import {
   demoStationSteps,
@@ -289,9 +290,15 @@ export default function DemoStation() {
   const [playing, setPlaying] = useState(false);
   const [index, setIndex] = useState(0);
   const [actionApplied, setActionApplied] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(true);
-  const [voiceAvailable, setVoiceAvailable] = useState(true);
   const mainScrollRef = useRef<HTMLElement | null>(null);
+
+  const {
+    speaking,
+    voiceEnabled,
+    speak,
+    stopSpeaking,
+    toggleVoice,
+  } = useVoiceAssistant();
 
   const step: DemoStationStep = demoStationSteps[index];
   const snapshot = demoStationSnapshots[step.id];
@@ -304,12 +311,6 @@ export default function DemoStation() {
   );
 
   const finished = index === demoStationSteps.length - 1;
-
-  function stopLibot() {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
-  }
 
   function getLibotSpeech(stepId: number) {
     const selectedStep =
@@ -325,41 +326,7 @@ export default function DemoStation() {
   }
 
   function speakLibot(stepId = step.id) {
-    if (
-      !soundEnabled ||
-      typeof window === "undefined" ||
-      !("speechSynthesis" in window)
-    ) {
-      setVoiceAvailable(false);
-      return;
-    }
-
-    const synth = window.speechSynthesis;
-
-    synth.cancel();
-    synth.resume();
-
-    const speech = new SpeechSynthesisUtterance(getLibotSpeech(stepId));
-
-    speech.lang = "fr-FR";
-    speech.rate = 0.94;
-    speech.pitch = 1;
-    speech.volume = 1;
-
-    const voices = synth.getVoices();
-
-    const frenchVoice =
-      voices.find((voice) => voice.lang.toLowerCase() === "fr-fr") ??
-      voices.find((voice) => voice.lang.toLowerCase().startsWith("fr"));
-
-    if (frenchVoice) {
-      speech.voice = frenchVoice;
-    }
-
-    speech.onstart = () => setVoiceAvailable(true);
-    speech.onerror = () => setVoiceAvailable(false);
-
-    synth.speak(speech);
+    speak(getLibotSpeech(stepId));
   }
 
   useEffect(() => {
@@ -393,7 +360,7 @@ export default function DemoStation() {
   }, [started, playing, index, finished]);
 
   function startDemo() {
-    stopLibot();
+    stopSpeaking();
     setIndex(0);
     setActionApplied(false);
     setStarted(true);
@@ -405,7 +372,7 @@ export default function DemoStation() {
   }
 
   function replay() {
-    stopLibot();
+    stopSpeaking();
     setIndex(0);
     setActionApplied(false);
     setStarted(true);
@@ -551,23 +518,21 @@ export default function DemoStation() {
                   <button
                     type="button"
                     onClick={() => {
-                      if (soundEnabled) {
-                        stopLibot();
-                        setSoundEnabled(false);
-                      } else {
-                        setSoundEnabled(true);
+                      toggleVoice();
+
+                      if (!voiceEnabled) {
                         window.setTimeout(() => speakLibot(), 50);
                       }
                     }}
                     className="rounded-lg border border-cyan-500/30 px-3 py-2 text-sm font-semibold text-cyan-300 hover:bg-cyan-500/10"
                   >
-                    {soundEnabled ? "🔊 Son" : "🔇 Muet"}
+                    {voiceEnabled ? "🔊 Son" : "🔇 Muet"}
                   </button>
 
                   <button
                     type="button"
                     onClick={() => speakLibot()}
-                    disabled={!soundEnabled}
+                    disabled={!voiceEnabled}
                     className="rounded-lg border border-violet-500/30 px-3 py-2 text-sm font-semibold text-violet-300 hover:bg-violet-500/10 disabled:opacity-40"
                   >
                     ↻ Réécouter
@@ -577,7 +542,7 @@ export default function DemoStation() {
                     type="button"
                     onClick={() => {
                       if (playing) {
-                        stopLibot();
+                        stopSpeaking();
                         setPlaying(false);
                       } else {
                         setPlaying(true);
@@ -592,18 +557,18 @@ export default function DemoStation() {
 
                   <span
                     className={`hidden rounded-lg border px-2 py-2 text-xs font-bold xl:inline ${
-                      voiceAvailable
-                        ? "border-emerald-500/20 text-emerald-300"
-                        : "border-amber-500/20 text-amber-300"
+                      speaking
+                        ? "border-cyan-500/20 text-cyan-300"
+                        : "border-emerald-500/20 text-emerald-300"
                     }`}
                   >
-                    {voiceAvailable ? "Voix prête" : "Voix indisponible"}
+                    {speaking ? "Libot parle…" : "Voix Premium prête"}
                   </span>
 
                   <button
                     type="button"
                     onClick={() => {
-                      stopLibot();
+                      stopSpeaking();
                       setOpen(false);
                     }}
                     className="rounded-lg border border-slate-700 px-3 py-2 text-sm text-slate-400 hover:text-white"
@@ -673,7 +638,7 @@ export default function DemoStation() {
                       <button
                         type="button"
                         onClick={() => speakLibot()}
-                        disabled={!soundEnabled}
+                        disabled={!voiceEnabled}
                         className="mt-3 rounded-lg border border-cyan-500/30 px-3 py-1.5 text-xs font-bold text-cyan-300 hover:bg-cyan-500/10 disabled:opacity-40"
                       >
                         🔊 Réécouter Libot
