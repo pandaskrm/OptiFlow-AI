@@ -13,7 +13,25 @@ import {
   type DemoStationSnapshot,
 } from "../../lib/demo/demoStationMetrics";
 
-const STEP_DURATION_MS = 30000;
+const STEP_DURATIONS_MS: Record<number, number> = {
+  1: 24000,
+  2: 24000,
+  3: 18000,
+  4: 18000,
+  5: 19000,
+  6: 24000,
+  7: 29000,
+  8: 29000,
+  9: 23000,
+  10: 22000,
+  11: 28000,
+  12: 22000,
+  13: 36000,
+};
+
+function getStepDuration(stepId: number) {
+  return STEP_DURATIONS_MS[stepId] ?? 22000;
+}
 
 const accentClasses = {
   cyan: "border-cyan-500/40 bg-cyan-500/10 text-cyan-300",
@@ -93,10 +111,10 @@ function LiveMetrics({ snapshot }: { snapshot: DemoStationSnapshot }) {
 
       <MetricCard
         icon="⚡"
-        label="Productivité"
-        value={`${snapshot.productivity}%`}
-        detail={`Objectif projeté ${snapshot.projectedService}%`}
-        danger={snapshot.productivity < 90}
+        label="Productivité préparation"
+        value={`${snapshot.productivity} l/h`}
+        detail="Lignes / heure / préparateur"
+        danger={snapshot.alerts > 0}
       />
 
       <MetricCard
@@ -185,10 +203,10 @@ function OperationalPulse({
 
 function EndOfDayReport({ snapshot }: { snapshot: DemoStationSnapshot }) {
   const leaderboard = [
-    { name: "Préparateur A", lines: 633, productivity: 112 },
-    { name: "Préparateur B", lines: 542, productivity: 107 },
-    { name: "Préparateur C", lines: 498, productivity: 104 },
-    { name: "Préparateur D", lines: 479, productivity: 101 },
+    { name: "Préparateur A", lines: 633, linesPerHour: 78 },
+    { name: "Préparateur B", lines: 542, linesPerHour: 66 },
+    { name: "Préparateur C", lines: 498, linesPerHour: 61 },
+    { name: "Préparateur D", lines: 479, linesPerHour: 59 },
   ];
 
   return (
@@ -262,7 +280,7 @@ function EndOfDayReport({ snapshot }: { snapshot: DemoStationSnapshot }) {
               </div>
 
               <span className="font-black text-emerald-300">
-                {picker.productivity}%
+                {picker.linesPerHour} l/h
               </span>
             </div>
           ))}
@@ -354,7 +372,7 @@ export default function DemoStation() {
 
         return nextIndex;
       });
-    }, STEP_DURATION_MS);
+    }, getStepDuration(step.id));
 
     return () => window.clearTimeout(timer);
   }, [started, playing, index, finished]);

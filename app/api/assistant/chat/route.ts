@@ -265,23 +265,63 @@ ${RECEPTION_WORKFLOW}\n${OPTIONAL_RECEPTION_FIELDS}\n${context}`,
 
     const lower = safeMessages.at(-1)?.content.toLowerCase() ?? "";
 
-let action: string | null = null;
+    let action: string | null = null;
 
-if (lower.includes("dashboard") || lower.includes("tableau de bord")) {
-  action = "/dashboard";
-} else if (lower.includes("réception") || lower.includes("reception")) {
-  action = "/reception";
-} else if (lower.includes("expédition") || lower.includes("expedition")) {
-  action = "/shipping";
-} else if (lower.includes("stock")) {
-  action = "/stock";
-} else if (lower.includes("préparation") || lower.includes("preparation")) {
-  action = "/preparation";
-} else if (lower.includes("équipe") || lower.includes("equipe")) {
-  action = "/team";
-} else if (lower.includes("paramètre") || lower.includes("parametre") || lower.includes("erp")) {
-  action = "/parametres";
-}
+    const normalizedLower = lower
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
+    const navigationRequested =
+      /\b(ouvre|ouvrir|affiche|afficher|montre|montrer|va|aller|emmene|emmener|accede|acceder)\b/.test(
+        normalizedLower,
+      );
+
+    if (navigationRequested) {
+      if (
+        normalizedLower.includes("dashboard") ||
+        normalizedLower.includes("tableau de bord")
+      ) {
+        action = "/dashboard";
+      } else if (normalizedLower.includes("reception")) {
+        action = "/reception";
+      } else if (
+        normalizedLower.includes("expedition") ||
+        normalizedLower.includes("shipping")
+      ) {
+        action = "/shipping";
+      } else if (normalizedLower.includes("stock")) {
+        action = "/stock";
+      } else if (normalizedLower.includes("preparation")) {
+        action = "/preparation";
+      } else if (
+        normalizedLower.includes("equipe") ||
+        normalizedLower.includes("team")
+      ) {
+        action = "/team";
+      } else if (
+        normalizedLower.includes("parametre") ||
+        normalizedLower.includes("erp")
+      ) {
+        action = "/parametres";
+      } else if (
+        normalizedLower.includes("direction") ||
+        normalizedLower.includes("dirigeant")
+      ) {
+        action = "/executive";
+      } else if (
+        normalizedLower.includes("demo") ||
+        normalizedLower.includes("demonstration")
+      ) {
+        action = "/demo";
+      } else if (
+        normalizedLower.includes("intelligence artificielle") ||
+        normalizedLower === "ouvre ia" ||
+        normalizedLower === "affiche ia"
+      ) {
+        action = "/ai";
+      }
+    }
 
 return NextResponse.json({
   answer,

@@ -24,12 +24,35 @@ export async function GET() {
     });
 
     return NextResponse.json(receptions);
-  } catch (error) {
-    console.error("Reception GET error:", error);
+    } catch (error) {
+    console.error("Reception create error:", error);
+
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "P2002"
+    ) {
+      return NextResponse.json(
+        {
+          message:
+            "Ce numéro de réception existe déjà. Utilisez un numéro différent.",
+          code: "DUPLICATE_RECEPTION_NUMBER",
+        },
+        {
+          status: 409,
+        }
+      );
+    }
 
     return NextResponse.json(
-      { message: "Impossible de charger les réceptions." },
-      { status: 500 },
+      {
+        message:
+          "La réception n'a pas pu être enregistrée.",
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
