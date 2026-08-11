@@ -36,8 +36,8 @@ export default function PreparationScenarioSummary() {
 
   return (
     <>
-      <section className="rounded-3xl border border-white/10 bg-slate-950 p-8 text-white shadow-2xl">
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
+      <section className="relative overflow-hidden rounded-3xl border border-[#006bff]/40 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-8 text-white shadow-[0_0_32px_rgba(0,107,255,0.14)]">
+        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-[#00e5ff]">
           Module préparation
         </p>
 
@@ -53,12 +53,12 @@ export default function PreparationScenarioSummary() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-cyan-400/30 bg-cyan-400/10 px-5 py-4">
-            <p className="text-sm text-cyan-300">
+          <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-r from-[#006bff]/15 to-[#00e5ff]/5 px-5 py-4">
+            <p className="text-sm text-[#00e5ff]">
               Statut opérationnel
             </p>
 
-            <p className="text-2xl font-bold text-cyan-100">
+            <p className="text-2xl font-bold text-[#bdf9ff]">
               {preparation.status}
             </p>
           </div>

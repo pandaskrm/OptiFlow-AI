@@ -1,7 +1,7 @@
 export default function PreparationHero() {
   return (
-    <section className="rounded-3xl border border-white/10 bg-slate-950 p-8 text-white shadow-2xl">
-      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-400">
+    <section className="relative overflow-hidden rounded-3xl border border-[#006bff]/40 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-8 text-white shadow-[0_0_32px_rgba(0,107,255,0.14)]">
+      <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-[#00e5ff]">
         Module préparation
       </p>
 

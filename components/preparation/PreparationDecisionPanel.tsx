@@ -55,10 +55,10 @@ export default function PreparationDecisionPanel() {
   const objectiveSafe = reinforcementApplied;
 
   return (
-    <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
+    <section className="rounded-3xl border border-[#006bff]/35 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 text-white shadow-[0_0_24px_rgba(0,107,255,0.10)]">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#00e5ff]">
             Libot · Pilotage préparation
           </p>
 
@@ -101,7 +101,7 @@ export default function PreparationDecisionPanel() {
         />
       </div>
 
-      <div className="mt-5 rounded-2xl border border-white/10 bg-[#071426]/5 p-4">
+      <div className="mt-5 rounded-2xl border border-[#006bff]/25 bg-[#071426]/90 p-4">
         <div className="flex items-center justify-between gap-4">
           <span className="text-sm font-semibold text-slate-300">
             Avancement objectif
@@ -112,7 +112,7 @@ export default function PreparationDecisionPanel() {
           </span>
         </div>
 
-        <div className="mt-3 h-3 overflow-hidden rounded-full bg-slate-800">
+        <div className="mt-3 h-3 overflow-hidden rounded-full border border-[#006bff]/20 bg-[#020617]">
           <div
             className={`h-full rounded-full transition-all duration-700 ${
               objectiveSafe ? "bg-emerald-500/100" : "bg-orange-500"
@@ -134,7 +134,7 @@ export default function PreparationDecisionPanel() {
             objectiveSafe ? "text-emerald-300" : "text-red-300"
           }`}
         >
-          Analyse Libot
+          Analyse OrganIA
         </p>
 
         <p className="mt-2 text-sm leading-6 text-slate-200">
@@ -157,8 +157,8 @@ export default function PreparationDecisionPanel() {
                 isApplied
                   ? "border-emerald-500/30 bg-emerald-500/100/10"
                   : isIgnored
-                    ? "border-white/5 bg-[#071426]/[0.02] opacity-50"
-                    : "border-white/10 bg-[#071426]/5"
+                    ? "border-[#006bff]/10 bg-[#071426]/40 opacity-50"
+                    : "border-[#006bff]/25 bg-[#071426]/90"
               }`}
             >
               <div className="flex items-start justify-between gap-3">
@@ -171,7 +171,7 @@ export default function PreparationDecisionPanel() {
                     {decision.action}
                   </p>
 
-                  <p className="mt-2 text-sm font-semibold text-cyan-300">
+                  <p className="mt-2 text-sm font-semibold text-[#00e5ff]">
                     {decision.impact}
                   </p>
                 </div>
@@ -194,7 +194,7 @@ export default function PreparationDecisionPanel() {
                       setReinforcementApplied(true);
                     }
                   }}
-                  className="rounded-xl bg-[#00e5ff]/80 px-3 py-2 text-xs font-bold text-white transition hover:bg-cyan-400 disabled:cursor-default disabled:bg-emerald-600"
+                  className="rounded-xl bg-gradient-to-r from-[#006bff] to-[#00a8ff] px-3 py-2 text-xs font-bold text-white shadow-[0_0_18px_rgba(0,140,255,0.25)] transition hover:brightness-110 disabled:cursor-default disabled:bg-emerald-600"
                 >
                   {isApplied ? "Plan appliqué" : "Valider"}
                 </button>
@@ -208,7 +208,7 @@ export default function PreparationDecisionPanel() {
                         : [...current, decision.title]
                     )
                   }
-                  className="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-slate-300 transition hover:bg-[#071426]/10"
+                  className="rounded-xl border border-[#006bff]/30 bg-[#071426]/80 px-3 py-2 text-xs font-bold text-slate-300 transition hover:bg-[#071426]/10"
                 >
                   Ignorer
                 </button>
@@ -220,7 +220,7 @@ export default function PreparationDecisionPanel() {
 
       <button
         type="button"
-        className="mt-5 w-full rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-sm font-bold text-cyan-200 transition hover:bg-cyan-400/20"
+        className="mt-5 w-full rounded-xl border border-[#008cff]/45 bg-gradient-to-r from-[#006bff]/15 to-[#00e5ff]/5 px-4 py-3 text-sm font-bold text-[#7df4ff] transition hover:bg-cyan-400/20"
       >
         Voir les commandes à risque
       </button>
@@ -238,7 +238,7 @@ function Metric({
   alert?: boolean;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#071426]/5 p-4">
+    <div className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/90 p-4">
       <p className="text-xs font-medium text-slate-400">
         {label}
       </p>

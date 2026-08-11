@@ -66,11 +66,11 @@ export default function PreparationAi({
         : "border-emerald-500/30 bg-emerald-500/100/10 text-emerald-300";
 
   return (
-    <section className="group relative overflow-hidden rounded-3xl border border-[#006bff]/45 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 text-white shadow-[0_0_28px_rgba(0,107,255,0.14)] transition duration-300 hover:border-[#008cff]/70 hover:shadow-[0_0_36px_rgba(0,140,255,0.22)]">
+    <section className="organia-electric-panel organia-electric-panel-v2 group relative overflow-hidden rounded-3xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 text-white shadow-[0_0_28px_rgba(0,107,255,0.18),inset_0_0_28px_rgba(0,140,255,0.05)] transition duration-300 hover:border-[#00e5ff]/75 hover:shadow-[0_0_38px_rgba(0,140,255,0.28)]">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.35)]">
-            Libot Intelligence
+            OrganIA Intelligence
           </p>
 
           <h2 className="mt-1 text-xl font-bold">
@@ -156,7 +156,7 @@ export default function PreparationAi({
 
       <div className="mt-5 rounded-2xl border border-[#008cff]/45 bg-gradient-to-r from-[#006bff]/15 to-[#00e5ff]/5 p-4 shadow-[0_0_24px_rgba(0,140,255,0.12)]">
         <p className="text-sm font-black text-[#00e5ff]">
-          Recommandation Libot
+          Recommandation OrganIA
         </p>
 
         <p className="mt-2 text-sm leading-6 text-slate-200">

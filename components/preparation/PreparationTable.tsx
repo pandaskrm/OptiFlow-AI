@@ -73,7 +73,7 @@ export default function PreparationTable() {
   }, []);
 
   return (
-    <section className="rounded-3xl border border-[#006bff]/30 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 shadow-sm">
+    <section className="organia-electric-panel organia-electric-panel-v2 rounded-3xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-6 shadow-sm">
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-white">
@@ -89,9 +89,9 @@ export default function PreparationTable() {
         </span>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-[#006bff]/25">
+      <div className="overflow-hidden rounded-2xl border border-[#008cff]/35 bg-[#020617]/55 shadow-[inset_0_0_22px_rgba(0,107,255,0.04)]">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[#071426]/90 text-slate-400">
+          <thead className="bg-gradient-to-r from-[#006bff]/14 to-[#00e5ff]/5 text-[#9eefff]">
             <tr>
               <th className="px-4 py-3">Commande</th>
               <th className="px-4 py-3">Client</th>
@@ -104,9 +104,9 @@ export default function PreparationTable() {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-[#006bff]/15">
+          <tbody className="divide-y divide-[#008cff]/15">
             {orders.map((order) => (
-              <tr key={order.id} className="text-slate-300 transition hover:bg-[#071426]/90">
+              <tr key={order.id} className="text-slate-300 transition hover:bg-[#006bff]/10">
                 <td className="px-4 py-4 font-semibold text-white">{order.id}</td>
                 <td className="px-4 py-4">{order.customer}</td>
                 <td className="px-4 py-4">{order.picker}</td>
@@ -118,9 +118,9 @@ export default function PreparationTable() {
                 <td className="px-4 py-4 font-medium">{order.lines}</td>
                 <td className="px-4 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="h-2 w-28 rounded-full bg-[#0b1d33]">
+                    <div className="h-2 w-28 overflow-hidden rounded-full border border-[#008cff]/20 bg-[#020617]">
                       <div
-                        className="h-2 rounded-full bg-[#00e5ff]/80 transition-all duration-700"
+                        className="h-2 rounded-full bg-gradient-to-r from-[#006bff] to-[#00e5ff] shadow-[0_0_10px_rgba(0,229,255,0.50)] transition-all duration-700"
                         style={{ width: `${order.progress}%` }}
                       />
                     </div>

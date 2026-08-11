@@ -57,7 +57,7 @@ export default function PickerPerformance() {
   );
 
   return (
-    <section className="rounded-3xl border border-[#006bff]/30 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 shadow-sm">
+    <section className="organia-electric-panel organia-electric-panel-v2 rounded-3xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-6 shadow-sm">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#00e5ff]">
@@ -73,7 +73,7 @@ export default function PickerPerformance() {
           </p>
         </div>
 
-        <span className="rounded-full bg-slate-950 px-3 py-1 text-xs font-bold text-white">
+        <span className="rounded-full border border-[#006bff]/30 bg-[#071426] px-3 py-1 text-xs font-bold text-white">
           LIVE
         </span>
       </div>
@@ -115,7 +115,7 @@ export default function PickerPerformance() {
 
             <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#10233b]">
               <div
-                className="h-full rounded-full bg-[#00e5ff]/80 transition-all duration-700"
+                className="h-full rounded-full bg-gradient-to-r from-[#006bff] via-[#008cff] to-[#00e5ff] shadow-[0_0_12px_rgba(0,229,255,0.55)] transition-all duration-700"
                 style={{ width: `${Math.min(100, picker.performance)}%` }}
               />
             </div>
@@ -123,12 +123,12 @@ export default function PickerPerformance() {
         ))}
       </div>
 
-      <div className="mt-5 rounded-2xl border border-cyan-200 bg-[#00e5ff]/8 p-4">
-        <p className="text-sm font-bold text-cyan-950">
+      <div className="mt-5 rounded-2xl border border-[#00e5ff]/30 bg-gradient-to-r from-[#006bff]/12 to-[#00e5ff]/6 p-4 shadow-[0_0_20px_rgba(0,140,255,0.10)]">
+        <p className="text-sm font-black text-[#00e5ff]">
           Analyse Libot
         </p>
 
-        <p className="mt-1 text-sm text-cyan-900">
+        <p className="mt-1 text-sm text-slate-300">
           La performance combine les BP, colis, lignes et quantités afin
           d'éviter de comparer les préparateurs uniquement sur le nombre
           de commandes terminées.

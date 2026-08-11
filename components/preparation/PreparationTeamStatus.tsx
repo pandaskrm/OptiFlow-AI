@@ -20,7 +20,7 @@ export default function PreparationTeamStatus() {
   const maxStaff = Math.max(...teamAreas.map((item) => item.staff));
 
   return (
-    <section className="rounded-3xl border border-[#006bff]/30 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 shadow-sm">
+    <section className="organia-electric-panel organia-electric-panel-v2 rounded-3xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-6 shadow-sm">
       <div className="mb-5">
         <h2 className="text-xl font-bold text-white">Équipe du jour</h2>
         <p className="text-sm font-medium text-slate-300">
@@ -29,7 +29,7 @@ export default function PreparationTeamStatus() {
       </div>
 
       <div className="mb-6 grid gap-3 md:grid-cols-5">
-        <div className="rounded-2xl bg-[#071426]/90 p-4">
+        <div className="rounded-2xl border border-[#008cff]/25 bg-[#071426]/85 p-4 shadow-[inset_0_0_16px_rgba(0,107,255,0.04)]">
           <p className="text-sm font-medium text-slate-300">Prévus</p>
           <p className="text-2xl font-bold text-white">{planned}</p>
         </div>
@@ -56,7 +56,7 @@ export default function PreparationTeamStatus() {
       </div>
 
       <div className="grid gap-5 xl:grid-cols-2">
-        <div className="rounded-2xl border border-[#006bff]/25 p-4">
+        <div className="rounded-2xl border border-[#008cff]/30 bg-[#020617]/45 p-4 shadow-[inset_0_0_18px_rgba(0,107,255,0.04)]">
           <h3 className="mb-3 font-bold text-white">Préparateurs absents</h3>
 
           <div className="space-y-3">
@@ -78,7 +78,7 @@ export default function PreparationTeamStatus() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#006bff]/25 p-4">
+        <div className="rounded-2xl border border-[#008cff]/30 bg-[#020617]/45 p-4 shadow-[inset_0_0_18px_rgba(0,107,255,0.04)]">
           <h3 className="mb-3 font-bold text-white">Répartition équipe</h3>
 
           <div className="space-y-3">
@@ -89,9 +89,9 @@ export default function PreparationTeamStatus() {
                   <span className="font-bold text-white">{item.staff}</span>
                 </div>
 
-                <div className="h-3 rounded-full bg-[#0b1d33]">
+                <div className="h-3 overflow-hidden rounded-full border border-[#008cff]/20 bg-[#020617]">
                   <div
-                    className="h-3 rounded-full bg-[#00e5ff]/80"
+                    className="h-3 rounded-full bg-gradient-to-r from-[#006bff] to-[#00e5ff] shadow-[0_0_10px_rgba(0,229,255,0.50)]"
                     style={{ width: `${(item.staff / maxStaff) * 100}%` }}
                   />
                 </div>
@@ -101,8 +101,8 @@ export default function PreparationTeamStatus() {
         </div>
       </div>
 
-      <div className="mt-5 rounded-2xl border border-cyan-400/20 bg-slate-950 p-4 text-white">
-        <p className="font-semibold text-cyan-300">Analyse IA équipe</p>
+      <div className="mt-5 rounded-2xl border border-[#006bff]/35 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-4 text-white">
+        <p className="font-semibold text-[#00e5ff]">Analyse IA équipe</p>
         <p className="mt-2 text-sm text-slate-300">
           2 préparateurs sont absents aujourd'hui. Les allées 9 à 12 sont les
           plus sensibles avec seulement 4 personnes. Il est recommandé
