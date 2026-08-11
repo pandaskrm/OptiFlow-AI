@@ -17,10 +17,10 @@ export default function PreparationStats() {
       {cards.map((card) => (
         <div
           key={card.label}
-          className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+          className="rounded-2xl border border-[#006bff]/30 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-5 shadow-sm"
         >
-          <p className="text-sm font-medium text-slate-700">{card.label}</p>
-          <p className="mt-2 text-3xl font-bold text-slate-950">{card.value}</p>
+          <p className="text-sm font-medium text-slate-300">{card.label}</p>
+          <p className="mt-2 text-3xl font-bold text-white">{card.value}</p>
         </div>
       ))}
     </section>

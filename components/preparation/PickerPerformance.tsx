@@ -57,18 +57,18 @@ export default function PickerPerformance() {
   );
 
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <section className="rounded-3xl border border-[#006bff]/30 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 shadow-sm">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-600">
+          <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#00e5ff]">
             Préparation Intelligence
           </p>
 
-          <h2 className="mt-1 text-xl font-bold text-slate-950">
+          <h2 className="mt-1 text-xl font-bold text-white">
             Performance préparateurs
           </h2>
 
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1 text-sm text-slate-400">
             Classement dynamique basé sur plusieurs indicateurs de préparation.
           </p>
         </div>
@@ -82,15 +82,15 @@ export default function PickerPerformance() {
         {ranked.map((picker, index) => (
           <div
             key={picker.name}
-            className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+            className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/90 p-4"
           >
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="font-bold text-slate-950">
+                <p className="font-bold text-white">
                   #{index + 1} {picker.name}
                 </p>
 
-                <p className="text-xs font-medium text-slate-600">
+                <p className="text-xs font-medium text-slate-400">
                   {picker.status}
                 </p>
               </div>
@@ -98,7 +98,7 @@ export default function PickerPerformance() {
               <p
                 className={`text-2xl font-black ${
                   picker.performance >= 100
-                    ? "text-emerald-600"
+                    ? "text-emerald-300"
                     : "text-orange-500"
                 }`}
               >
@@ -113,9 +113,9 @@ export default function PickerPerformance() {
               <Metric label="Qté" value={picker.quantity} />
             </div>
 
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200">
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#10233b]">
               <div
-                className="h-full rounded-full bg-cyan-500 transition-all duration-700"
+                className="h-full rounded-full bg-[#00e5ff]/80 transition-all duration-700"
                 style={{ width: `${Math.min(100, picker.performance)}%` }}
               />
             </div>
@@ -123,7 +123,7 @@ export default function PickerPerformance() {
         ))}
       </div>
 
-      <div className="mt-5 rounded-2xl border border-cyan-200 bg-cyan-50 p-4">
+      <div className="mt-5 rounded-2xl border border-cyan-200 bg-[#00e5ff]/8 p-4">
         <p className="text-sm font-bold text-cyan-950">
           Analyse Libot
         </p>
@@ -148,7 +148,7 @@ function Metric({
   return (
     <div>
       <p className="text-[11px] font-medium text-slate-500">{label}</p>
-      <p className="font-bold text-slate-950">
+      <p className="font-bold text-white">
         {value.toLocaleString("fr-FR")}
       </p>
     </div>

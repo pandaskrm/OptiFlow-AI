@@ -34,9 +34,9 @@ const decisions: Decision[] = [
 ];
 
 function priorityStyle(priority: Decision["priority"]) {
-  if (priority === "Haute") return "bg-red-100 text-red-700";
-  if (priority === "Moyenne") return "bg-amber-100 text-amber-700";
-  return "bg-emerald-100 text-emerald-700";
+  if (priority === "Haute") return "bg-red-500/15 text-red-300";
+  if (priority === "Moyenne") return "bg-amber-500/15 text-amber-300";
+  return "bg-emerald-500/15 text-emerald-300";
 }
 
 export default function PreparationDecisionPanel() {
@@ -70,8 +70,8 @@ export default function PreparationDecisionPanel() {
         <span
           className={`rounded-full px-3 py-1 text-xs font-bold ${
             objectiveSafe
-              ? "bg-emerald-500/20 text-emerald-300"
-              : "bg-red-500/20 text-red-300"
+              ? "bg-emerald-500/100/20 text-emerald-300"
+              : "bg-red-500/100/20 text-red-300"
           }`}
         >
           {objectiveSafe ? "Objectif sécurisé" : "Risque détecté"}
@@ -101,7 +101,7 @@ export default function PreparationDecisionPanel() {
         />
       </div>
 
-      <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
+      <div className="mt-5 rounded-2xl border border-white/10 bg-[#071426]/5 p-4">
         <div className="flex items-center justify-between gap-4">
           <span className="text-sm font-semibold text-slate-300">
             Avancement objectif
@@ -115,7 +115,7 @@ export default function PreparationDecisionPanel() {
         <div className="mt-3 h-3 overflow-hidden rounded-full bg-slate-800">
           <div
             className={`h-full rounded-full transition-all duration-700 ${
-              objectiveSafe ? "bg-emerald-500" : "bg-orange-500"
+              objectiveSafe ? "bg-emerald-500/100" : "bg-orange-500"
             }`}
             style={{ width: `${objectiveRate}%` }}
           />
@@ -125,8 +125,8 @@ export default function PreparationDecisionPanel() {
       <div
         className={`mt-5 rounded-2xl border p-4 ${
           objectiveSafe
-            ? "border-emerald-500/30 bg-emerald-500/10"
-            : "border-red-500/30 bg-red-500/10"
+            ? "border-emerald-500/30 bg-emerald-500/100/10"
+            : "border-red-500/30 bg-red-500/100/10"
         }`}
       >
         <p
@@ -155,10 +155,10 @@ export default function PreparationDecisionPanel() {
               key={decision.title}
               className={`rounded-2xl border p-4 transition ${
                 isApplied
-                  ? "border-emerald-500/30 bg-emerald-500/10"
+                  ? "border-emerald-500/30 bg-emerald-500/100/10"
                   : isIgnored
-                    ? "border-white/5 bg-white/[0.02] opacity-50"
-                    : "border-white/10 bg-white/5"
+                    ? "border-white/5 bg-[#071426]/[0.02] opacity-50"
+                    : "border-white/10 bg-[#071426]/5"
               }`}
             >
               <div className="flex items-start justify-between gap-3">
@@ -194,7 +194,7 @@ export default function PreparationDecisionPanel() {
                       setReinforcementApplied(true);
                     }
                   }}
-                  className="rounded-xl bg-cyan-500 px-3 py-2 text-xs font-bold text-white transition hover:bg-cyan-400 disabled:cursor-default disabled:bg-emerald-600"
+                  className="rounded-xl bg-[#00e5ff]/80 px-3 py-2 text-xs font-bold text-white transition hover:bg-cyan-400 disabled:cursor-default disabled:bg-emerald-600"
                 >
                   {isApplied ? "Plan appliqué" : "Valider"}
                 </button>
@@ -208,7 +208,7 @@ export default function PreparationDecisionPanel() {
                         : [...current, decision.title]
                     )
                   }
-                  className="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-slate-300 transition hover:bg-white/10"
+                  className="rounded-xl border border-white/10 px-3 py-2 text-xs font-bold text-slate-300 transition hover:bg-[#071426]/10"
                 >
                   Ignorer
                 </button>
@@ -238,7 +238,7 @@ function Metric({
   alert?: boolean;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-2xl border border-white/10 bg-[#071426]/5 p-4">
       <p className="text-xs font-medium text-slate-400">
         {label}
       </p>

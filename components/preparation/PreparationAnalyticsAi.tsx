@@ -8,7 +8,7 @@ export default function PreparationAnalyticsAi() {
         Le jeudi est le jour le plus chargé avec 501 commandes préparées.
       </p>
 
-      <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-4">
+      <div className="mt-5 rounded-2xl border border-white/10 bg-[#071426]/5 p-4">
         <p className="font-semibold text-cyan-300">Recommandation manager</p>
         <p className="mt-2 text-sm text-slate-300">
           Prévoir un renfort entre 8h et 11h les mardis et jeudis pour maintenir

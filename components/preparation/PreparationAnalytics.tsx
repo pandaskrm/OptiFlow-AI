@@ -44,24 +44,24 @@ export default function PreparationAnalytics() {
   const monthDiff = currentMonthTotal - previousMonthTotal;
 
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+    <section className="rounded-3xl border border-[#006bff]/30 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-5 shadow-sm">
       <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h2 className="text-lg font-bold text-slate-950">
+          <h2 className="text-lg font-bold text-white">
             Statistiques préparation
           </h2>
-          <p className="text-sm font-medium text-slate-700">
+          <p className="text-sm font-medium text-slate-300">
             Comparaison des commandes préparées.
           </p>
         </div>
 
-        <div className="flex rounded-2xl bg-slate-100 p-1">
+        <div className="flex rounded-2xl bg-[#0b1d33] p-1">
           <button
             onClick={() => setMode("week")}
             className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
               mode === "week"
                 ? "bg-slate-950 text-white"
-                : "text-slate-600 hover:text-slate-950"
+                : "text-slate-400 hover:text-white"
             }`}
           >
             Semaine
@@ -72,7 +72,7 @@ export default function PreparationAnalytics() {
             className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
               mode === "month"
                 ? "bg-slate-950 text-white"
-                : "text-slate-600 hover:text-slate-950"
+                : "text-slate-400 hover:text-white"
             }`}
           >
             Mois
@@ -83,51 +83,51 @@ export default function PreparationAnalytics() {
       {mode === "week" ? (
         <>
           <div className="mb-5 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm font-medium text-slate-700">Semaine actuelle</p>
-              <p className="mt-1 text-lg font-bold text-slate-950">
+            <div className="rounded-2xl bg-[#071426]/90 p-4">
+              <p className="text-sm font-medium text-slate-300">Semaine actuelle</p>
+              <p className="mt-1 text-lg font-bold text-white">
                 {currentWeekTotal.toLocaleString("fr-FR")} commandes
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm font-medium text-slate-700">Semaine précédente</p>
-              <p className="mt-1 text-lg font-bold text-slate-950">
+            <div className="rounded-2xl bg-[#071426]/90 p-4">
+              <p className="text-sm font-medium text-slate-300">Semaine précédente</p>
+              <p className="mt-1 text-lg font-bold text-white">
                 {previousWeekTotal.toLocaleString("fr-FR")} commandes
               </p>
             </div>
 
-            <div className="rounded-2xl bg-emerald-50 p-4">
-              <p className="text-sm text-emerald-600">Évolution</p>
-              <p className="mt-1 text-lg font-bold text-emerald-700">
+            <div className="rounded-2xl bg-emerald-500/10 p-4">
+              <p className="text-sm text-emerald-300">Évolution</p>
+              <p className="mt-1 text-lg font-bold text-emerald-300">
                 +{weekDiff.toLocaleString("fr-FR")} commandes
               </p>
             </div>
           </div>
 
-          <div className="flex h-64 items-end gap-4 rounded-2xl bg-slate-50 p-5">
+          <div className="flex h-64 items-end gap-4 rounded-2xl bg-[#071426]/90 p-5">
             {currentWeek.map((item, index) => (
               <div key={item.day} className="flex flex-1 flex-col items-center gap-3">
                 <div className="flex h-40 w-full items-end justify-center gap-2">
-                  <div className="flex h-full w-1/2 items-end rounded-xl bg-slate-100">
+                  <div className="flex h-full w-1/2 items-end rounded-xl bg-[#0b1d33]">
                     <div
                       className="w-full rounded-xl bg-slate-300 transition-all duration-700"
                       style={{ height: `${(previousWeek[index] / maxWeek) * 100}%` }}
                     />
                   </div>
 
-                  <div className="flex h-full w-1/2 items-end rounded-xl bg-slate-100">
+                  <div className="flex h-full w-1/2 items-end rounded-xl bg-[#0b1d33]">
                     <div
-                      className="w-full rounded-xl bg-cyan-500 transition-all duration-700"
+                      className="w-full rounded-xl bg-[#00e5ff]/80 transition-all duration-700"
                       style={{ height: `${(item.orders / maxWeek) * 100}%` }}
                     />
                   </div>
                 </div>
 
                 <div className="text-center">
-                  <p className="text-sm font-bold text-slate-950">{item.day}</p>
-                  <p className="text-xs text-slate-600">{item.date}</p>
-                  <p className="text-xs font-bold text-cyan-700">{item.orders}</p>
+                  <p className="text-sm font-bold text-white">{item.day}</p>
+                  <p className="text-xs text-slate-400">{item.date}</p>
+                  <p className="text-xs font-bold text-[#00e5ff]">{item.orders}</p>
                 </div>
               </div>
             ))}
@@ -136,33 +136,33 @@ export default function PreparationAnalytics() {
       ) : (
         <>
           <div className="mb-5 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm font-medium text-slate-700">Mois actuel</p>
-              <p className="mt-1 text-lg font-bold text-slate-950">
+            <div className="rounded-2xl bg-[#071426]/90 p-4">
+              <p className="text-sm font-medium text-slate-300">Mois actuel</p>
+              <p className="mt-1 text-lg font-bold text-white">
                 {currentMonthTotal.toLocaleString("fr-FR")} commandes
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-4">
-              <p className="text-sm font-medium text-slate-700">Mois précédent</p>
-              <p className="mt-1 text-lg font-bold text-slate-950">
+            <div className="rounded-2xl bg-[#071426]/90 p-4">
+              <p className="text-sm font-medium text-slate-300">Mois précédent</p>
+              <p className="mt-1 text-lg font-bold text-white">
                 {previousMonthTotal.toLocaleString("fr-FR")} commandes
               </p>
             </div>
 
-            <div className="rounded-2xl bg-emerald-50 p-4">
-              <p className="text-sm text-emerald-600">Évolution</p>
-              <p className="mt-1 text-lg font-bold text-emerald-700">
+            <div className="rounded-2xl bg-emerald-500/10 p-4">
+              <p className="text-sm text-emerald-300">Évolution</p>
+              <p className="mt-1 text-lg font-bold text-emerald-300">
                 +{monthDiff.toLocaleString("fr-FR")} commandes
               </p>
             </div>
           </div>
 
-          <div className="flex h-64 items-end gap-2 overflow-x-auto rounded-2xl bg-slate-50 p-5">
+          <div className="flex h-64 items-end gap-2 overflow-x-auto rounded-2xl bg-[#071426]/90 p-5">
             {currentMonth.map((orders, index) => (
               <div key={index} className="flex min-w-10 flex-col items-center gap-2">
                 <div className="flex h-40 w-full items-end justify-center gap-1">
-                  <div className="flex h-full w-1/2 items-end rounded-lg bg-slate-100">
+                  <div className="flex h-full w-1/2 items-end rounded-lg bg-[#0b1d33]">
                     <div
                       className="w-full rounded-lg bg-slate-300 transition-all duration-700"
                       style={{
@@ -175,9 +175,9 @@ export default function PreparationAnalytics() {
                     />
                   </div>
 
-                  <div className="flex h-full w-1/2 items-end rounded-lg bg-slate-100">
+                  <div className="flex h-full w-1/2 items-end rounded-lg bg-[#0b1d33]">
                     <div
-                      className="w-full rounded-lg bg-cyan-500 transition-all duration-700"
+                      className="w-full rounded-lg bg-[#00e5ff]/80 transition-all duration-700"
                       style={{
                         height: orders === 0 ? "3%" : `${(orders / maxMonth) * 100}%`,
                         opacity: orders === 0 ? 0.25 : 1,
@@ -186,8 +186,8 @@ export default function PreparationAnalytics() {
                   </div>
                 </div>
 
-                <p className="text-xs font-semibold text-slate-600">{index + 1}</p>
-                <p className="text-xs font-bold text-cyan-700">{orders}</p>
+                <p className="text-xs font-semibold text-slate-400">{index + 1}</p>
+                <p className="text-xs font-bold text-[#00e5ff]">{orders}</p>
               </div>
             ))}
           </div>

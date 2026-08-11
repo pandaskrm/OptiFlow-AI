@@ -15,16 +15,16 @@ function getStatus(progress: number): PreparationStatus {
 }
 
 function priorityStyle(priority: string) {
-  if (priority === "Haute") return "bg-red-100 text-red-700";
-  if (priority === "Moyenne") return "bg-amber-100 text-amber-700";
-  return "bg-emerald-100 text-emerald-700";
+  if (priority === "Haute") return "bg-red-500/15 text-red-300";
+  if (priority === "Moyenne") return "bg-amber-500/15 text-amber-300";
+  return "bg-emerald-500/15 text-emerald-300";
 }
 
 function statusStyle(status: string) {
-  if (status === "Terminée") return "bg-emerald-100 text-emerald-700";
-  if (status === "Contrôle") return "bg-blue-100 text-blue-700";
-  if (status === "En préparation") return "bg-cyan-100 text-cyan-700";
-  return "bg-slate-100 text-slate-700";
+  if (status === "Terminée") return "bg-emerald-500/15 text-emerald-300";
+  if (status === "Contrôle") return "bg-[#006bff]/15 text-[#66b3ff]";
+  if (status === "En préparation") return "bg-[#00e5ff]/12 text-[#00e5ff]";
+  return "bg-[#0b1d33] text-slate-300";
 }
 
 function createNewOrder(index: number): PreparationOrder {
@@ -73,25 +73,25 @@ export default function PreparationTable() {
   }, []);
 
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <section className="rounded-3xl border border-[#006bff]/30 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 shadow-sm">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-slate-950">
+          <h2 className="text-xl font-bold text-white">
             Commandes en préparation
           </h2>
-          <p className="text-sm font-medium text-slate-700">
+          <p className="text-sm font-medium text-slate-300">
             Activité live des préparateurs et commandes du jour.
           </p>
         </div>
 
-        <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">
+        <span className="rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-bold text-emerald-300">
           ● Live
         </span>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200">
+      <div className="overflow-hidden rounded-2xl border border-[#006bff]/25">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 text-slate-600">
+          <thead className="bg-[#071426]/90 text-slate-400">
             <tr>
               <th className="px-4 py-3">Commande</th>
               <th className="px-4 py-3">Client</th>
@@ -104,10 +104,10 @@ export default function PreparationTable() {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-[#006bff]/15">
             {orders.map((order) => (
-              <tr key={order.id} className="text-slate-700 transition hover:bg-slate-50">
-                <td className="px-4 py-4 font-semibold text-slate-950">{order.id}</td>
+              <tr key={order.id} className="text-slate-300 transition hover:bg-[#071426]/90">
+                <td className="px-4 py-4 font-semibold text-white">{order.id}</td>
                 <td className="px-4 py-4">{order.customer}</td>
                 <td className="px-4 py-4">{order.picker}</td>
                 <td className="px-4 py-4">
@@ -118,9 +118,9 @@ export default function PreparationTable() {
                 <td className="px-4 py-4 font-medium">{order.lines}</td>
                 <td className="px-4 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="h-2 w-28 rounded-full bg-slate-100">
+                    <div className="h-2 w-28 rounded-full bg-[#0b1d33]">
                       <div
-                        className="h-2 rounded-full bg-cyan-500 transition-all duration-700"
+                        className="h-2 rounded-full bg-[#00e5ff]/80 transition-all duration-700"
                         style={{ width: `${order.progress}%` }}
                       />
                     </div>

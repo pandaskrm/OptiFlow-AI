@@ -59,13 +59,13 @@ export default function KpiCard({
   const style = getProgressStyle(safeProgress);
 
   return (
-    <article className="group relative min-w-0 overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950 p-3 shadow-lg transition duration-300 hover:border-cyan-500/30 hover:shadow-xl sm:p-3 lg:p-4">
-      <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-cyan-500/5 blur-2xl" />
+    <article className="group relative min-w-0 overflow-hidden rounded-2xl border border-[#006bff]/45 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-3 shadow-[0_0_18px_rgba(0,107,255,0.10)] transition duration-300 hover:-translate-y-0.5 hover:border-[#008cff]/90 hover:shadow-[0_0_28px_rgba(0,140,255,0.28)] sm:p-3 lg:p-4">
+      <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-[#008cff]/15 blur-3xl" />
 
       <div className="relative">
         <div className="flex items-start justify-between gap-2">
           <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-slate-700 bg-slate-800/80 text-lg shadow-inner sm:h-10 sm:w-10 sm:text-lg">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#008cff]/55 bg-[#006bff]/10 text-lg shadow-[inset_0_0_14px_rgba(0,140,255,0.10),0_0_12px_rgba(0,107,255,0.12)] sm:h-10 sm:w-10 sm:text-lg">
               {icon}
             </span>
 
@@ -97,7 +97,7 @@ export default function KpiCard({
           </p>
         </div>
 
-        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-800 sm:mt-3 sm:h-1.5">
+        <div className="mt-2 h-1.5 overflow-hidden rounded-full border border-[#006bff]/15 bg-[#020617] sm:mt-3 sm:h-1.5">
           <div
             className={`h-full rounded-full transition-all duration-700 ${style.bar}`}
             style={{
@@ -118,7 +118,7 @@ export default function KpiCard({
           </span>
         </div>
 
-        <p className={`mt-2 truncate border-t border-slate-800/80 pt-2 text-[10px] font-medium sm:text-[11px] ${safeProgress === 0 ? "text-orange-300" : "text-slate-600"}`}>
+        <p className={`mt-2 truncate border-t border-[#006bff]/20 pt-2 text-[10px] font-medium sm:text-[11px] ${safeProgress === 0 ? "text-orange-300" : "text-slate-600"}`}>
           {trend}
         </p>
       </div>

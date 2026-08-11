@@ -29,21 +29,21 @@ export default function PreparationLiveChart() {
   const max = Math.max(...data.map((item) => item.orders));
 
   return (
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-bold text-slate-950">Activité live</h2>
-      <p className="text-sm font-medium text-slate-700">Commandes préparées par heure.</p>
+    <section className="rounded-3xl border border-[#006bff]/30 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 shadow-sm">
+      <h2 className="text-xl font-bold text-white">Activité live</h2>
+      <p className="text-sm font-medium text-slate-300">Commandes préparées par heure.</p>
 
       <div className="mt-6 flex h-48 items-end gap-4">
         {data.map((item) => (
           <div key={item.hour} className="flex flex-1 flex-col items-center gap-2">
-            <div className="flex h-40 w-full items-end rounded-xl bg-slate-100">
+            <div className="flex h-40 w-full items-end rounded-xl bg-[#0b1d33]">
               <div
-                className="w-full rounded-xl bg-cyan-500 transition-all duration-700"
+                className="w-full rounded-xl bg-[#00e5ff]/80 transition-all duration-700"
                 style={{ height: `${(item.orders / max) * 100}%` }}
               />
             </div>
-            <p className="text-xs font-semibold text-slate-600">{item.hour}</p>
-            <p className="text-sm font-bold text-slate-950">{item.orders}</p>
+            <p className="text-xs font-semibold text-slate-400">{item.hour}</p>
+            <p className="text-sm font-bold text-white">{item.orders}</p>
           </div>
         ))}
       </div>

@@ -60,16 +60,16 @@ export default function PreparationAi({
 
   const riskClass =
     prediction?.riskLevel === "HIGH"
-      ? "border-red-500/30 bg-red-500/10 text-red-300"
+      ? "border-red-500/30 bg-red-500/100/10 text-red-300"
       : prediction?.riskLevel === "MEDIUM"
-        ? "border-amber-500/30 bg-amber-500/10 text-amber-300"
-        : "border-emerald-500/30 bg-emerald-500/10 text-emerald-300";
+        ? "border-amber-500/30 bg-amber-500/100/10 text-amber-300"
+        : "border-emerald-500/30 bg-emerald-500/100/10 text-emerald-300";
 
   return (
-    <section className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-6 text-white shadow-xl">
+    <section className="group relative overflow-hidden rounded-3xl border border-[#006bff]/45 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 text-white shadow-[0_0_28px_rgba(0,107,255,0.14)] transition duration-300 hover:border-[#008cff]/70 hover:shadow-[0_0_36px_rgba(0,140,255,0.22)]">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-cyan-300">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.35)]">
             Libot Intelligence
           </p>
 
@@ -85,7 +85,7 @@ export default function PreparationAi({
         </span>
       </div>
 
-      <p className="mt-4 text-sm leading-6 text-slate-300">
+      <p className="mt-4 text-sm leading-6 text-slate-200">
         {insight.message}
       </p>
 
@@ -130,7 +130,7 @@ export default function PreparationAi({
             />
           </div>
 
-          <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="mt-4 rounded-2xl border border-[#006bff]/25 bg-[#006bff]/5 p-4 shadow-[inset_0_0_20px_rgba(0,107,255,0.04)]">
             <DataRow
               label="Lignes restantes"
               value={prediction.remainingLines.toLocaleString("fr-FR")}
@@ -154,8 +154,8 @@ export default function PreparationAi({
         </>
       )}
 
-      <div className="mt-5 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4">
-        <p className="text-sm font-semibold text-cyan-300">
+      <div className="mt-5 rounded-2xl border border-[#008cff]/45 bg-gradient-to-r from-[#006bff]/15 to-[#00e5ff]/5 p-4 shadow-[0_0_24px_rgba(0,140,255,0.12)]">
+        <p className="text-sm font-black text-[#00e5ff]">
           Recommandation Libot
         </p>
 
@@ -177,7 +177,7 @@ function Metric({
   alert?: boolean;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+    <div className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/90 p-4 shadow-[0_0_16px_rgba(0,107,255,0.06)] transition hover:border-[#008cff]/55">
       <p className="text-xs font-medium text-slate-400">
         {label}
       </p>
@@ -203,7 +203,7 @@ function DataRow({
   alert?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between border-b border-white/5 py-2 last:border-0">
+    <div className="flex items-center justify-between border-b border-[#006bff]/10 py-2 last:border-0">
       <p className="text-sm text-slate-300">
         {label}
       </p>

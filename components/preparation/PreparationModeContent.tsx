@@ -135,7 +135,7 @@ function PreparationRealData() {
           <div
             className={`rounded-2xl border px-5 py-4 ${
               warehouse.dataConnected
-                ? "border-emerald-500/30 bg-emerald-500/10"
+                ? "border-emerald-500/30 bg-emerald-500/100/10"
                 : "border-slate-600 bg-slate-800"
             }`}
           >
@@ -162,13 +162,13 @@ function PreparationRealData() {
         {cards.map((card) => (
           <div
             key={card.label}
-            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+            className="rounded-2xl border border-[#006bff]/35 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-5 text-white shadow-[0_0_18px_rgba(0,107,255,0.10)] transition hover:border-[#008cff]/70 hover:shadow-[0_0_24px_rgba(0,140,255,0.20)]"
           >
-            <p className="text-sm font-medium text-slate-700">
+            <p className="text-sm font-medium text-slate-300">
               {card.label}
             </p>
 
-            <p className="mt-2 text-3xl font-bold text-slate-950">
+            <p className="mt-2 text-3xl font-bold text-white">
               {card.value}
             </p>
           </div>
@@ -176,40 +176,40 @@ function PreparationRealData() {
       </section>
 
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="rounded-3xl border border-[#006bff]/35 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 text-white shadow-[0_0_24px_rgba(0,107,255,0.10)]">
           <div className="mb-6">
-            <h2 className="text-xl font-bold text-slate-950">
+            <h2 className="text-xl font-bold text-white">
               Performance préparation
             </h2>
 
-            <p className="text-sm font-medium text-slate-700">
+            <p className="text-sm font-medium text-slate-300">
               Avancement calculé depuis les lignes reçues de l’ERP.
             </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm font-medium text-slate-700">
+            <div className="rounded-2xl border border-[#006bff]/20 bg-[#071426]/90 p-5">
+              <p className="text-sm font-medium text-slate-300">
                 Lignes totales
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-slate-950">
+              <p className="mt-2 text-3xl font-bold text-white">
                 {orders.totalLines}
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm font-medium text-slate-700">
+            <div className="rounded-2xl border border-[#006bff]/20 bg-[#071426]/90 p-5">
+              <p className="text-sm font-medium text-slate-300">
                 Lignes préparées
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-emerald-600">
+              <p className="mt-2 text-3xl font-bold text-emerald-300">
                 {orders.preparedLines}
               </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-50 p-5">
-              <p className="text-sm font-medium text-slate-700">
+            <div className="rounded-2xl border border-[#006bff]/20 bg-[#071426]/90 p-5">
+              <p className="text-sm font-medium text-slate-300">
                 Restantes
               </p>
 
@@ -222,20 +222,20 @@ function PreparationRealData() {
             </div>
           </div>
 
-          <div className="mt-6 rounded-2xl bg-slate-50 p-5">
+          <div className="mt-6 rounded-2xl border border-[#006bff]/20 bg-[#071426]/90 p-5">
             <div className="mb-3 flex items-center justify-between">
-              <p className="font-semibold text-slate-700">
+              <p className="font-semibold text-slate-300">
                 Avancement global
               </p>
 
-              <p className="text-2xl font-bold text-slate-950">
+              <p className="text-2xl font-bold text-white">
                 {orders.progress}%
               </p>
             </div>
 
-            <div className="h-4 overflow-hidden rounded-full bg-slate-200">
+            <div className="h-4 overflow-hidden rounded-full border border-[#006bff]/20 bg-[#020617]">
               <div
-                className="h-full rounded-full bg-cyan-500 transition-all duration-500"
+                className="h-full rounded-full bg-gradient-to-r from-[#006bff] to-[#00e5ff] shadow-[0_0_14px_rgba(0,229,255,0.45)] transition-all duration-500"
                 style={{
                   width: `${Math.min(100, orders.progress)}%`,
                 }}
@@ -244,32 +244,32 @@ function PreparationRealData() {
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm font-medium text-slate-700">
+            <div className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/70 p-5">
+              <p className="text-sm font-medium text-slate-300">
                 À préparer
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-slate-950">
+              <p className="mt-2 text-3xl font-bold text-white">
                 {orders.waiting}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm font-medium text-slate-700">
+            <div className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/70 p-5">
+              <p className="text-sm font-medium text-slate-300">
                 En cours
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-cyan-600">
+              <p className="mt-2 text-3xl font-bold text-[#00e5ff]">
                 {orders.inPreparation}
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 p-5">
-              <p className="text-sm font-medium text-slate-700">
+            <div className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/70 p-5">
+              <p className="text-sm font-medium text-slate-300">
                 Terminées
               </p>
 
-              <p className="mt-2 text-3xl font-bold text-emerald-600">
+              <p className="mt-2 text-3xl font-bold text-emerald-300">
                 {orders.completed}
               </p>
             </div>
@@ -287,7 +287,7 @@ function PreparationRealData() {
               : "En attente de commandes"}
           </h2>
 
-          <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-4">
+          <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/100/10 p-4">
             <p className="text-sm text-red-300">
               Alerte
             </p>
@@ -297,7 +297,7 @@ function PreparationRealData() {
             </p>
           </div>
 
-          <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="mt-4 rounded-2xl border border-white/10 bg-[#071426]/5 p-4">
             <p className="text-sm text-slate-500">
               Recommandation
             </p>
@@ -307,7 +307,7 @@ function PreparationRealData() {
             </p>
           </div>
 
-          <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="mt-4 rounded-2xl border border-white/10 bg-[#071426]/5 p-4">
             <p className="text-sm text-slate-500">
               Productivité
             </p>
@@ -322,13 +322,13 @@ function PreparationRealData() {
         </section>
       </div>
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="rounded-3xl border border-[#006bff]/35 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 text-white shadow-[0_0_24px_rgba(0,107,255,0.10)]">
         <div className="mb-5">
-          <h2 className="text-xl font-bold text-slate-950">
+          <h2 className="text-xl font-bold text-white">
             Équipe du jour
           </h2>
 
-          <p className="text-sm font-medium text-slate-700">
+          <p className="text-sm font-medium text-slate-300">
             Effectifs et capacité reçus depuis le flux ERP.
           </p>
         </div>
@@ -337,13 +337,13 @@ function PreparationRealData() {
           {teamCards.map((card) => (
             <div
               key={card.label}
-              className="rounded-2xl bg-slate-50 p-4"
+              className="rounded-2xl border border-[#006bff]/20 bg-[#071426]/90 p-4"
             >
-              <p className="text-sm font-medium text-slate-700">
+              <p className="text-sm font-medium text-slate-300">
                 {card.label}
               </p>
 
-              <p className="text-2xl font-bold text-slate-950">
+              <p className="text-2xl font-bold text-white">
                 {card.value}
               </p>
             </div>
@@ -351,53 +351,53 @@ function PreparationRealData() {
         </div>
 
         <div className="mt-5 grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-slate-200 p-4">
-            <p className="text-sm font-medium text-slate-700">
+          <div className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/70 p-4">
+            <p className="text-sm font-medium text-slate-300">
               Minutes travaillées
             </p>
 
-            <p className="mt-2 text-2xl font-bold text-slate-950">
+            <p className="mt-2 text-2xl font-bold text-white">
               {workforce.workedMinutes}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 p-4">
-            <p className="text-sm font-medium text-slate-700">
+          <div className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/70 p-4">
+            <p className="text-sm font-medium text-slate-300">
               Unités traitées
             </p>
 
-            <p className="mt-2 text-2xl font-bold text-slate-950">
+            <p className="mt-2 text-2xl font-bold text-white">
               {workforce.processedUnits}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 p-4">
-            <p className="text-sm font-medium text-slate-700">
+          <div className="rounded-2xl border border-[#006bff]/25 bg-[#071426]/70 p-4">
+            <p className="text-sm font-medium text-slate-300">
               Productivité
             </p>
 
-            <p className="mt-2 text-2xl font-bold text-cyan-600">
+            <p className="mt-2 text-2xl font-bold text-[#00e5ff]">
               {workforce.productivity} u/h
             </p>
           </div>
         </div>
 
         {!hasWorkforce && (
-          <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600">
+          <div className="mt-5 rounded-2xl border border-dashed border-[#006bff]/35 bg-[#006bff]/5 p-6 text-center text-slate-400">
             Aucune donnée d’équipe reçue pour le moment.
           </div>
         )}
       </section>
 
       <div className="grid gap-6 xl:grid-cols-[1fr_420px]">
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="rounded-3xl border border-[#006bff]/35 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-6 text-white shadow-[0_0_24px_rgba(0,107,255,0.10)]">
           <div className="mb-6 flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-bold text-slate-950">
+              <h2 className="text-xl font-bold text-white">
                 Commandes en préparation
               </h2>
 
-              <p className="text-sm font-medium text-slate-700">
+              <p className="text-sm font-medium text-slate-300">
                 Synthèse du flux Commandes central.
               </p>
             </div>
@@ -405,8 +405,8 @@ function PreparationRealData() {
             <span
               className={`rounded-full px-3 py-1 text-xs font-bold ${
                 hasOrders
-                  ? "bg-emerald-100 text-emerald-700"
-                  : "bg-slate-100 text-slate-600"
+                  ? "bg-emerald-500/15 text-emerald-300"
+                  : "border border-[#006bff]/25 bg-[#006bff]/10 text-slate-300"
               }`}
             >
               {hasOrders
@@ -415,9 +415,9 @@ function PreparationRealData() {
             </span>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-slate-200">
+          <div className="overflow-hidden rounded-2xl border border-[#006bff]/25 bg-[#020617]/50">
             <table className="w-full text-left text-sm">
-              <thead className="bg-slate-50 text-slate-600">
+              <thead className="bg-[#006bff]/10 text-slate-300">
                 <tr>
                   <th className="px-4 py-3">
                     Indicateur
@@ -434,7 +434,7 @@ function PreparationRealData() {
               </thead>
 
               <tbody>
-                <tr className="border-t border-slate-200">
+                <tr className="border-t border-[#006bff]/15">
                   <td className="px-4 py-4">
                     Commandes prioritaires
                   </td>
@@ -450,7 +450,7 @@ function PreparationRealData() {
                   </td>
                 </tr>
 
-                <tr className="border-t border-slate-200">
+                <tr className="border-t border-[#006bff]/15">
                   <td className="px-4 py-4">
                     Commandes en attente
                   </td>
@@ -466,7 +466,7 @@ function PreparationRealData() {
                   </td>
                 </tr>
 
-                <tr className="border-t border-slate-200">
+                <tr className="border-t border-[#006bff]/15">
                   <td className="px-4 py-4">
                     Taux de service
                   </td>
@@ -487,7 +487,7 @@ function PreparationRealData() {
             </table>
           </div>
 
-          <p className="mt-4 text-sm font-medium text-slate-700">
+          <p className="mt-4 text-sm font-medium text-slate-300">
             Le détail ligne par ligne des commandes sera alimenté
             par la future API Commandes ERP.
           </p>
