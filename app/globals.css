@@ -1,40 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Organ•IA Flow — Brand */
+  --background: #020617;
+  --foreground: #f8fafc;
+
+  --organia-night: #020617;
+  --organia-surface: #071426;
+  --organia-surface-soft: #0b1d33;
+
+  --organia-electric: #006bff;
+  --organia-electric-bright: #008cff;
+  --organia-cyan: #00e5ff;
+
+  --organia-text: #f8fafc;
+  --organia-text-soft: #94a3b8;
+
+  --organia-border: rgba(0, 107, 255, 0.24);
+  --organia-glow: rgba(0, 140, 255, 0.32);
+
+  --organia-success: #22c55e;
+  --organia-warning: #f59e0b;
+  --organia-danger: #ef4444;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-organia-night: var(--organia-night);
+  --color-organia-surface: var(--organia-surface);
+  --color-organia-surface-soft: var(--organia-surface-soft);
+
+  --color-organia-electric: var(--organia-electric);
+  --color-organia-electric-bright: var(--organia-electric-bright);
+  --color-organia-cyan: var(--organia-cyan);
+
+  --color-organia-text: var(--organia-text);
+  --color-organia-text-soft: var(--organia-text-soft);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-
-/* Mobile Premium OptiFlow */
 html {
-  background: #020617;
+  background: var(--organia-night);
   overflow-x: hidden;
 }
 
 body {
   min-width: 320px;
   overflow-x: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--organia-electric);
+  color: #ffffff;
 }
 
 button,
@@ -43,6 +67,11 @@ textarea,
 input,
 select {
   -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--organia-electric-bright);
+  outline-offset: 2px;
 }
 
 @media (max-width: 1023px) {
