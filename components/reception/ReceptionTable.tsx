@@ -133,7 +133,7 @@ function getPlanningStatus(
     return {
       label: "Demain",
       className:
-        "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
+        "bg-cyan-500/15 text-[#7df9ff] border-cyan-500/30",
     };
   }
 
@@ -268,9 +268,9 @@ export default function ReceptionTable({
   }
 
   return (
-    <section className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900">
-      <header className="border-b border-slate-800 p-4 sm:p-6">
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-400">
+    <section className="organia-electric-panel organia-electric-panel-v2 overflow-hidden rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] shadow-[0_0_22px_rgba(0,140,255,0.15)]">
+      <header className="border-b border-[#008cff]/25 p-4 sm:p-6">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.45)]">
           Réceptions
         </p>
 
@@ -333,7 +333,7 @@ export default function ReceptionTable({
               return (
                 <article
                   key={item.id}
-                  className="overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-950/70 shadow-lg"
+                  className="overflow-hidden rounded-2xl border border-[#008cff]/40 bg-gradient-to-br from-[#071426] to-[#020617] shadow-lg"
                 >
                   <div className="p-4">
                     <div className="flex items-start justify-between gap-3">
@@ -346,7 +346,7 @@ export default function ReceptionTable({
                           {item.number}
                         </h3>
 
-                        <p className="mt-1 truncate text-sm font-semibold text-cyan-300">
+                        <p className="mt-1 truncate text-sm font-semibold text-[#7df9ff]">
                           {item.supplier}
                         </p>
                       </div>
@@ -361,19 +361,19 @@ export default function ReceptionTable({
                     </div>
 
                     <div className="mt-4 grid grid-cols-2 gap-3">
-                      <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
+                      <div className="rounded-xl border border-[#008cff]/30 bg-[#071426]/85 p-3">
                         <p className="text-[10px] uppercase tracking-wider text-slate-600">
                           Date prévue
                         </p>
                         <p className="mt-1 font-bold text-white">
                           {scheduledAt.date}
                         </p>
-                        <p className="mt-1 text-sm text-cyan-300">
+                        <p className="mt-1 text-sm text-[#7df9ff]">
                           {scheduledAt.time || "--"}
                         </p>
                       </div>
 
-                      <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
+                      <div className="rounded-xl border border-[#008cff]/30 bg-[#071426]/85 p-3">
                         <p className="text-[10px] uppercase tracking-wider text-slate-600">
                           Quai
                         </p>
@@ -386,7 +386,7 @@ export default function ReceptionTable({
                       </div>
                     </div>
 
-                    <div className="mt-3 rounded-xl border border-slate-800 bg-slate-900/80 p-3">
+                    <div className="mt-3 rounded-xl border border-[#008cff]/30 bg-[#071426]/85 p-3">
                       <div className="flex items-center justify-between gap-3">
                         <div className="min-w-0">
                           <p className="text-[10px] uppercase tracking-wider text-slate-600">
@@ -413,14 +413,14 @@ export default function ReceptionTable({
                         <span className="text-slate-600">
                           Progression
                         </span>
-                        <span className="font-bold text-cyan-300">
+                        <span className="font-bold text-[#7df9ff]">
                           {progress} %
                         </span>
                       </div>
 
                       <div className="h-2 overflow-hidden rounded-full bg-slate-800">
                         <div
-                          className="h-full rounded-full bg-cyan-500 transition-all duration-500"
+                          className="h-full rounded-full bg-gradient-to-r from-[#006bff] via-[#008cff] to-[#00e5ff] shadow-[0_0_12px_rgba(0,229,255,0.55)] transition-all duration-500"
                           style={{
                             width: `${progress}%`,
                           }}
@@ -436,7 +436,7 @@ export default function ReceptionTable({
                             isOpened ? null : item.id,
                           )
                         }
-                        className="min-h-12 rounded-xl border border-slate-700 bg-slate-900 px-3 py-3 text-sm font-bold text-white transition active:scale-[0.98]"
+                        className="min-h-12 rounded-xl border border-[#008cff]/40 bg-[#071426] px-3 py-3 text-sm font-bold text-white transition active:scale-[0.98]"
                       >
                         {isOpened
                           ? "Masquer le détail"
@@ -451,7 +451,7 @@ export default function ReceptionTable({
                         disabled={
                           isCompleted || isLoading
                         }
-                        className="min-h-12 rounded-xl bg-cyan-500 px-3 py-3 text-sm font-black text-slate-950 transition active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-500"
+                        className="min-h-12 rounded-xl border border-[#00e5ff]/55 bg-gradient-to-r from-[#006bff] to-[#008cff] px-3 py-3 text-sm font-black text-white shadow-[0_0_14px_rgba(0,140,255,0.25)] transition active:scale-[0.98] disabled:cursor-not-allowed disabled:border-slate-700 disabled:bg-slate-800 disabled:text-slate-500"
                       >
                         {isLoading
                           ? "Chargement..."
@@ -472,7 +472,7 @@ export default function ReceptionTable({
                   </div>
 
                   {isOpened && (
-                    <div className="border-t border-slate-800 bg-slate-950 p-4">
+                    <div className="border-t border-[#008cff]/20 bg-slate-950 p-4">
                       <ReceptionTimeline
                         reception={item}
                       />
@@ -486,7 +486,7 @@ export default function ReceptionTable({
           {/* TABLEAU DESKTOP */}
           <div className="hidden overflow-x-auto md:block">
             <table className="w-full min-w-[1350px]">
-              <thead className="bg-slate-800">
+              <thead className="bg-[#006bff]/12 text-[#8befff]">
                 <tr>
                   {[
                     "Réception",
@@ -539,7 +539,7 @@ export default function ReceptionTable({
 
                   return (
                     <Fragment key={item.id}>
-                      <tr className="border-t border-slate-800 hover:bg-slate-800/70">
+                      <tr className="border-t border-[#008cff]/20 hover:bg-slate-800/70">
                         <td className="p-4 font-bold text-white">
                           {item.number}
                         </td>
@@ -556,7 +556,7 @@ export default function ReceptionTable({
                           <p className="font-semibold text-white">
                             {scheduledAt.date}
                           </p>
-                          <p className="mt-1 text-sm text-cyan-400">
+                          <p className="mt-1 text-sm text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.45)]">
                             {scheduledAt.time}
                           </p>
 
@@ -593,9 +593,9 @@ export default function ReceptionTable({
                               {progress} %
                             </div>
 
-                            <div className="h-2 rounded-full bg-slate-700">
+                            <div className="h-2 overflow-hidden rounded-full border border-[#008cff]/20 bg-[#020617]">
                               <div
-                                className="h-2 rounded-full bg-blue-500"
+                                className="h-2 rounded-full bg-gradient-to-r from-[#006bff] to-[#00e5ff] shadow-[0_0_10px_rgba(0,229,255,0.45)]"
                                 style={{
                                   width:
                                     `${progress}%`,
@@ -615,7 +615,7 @@ export default function ReceptionTable({
                                   : item.id,
                               )
                             }
-                            className="rounded-lg bg-cyan-600 px-3 py-2 text-sm font-semibold hover:bg-cyan-500"
+                            className="rounded-lg border border-[#00e5ff]/45 bg-[#006bff]/30 px-3 py-2 text-sm font-bold text-[#7df9ff] transition hover:bg-[#008cff]/45 hover:shadow-[0_0_16px_rgba(0,229,255,0.25)]"
                           >
                             {isOpened
                               ? "Masquer"
@@ -632,7 +632,7 @@ export default function ReceptionTable({
                             disabled={
                               isCompleted || isLoading
                             }
-                            className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold hover:bg-blue-500 disabled:bg-slate-700 disabled:text-slate-500"
+                            className="rounded-lg border border-[#008cff]/55 bg-gradient-to-r from-[#006bff] to-[#008cff] px-3 py-2 text-sm font-bold text-white shadow-[0_0_12px_rgba(0,140,255,0.22)] transition hover:shadow-[0_0_20px_rgba(0,229,255,0.30)] disabled:border-slate-700 disabled:bg-slate-800 disabled:text-slate-500"
                           >
                             {isLoading
                               ? "Chargement..."
@@ -659,7 +659,7 @@ export default function ReceptionTable({
                       </tr>
 
                       {isOpened && (
-                        <tr className="border-t border-slate-800">
+                        <tr className="border-t border-[#008cff]/20">
                           <td
                             colSpan={11}
                             className="bg-slate-950 p-6"

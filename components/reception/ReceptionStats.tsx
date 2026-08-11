@@ -78,31 +78,31 @@ export default function ReceptionStats({
       ).length;
 
   return (
-    <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-4">
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p className="text-sm text-gray-400">Total réceptions</p>
-        <p className="mt-2 text-3xl font-bold">
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+      <div className="organia-electric-panel organia-electric-panel-v2 rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-4 shadow-[0_0_18px_rgba(0,140,255,0.16),inset_0_0_20px_rgba(0,107,255,0.04)] transition hover:-translate-y-0.5 hover:border-[#00e5ff]/75 hover:shadow-[0_0_28px_rgba(0,140,255,0.28)]">
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500">Total réceptions</p>
+        <p className="mt-2 text-3xl font-black">
           {loading ? "..." : total}
         </p>
       </div>
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p className="text-sm text-gray-400">Planifiées</p>
-        <p className="mt-2 text-3xl font-bold text-blue-400">
+      <div className="organia-electric-panel organia-electric-panel-v2 rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-4 shadow-[0_0_18px_rgba(0,140,255,0.16),inset_0_0_20px_rgba(0,107,255,0.04)] transition hover:-translate-y-0.5 hover:border-[#00e5ff]/75 hover:shadow-[0_0_28px_rgba(0,140,255,0.28)]">
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500">Planifiées</p>
+        <p className="mt-2 text-3xl font-black text-blue-400">
           {loading ? "..." : planned}
         </p>
       </div>
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p className="text-sm text-gray-400">À quai</p>
-        <p className="mt-2 text-3xl font-bold text-green-400">
+      <div className="organia-electric-panel organia-electric-panel-v2 rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-4 shadow-[0_0_18px_rgba(0,140,255,0.16),inset_0_0_20px_rgba(0,107,255,0.04)] transition hover:-translate-y-0.5 hover:border-[#00e5ff]/75 hover:shadow-[0_0_28px_rgba(0,140,255,0.28)]">
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500">À quai</p>
+        <p className="mt-2 text-3xl font-black text-green-400">
           {loading ? "..." : atDock}
         </p>
       </div>
 
-      <div className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
-        <p className="text-sm text-gray-400">Terminées</p>
-        <p className="mt-2 text-3xl font-bold text-orange-400">
+      <div className="organia-electric-panel organia-electric-panel-v2 rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-4 shadow-[0_0_18px_rgba(0,140,255,0.16),inset_0_0_20px_rgba(0,107,255,0.04)] transition hover:-translate-y-0.5 hover:border-[#00e5ff]/75 hover:shadow-[0_0_28px_rgba(0,140,255,0.28)]">
+        <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500">Terminées</p>
+        <p className="mt-2 text-3xl font-black text-orange-400">
           {loading ? "..." : finished}
         </p>
       </div>

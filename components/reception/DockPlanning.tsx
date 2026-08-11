@@ -35,7 +35,7 @@ const statusStyle: Record<string, string> = {
   [RECEPTION_STATUS.AT_DOCK]:
     "bg-orange-500/20 text-orange-400 border-orange-500/30",
   [RECEPTION_STATUS.UNLOADING]:
-    "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
+    "bg-cyan-500/20 text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.45)] border-cyan-500/30",
   [RECEPTION_STATUS.INSPECTION]:
     "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
 };
@@ -134,9 +134,9 @@ export default function DockPlanning({
   }, [refreshKey, simulation.running]);
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-6">
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-white">
+    <div className="organia-electric-panel organia-electric-panel-v2 rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-4 shadow-[0_0_22px_rgba(0,140,255,0.15)] sm:p-6">
+      <div className="mb-5 flex flex-col gap-1">
+        <h2 className="text-xl font-black text-white">
           🚛 Occupation des quais
         </h2>
 
@@ -147,7 +147,7 @@ export default function DockPlanning({
       </div>
 
       {loading && !simulation.running ? (
-        <div className="rounded-xl border border-slate-800 bg-slate-950 p-6 text-center text-slate-500">
+        <div className="rounded-xl border border-[#008cff]/30 bg-[#020617]/85 p-6 text-center text-slate-500">
           Chargement des quais...
         </div>
       ) : (
@@ -171,7 +171,7 @@ export default function DockPlanning({
             return (
               <div
                 key={dock}
-                className={`rounded-2xl border bg-slate-800 p-3 transition-all duration-700 sm:p-4 hover:-translate-y-1 hover:shadow-lg ${
+                className={`rounded-2xl border bg-gradient-to-br from-[#071426] to-[#020617] p-3 transition-all duration-500 sm:p-4 hover:-translate-y-1 hover:border-[#00e5ff]/55 hover:shadow-[0_0_30px_rgba(0,140,255,0.28)] ${
                   statusStyle[status] || statusStyle[STATUS_FREE]
                 }`}
               >
@@ -215,9 +215,9 @@ export default function DockPlanning({
                           <span>{progress}%</span>
                         </div>
 
-                        <div className="h-2 rounded-full bg-slate-700">
+                        <div className="h-2 overflow-hidden rounded-full border border-[#008cff]/20 bg-[#020617]">
                           <div
-                            className="h-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 transition-all duration-700"
+                            className="h-2 rounded-full bg-gradient-to-r from-[#006bff] via-[#008cff] to-[#00e5ff] shadow-[0_0_12px_rgba(0,229,255,0.55)] transition-all duration-700"
                             style={{ width: `${progress}%` }}
                           />
                         </div>

@@ -80,9 +80,9 @@ export default function ReceptionForm({
   }
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-bold">
+    <div className="organia-electric-panel organia-electric-panel-v2 rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-6 shadow-[0_0_22px_rgba(0,140,255,0.15)]">
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <h2 className="text-xl font-black text-white">
           ➕ Nouvelle réception
         </h2>
 
@@ -90,17 +90,17 @@ export default function ReceptionForm({
           type="button"
           onClick={handleSubmit}
           disabled={saving}
-          className="rounded-xl bg-blue-600 px-5 py-2 font-semibold transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-700"
+          className="rounded-xl border border-[#00e5ff]/60 bg-gradient-to-r from-[#006bff] via-[#008cff] to-[#00b8ff] px-5 py-2 font-black text-white shadow-[0_0_18px_rgba(0,140,255,0.30)] transition hover:shadow-[0_0_28px_rgba(0,229,255,0.40)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           {saving ? "Enregistrement..." : "Enregistrer"}
         </button>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-number"
-            className="text-sm text-slate-500"
+            className="text-xs font-semibold text-slate-500"
           >
             Numéro de réception
           </label>
@@ -113,7 +113,7 @@ export default function ReceptionForm({
             onChange={(event) =>
               handleChange("number", event.target.value)
             }
-            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            className="w-full rounded-xl border border-[#008cff]/40 bg-[#020617]/85 p-3 text-white outline-none transition placeholder:text-slate-600 focus:border-[#00e5ff]/80 focus:shadow-[0_0_16px_rgba(0,229,255,0.18)]"
             placeholder="Exemple : REC-2026-001"
           />
         </div>
@@ -121,7 +121,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-supplier"
-            className="text-sm text-slate-500"
+            className="text-xs font-semibold text-slate-500"
           >
             Fournisseur
           </label>
@@ -134,7 +134,7 @@ export default function ReceptionForm({
             onChange={(event) =>
               handleChange("supplier", event.target.value)
             }
-            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            className="w-full rounded-xl border border-[#008cff]/40 bg-[#020617]/85 p-3 text-white outline-none transition placeholder:text-slate-600 focus:border-[#00e5ff]/80 focus:shadow-[0_0_16px_rgba(0,229,255,0.18)]"
             placeholder="Nom du fournisseur"
           />
         </div>
@@ -142,7 +142,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-carrier"
-            className="text-sm text-slate-500"
+            className="text-xs font-semibold text-slate-500"
           >
             Transporteur
           </label>
@@ -155,7 +155,7 @@ export default function ReceptionForm({
             onChange={(event) =>
               handleChange("carrier", event.target.value)
             }
-            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            className="w-full rounded-xl border border-[#008cff]/40 bg-[#020617]/85 p-3 text-white outline-none transition placeholder:text-slate-600 focus:border-[#00e5ff]/80 focus:shadow-[0_0_16px_rgba(0,229,255,0.18)]"
             placeholder="Nom du transporteur"
           />
         </div>
@@ -163,7 +163,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-dock"
-            className="text-sm text-slate-500"
+            className="text-xs font-semibold text-slate-500"
           >
             Quai prévu
           </label>
@@ -175,7 +175,7 @@ export default function ReceptionForm({
             onChange={(event) =>
               handleChange("dock", event.target.value)
             }
-            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            className="w-full rounded-xl border border-[#008cff]/40 bg-[#020617]/85 p-3 text-white outline-none transition placeholder:text-slate-600 focus:border-[#00e5ff]/80 focus:shadow-[0_0_16px_rgba(0,229,255,0.18)]"
           >
             <option value="">Sélectionner un quai</option>
             <option value="Quai 1">Quai 1</option>
@@ -190,7 +190,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-pallets"
-            className="text-sm text-slate-500"
+            className="text-xs font-semibold text-slate-500"
           >
             Nombre de palettes
           </label>
@@ -204,7 +204,7 @@ export default function ReceptionForm({
             onChange={(event) =>
               handleChange("pallets", event.target.value)
             }
-            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            className="w-full rounded-xl border border-[#008cff]/40 bg-[#020617]/85 p-3 text-white outline-none transition placeholder:text-slate-600 focus:border-[#00e5ff]/80 focus:shadow-[0_0_16px_rgba(0,229,255,0.18)]"
             placeholder="Exemple : 24"
           />
         </div>
@@ -212,7 +212,7 @@ export default function ReceptionForm({
         <div className="flex flex-col gap-2">
           <label
             htmlFor="reception-scheduled-at"
-            className="text-sm text-slate-500"
+            className="text-xs font-semibold text-slate-500"
           >
             Date et heure prévues de la réception
           </label>
@@ -225,7 +225,7 @@ export default function ReceptionForm({
             onChange={(event) =>
               handleChange("scheduledAt", event.target.value)
             }
-            className="w-full rounded-xl border border-slate-700 bg-slate-800 p-3"
+            className="w-full rounded-xl border border-[#008cff]/40 bg-[#020617]/85 p-3 text-white outline-none transition placeholder:text-slate-600 focus:border-[#00e5ff]/80 focus:shadow-[0_0_16px_rgba(0,229,255,0.18)]"
           />
         </div>
       </div>
