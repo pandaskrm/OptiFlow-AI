@@ -87,10 +87,10 @@ export default function AiMissionCenter({
   }
 
   return (
-    <section className="mb-6 rounded-2xl border border-cyan-900/70 bg-slate-950 p-6 shadow-xl">
+    <section className="mb-6 rounded-2xl border border-[#008cff]/70 bg-gradient-to-br from-[#020617] via-[#071426] to-[#001b3f] p-6 shadow-[0_0_18px_rgba(0,140,255,0.26),0_0_45px_rgba(0,107,255,0.12)]">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.55)]">
             Centre de missions IA
           </p>
 
@@ -105,7 +105,7 @@ export default function AiMissionCenter({
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-bold text-cyan-300">
+          <span className="rounded-full border border-[#008cff]/50 bg-[#006bff]/15 shadow-[0_0_14px_rgba(0,140,255,0.12)] px-3 py-1 text-xs font-bold text-[#49efff]">
             {visibleMissions.length} mission(s)
           </span>
 
@@ -130,7 +130,7 @@ export default function AiMissionCenter({
           {visibleMissions.map((mission, index) => (
             <article
               key={mission.id}
-              className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5"
+              className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)] transition hover:-translate-y-1 hover:border-[#00e5ff] hover:shadow-[0_0_16px_rgba(0,229,255,0.40),0_0_38px_rgba(0,140,255,0.28)]"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -154,7 +154,7 @@ export default function AiMissionCenter({
                 {mission.explanation}
               </p>
 
-              <div className="mt-4 space-y-3 rounded-xl border border-slate-800 bg-slate-950/70 p-4 text-sm">
+              <div className="mt-4 space-y-3 rounded-xl border border-[#008cff]/45 bg-[#020617]/85 p-4 shadow-[inset_0_0_18px_rgba(0,107,255,0.04)] text-sm">
                 <div>
                   <p className="font-bold text-orange-300">
                     Impact
@@ -165,7 +165,7 @@ export default function AiMissionCenter({
                 </div>
 
                 <div>
-                  <p className="font-bold text-cyan-300">
+                  <p className="font-bold text-[#49efff]">
                     Action recommandée
                   </p>
                   <p className="mt-1 text-slate-300">
@@ -188,7 +188,7 @@ export default function AiMissionCenter({
                 onClick={() =>
                   completeMission(mission.id)
                 }
-                className="mt-4 w-full rounded-xl bg-cyan-500 px-4 py-3 text-sm font-black text-slate-950 transition hover:bg-cyan-400"
+                className="mt-4 w-full rounded-xl border border-[#00e5ff]/55 bg-gradient-to-r from-[#006bff] to-[#008cff] px-4 py-3 text-sm font-black text-white shadow-[0_0_18px_rgba(0,140,255,0.28)] transition hover:from-[#008cff] hover:to-[#00b8ff] hover:shadow-[0_0_28px_rgba(0,229,255,0.38)]"
               >
                 Marquer comme traitée
               </button>

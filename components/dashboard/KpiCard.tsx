@@ -59,13 +59,13 @@ export default function KpiCard({
   const style = getProgressStyle(safeProgress);
 
   return (
-    <article className="group relative min-w-0 overflow-hidden rounded-2xl border border-[#006bff]/45 bg-gradient-to-br from-[#071426] via-[#06101f] to-[#020617] p-3 shadow-[0_0_18px_rgba(0,107,255,0.10)] transition duration-300 hover:-translate-y-0.5 hover:border-[#008cff]/90 hover:shadow-[0_0_28px_rgba(0,140,255,0.28)] sm:p-3 lg:p-4">
+    <article className="organia-kpi-electric organia-electric-panel-v2 group relative min-w-0 overflow-hidden rounded-2xl border border-[#00a8ff]/85 bg-gradient-to-br from-[#06172d] via-[#04111f] to-[#01040b] p-3 shadow-[0_0_16px_rgba(0,140,255,0.20),inset_0_0_18px_rgba(0,107,255,0.04)] transition duration-300 hover:-translate-y-0.5 hover:border-[#008cff]/90 hover:shadow-[0_0_28px_rgba(0,140,255,0.28)] sm:p-3 lg:p-4">
       <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-[#008cff]/15 blur-3xl" />
 
       <div className="relative">
         <div className="flex items-start justify-between gap-2">
           <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#008cff]/55 bg-[#006bff]/10 text-lg shadow-[inset_0_0_14px_rgba(0,140,255,0.10),0_0_12px_rgba(0,107,255,0.12)] sm:h-10 sm:w-10 sm:text-lg">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#00b8ff]/75 bg-[#006bff]/15 text-lg shadow-[inset_0_0_14px_rgba(0,229,255,0.12),0_0_15px_rgba(0,140,255,0.28)] sm:h-10 sm:w-10 sm:text-lg">
               {icon}
             </span>
 
@@ -88,7 +88,7 @@ export default function KpiCard({
         </div>
 
         <div className="mt-3 flex items-end justify-between gap-2 sm:mt-4">
-          <p className="text-3xl font-black tracking-tight text-white sm:text-3xl">
+          <p className="text-3xl font-black tracking-tight text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.16)] sm:text-3xl">
             {value}
           </p>
 

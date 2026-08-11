@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -23,13 +24,13 @@ export default function Sidebar() {
   return (
     <aside className="hidden min-h-screen w-60 shrink-0 border-r border-organia-electric/20 bg-organia-night px-4 py-5 text-white lg:block">
       <div className="mb-7">
-        <div className="flex items-center gap-2">
+        <div className="organia-logo-electric flex items-center gap-2">
           <span
             aria-hidden="true"
-            className="h-3 w-3 rounded-full bg-organia-electric-bright shadow-[0_0_18px_rgba(0,140,255,0.95)]"
+            className="organia-logo-orb h-3 w-3 rounded-full bg-organia-cyan"
           />
 
-          <h1 className="text-2xl font-black leading-tight tracking-tight">
+          <h1 className="organia-logo-text text-2xl font-black leading-tight tracking-tight">
             Organ<span className="text-organia-electric-bright">&bull;IA</span>{" "}
             <span className="text-organia-cyan">Flow</span>
           </h1>
@@ -52,7 +53,7 @@ export default function Sidebar() {
               href={link.href}
               className={`group flex items-center gap-3 rounded-xl border px-3 py-2.5 text-sm transition-all duration-200 ${
                 active
-                  ? "border-organia-electric-bright/50 bg-organia-electric font-semibold text-white shadow-[0_0_22px_rgba(0,107,255,0.28)]"
+                  ? "border-organia-electric-bright/50 organia-nav-active organia-plasma-active bg-gradient-to-r from-[#006bff] via-[#008cff] to-[#00a8ff] font-semibold text-white"
                   : "border-transparent text-slate-300 hover:border-organia-electric/20 hover:bg-organia-surface-soft hover:text-white"
               }`}
             >

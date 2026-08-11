@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 type RiskLevel = "LOW" | "MEDIUM" | "HIGH" | null;
 
 type AiCommandCenterProps = {
@@ -69,11 +71,25 @@ export default function AiCommandCenter({
           : "En attente de données";
 
   return (
-    <section className="mb-6 overflow-hidden rounded-2xl border border-cyan-900/70 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 shadow-xl">
-      <div className="border-b border-slate-800 p-6">
+    <section className="organia-electric-panel organia-electric-panel-v2 organia-ai-core mb-6 overflow-hidden rounded-2xl border border-[#008cff]/75 bg-gradient-to-br from-[#020617] via-[#071426] to-[#00265c] shadow-[0_0_20px_rgba(0,140,255,0.30),0_0_55px_rgba(0,107,255,0.13),inset_0_0_35px_rgba(0,140,255,0.06)]">
+      <div className="relative overflow-hidden border-b border-[#008cff]/40 p-6">
+  <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[250px] w-[1120px] -translate-x-1/2 -translate-y-1/2 xl:block">
+    <Image
+      src="/organia-reference/organia-ai-brain-transparent.png"
+      alt=""
+      fill
+      priority
+      sizes="680px"
+      className="object-contain mix-blend-screen scale-[1.22]"
+      style={{
+        filter:
+          "saturate(1.85) brightness(1.30) contrast(1.22) drop-shadow(0 0 22px rgba(0,229,255,.70)) drop-shadow(0 0 58px rgba(0,107,255,.45))",
+      }}
+    />
+  </div>
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.55)]">
               Intelligence opérationnelle
             </p>
 
@@ -105,8 +121,8 @@ export default function AiCommandCenter({
         </div>
       </div>
 
-      <div className="grid gap-4 border-b border-slate-800 p-6 sm:grid-cols-2 xl:grid-cols-4">
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
+      <div className="grid gap-4 border-b border-[#008cff]/40 p-6 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)] transition hover:-translate-y-1 hover:border-[#00e5ff] hover:shadow-[0_0_16px_rgba(0,229,255,0.40),0_0_38px_rgba(0,140,255,0.28)]">
           <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Santé globale
           </p>
@@ -115,12 +131,12 @@ export default function AiCommandCenter({
             {health}%
           </p>
 
-          <p className="mt-2 text-sm font-semibold text-cyan-300">
+          <p className="mt-2 text-sm font-semibold text-[#49efff]">
             {healthLabel}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
+        <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)] transition hover:-translate-y-1 hover:border-[#00e5ff] hover:shadow-[0_0_16px_rgba(0,229,255,0.40),0_0_38px_rgba(0,140,255,0.28)]">
           <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Score IA
           </p>
@@ -134,7 +150,7 @@ export default function AiCommandCenter({
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
+        <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)] transition hover:-translate-y-1 hover:border-[#00e5ff] hover:shadow-[0_0_16px_rgba(0,229,255,0.40),0_0_38px_rgba(0,140,255,0.28)]">
           <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Niveau de risque
           </p>
@@ -148,7 +164,7 @@ export default function AiCommandCenter({
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5">
+        <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)] transition hover:-translate-y-1 hover:border-[#00e5ff] hover:shadow-[0_0_16px_rgba(0,229,255,0.40),0_0_38px_rgba(0,140,255,0.28)]">
           <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Source des données
           </p>
@@ -178,7 +194,7 @@ export default function AiCommandCenter({
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+        <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)]">
           <div className="flex items-center justify-between gap-4">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-red-400">
               Alertes détectées
@@ -194,7 +210,7 @@ export default function AiCommandCenter({
               alerts.slice(0, 4).map((alert) => (
                 <li
                   key={alert}
-                  className="flex items-start gap-3 rounded-xl border border-slate-800 bg-slate-950/60 p-3"
+                  className="flex items-start gap-3 rounded-xl border border-[#008cff]/45 bg-[#020617]/80 p-3"
                 >
                   <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-red-400" />
                   <span>{alert}</span>

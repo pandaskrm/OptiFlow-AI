@@ -193,10 +193,10 @@ export default function DashboardLiveContent() {
 
       <AiMissionCenter missions={missions} />
 
-      <section className="mb-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+      <section className="mb-4 rounded-2xl border border-[#008cff]/45 bg-slate-900/70 p-4">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-cyan-400">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.55)]">
               Résumé exécutif IA
             </p>
 
@@ -209,7 +209,7 @@ export default function DashboardLiveContent() {
             <button
               type="button"
               onClick={simulation.start}
-              className="inline-flex shrink-0 items-center justify-center rounded-xl bg-cyan-500 px-5 py-3 text-sm font-bold text-slate-950 transition hover:bg-cyan-400"
+              className="inline-flex shrink-0 items-center justify-center rounded-xl border border-[#00e5ff]/55 bg-gradient-to-r from-[#006bff] to-[#008cff] px-5 py-3 text-sm font-black text-white shadow-[0_0_18px_rgba(0,140,255,0.28)] transition hover:from-[#008cff] hover:to-[#00b8ff] hover:shadow-[0_0_28px_rgba(0,229,255,0.38)]"
             >
               Lancer le Mode Démo
             </button>
@@ -218,7 +218,7 @@ export default function DashboardLiveContent() {
       </section>
 
       {!hasData ? (
-        <section className="rounded-2xl border border-dashed border-slate-700 bg-slate-900/50 px-5 py-6 text-center">
+        <section className="rounded-2xl border border-dashed border-[#006bff]/40 bg-gradient-to-br from-[#071426]/90 to-[#020617] px-5 py-6 text-center shadow-[inset_0_0_30px_rgba(0,107,255,0.05)]">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-blue-800 bg-blue-500/10 text-sm font-black text-blue-300">
             ERP
           </div>
@@ -234,7 +234,7 @@ export default function DashboardLiveContent() {
           </p>
 
           {loading && (
-            <p className="mt-4 text-sm font-semibold text-cyan-300">
+            <p className="mt-4 text-sm font-semibold text-[#49efff]">
               Vérification des données en cours...
             </p>
           )}

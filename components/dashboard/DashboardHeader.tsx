@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
@@ -67,17 +68,45 @@ export default function DashboardHeader() {
     ? currentEvent?.message ??
       "Le moteur de simulation analyse les opérations."
     : hasRealData
-      ? "OptiFlow AI analyse les données synchronisées."
+      ? "Organ•IA Flow analyse les données synchronisées."
       : "Connectez un ERP ou lancez le Mode Démo.";
 
   return (
     <header className="mb-3 space-y-2">
-      <div className="overflow-hidden rounded-2xl border border-cyan-500/20 bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950/30 px-5 py-3 shadow-lg">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+      <div className="organia-electric-panel organia-electric-panel-v2 relative overflow-hidden rounded-2xl border border-[#008cff]/80 bg-gradient-to-r from-[#020617] via-[#031024] to-[#002c68]/55 px-5 py-3 shadow-[0_0_18px_rgba(0,140,255,0.32),0_0_48px_rgba(0,107,255,0.14),inset_0_0_30px_rgba(0,140,255,0.05)]">
+
+        {/* Globe holographique central */}
+        <div className="pointer-events-none absolute inset-0 hidden overflow-hidden xl:block">
+          <div className="absolute left-1/2 top-1/2 h-[220%] w-[66%] -translate-x-1/2 -translate-y-[40%] opacity-100">
+            <Image
+              src="/organia-reference/organia-hero-globe-transparent.png"
+              alt=""
+              fill
+              priority
+              sizes="900px"
+              className="object-contain object-center mix-blend-screen scale-[1.32]"
+              style={{
+                filter:
+                  "saturate(1.75) brightness(1.25) contrast(1.18) drop-shadow(0 0 20px rgba(0,229,255,.65)) drop-shadow(0 0 55px rgba(0,107,255,.45))",
+              }}
+            />
+          </div>
+
+          {/* Boule lumineuse au-dessus du globe */}
+          <div className="absolute left-1/2 top-[-4px] z-30 -translate-x-1/2">
+            <span className="block h-5 w-5 rounded-full bg-white shadow-[0_0_8px_#ffffff,0_0_18px_#00e5ff,0_0_38px_#008cff,0_0_72px_rgba(0,107,255,0.8)]" />
+
+            <span className="absolute left-1/2 top-5 h-12 w-[2px] -translate-x-1/2 bg-gradient-to-b from-white via-[#00e5ff] to-transparent shadow-[0_0_12px_rgba(0,229,255,0.9)]" />
+
+            <span className="absolute -left-4 -top-4 h-13 w-13 rounded-full border border-[#00e5ff]/25 shadow-[0_0_28px_rgba(0,140,255,0.35)]" />
+          </div>
+        </div>
+
+        <div className="relative z-10 flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-300">
-                OptiFlow AI
+              <span className="rounded-full border border-[#008cff]/60 bg-[#006bff]/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#49efff] shadow-[0_0_14px_rgba(0,140,255,0.16)]">
+                Organ•IA Flow
               </span>
 
               <LiveClock />
@@ -88,7 +117,7 @@ export default function DashboardHeader() {
                 Bonjour Kevin 👋
               </h1>
 
-              <p className="text-sm capitalize text-slate-500">
+              <p className="text-sm capitalize text-slate-400">
                 {currentDate || "Chargement..."}
               </p>
             </div>
@@ -98,7 +127,7 @@ export default function DashboardHeader() {
                 {activityTitle}
               </p>
 
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-400">
                 {activityMessage}
               </p>
             </div>
@@ -106,8 +135,8 @@ export default function DashboardHeader() {
 
           <div className="flex flex-col gap-3 xl:items-end">
             <div className="grid w-full gap-2 sm:grid-cols-3 xl:w-auto">
-              <div className="min-w-[150px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-wider text-slate-600">
+              <div className="min-w-[150px] rounded-xl border border-[#008cff]/60 bg-[#020617]/85 px-3 py-2 shadow-[inset_0_0_14px_rgba(0,107,255,0.07)] backdrop-blur-sm">
+                <p className="text-[10px] uppercase tracking-wider text-slate-500">
                   Source
                 </p>
                 <p className="mt-1 text-sm font-bold text-white">
@@ -115,8 +144,8 @@ export default function DashboardHeader() {
                 </p>
               </div>
 
-              <div className="min-w-[130px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-wider text-slate-600">
+              <div className="min-w-[130px] rounded-xl border border-[#008cff]/60 bg-[#020617]/85 px-3 py-2 shadow-[inset_0_0_14px_rgba(0,107,255,0.07)] backdrop-blur-sm">
+                <p className="text-[10px] uppercase tracking-wider text-slate-500">
                   Santé dépôt
                 </p>
                 <p className="mt-1 text-sm font-bold text-white">
@@ -124,8 +153,8 @@ export default function DashboardHeader() {
                 </p>
               </div>
 
-              <div className="min-w-[130px] rounded-xl border border-slate-700/80 bg-slate-950/60 px-3 py-2">
-                <p className="text-[10px] uppercase tracking-wider text-slate-600">
+              <div className="min-w-[130px] rounded-xl border border-[#008cff]/60 bg-[#020617]/85 px-3 py-2 shadow-[inset_0_0_14px_rgba(0,107,255,0.07)] backdrop-blur-sm">
+                <p className="text-[10px] uppercase tracking-wider text-slate-500">
                   Intelligence IA
                 </p>
                 <p className="mt-1 text-sm font-bold text-white">
@@ -139,10 +168,10 @@ export default function DashboardHeader() {
             <button
               type="button"
               onClick={simulation.running ? stopDemo : startDemo}
-              className={`inline-flex min-w-[200px] items-center justify-center rounded-lg px-4 py-2 text-sm font-bold text-white shadow-md transition hover:-translate-y-0.5 ${
+              className={`inline-flex min-w-[200px] items-center justify-center rounded-lg border px-4 py-2 text-sm font-black text-white transition hover:-translate-y-0.5 ${
                 simulation.running
-                  ? "bg-red-600 hover:bg-red-500"
-                  : "bg-emerald-600 hover:bg-emerald-500"
+                  ? "border-red-400/60 bg-gradient-to-r from-red-700 to-red-500 shadow-[0_0_22px_rgba(239,68,68,0.35)]"
+                  : "border-[#00e5ff]/70 bg-gradient-to-r from-[#006bff] via-[#008cff] to-[#00b8ff] shadow-[0_0_14px_rgba(0,229,255,0.70),0_0_36px_rgba(0,107,255,0.55)] hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(0,229,255,0.95),0_0_48px_rgba(0,107,255,0.70)]"
               }`}
             >
               {simulation.running

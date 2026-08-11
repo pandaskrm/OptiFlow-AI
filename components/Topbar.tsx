@@ -5,7 +5,7 @@ export default async function Topbar() {
   const auth = await getCurrentSession();
 
   return (
-    <header className="flex items-center justify-between gap-4 border-b border-organia-electric/15 bg-organia-night/80 px-5 py-4 lg:px-6">
+    <header className="organia-topbar-electric flex items-center justify-between gap-4 border-b border-organia-electric/15 bg-organia-night/80 px-5 py-4 lg:px-6">
       <div>
         <div className="flex items-center gap-2">
           <span
