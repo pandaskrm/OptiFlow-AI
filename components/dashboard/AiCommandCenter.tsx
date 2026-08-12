@@ -71,7 +71,7 @@ export default function AiCommandCenter({
           : "En attente de données";
 
   return (
-    <section className="organia-electric-panel organia-electric-panel-v2 organia-ai-core mb-6 overflow-hidden rounded-2xl border border-[#008cff]/75 bg-gradient-to-br from-[#020617] via-[#071426] to-[#00265c] shadow-[0_0_20px_rgba(0,140,255,0.30),0_0_55px_rgba(0,107,255,0.13),inset_0_0_35px_rgba(0,140,255,0.06)]">
+    <section className="organia-electric-panel organia-electric-panel-v2 organia-ai-core organia-plasma-active mb-6 overflow-hidden rounded-2xl border border-[#00e5ff]/80 bg-gradient-to-br from-[#01040b] via-[#03152d] to-[#003b88]/75 shadow-[0_0_26px_rgba(0,229,255,0.42),0_0_70px_rgba(0,107,255,0.24),inset_0_0_42px_rgba(0,140,255,0.10)]">
       <div className="relative overflow-hidden border-b border-[#008cff]/40 p-6">
   <div className="pointer-events-none absolute left-1/2 top-1/2 hidden h-[250px] w-[1120px] -translate-x-1/2 -translate-y-1/2 xl:block">
     <Image
