@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import LibotAvatar from "./LibotAvatar";
 
 type RiskLevel = "LOW" | "MEDIUM" | "HIGH" | null;
 
@@ -114,8 +115,10 @@ export default function AiCommandCenter({
       }}
     />
   </div>
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-          <div>
+        <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-1 items-center gap-5">
+            <LibotAvatar state={operationalState} />
+            <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.55)]">
               Intelligence opérationnelle
             </p>
@@ -128,6 +131,8 @@ export default function AiCommandCenter({
               Analyse de la santé de l'entrepôt, des risques et des
               actions prioritaires.
             </p>
+          </div>
+
           </div>
 
           <div
