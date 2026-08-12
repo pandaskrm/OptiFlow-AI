@@ -40,7 +40,7 @@ export default function CommercialDemoPanel() {
         </h2>
 
         <p className="mt-2 text-slate-500">
-          Présentez OptiFlow AI en quelques minutes avec un scénario réaliste.
+          Présentez Organ•IA Flow en quelques minutes avec un scénario réaliste.
         </p>
       </div>
 
@@ -67,7 +67,7 @@ export default function CommercialDemoPanel() {
 
       <div className="mt-6 rounded-xl border border-cyan-500/30 bg-cyan-500/10 p-4">
         <p className="text-center text-cyan-300 font-semibold">
-          🎬 Ce scénario est conçu pour montrer la valeur d'OptiFlow AI à un prospect ou à une direction en moins de 5 minutes.
+          🎬 Ce scénario est conçu pour montrer la valeur d'Organ•IA Flow à un prospect ou à une direction en moins de 5 minutes.
         </p>
       </div>
     </section>

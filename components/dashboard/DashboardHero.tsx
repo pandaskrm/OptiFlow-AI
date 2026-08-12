@@ -99,7 +99,7 @@ export default function DashboardHero() {
       <div className="relative z-10 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
         <div className="flex flex-col justify-center">
           <p className="mb-2 text-xs font-bold uppercase tracking-widest text-cyan-300">
-            OptiFlow AI
+            Organ•IA Flow
           </p>
 
           <h1 className="text-4xl font-black leading-tight text-white xl:text-5xl">

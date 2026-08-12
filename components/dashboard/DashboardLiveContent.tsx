@@ -157,7 +157,7 @@ export default function DashboardLiveContent() {
           analysis.recommendations[0] ??
           "Aucune action immédiate n'est nécessaire."
         }`
-      : "Aucune activité réelle n'est encore disponible. Connectez votre ERP ou lancez le Mode Démo pour découvrir le fonctionnement complet d'OptiFlow AI.";
+      : "Aucune activité réelle n'est encore disponible. Connectez votre ERP ou lancez le Mode Démo pour découvrir le fonctionnement complet d'Organ•IA Flow.";
 
   return (
     <>
@@ -230,7 +230,7 @@ export default function DashboardLiveContent() {
           <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-500">
             Connectez une source de données pour suivre votre activité réelle,
             ou utilisez le Mode Démo pour présenter immédiatement les capacités
-            d'OptiFlow AI.
+            d'Organ•IA Flow.
           </p>
 
           {loading && (
