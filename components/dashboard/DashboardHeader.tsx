@@ -73,7 +73,7 @@ export default function DashboardHeader() {
 
   return (
     <header className="mb-3 space-y-2">
-      <div className="organia-electric-panel organia-electric-panel-v2 relative overflow-hidden rounded-2xl border border-[#008cff]/80 bg-gradient-to-r from-[#020617] via-[#031024] to-[#002c68]/55 px-5 py-3 shadow-[0_0_18px_rgba(0,140,255,0.32),0_0_48px_rgba(0,107,255,0.14),inset_0_0_30px_rgba(0,140,255,0.05)]">
+      <div className="organia-electric-panel organia-electric-panel-v2 organia-plasma-active relative overflow-hidden rounded-2xl border border-[#00e5ff]/75 bg-gradient-to-r from-[#01040b] via-[#03152d] to-[#003b88]/65 px-5 py-3 shadow-[0_0_22px_rgba(0,229,255,0.42),0_0_60px_rgba(0,107,255,0.24),inset_0_0_38px_rgba(0,140,255,0.09)]">
 
         {/* Globe holographique central */}
         <div className="pointer-events-none absolute inset-0 hidden overflow-hidden xl:block">
