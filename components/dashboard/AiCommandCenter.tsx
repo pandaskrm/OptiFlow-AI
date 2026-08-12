@@ -70,6 +70,24 @@ export default function AiCommandCenter({
           ? "warning"
           : "critical";
 
+  const stateStyle =
+    operationalState === "good"
+      ? "border-emerald-400/70 bg-emerald-500/15 text-emerald-300 shadow-[0_0_18px_rgba(52,211,153,0.45)]"
+      : operationalState === "warning"
+        ? "border-orange-400/70 bg-orange-500/15 text-orange-300 shadow-[0_0_18px_rgba(251,146,60,0.45)]"
+        : operationalState === "critical"
+          ? "border-red-400/80 bg-red-500/15 text-red-300 shadow-[0_0_22px_rgba(248,113,113,0.55)]"
+          : "border-[#008cff]/50 bg-[#006bff]/10 text-[#49efff]";
+
+  const stateDot =
+    operationalState === "good"
+      ? "bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,1)]"
+      : operationalState === "warning"
+        ? "bg-orange-400 shadow-[0_0_12px_rgba(251,146,60,1)]"
+        : operationalState === "critical"
+          ? "bg-red-400 shadow-[0_0_14px_rgba(248,113,113,1)]"
+          : "bg-[#00e5ff] shadow-[0_0_10px_rgba(0,229,255,.8)]";
+
   const healthLabel =
     health >= 80
       ? "Situation maîtrisée"
@@ -113,16 +131,10 @@ export default function AiCommandCenter({
           </div>
 
           <div
-            className={`inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-wider ${
-              active
-                ? "border-emerald-700 bg-emerald-500/10 text-emerald-400"
-                : "border-slate-700 bg-slate-800 text-slate-500"
-            }`}
+            className={`inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-wider ${stateStyle}`}
           >
             <span
-              className={`h-2 w-2 rounded-full ${
-                active ? "bg-emerald-400" : "bg-slate-500"
-              }`}
+              className={`h-2 w-2 rounded-full ${stateDot}`}
             />
 
             {active ? "Analyse active" : "En attente"}
