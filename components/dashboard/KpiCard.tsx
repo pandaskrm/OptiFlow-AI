@@ -17,30 +17,27 @@ const KPI_ICONS: Record<string, string> = {
 function getProgressStyle(progress: number) {
   if (progress >= 85) {
     return {
-      bar: "bg-emerald-400",
-      badge:
-        "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
+      bar: "bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.95)]",
+      badge: "border-emerald-500/30 bg-emerald-500/10 text-emerald-300",
       result: "text-emerald-400",
-      label: "Excellente",
+      label: "Excellent",
     };
   }
 
   if (progress >= 60) {
     return {
-      bar: "bg-cyan-400",
-      badge:
-        "border-cyan-500/30 bg-cyan-500/10 text-cyan-300",
-      result: "text-cyan-400",
-      label: "Sous contrôle",
+      bar: "bg-orange-400 shadow-[0_0_10px_rgba(251,146,60,0.95)]",
+      badge: "border-orange-500/30 bg-orange-500/10 text-orange-300",
+      result: "text-orange-400",
+      label: "\u00C0 surveiller",
     };
   }
 
   return {
-    bar: "bg-orange-400",
-    badge:
-      "border-orange-500/30 bg-orange-500/10 text-orange-300",
-    result: "text-orange-400",
-    label: "À surveiller",
+    bar: "bg-red-400 shadow-[0_0_10px_rgba(248,113,113,0.95)]",
+    badge: "border-red-500/30 bg-red-500/10 text-red-300",
+    result: "text-red-400",
+    label: "Critique",
   };
 }
 
