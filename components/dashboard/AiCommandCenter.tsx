@@ -61,6 +61,15 @@ export default function AiCommandCenter({
 }: AiCommandCenterProps) {
   const active = hasData || simulationRunning;
 
+  const operationalState =
+    !active
+      ? "neutral"
+      : health >= 85
+        ? "good"
+        : health >= 60
+          ? "warning"
+          : "critical";
+
   const healthLabel =
     health >= 80
       ? "Situation maîtrisée"
