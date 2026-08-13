@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { LIBOT_BEHAVIOR_EVENT, type LibotBehavior } from "../../lib/libotBehavior";
 import Libot3D from "./Libot3D";
 
 type RiskLevel = "LOW" | "MEDIUM" | "HIGH" | null;
@@ -62,6 +64,37 @@ export default function AiCommandCenter({
 }: AiCommandCenterProps) {
   const active = hasData || simulationRunning;
 
+  const [libotBehavior, setLibotBehavior] =
+    useState<LibotBehavior>({
+      speaking: false,
+      thinking: false,
+      gesture: "idle",
+    });
+
+  useEffect(() => {
+    const handleLibotBehavior = (event: Event) => {
+      const customEvent =
+        event as CustomEvent<Partial<LibotBehavior>>;
+
+      setLibotBehavior((current) => ({
+        ...current,
+        ...customEvent.detail,
+      }));
+    };
+
+    window.addEventListener(
+      LIBOT_BEHAVIOR_EVENT,
+      handleLibotBehavior,
+    );
+
+    return () => {
+      window.removeEventListener(
+        LIBOT_BEHAVIOR_EVENT,
+        handleLibotBehavior,
+      );
+    };
+  }, []);
+
   const operationalState =
     !active
       ? "neutral"
@@ -120,8 +153,12 @@ export default function AiCommandCenter({
             <div className="relative h-[300px] w-full max-w-[340px] shrink-0 overflow-hidden rounded-2xl border border-[#00e5ff]/30 bg-[#01040b]/30 shadow-[inset_0_0_40px_rgba(0,140,255,0.08),0_0_34px_rgba(0,229,255,0.12)]">
   <Libot3D
     state={operationalState}
-    speaking={false}
-    gesture="idle"
+    speaking={libotBehavior.speaking}
+    gesture={
+      libotBehavior.thinking
+        ? "idle"
+        : libotBehavior.gesture
+    }
   />
 </div>
             <div>
