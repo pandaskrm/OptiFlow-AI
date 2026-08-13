@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import LibotAvatar from "./LibotAvatar";
+import Libot3D from "./Libot3D";
 
 type RiskLevel = "LOW" | "MEDIUM" | "HIGH" | null;
 
@@ -117,7 +117,12 @@ export default function AiCommandCenter({
   </div>
         <div className="relative z-10 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-1 items-center gap-5">
-            <LibotAvatar state={operationalState} />
+            <div className="relative h-[300px] w-full max-w-[340px] shrink-0 overflow-hidden rounded-2xl border border-[#00e5ff]/30 bg-[#01040b]/30 shadow-[inset_0_0_40px_rgba(0,140,255,0.08),0_0_34px_rgba(0,229,255,0.12)]">
+  <Libot3D
+    state={operationalState}
+    speaking={active}
+  />
+</div>
             <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.55)]">
               Intelligence opérationnelle
