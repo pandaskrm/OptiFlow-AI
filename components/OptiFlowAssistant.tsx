@@ -1,5 +1,7 @@
 "use client";
 
+import { emitLibotBehavior } from "../lib/libotBehavior";
+
 
 import useVoiceAssistant from "../hooks/useVoiceAssistant";
 import { notifyWarehouseUpdate } from "../lib/warehouse/warehouseLiveStore";
@@ -467,6 +469,14 @@ export default function OptiFlowAssistant() {
     stopSpeaking,
     toggleVoice,
   } = useVoiceAssistant();
+
+  useEffect(() => {
+    emitLibotBehavior({
+      thinking,
+      speaking,
+      gesture: speaking ? "talk" : "idle",
+    });
+  }, [thinking, speaking]);
 
   useEffect(() => {
     try {
