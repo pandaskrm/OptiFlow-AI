@@ -417,6 +417,46 @@ function createAnswer(question: string, currentPage: string) {
   return `Vous êtes actuellement dans ${currentPageName}. Je peux répondre à vos questions ou ouvrir directement un autre module.`;
 }
 
+function getLibotGestureForMessage(message: string) {
+  const text = normalizeText(message);
+
+  if (
+    text.includes("bonjour") ||
+    text.includes("bienvenue")
+  ) {
+    return "wave" as const;
+  }
+
+  if (
+    text.includes("confirme") ||
+    text.includes("succes") ||
+    text.includes("termine") ||
+    text.includes("valide")
+  ) {
+    return "confirm" as const;
+  }
+
+  if (
+    text.includes("alerte") ||
+    text.includes("risque") ||
+    text.includes("priorite") ||
+    text.includes("score") ||
+    text.includes("kpi")
+  ) {
+    return "point" as const;
+  }
+
+  if (
+    text.includes("voici") ||
+    text.includes("resume") ||
+    text.includes("analyse") ||
+    text.includes("recommande")
+  ) {
+    return "present" as const;
+  }
+
+  return "talk" as const;
+}
 export default function OptiFlowAssistant() {
   const router = useRouter();
   const pathname = usePathname();
@@ -627,6 +667,14 @@ export default function OptiFlowAssistant() {
       "optiflow_ai_last_spoken_message",
       messageKey,
     );
+
+    emitLibotBehavior({
+      speaking: true,
+      thinking: false,
+      gesture: getLibotGestureForMessage(
+        lastMessage.content,
+      ),
+    });
 
     speak(lastMessage.content);
   }, [
