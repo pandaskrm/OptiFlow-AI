@@ -120,7 +120,8 @@ export default function AiCommandCenter({
             <div className="relative h-[300px] w-full max-w-[340px] shrink-0 overflow-hidden rounded-2xl border border-[#00e5ff]/30 bg-[#01040b]/30 shadow-[inset_0_0_40px_rgba(0,140,255,0.08),0_0_34px_rgba(0,229,255,0.12)]">
   <Libot3D
     state={operationalState}
-    speaking={active}
+    speaking={false}
+    gesture="idle"
   />
 </div>
             <div>
