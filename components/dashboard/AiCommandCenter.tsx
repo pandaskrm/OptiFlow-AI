@@ -75,23 +75,16 @@ export default function AiCommandCenter({
         />
 
         {/* LIBOT MANAGER */}
-        <div className="pointer-events-none absolute bottom-0 left-0 hidden h-[335px] w-[340px] xl:block">
+        <div className="pointer-events-none absolute bottom-0 left-0 hidden h-[340px] w-[360px] xl:block">
           <div className="absolute bottom-5 left-8 h-[220px] w-[220px] rounded-full bg-[#00e5ff]/15 blur-[65px]" />
 
           <Image
-            src="/organia-reference/libot-manager.png"
+            src="/organia-reference/libot-manager-crossed.png"
             alt="Libot Manager"
             fill
             priority
-            sizes="340px"
-            className="object-cover object-top drop-shadow-[0_0_28px_rgba(0,229,255,0.40)]"
-            style={{
-              WebkitMaskImage:
-                "radial-gradient(ellipse 52% 90% at 46% 48%, black 34%, rgba(0,0,0,.88) 54%, rgba(0,0,0,.35) 66%, transparent 78%)",
-              maskImage:
-                "radial-gradient(ellipse 52% 90% at 46% 48%, black 34%, rgba(0,0,0,.88) 54%, rgba(0,0,0,.35) 66%, transparent 78%)",
-              mixBlendMode: "screen",
-            }}
+            sizes="360px"
+            className="object-contain object-bottom drop-shadow-[0_0_30px_rgba(0,229,255,0.48)]"
           />
         </div>
 
