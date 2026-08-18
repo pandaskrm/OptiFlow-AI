@@ -49,27 +49,27 @@ export default function DashboardHeader() {
   }
 
   const connectionLabel = simulation.running
-    ? "Mode D?mo"
+    ? "Mode Démo"
     : loading
       ? "Connexion..."
       : error
         ? "Indisponible"
         : hasRealData
-          ? "ERP connect?"
-          : "ERP non connect?";
+          ? "ERP connecté"
+          : "ERP non connecté";
 
   const activityTitle = simulation.running
     ? currentEvent?.title ?? "Simulation active"
     : hasRealData
-      ? "Donn?es ERP disponibles"
-      : "Aucune activit? disponible";
+      ? "Données ERP disponibles"
+      : "Aucune activité disponible";
 
   const activityMessage = simulation.running
     ? currentEvent?.message ??
-      "Le moteur de simulation analyse les op?rations."
+      "Le moteur de simulation analyse les opérations."
     : hasRealData
-      ? "Organ?IA Flow analyse les donn?es synchronis?es."
-      : "Connectez un ERP ou lancez le Mode D?mo.";
+      ? "Organ•IA Flow analyse les données synchronisées."
+      : "Connectez un ERP ou lancez le Mode Démo.";
 
   return (
     <header className="mb-3 space-y-2">
@@ -106,7 +106,7 @@ export default function DashboardHeader() {
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-[#008cff]/60 bg-[#006bff]/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#49efff] shadow-[0_0_14px_rgba(0,140,255,0.16)]">
-                Organ?IA Flow
+                Organ•IA Flow
               </span>
 
               <LiveClock />
@@ -114,7 +114,7 @@ export default function DashboardHeader() {
 
             <div className="mt-2 flex flex-col gap-1 sm:flex-row sm:items-end sm:gap-4">
               <h1 className="text-2xl font-black tracking-tight text-white">
-                Bonjour Kevin ??
+                Bonjour Kevin 👋
               </h1>
 
               <p className="text-sm capitalize text-slate-400">
@@ -146,7 +146,7 @@ export default function DashboardHeader() {
 
               <div className="min-w-[130px] rounded-xl border border-[#008cff]/60 bg-[#020617]/85 px-3 py-2 shadow-[inset_0_0_14px_rgba(0,107,255,0.07)] backdrop-blur-sm">
                 <p className="text-[10px] uppercase tracking-wider text-slate-500">
-                  Sant? d?p?t
+                  Santé dépôt
                 </p>
                 <p className="mt-1 text-sm font-bold text-white">
                   {simulation.running || hasRealData ? `${health} %` : "--"}
@@ -175,8 +175,8 @@ export default function DashboardHeader() {
               }`}
             >
               {simulation.running
-                ? "? Arr?ter le Mode D?mo"
-                : "? Lancer le Mode D?mo"}
+                ? "■ Arrêter le Mode Démo"
+                : "▶ Lancer le Mode Démo"}
             </button>
           </div>
         </div>
