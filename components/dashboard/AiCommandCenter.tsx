@@ -18,11 +18,11 @@ type AiCommandCenterProps = {
 
 function getRiskLabel(riskLevel: RiskLevel) {
   if (riskLevel === "HIGH") {
-    return "Élevé";
+    return "?lev?";
   }
 
   if (riskLevel === "MEDIUM") {
-    return "Modéré";
+    return "Mod?r?";
   }
 
   if (riskLevel === "LOW") {
@@ -63,12 +63,12 @@ export default function AiCommandCenter({
 
   const healthLabel =
     health >= 80
-      ? "Situation maîtrisée"
+      ? "Situation ma?tris?e"
       : health >= 60
         ? "Vigilance requise"
         : health > 0
-          ? "Risque opérationnel"
-          : "En attente de données";
+          ? "Risque op?rationnel"
+          : "En attente de donn?es";
 
   return (
     <section className="organia-electric-panel organia-electric-panel-v2 organia-ai-core organia-plasma-active mb-6 overflow-hidden rounded-2xl border border-[#00e5ff]/80 bg-gradient-to-br from-[#01040b] via-[#03152d] to-[#003b88]/75 shadow-[0_0_26px_rgba(0,229,255,0.42),0_0_70px_rgba(0,107,255,0.24),inset_0_0_42px_rgba(0,140,255,0.10)]">
@@ -90,7 +90,7 @@ export default function AiCommandCenter({
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.55)]">
-              Intelligence opérationnelle
+              Intelligence op?rationnelle
             </p>
 
             <h2 className="mt-2 text-2xl font-bold text-white">
@@ -98,7 +98,7 @@ export default function AiCommandCenter({
             </h2>
 
             <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-500">
-              Analyse de la santé de l'entrepôt, des risques et des
+              Analyse de la sant? de l'entrep?t, des risques et des
               actions prioritaires.
             </p>
           </div>
@@ -124,7 +124,7 @@ export default function AiCommandCenter({
       <div className="grid gap-4 border-b border-[#008cff]/40 p-6 sm:grid-cols-2 xl:grid-cols-4">
         <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)] transition hover:-translate-y-1 hover:border-[#00e5ff] hover:shadow-[0_0_16px_rgba(0,229,255,0.40),0_0_38px_rgba(0,140,255,0.28)]">
           <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
-            Santé globale
+            Sant? globale
           </p>
 
           <p className="mt-3 text-4xl font-black text-white">
@@ -142,11 +142,11 @@ export default function AiCommandCenter({
           </p>
 
           <p className="mt-3 text-4xl font-black text-white">
-            {aiScore === null ? "—" : aiScore}
+            {aiScore === null ? "?" : aiScore}
           </p>
 
           <p className="mt-2 text-sm text-slate-500">
-            {aiScore === null ? "En attente de données" : "Sur 100"}
+            {aiScore === null ? "En attente de donn?es" : "Sur 100"}
           </p>
         </div>
 
@@ -160,13 +160,13 @@ export default function AiCommandCenter({
           </p>
 
           <p className="mt-2 text-sm text-slate-500">
-            Analyse opérationnelle
+            Analyse op?rationnelle
           </p>
         </div>
 
         <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)] transition hover:-translate-y-1 hover:border-[#00e5ff] hover:shadow-[0_0_16px_rgba(0,229,255,0.40),0_0_38px_rgba(0,140,255,0.28)]">
           <p className="text-xs font-bold uppercase tracking-wider text-slate-500">
-            Source des données
+            Source des donn?es
           </p>
 
           <p className="mt-3 text-xl font-bold text-white">
@@ -182,7 +182,7 @@ export default function AiCommandCenter({
       <div className="grid gap-4 p-6 lg:grid-cols-2">
         <div className="rounded-2xl border border-orange-900/70 bg-orange-500/5 p-5">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange-400">
-            Priorité principale
+            Priorit? principale
           </p>
 
           <h3 className="mt-3 text-xl font-bold text-white">
@@ -197,7 +197,7 @@ export default function AiCommandCenter({
         <div className="rounded-2xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] to-[#020617] p-5 shadow-[0_0_18px_rgba(0,107,255,0.08)]">
           <div className="flex items-center justify-between gap-4">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-red-400">
-              Alertes détectées
+              Alertes d?tect?es
             </p>
 
             <span className="rounded-full bg-slate-800 px-3 py-1 text-xs font-bold text-slate-300">
@@ -219,7 +219,7 @@ export default function AiCommandCenter({
             ) : (
               <li className="flex items-center gap-3 rounded-xl border border-emerald-900/60 bg-emerald-500/5 p-3 text-emerald-300">
                 <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                Aucune alerte critique détectée.
+                Aucune alerte critique d?tect?e.
               </li>
             )}
           </ul>
