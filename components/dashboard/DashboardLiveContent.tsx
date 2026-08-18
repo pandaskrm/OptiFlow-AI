@@ -393,7 +393,7 @@ export default function DashboardLiveContent() {
             </div>
           </div>
 
-          <div className="grid min-h-[430px] lg:grid-cols-[185px_minmax(0,1fr)_150px]">
+          <div className="grid min-h-[430px] lg:grid-cols-[150px_minmax(0,1fr)_120px]">
 
             {/* FLUX GAUCHE */}
             <div className="relative z-20 space-y-3 border-r border-[#008cff]/20 bg-[#020817]/92 p-4">
@@ -474,11 +474,11 @@ export default function DashboardLiveContent() {
             {/* IMAGE CENTRALE */}
             <div className="relative min-h-[430px] overflow-hidden">
               <Image
-                src="/organia-reference/warehouse-trucks-reference.png"
+                src="/organia-reference/warehouse-trucks-v2.png"
                 alt="Entrepôt OrganIA Flow"
                 fill
                 sizes="900px"
-                className="object-cover object-[center_58%]"
+                className="object-cover object-[center_52%]"
               />
 
               <div className="absolute inset-0 bg-gradient-to-r from-[#020817]/25 via-transparent to-[#020817]/25" />
