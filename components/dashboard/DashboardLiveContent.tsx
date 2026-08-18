@@ -8,7 +8,7 @@ import { generateAiMissions } from "../../lib/ai/missionEngine";
 
 const priorityClass = {
   CRITICAL: "border-red-500/60 bg-red-500/10 text-red-300",
-  HIGH: "border-orange-500/60 bg-orange-500/10 text-orange-300",
+  HIGH: "border-orange-500/60 bg-orange-500/10 text-[#ffb347]",
   MEDIUM: "border-amber-500/60 bg-amber-500/10 text-amber-300",
   LOW: "border-blue-500/60 bg-blue-500/10 text-blue-300",
 };
@@ -181,8 +181,8 @@ export default function DashboardLiveContent() {
               saturate(2)
               brightness(1.25)
               contrast(1.2)
-              drop-shadow(0 0 20px rgba(0,229,255,.75))
-              drop-shadow(0 0 55px rgba(0,107,255,.45));
+              drop-shadow(0 0 28px rgba(0,229,255,.95))
+              drop-shadow(0 0 78px rgba(0,107,255,.70));
           }
 
           50% {
@@ -190,8 +190,8 @@ export default function DashboardLiveContent() {
               saturate(2.4)
               brightness(1.55)
               contrast(1.25)
-              drop-shadow(0 0 35px rgba(0,229,255,1))
-              drop-shadow(0 0 90px rgba(0,107,255,.8));
+              drop-shadow(0 0 46px rgba(0,229,255,1))
+              drop-shadow(0 0 110px rgba(0,107,255,.9));
           }
         }
 
@@ -230,6 +230,103 @@ export default function DashboardLiveContent() {
         .organia-scan {
           animation: organiaScan 4s linear infinite;
         }
+
+        @keyframes organiaEnergyRing {
+          0% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(.45);
+          }
+          25% {
+            opacity: .75;
+          }
+          100% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.45);
+          }
+        }
+
+        @keyframes organiaSpark {
+          0%, 100% {
+            opacity: .2;
+            transform: scale(.65);
+          }
+          45% {
+            opacity: 1;
+            transform: scale(1.45);
+          }
+        }
+
+        @keyframes organiaDataFlow {
+          0% {
+            opacity: 0;
+            transform: translateX(-50px);
+          }
+          15% {
+            opacity: 1;
+          }
+          85% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+        }
+
+        @keyframes organiaVerticalFlow {
+          0% {
+            opacity: 0;
+            transform: translateY(-35px);
+          }
+          20% {
+            opacity: 1;
+          }
+          80% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(35px);
+          }
+        }
+
+        @keyframes organiaGlowBlink {
+          0%, 100% {
+            opacity: .3;
+            box-shadow: 0 0 5px currentColor;
+          }
+          50% {
+            opacity: 1;
+            box-shadow:
+              0 0 8px currentColor,
+              0 0 20px currentColor,
+              0 0 32px currentColor;
+          }
+        }
+
+        .organia-energy-ring {
+          animation: organiaEnergyRing 3.4s ease-out infinite;
+        }
+
+        .organia-energy-ring-delay {
+          animation: organiaEnergyRing 3.4s ease-out 1.7s infinite;
+        }
+
+        .organia-spark {
+          animation: organiaSpark 2.4s ease-in-out infinite;
+        }
+
+        .organia-data-flow {
+          animation: organiaDataFlow 2.8s linear infinite;
+        }
+
+        .organia-vertical-flow {
+          animation: organiaVerticalFlow 3.1s linear infinite;
+        }
+
+        .organia-glow-blink {
+          animation: organiaGlowBlink 2s ease-in-out infinite;
+        }
       `}</style>
       {/* HERO */}
       <section className="relative overflow-hidden rounded-[24px] border border-[#008cff]/65 bg-[#010817] shadow-[0_0_45px_rgba(0,140,255,.22)]">
@@ -241,7 +338,7 @@ export default function DashboardLiveContent() {
 
           <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(0,229,255,.025)_1px,transparent_1px),linear-gradient(90deg,rgba(0,229,255,.025)_1px,transparent_1px)] [background-size:42px_42px]" />
 
-          <div className="absolute left-[51%] top-[48%] h-[390px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#006bff]/10 blur-[85px]" />
+          <div className="absolute left-[51%] top-[48%] h-[390px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00bfff]/18 blur-[70px]" />
 
           {/* MANAGER */}
           <div className="absolute bottom-[-18px] left-[-18px] z-30 hidden h-[390px] w-[410px] scale-[1.05] origin-bottom-left xl:block">
@@ -265,10 +362,10 @@ export default function DashboardLiveContent() {
           <div className="absolute left-[52%] top-[44%] z-10 hidden h-[335px] w-[600px] -translate-x-1/2 -translate-y-1/2 xl:block">
 
             {/* halo */}
-            <div className="absolute left-1/2 top-1/2 h-[285px] w-[285px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#006bff]/12 blur-[65px]" />
+            <div className="absolute left-1/2 top-1/2 h-[285px] w-[285px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00bfff]/20 blur-[52px]" />
 
             {/* orbites */}
-            <div className="organia-orbit-a absolute left-1/2 top-1/2 h-[285px] w-[285px] rounded-full border border-[#00e5ff]/30 shadow-[0_0_35px_rgba(0,229,255,.14)]">
+            <div className="organia-orbit-a absolute left-1/2 top-1/2 h-[285px] w-[285px] rounded-full border border-[#00e5ff]/70 shadow-[0_0_42px_rgba(0,229,255,.34)]">
 
               <span className="absolute -top-1 left-1/2 h-2.5 w-2.5 rounded-full bg-[#00e5ff] shadow-[0_0_15px_#00e5ff]" />
 
@@ -276,7 +373,7 @@ export default function DashboardLiveContent() {
 
             </div>
 
-            <div className="organia-orbit-b absolute left-1/2 top-1/2 h-[345px] w-[345px] rounded-full border border-[#008cff]/20">
+            <div className="organia-orbit-b absolute left-1/2 top-1/2 h-[345px] w-[345px] rounded-full border border-[#00aaff]/55">
 
               <span className="absolute left-[15px] top-[105px] h-2 w-2 rounded-full bg-[#49efff] shadow-[0_0_12px_#49efff]" />
 
@@ -285,9 +382,9 @@ export default function DashboardLiveContent() {
             </div>
 
             {/* lignes holographiques */}
-            <div className="absolute left-1/2 top-1/2 h-[1px] w-[520px] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#00e5ff]/60 to-transparent shadow-[0_0_10px_rgba(0,229,255,.7)]" />
+            <div className="absolute left-1/2 top-1/2 h-[1px] w-[520px] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#65f6ff]/85 to-transparent shadow-[0_0_10px_rgba(0,229,255,.7)]" />
 
-            <div className="absolute left-1/2 top-1/2 h-[350px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-[#008cff]/45 to-transparent" />
+            <div className="absolute left-1/2 top-1/2 h-[350px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-gradient-to-b from-transparent via-[#00bfff]/65 to-transparent" />
 
             {/* scan */}
             <div className="organia-scan absolute left-[18%] right-[18%] top-1/2 z-20 h-[1px] bg-[#49efff] shadow-[0_0_8px_#00e5ff,0_0_20px_#008cff]" />
@@ -302,8 +399,31 @@ export default function DashboardLiveContent() {
               className="organia-ai-core object-contain mix-blend-screen"
             />
 
+            {/* impulsions d'énergie */}
+            <div className="organia-energy-ring absolute left-1/2 top-[49%] h-[170px] w-[170px] rounded-full border border-[#00e5ff]/70 shadow-[0_0_22px_rgba(0,229,255,.5)]" />
+            <div className="organia-energy-ring-delay absolute left-1/2 top-[49%] h-[170px] w-[170px] rounded-full border border-[#008cff]/55 shadow-[0_0_28px_rgba(0,140,255,.45)]" />
+
+            {/* flux horizontaux */}
+            <div className="organia-data-flow absolute left-[24%] top-[37%] h-[1px] w-[90px] bg-gradient-to-r from-transparent via-[#65f6ff] to-transparent shadow-[0_0_8px_#00e5ff]" />
+            <div className="organia-data-flow absolute right-[22%] top-[58%] h-[1px] w-[85px] bg-gradient-to-r from-transparent via-[#00bfff] to-transparent shadow-[0_0_10px_#008cff] [animation-delay:.8s]" />
+
+            {/* flux verticaux */}
+            <div className="organia-vertical-flow absolute left-[43%] top-[22%] h-[65px] w-[1px] bg-gradient-to-b from-transparent via-[#65f6ff] to-transparent shadow-[0_0_8px_#00e5ff]" />
+            <div className="organia-vertical-flow absolute right-[39%] bottom-[17%] h-[60px] w-[1px] bg-gradient-to-b from-transparent via-[#008cff] to-transparent shadow-[0_0_8px_#008cff] [animation-delay:1.1s]" />
+
+            {/* particules cyan */}
+            <span className="organia-spark absolute left-[28%] top-[31%] h-2 w-2 rounded-full bg-[#65f6ff] shadow-[0_0_12px_#65f6ff]" />
+            <span className="organia-spark absolute left-[36%] top-[63%] h-1.5 w-1.5 rounded-full bg-[#00e5ff] shadow-[0_0_12px_#00e5ff] [animation-delay:.5s]" />
+            <span className="organia-spark absolute right-[27%] top-[35%] h-2.5 w-2.5 rounded-full bg-[#00bfff] shadow-[0_0_16px_#00bfff] [animation-delay:1s]" />
+            <span className="organia-spark absolute right-[32%] bottom-[28%] h-1.5 w-1.5 rounded-full bg-[#65f6ff] shadow-[0_0_12px_#65f6ff] [animation-delay:1.5s]" />
+
+            {/* accents logistiques jaune / orange */}
+            <span className="organia-glow-blink absolute left-[31%] bottom-[31%] h-2 w-2 rounded-full bg-[#ffc247] text-[#ffc247] shadow-[0_0_10px_#ffb000,0_0_24px_rgba(255,138,0,.65)] [animation-delay:.4s]" />
+            <span className="organia-glow-blink absolute right-[30%] top-[29%] h-2 w-2 rounded-full bg-[#ff8a00] text-[#ff8a00] shadow-[0_0_10px_#ff8a00,0_0_24px_rgba(255,138,0,.65)] [animation-delay:1.2s]" />
+            <span className="organia-glow-blink absolute right-[22%] bottom-[39%] h-1.5 w-1.5 rounded-full bg-[#ffd25a] text-[#ffd25a] shadow-[0_0_10px_#ffd25a,0_0_24px_rgba(255,178,0,.55)] [animation-delay:1.8s]" />
+
             {/* coeur lumineux */}
-            <div className="organia-pulse absolute left-1/2 top-[49%] h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_12px_white,0_0_30px_#00e5ff,0_0_65px_#006bff]" />
+            <div className="organia-pulse absolute left-1/2 top-[49%] z-30 h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_12px_white,0_0_30px_#00e5ff,0_0_65px_#006bff]" />
 
           </div>
 
@@ -315,7 +435,7 @@ export default function DashboardLiveContent() {
               📊 ANALYSE
             </div>
 
-            <div className="organia-beam absolute left-full top-1/2 h-[2px] w-[135px] bg-gradient-to-r from-[#00e5ff] via-white to-[#00e5ff]" />
+            <div className="organia-beam absolute left-full top-1/2 h-[2px] w-[135px] bg-gradient-to-r from-[#00e5ff] via-[#b8ffff] to-[#008cff]" />
 
             <span className="organia-pulse absolute left-[calc(100%+130px)] top-[calc(50%-4px)] h-2.5 w-2.5 rounded-full bg-[#00e5ff] shadow-[0_0_14px_#00e5ff]" />
 
@@ -325,11 +445,11 @@ export default function DashboardLiveContent() {
           {/* CONNEXION PRIORITES */}
           <div className="absolute left-[32%] top-[43%] z-20 hidden xl:block">
 
-            <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.18)] [animation-delay:.7s]">
+            <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.26)] [animation-delay:.7s]">
               📦 PRIORITÉS
             </div>
 
-            <div className="organia-beam absolute left-full top-1/2 h-[2px] w-[145px] bg-gradient-to-r from-[#00e5ff] via-white to-[#008cff] [animation-delay:.6s]" />
+            <div className="organia-beam absolute left-full top-1/2 h-[2px] w-[145px] bg-gradient-to-r from-[#00e5ff] via-[#ffffff] to-[#006bff] [animation-delay:.6s]" />
 
             <span className="organia-pulse absolute left-[calc(100%+140px)] top-[calc(50%-4px)] h-2.5 w-2.5 rounded-full bg-[#49efff] shadow-[0_0_14px_#49efff]" />
 
@@ -339,11 +459,11 @@ export default function DashboardLiveContent() {
           {/* CONNEXION PREDICTIONS */}
           <div className="absolute right-[30%] top-[23%] z-20 hidden xl:block">
 
-            <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.18)] [animation-delay:1.1s]">
+            <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.26)] [animation-delay:1.1s]">
               ↗ PRÉDICTIONS
             </div>
 
-            <div className="organia-beam absolute right-full top-1/2 h-[2px] w-[125px] bg-gradient-to-l from-[#00e5ff] via-white to-[#008cff] [animation-delay:1.1s]" />
+            <div className="organia-beam absolute right-full top-1/2 h-[2px] w-[125px] bg-gradient-to-l from-[#00e5ff] via-[#ffffff] to-[#006bff] [animation-delay:1.1s]" />
 
             <span className="organia-pulse absolute right-[calc(100%+120px)] top-[calc(50%-4px)] h-2.5 w-2.5 rounded-full bg-[#00e5ff] shadow-[0_0_14px_#00e5ff]" />
 
@@ -353,11 +473,11 @@ export default function DashboardLiveContent() {
           {/* CONNEXION OPTIMISATION */}
           <div className="absolute right-[28%] top-[44%] z-20 hidden xl:block">
 
-            <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.18)] [animation-delay:1.7s]">
+            <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.26)] [animation-delay:1.7s]">
               🚚 OPTIMISATION
             </div>
 
-            <div className="organia-beam absolute right-full top-1/2 h-[2px] w-[145px] bg-gradient-to-l from-[#00e5ff] via-white to-[#008cff] [animation-delay:1.5s]" />
+            <div className="organia-beam absolute right-full top-1/2 h-[2px] w-[145px] bg-gradient-to-l from-[#00e5ff] via-[#ffffff] to-[#006bff] [animation-delay:1.5s]" />
 
             <span className="organia-pulse absolute right-[calc(100%+140px)] top-[calc(50%-4px)] h-2.5 w-2.5 rounded-full bg-[#49efff] shadow-[0_0_14px_#49efff]" />
 
@@ -375,7 +495,7 @@ export default function DashboardLiveContent() {
               FLOW
             </p>
 
-            <div className="mt-2 rounded-full border border-[#00e5ff]/55 bg-[#001b3f]/90 px-6 py-1 text-xs font-bold uppercase tracking-[.22em] text-[#7defff] shadow-[0_0_18px_rgba(0,229,255,.15)]">
+            <div className="mt-2 rounded-full border border-[#00e5ff]/70 bg-[#001b3f]/90 px-6 py-1 text-xs font-bold uppercase tracking-[.22em] text-[#7defff] shadow-[0_0_18px_rgba(0,229,255,.15)]">
               AI Command Center
             </div>
 
@@ -389,7 +509,7 @@ export default function DashboardLiveContent() {
 
               <div className="flex items-center justify-between">
 
-                <span className="text-[10px] font-black uppercase tracking-[.18em] text-[#49efff]">
+                <span className="text-[10px] font-black uppercase tracking-[.18em] text-[#65f6ff]">
                   OrganIA Flow Live
                 </span>
 
@@ -417,19 +537,20 @@ export default function DashboardLiveContent() {
                   : "Connectez votre ERP ou lancez le Mode Démo."}
               </p>
 
-              <button
-                type="button"
-                onClick={
-                  simulation.running
-                    ? simulation.stop
-                    : simulation.start
-                }
-                className="mt-3 rounded-xl border border-[#00e5ff]/60 bg-gradient-to-r from-[#006bff] to-[#00b8ff] px-5 py-3 text-sm font-black text-white shadow-[0_0_22px_rgba(0,229,255,.35)] transition hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(0,229,255,.55)]"
-              >
-                {simulation.running
-                  ? "Arrêter le Mode Démo"
-                  : "Lancer le Mode Démo"}
-              </button>
+              {missions.length > 0 ? (
+                <a
+                  href="#mission-control"
+                  className="mt-3 inline-flex items-center gap-5 rounded-xl border border-[#00e5ff]/70 bg-gradient-to-r from-[#006bff] via-[#008cff] to-[#00cfff] px-5 py-3 text-sm font-black text-white shadow-[0_0_22px_rgba(0,229,255,.38)] transition hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,229,255,.55)]"
+                >
+                  Voir les priorités
+                  <span className="text-lg leading-none">→</span>
+                </a>
+              ) : (
+                <div className="mt-3 inline-flex items-center gap-3 rounded-xl border border-emerald-400/35 bg-emerald-500/10 px-4 py-2.5 text-xs font-black text-emerald-300 shadow-[0_0_18px_rgba(52,211,153,.12)]">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399]" />
+                  Aucune priorité critique
+                </div>
+              )}
 
             </div>
 
@@ -460,7 +581,7 @@ export default function DashboardLiveContent() {
                       {health}%
                     </p>
 
-                    <p className="text-[9px] text-[#49efff]">
+                    <p className="text-[9px] text-[#65f6ff]">
                       Performance
                     </p>
 
@@ -501,54 +622,228 @@ export default function DashboardLiveContent() {
         </div>
 
       </section>
-
-
-      {/* KPI */}
+      {/* KPI PREMIUM */}
       <section className="grid gap-2 md:grid-cols-2 xl:grid-cols-5">
-        {[
-          ["📦", "Commandes", orders, "Flux commandes"],
-          ["🚚", "Expéditions", shipments, "Flux transport"],
-          ["📥", "Réceptions", receptions, "En cours"],
-          ["⚡", "Productivité", `${productivity}%`, "Performance"],
-          ["👥", "Équipe", team, `${warehouse?.workforce.present ?? 0} actifs`],
-        ].map(([icon, title, value, subtitle]) => (
-          <article
-            key={String(title)}
-            className="rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] to-[#020617] px-3 py-2 shadow-[0_0_22px_rgba(0,107,255,.10)]"
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl border border-[#00e5ff]/55 bg-[#006bff]/15 text-xl">
-                {icon}
-              </div>
 
-              <h3 className="font-bold text-white">
-                {title}
-              </h3>
+        {/* COMMANDES */}
+        <article className="relative overflow-hidden rounded-2xl border border-[#00aaff]/55 bg-gradient-to-br from-[#071426] to-[#020617] px-3 py-2 shadow-[0_0_22px_rgba(0,107,255,.12)]">
+          <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-[#00e5ff]/10 blur-2xl" />
+
+          <div className="relative flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#00e5ff]/65 bg-[#006bff]/15 text-[#65f6ff]">
+              <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current" strokeWidth="1.8">
+                <path d="M4 7 12 3l8 4-8 4-8-4Z" />
+                <path d="M4 7v10l8 4 8-4V7" />
+                <path d="M12 11v10" />
+              </svg>
             </div>
 
-            <div className="mt-1 flex items-end justify-between">
-              <div>
-                <p className="text-3xl font-black text-white">
-                  {value}
-                </p>
-                <p className="mt-1 text-xs text-slate-500">
-                  {subtitle}
-                </p>
-              </div>
-
-              <div className="flex h-7 items-end gap-1">
-                {[25, 45, 35, 70, 50, 88].map((h, index) => (
-                  <span
-                    key={index}
-                    className="w-1.5 rounded-full bg-gradient-to-t from-[#006bff] to-[#00e5ff]"
-                    style={{ height: `${h}%` }}
-                  />
-                ))}
-              </div>
+            <div>
+              <h3 className="text-sm font-bold text-white">Commandes</h3>
+              <p className="text-[9px] uppercase tracking-wider text-[#65f6ff]">
+                {active ? "Flux actif" : "En attente"}
+              </p>
             </div>
-          </article>
-        ))}
+          </div>
+
+          <div className="relative mt-1 flex items-end justify-between">
+            <div>
+              <p className="text-3xl font-black text-white">{orders}</p>
+              <p className="text-[10px] text-slate-500">Flux commandes</p>
+            </div>
+
+            <div className="flex h-8 items-end gap-1">
+              {[28, 46, 38, 72, 56, 92].map((h, index) => (
+                <span
+                  key={index}
+                  className="w-1.5 rounded-full bg-gradient-to-t from-[#0057ff] via-[#00bfff] to-[#69f7ff] shadow-[0_0_6px_rgba(0,229,255,.35)]"
+                  style={{ height: `${h}%` }}
+                />
+              ))}
+            </div>
+          </div>
+        </article>
+
+
+        {/* EXPEDITIONS */}
+        <article className="relative overflow-hidden rounded-2xl border border-[#ff9d2e]/45 bg-gradient-to-br from-[#071426] to-[#020617] px-3 py-2 shadow-[0_0_22px_rgba(255,138,0,.08)]">
+          <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-[#ff8a00]/10 blur-2xl" />
+
+          <div className="relative flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#ffb347]/60 bg-[#ff7a00]/10 text-[#ffc247]">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8">
+                <path d="M3 6h11v10H3z" />
+                <path d="M14 9h4l3 3v4h-7z" />
+                <circle cx="7" cy="18" r="2" />
+                <circle cx="18" cy="18" r="2" />
+              </svg>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-bold text-white">Expéditions</h3>
+              <p className="text-[9px] uppercase tracking-wider text-[#ffb347]">
+                Transport
+              </p>
+            </div>
+          </div>
+
+          <div className="relative mt-1 flex items-end justify-between">
+            <div>
+              <p className="text-3xl font-black text-white">{shipments}</p>
+              <p className="text-[10px] text-slate-500">Flux transport</p>
+            </div>
+
+            <div className="flex h-8 items-end gap-1">
+              {[38, 58, 48, 76, 68, 94].map((h, index) => (
+                <span
+                  key={index}
+                  className="w-1.5 rounded-full bg-gradient-to-t from-[#ff7100] via-[#ffb000] to-[#ffd25a] shadow-[0_0_6px_rgba(255,176,0,.35)]"
+                  style={{ height: `${h}%` }}
+                />
+              ))}
+            </div>
+          </div>
+        </article>
+
+
+        {/* RECEPTIONS */}
+        <article className="relative overflow-hidden rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] to-[#020617] px-3 py-2 shadow-[0_0_22px_rgba(0,107,255,.10)]">
+          <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-[#006bff]/10 blur-2xl" />
+
+          <div className="relative flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#008cff]/65 bg-[#006bff]/15 text-[#65f6ff]">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8">
+                <path d="M4 4h16v16H4z" />
+                <path d="M8 8h8" />
+                <path d="M12 8v8" />
+                <path d="m9 13 3 3 3-3" />
+              </svg>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-bold text-white">Réceptions</h3>
+              <p className="text-[9px] uppercase tracking-wider text-[#65f6ff]">
+                Entrées
+              </p>
+            </div>
+          </div>
+
+          <div className="relative mt-1 flex items-end justify-between">
+            <div>
+              <p className="text-3xl font-black text-white">{receptions}</p>
+              <p className="text-[10px] text-slate-500">En cours</p>
+            </div>
+
+            <div className="flex h-8 items-end gap-[3px]">
+              {[48, 66, 82, 58].map((h, index) => (
+                <span
+                  key={index}
+                  className="w-2 rounded-sm border-t border-[#65f6ff]/70 bg-gradient-to-t from-[#004fc5] to-[#00cfff]"
+                  style={{ height: `${h}%` }}
+                />
+              ))}
+            </div>
+          </div>
+        </article>
+
+
+        {/* PRODUCTIVITE */}
+        <article className="relative overflow-hidden rounded-2xl border border-[#00e5ff]/55 bg-gradient-to-br from-[#071426] to-[#020617] px-3 py-2 shadow-[0_0_22px_rgba(0,229,255,.10)]">
+          <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-[#00e5ff]/10 blur-2xl" />
+
+          <div className="relative flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#00e5ff]/70 bg-[#00bfff]/10 text-[#65f6ff]">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8">
+                <path d="M4 17 9 12l3 3 7-8" />
+                <path d="M15 7h4v4" />
+              </svg>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-bold text-white">Productivité</h3>
+              <p className="text-[9px] uppercase tracking-wider text-emerald-300">
+                Performance
+              </p>
+            </div>
+          </div>
+
+          <div className="relative mt-1 flex items-end justify-between">
+            <div>
+              <p className="text-3xl font-black text-white">{productivity}%</p>
+              <p className="text-[10px] text-slate-500">Performance</p>
+            </div>
+
+            <svg viewBox="0 0 82 32" className="h-8 w-[82px] overflow-visible">
+              <defs>
+                <linearGradient id="organia-productivity-line" x1="0" x2="1">
+                  <stop offset="0%" stopColor="#006bff" />
+                  <stop offset="55%" stopColor="#00e5ff" />
+                  <stop offset="100%" stopColor="#65f6ff" />
+                </linearGradient>
+              </defs>
+
+              <polyline
+                points="2,25 14,21 26,23 38,14 50,17 62,8 80,5"
+                fill="none"
+                stroke="url(#organia-productivity-line)"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+
+              <circle cx="80" cy="5" r="3" fill="#65f6ff" />
+            </svg>
+          </div>
+        </article>
+
+
+        {/* EQUIPE */}
+        <article className="relative overflow-hidden rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] to-[#020617] px-3 py-2 shadow-[0_0_22px_rgba(0,107,255,.10)]">
+          <div className="absolute -right-8 -top-8 h-20 w-20 rounded-full bg-[#00bfff]/10 blur-2xl" />
+
+          <div className="relative flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#00e5ff]/60 bg-[#006bff]/15 text-[#65f6ff]">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8">
+                <circle cx="9" cy="8" r="3" />
+                <circle cx="17" cy="9" r="2.5" />
+                <path d="M3 19c0-4 2.5-6 6-6s6 2 6 6" />
+                <path d="M14 14c3.5 0 6 1.5 6 5" />
+              </svg>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-bold text-white">Équipe</h3>
+              <p className="text-[9px] uppercase tracking-wider text-emerald-300">
+                Présence
+              </p>
+            </div>
+          </div>
+
+          <div className="relative mt-1 flex items-end justify-between">
+            <div>
+              <p className="text-3xl font-black text-white">{team}</p>
+              <p className="text-[10px] text-slate-500">
+                {simulation.running
+                  ? `${team} actifs`
+                  : `${warehouse?.workforce.present ?? 0} actifs`}
+              </p>
+            </div>
+
+            <div className="flex -space-x-2 pb-1">
+              {["KR", "ML", "SR", "+"] .map((initials, index) => (
+                <div
+                  key={`${initials}-${index}`}
+                  className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#020617] bg-gradient-to-br from-[#006bff] to-[#00bfff] text-[8px] font-black text-white shadow-[0_0_8px_rgba(0,140,255,.22)]"
+                >
+                  {initials}
+                </div>
+              ))}
+            </div>
+          </div>
+        </article>
+
       </section>
+
       {/* COCKPIT OPERATIONNEL */}
       <section className="grid gap-1.5 xl:grid-cols-[1.65fr_.82fr_.9fr]">
         {/* ACTIVITE TEMPS REEL */}
@@ -556,7 +851,7 @@ export default function DashboardLiveContent() {
 
           <div className="flex items-center justify-between gap-4 border-b border-[#008cff]/25 px-4 py-2">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#49efff]">
+              <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#65f6ff]">
                 Warehouse Live
               </p>
 
@@ -587,13 +882,13 @@ export default function DashboardLiveContent() {
             {/* FLUX GAUCHE */}
             <div className="relative z-20 space-y-2 border-r border-[#008cff]/20 bg-[#020817]/92 p-3">
 
-              <div className="rounded-xl border border-[#00e5ff]/30 bg-[#03152d]/80 p-3">
+              <div className="rounded-xl border border-[#00e5ff]/70 bg-[#03152d]/80 p-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white">
                     Réceptions
                   </span>
 
-                  <span className="text-lg font-black text-[#49efff]">
+                  <span className="text-lg font-black text-[#65f6ff]">
                     {activeReceptions}
                   </span>
                 </div>
@@ -603,7 +898,7 @@ export default function DashboardLiveContent() {
                 </p>
               </div>
 
-              <div className="rounded-xl border border-[#00e5ff]/30 bg-[#03152d]/80 p-3">
+              <div className="rounded-xl border border-[#00e5ff]/70 bg-[#03152d]/80 p-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white">
                     Préparation
@@ -624,20 +919,20 @@ export default function DashboardLiveContent() {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-orange-400/25 bg-[#03152d]/80 p-3">
+              <div className="rounded-xl border border-[#ff9d2e]/40 bg-[#03152d]/80 p-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white">
                     Expédition
                   </span>
 
-                  <span className="text-sm font-black text-orange-300">
+                  <span className="text-sm font-black text-[#ffb347]">
                     {shippingProgress}%
                   </span>
                 </div>
 
                 <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-800">
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-orange-500 to-amber-300"
+                    className="h-full rounded-full bg-gradient-to-r from-[#ff7a00] via-[#ffb000] to-[#ffd25a]"
                     style={{
                       width: `${Math.min(100, shippingProgress)}%`,
                     }}
@@ -670,10 +965,28 @@ export default function DashboardLiveContent() {
                 className="object-cover object-[center_52%]"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-r from-[#020817]/25 via-transparent to-[#020817]/25" />
-              <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#020617] to-transparent" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#001b44]/45 via-transparent to-[#061226]/50" />
 
-              <div className="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-2">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_34%_43%,rgba(0,229,255,.42),transparent_20%),radial-gradient(circle_at_52%_58%,rgba(0,140,255,.32),transparent_24%),radial-gradient(circle_at_70%_54%,rgba(255,166,0,.30),transparent_18%),radial-gradient(circle_at_78%_72%,rgba(255,122,0,.22),transparent_16%)] mix-blend-screen" />
+
+              <div className="pointer-events-none absolute left-[20%] top-[18%] h-28 w-44 rounded-full bg-[#00e5ff]/15 blur-[30px] shadow-[0_0_45px_rgba(0,229,255,.45)]" />
+
+              <div className="pointer-events-none absolute right-[12%] top-[30%] h-24 w-36 rounded-full bg-[#ff9d00]/14 blur-[28px] shadow-[0_0_40px_rgba(255,153,0,.40)]" />
+
+              <div className="pointer-events-none absolute left-[18%] top-[42%] h-[2px] w-[44%] bg-gradient-to-r from-transparent via-[#65f6ff] to-transparent opacity-70 shadow-[0_0_8px_#00e5ff,0_0_18px_rgba(0,140,255,.8)]" />
+
+              <div className="pointer-events-none absolute right-[12%] top-[58%] h-[2px] w-[28%] bg-gradient-to-r from-transparent via-[#ffb000] to-transparent opacity-75 shadow-[0_0_8px_#ff9d00,0_0_18px_rgba(255,138,0,.7)]" />
+
+              <span className="pointer-events-none absolute left-[35%] top-[38%] h-2 w-2 rounded-full bg-[#65f6ff] shadow-[0_0_8px_#00e5ff,0_0_18px_#008cff]" />
+              <span className="pointer-events-none absolute left-[53%] top-[57%] h-2 w-2 rounded-full bg-[#00e5ff] shadow-[0_0_8px_#00e5ff,0_0_18px_#008cff]" />
+              <span className="pointer-events-none absolute right-[27%] top-[48%] h-2 w-2 rounded-full bg-[#ffc247] shadow-[0_0_8px_#ffb000,0_0_20px_#ff7a00]" />
+              <span className="pointer-events-none absolute right-[18%] top-[67%] h-1.5 w-1.5 rounded-full bg-[#ff8a00] shadow-[0_0_8px_#ff8a00,0_0_18px_#ffb000]" />
+
+              <div className="pointer-events-none absolute inset-x-[10%] top-[32%] h-px bg-gradient-to-r from-transparent via-[#00e5ff]/75 to-transparent shadow-[0_0_10px_rgba(0,229,255,.75)]" />
+
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#020617] via-[#020617]/75 to-transparent" />
+
+<div className="absolute bottom-3 left-3 right-3 grid grid-cols-3 gap-2">
                 <div className="rounded-xl border border-[#008cff]/30 bg-[#020617]/88 p-3 text-center backdrop-blur-md">
                   <p className="text-xl font-black text-white">
                     {occupiedDocks}
@@ -709,7 +1022,7 @@ export default function DashboardLiveContent() {
             {/* QUAIS DROITE */}
             <div className="relative z-20 border-l border-[#008cff]/20 bg-[#020817]/92 p-2">
 
-              <p className="mb-3 text-[9px] font-black uppercase tracking-[.18em] text-[#49efff]">
+              <p className="mb-3 text-[9px] font-black uppercase tracking-[.18em] text-[#65f6ff]">
                 État des quais
               </p>
 
@@ -757,7 +1070,7 @@ export default function DashboardLiveContent() {
 
           <div className="relative z-10">
 
-            <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#49efff]">
+            <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#65f6ff]">
               Intelligence
             </p>
 
@@ -780,7 +1093,7 @@ export default function DashboardLiveContent() {
                     {aiScore}
                   </p>
 
-                  <p className="mt-1 text-[10px] font-black uppercase tracking-wider text-[#49efff]">
+                  <p className="mt-1 text-[10px] font-black uppercase tracking-wider text-[#65f6ff]">
                     Score global
                   </p>
                 </div>
@@ -797,7 +1110,7 @@ export default function DashboardLiveContent() {
                   .map((item, index) => (
                     <div
                       key={`${index}-${item}`}
-                      className="flex items-start gap-3 rounded-xl border border-[#008cff]/20 bg-[#020617]/68 px-3 py-2.5"
+                      className="flex items-start gap-3 rounded-xl border border-[#00aaff]/55 bg-[#020617]/68 px-3 py-2.5"
                     >
                       <span
                         className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${
@@ -844,7 +1157,7 @@ export default function DashboardLiveContent() {
           </div>
         </article>
         {/* MISSION CONTROL */}
-        <article className="relative overflow-hidden rounded-[22px] border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#03152d] to-[#020617] p-5 shadow-[0_0_28px_rgba(0,107,255,.10)]">
+        <article id="mission-control" className="relative overflow-hidden rounded-[22px] border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#03152d] to-[#020617] p-5 shadow-[0_0_28px_rgba(0,107,255,.10)]">
 
           <div className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-[#006bff]/10 blur-[60px]" />
           <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-orange-500/5 blur-[55px]" />
@@ -853,7 +1166,7 @@ export default function DashboardLiveContent() {
 
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#49efff]">
+                <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#65f6ff]">
                   Pilotage IA
                 </p>
 
@@ -862,7 +1175,7 @@ export default function DashboardLiveContent() {
                 </h3>
               </div>
 
-              <span className="rounded-full border border-orange-400/30 bg-orange-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-orange-300">
+              <span className="rounded-full border border-[#ff9d2e]/45 bg-[#ff7a00]/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-[#ffb347]">
                 {missions.length} priorité(s)
               </span>
             </div>
@@ -878,7 +1191,7 @@ export default function DashboardLiveContent() {
               </div>
 
               <div className="rounded-xl border border-orange-500/25 bg-orange-500/5 p-3 text-center">
-                <p className="text-lg font-black text-orange-300">
+                <p className="text-lg font-black text-[#ffb347]">
                   {missions.filter((mission) => mission.priority === "HIGH").length}
                 </p>
                 <p className="text-[9px] font-black uppercase tracking-wider text-slate-500">
@@ -925,7 +1238,7 @@ export default function DashboardLiveContent() {
                       </p>
 
                       <div className="mt-3 border-t border-white/10 pt-3">
-                        <p className="text-[9px] font-black uppercase tracking-wider text-[#49efff]">
+                        <p className="text-[9px] font-black uppercase tracking-wider text-[#65f6ff]">
                           Action recommandée
                         </p>
 
@@ -965,7 +1278,7 @@ export default function DashboardLiveContent() {
                   Missions analysées
                 </p>
 
-                <p className="mt-1 text-xl font-black text-[#49efff]">
+                <p className="mt-1 text-xl font-black text-[#65f6ff]">
                   {missions.length}
                 </p>
               </div>
@@ -978,7 +1291,7 @@ export default function DashboardLiveContent() {
                 <p className={`mt-1 text-sm font-black ${
                   missions.length === 0
                     ? "text-emerald-400"
-                    : "text-orange-300"
+                    : "text-[#ffb347]"
                 }`}>
                   {missions.length === 0 ? "Sous contrôle" : "Action requise"}
                 </p>
@@ -993,7 +1306,7 @@ export default function DashboardLiveContent() {
 
 
       {loading && (
-        <p className="text-center text-sm text-[#49efff]">
+        <p className="text-center text-sm text-[#65f6ff]">
           Analyse des données en cours...
         </p>
       )}
