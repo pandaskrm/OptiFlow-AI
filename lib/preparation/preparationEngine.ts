@@ -200,28 +200,28 @@ export function getPreparationPrediction(
   if (riskLevel === "HIGH") {
     return {
       ...base,
-      title: "Risque Ã©levÃ© sur l'objectif de prÃ©paration",
-      message: `${remainingLines} lignes restent Ã  prÃ©parer. Fin estimÃ©e Ã  ${projectedEnd}, soit ${delayMinutes} min aprÃ¨s l'objectif.`,
-      recommendation: `Renforcer immÃ©diatement la prÃ©paration avec ${reinforcementNeeded} collaborateur${reinforcementNeeded > 1 ? "s" : ""} et prioriser les commandes devant partir aujourd'hui.`,
+      title: "Risque élevé sur l'objectif de préparation",
+      message: `${remainingLines} lignes restent à préparer. Fin estimée à ${projectedEnd}, soit ${delayMinutes} min après l'objectif.`,
+      recommendation: `Renforcer immédiatement la préparation avec ${reinforcementNeeded} collaborateur${reinforcementNeeded > 1 ? "s" : ""} et prioriser les commandes devant partir aujourd'hui.`,
     };
   }
 
   if (riskLevel === "MEDIUM") {
     return {
       ...base,
-      title: "Objectif de prÃ©paration sous surveillance",
-      message: `${remainingLines} lignes restent Ã  prÃ©parer. La fin est estimÃ©e Ã  ${projectedEnd}, lÃ©gÃ¨rement au-delÃ  de l'objectif.`,
-      recommendation: `PrÃ©voir ${reinforcementNeeded} renfort${reinforcementNeeded > 1 ? "s" : ""} si le rythme baisse dans les prochaines minutes.`,
+      title: "Objectif de préparation sous surveillance",
+      message: `${remainingLines} lignes restent à préparer. La fin est estimée à ${projectedEnd}, légèrement au-delà de l'objectif.`,
+      recommendation: `Prévoir ${reinforcementNeeded} renfort${reinforcementNeeded > 1 ? "s" : ""} si le rythme baisse dans les prochaines minutes.`,
     };
   }
 
   return {
     ...base,
     reinforcementNeeded: 0,
-    title: "Objectif de prÃ©paration maÃ®trisÃ©",
-    message: `${remainingLines} lignes restent Ã  prÃ©parer. La fin est estimÃ©e Ã  ${projectedEnd}.`,
+    title: "Objectif de préparation maîtrisé",
+    message: `${remainingLines} lignes restent à préparer. La fin est estimée à ${projectedEnd}.`,
     recommendation:
-      "Maintenir la cadence actuelle et continuer Ã  surveiller les commandes prioritaires.",
+      "Maintenir la cadence actuelle et continuer à surveiller les commandes prioritaires.",
   };
 }
 

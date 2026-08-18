@@ -52,19 +52,19 @@ const connection = await prisma.erpConnection.findFirst({
 
   if (!connection) {
     throw new ErpSyncError(
-      "La connexion ERP demandÃ©e est introuvable."
+      "La connexion ERP demandée est introuvable."
     );
   }
 
   if (!connection.isEnabled) {
     throw new ErpSyncError(
-      "La connexion ERP est dÃ©sactivÃ©e."
+      "La connexion ERP est désactivée."
     );
   }
 
   if (connection.status === "CONNECTING") {
     throw new ErpSyncError(
-      "Une synchronisation ERP est dÃ©jÃ  en cours."
+      "Une synchronisation ERP est déjà en cours."
     );
   }
   const syncMode = connection.lastSyncedAt
@@ -87,11 +87,11 @@ const connection = await prisma.erpConnection.findFirst({
     /*
      * Simulation temporaire.
      *
-     * Ce bloc sera remplacÃ© progressivement par :
-     * - la rÃ©cupÃ©ration des donnÃ©es du connecteur ERP ;
-     * - la validation des donnÃ©es ;
+     * Ce bloc sera remplacé progressivement par :
+     * - la récupération des données du connecteur ERP ;
+     * - la validation des données ;
      * - l'enregistrement dans Prisma ;
-     * - le calcul du rÃ©sumÃ© rÃ©el.
+     * - le calcul du résumé réel.
      */
     await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -430,8 +430,8 @@ const connection = await prisma.erpConnection.findFirst({
       success: true,
       message:
         triggeredBy === "CRON"
-          ? "Synchronisation ERP automatique terminÃ©e avec succÃ¨s."
-          : "Synchronisation ERP terminÃ©e avec succÃ¨s.",
+          ? "Synchronisation ERP automatique terminée avec succès."
+          : "Synchronisation ERP terminée avec succès.",
       connection: {
         id: updatedConnection.id,
         provider: updatedConnection.provider,
