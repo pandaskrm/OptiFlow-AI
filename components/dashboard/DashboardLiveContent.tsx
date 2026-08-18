@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 
@@ -153,7 +153,7 @@ export default function DashboardLiveContent() {
 
         <div className="relative min-h-[500px] overflow-hidden">
 
-          {/* décor entrepôt */}
+          {/* dÃ©cor entrepÃ´t */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-r from-[#020817] via-[#03152d]/65 to-[#020817]" />
             <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_center,rgba(0,229,255,.15),transparent_55%)]" />
@@ -194,19 +194,19 @@ export default function DashboardLiveContent() {
 
           {/* LABELS IA */}
           <div className="pointer-events-none absolute left-[34%] top-[13%] z-20 hidden rounded-xl border border-[#00e5ff]/50 bg-[#03152d]/90 px-5 py-3 text-xs font-black text-white shadow-[0_0_20px_rgba(0,229,255,.18)] xl:block">
-            📊 ANALYSE
+            ðŸ“Š ANALYSE
           </div>
 
           <div className="pointer-events-none absolute left-[32%] top-[38%] z-20 hidden rounded-xl border border-[#00e5ff]/50 bg-[#03152d]/90 px-5 py-3 text-xs font-black text-white xl:block">
-            📦 PRIORITÉS
+            ðŸ“¦ PRIORITÃ‰S
           </div>
 
           <div className="pointer-events-none absolute right-[31%] top-[14%] z-20 hidden rounded-xl border border-[#00e5ff]/50 bg-[#03152d]/90 px-5 py-3 text-xs font-black text-white xl:block">
-            ↗ PRÉDICTIONS
+            â†— PRÃ‰DICTIONS
           </div>
 
           <div className="pointer-events-none absolute right-[29%] top-[39%] z-20 hidden rounded-xl border border-[#00e5ff]/50 bg-[#03152d]/90 px-5 py-3 text-xs font-black text-white xl:block">
-            🚚 OPTIMISATION
+            ðŸšš OPTIMISATION
           </div>
 
           {/* ORGANIA CENTRAL */}
@@ -236,19 +236,19 @@ export default function DashboardLiveContent() {
               </div>
 
               <h2 className="mt-5 text-3xl font-black text-white">
-                Bonjour Kevin 👋
+                Bonjour Kevin ðŸ‘‹
               </h2>
 
               <p className="mt-2 text-lg font-bold text-slate-300">
                 {active
-                  ? "Votre entrepôt est sous surveillance IA."
-                  : "Votre cockpit est prêt."}
+                  ? "Votre entrepÃ´t est sous surveillance IA."
+                  : "Votre cockpit est prÃªt."}
               </p>
 
               <p className="mt-4 text-sm leading-6 text-slate-400">
                 {active
-                  ? `${missions.length} priorité(s) nécessitent votre attention.`
-                  : "Connectez votre ERP ou lancez le Mode Démo."}
+                  ? `${missions.length} prioritÃ©(s) nÃ©cessitent votre attention.`
+                  : "Connectez votre ERP ou lancez le Mode DÃ©mo."}
               </p>
 
               <button
@@ -261,19 +261,19 @@ export default function DashboardLiveContent() {
                 className="mt-5 rounded-xl border border-[#00e5ff]/60 bg-gradient-to-r from-[#006bff] to-[#00b8ff] px-5 py-3 text-sm font-black text-white shadow-[0_0_22px_rgba(0,229,255,.35)]"
               >
                 {simulation.running
-                  ? "Arrêter le Mode Démo"
-                  : "Lancer le Mode Démo"}
+                  ? "ArrÃªter le Mode DÃ©mo"
+                  : "Lancer le Mode DÃ©mo"}
               </button>
             </div>
 
             <div className="rounded-2xl border border-[#008cff]/45 bg-[#020617]/90 p-5 backdrop-blur-xl">
               <div className="flex items-center justify-between">
                 <h3 className="font-black text-white">
-                  État global
+                  Ã‰tat global
                 </h3>
 
                 <span className="text-sm font-bold text-emerald-400">
-                  {active ? "● Actif" : "● En attente"}
+                  {active ? "â— Actif" : "â— En attente"}
                 </span>
               </div>
 
@@ -291,15 +291,15 @@ export default function DashboardLiveContent() {
 
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between text-slate-300">
-                    <span>Réception</span>
+                    <span>RÃ©ception</span>
                     <span>{receptionPerformance}%</span>
                   </div>
                   <div className="flex justify-between text-slate-300">
-                    <span>Préparation</span>
+                    <span>PrÃ©paration</span>
                     <span>{preparationProgress}%</span>
                   </div>
                   <div className="flex justify-between text-slate-300">
-                    <span>Expédition</span>
+                    <span>ExpÃ©dition</span>
                     <span>{shippingProgress}%</span>
                   </div>
                   <div className="flex justify-between text-slate-300">
@@ -317,11 +317,11 @@ export default function DashboardLiveContent() {
       {/* KPI */}
       <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
         {[
-          ["📦", "Commandes", orders, "Flux commandes"],
-          ["🚚", "Expéditions", shipments, "Flux transport"],
-          ["📥", "Réceptions", receptions, "En cours"],
-          ["⚡", "Productivité", `${productivity}%`, "Performance"],
-          ["👥", "Équipe", team, `${warehouse?.workforce.present ?? 0} actifs`],
+          ["ðŸ“¦", "Commandes", orders, "Flux commandes"],
+          ["ðŸšš", "ExpÃ©ditions", shipments, "Flux transport"],
+          ["ðŸ“¥", "RÃ©ceptions", receptions, "En cours"],
+          ["âš¡", "ProductivitÃ©", `${productivity}%`, "Performance"],
+          ["ðŸ‘¥", "Ã‰quipe", team, `${warehouse?.workforce.present ?? 0} actifs`],
         ].map(([icon, title, value, subtitle]) => (
           <article
             key={String(title)}
@@ -360,175 +360,386 @@ export default function DashboardLiveContent() {
           </article>
         ))}
       </section>
+      {/* COCKPIT OPERATIONNEL */}
+      <section className="grid gap-4 xl:grid-cols-[1.65fr_.82fr_.9fr]">
+        {/* ACTIVITE TEMPS REEL */}
+        <article className="overflow-hidden rounded-[22px] border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#03152d] to-[#020617] shadow-[0_0_28px_rgba(0,107,255,.12)]">
 
-      {/* BAS */}
-      <section className="grid gap-4 xl:grid-cols-[1.7fr_.9fr_.85fr]">
+          <div className="flex items-center justify-between gap-4 border-b border-[#008cff]/25 px-5 py-4">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#49efff]">
+                Warehouse Live
+              </p>
 
-        {/* ACTIVITE */}
-        <article className="overflow-hidden rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] to-[#020617]">
-          <div className="p-5">
-            <h3 className="text-lg font-black text-white">
-              Activité en temps réel
-            </h3>
-            <p className="text-sm text-slate-500">
-              Flux opérationnel de l’entrepôt
-            </p>
-          </div>
+              <h3 className="mt-1 text-xl font-black text-white">
+                ActivitÃ© en temps rÃ©el
+              </h3>
 
-          <div className="grid min-h-[280px] lg:grid-cols-[1fr_1.15fr]">
-            <div className="space-y-2 p-5 pt-0">
-              {[
-                ["🔵", "Réception", `${activeReceptions} active(s)`],
-                ["🟢", "Préparation", `${preparationProgress}%`],
-                ["🟠", "Expédition", `${shippingProgress}%`],
-                ["🔵", "Stock", `${warehouse?.inventory.lowStockReferences ?? 0} alerte(s)`],
-              ].map(([dot, title, detail]) => (
-                <div
-                  key={String(title)}
-                  className="flex items-center justify-between rounded-xl border border-[#008cff]/25 bg-[#020617]/80 px-4 py-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <span>{dot}</span>
-                    <div>
-                      <p className="text-sm font-bold text-white">
-                        {title}
-                      </p>
-                      <p className="text-xs text-slate-500">
-                        {detail}
-                      </p>
-                    </div>
-                  </div>
-
-                  <span className="text-xs font-bold text-emerald-400">
-                    {active ? "En cours" : "En attente"}
-                  </span>
-                </div>
-              ))}
+              <p className="mt-1 text-xs text-slate-500">
+                Vue opÃ©rationnelle de lâ€™entrepÃ´t et des quais
+              </p>
             </div>
 
-            <div className="relative min-h-[250px] overflow-hidden">
-              <Image
-                src="/organia-reference/warehouse-trucks-reference.png"
-                alt="Entrepôt OrganIA Flow"
-                fill
-                sizes="600px"
-                className="object-cover"
+            <div className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-emerald-300">
+              <span
+                className={`h-2 w-2 rounded-full ${
+                  active
+                    ? "bg-emerald-400 shadow-[0_0_10px_#34d399]"
+                    : "bg-slate-500"
+                }`}
               />
 
-              <div className="absolute inset-0 bg-gradient-to-r from-[#020617] via-transparent to-[#020617]/30" />
+              {active ? "Flux actif" : "En attente"}
+            </div>
+          </div>
 
-              <div className="absolute right-3 top-3 space-y-2">
-                {Array.from({ length: totalDocks }).map((_, index) => (
+          <div className="grid min-h-[430px] lg:grid-cols-[185px_minmax(0,1fr)_150px]">
+
+            {/* FLUX GAUCHE */}
+            <div className="relative z-20 space-y-3 border-r border-[#008cff]/20 bg-[#020817]/92 p-4">
+
+              <div className="rounded-xl border border-[#00e5ff]/30 bg-[#03152d]/80 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-white">
+                    RÃ©ceptions
+                  </span>
+
+                  <span className="text-lg font-black text-[#49efff]">
+                    {activeReceptions}
+                  </span>
+                </div>
+
+                <p className="mt-1 text-[10px] text-slate-500">
+                  opÃ©rations actives
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-[#00e5ff]/30 bg-[#03152d]/80 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-white">
+                    PrÃ©paration
+                  </span>
+
+                  <span className="text-sm font-black text-emerald-400">
+                    {preparationProgress}%
+                  </span>
+                </div>
+
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-800">
                   <div
-                    key={index}
-                    className="flex min-w-[90px] items-center justify-between rounded-lg border border-[#008cff]/30 bg-[#020617]/90 px-3 py-2 text-xs text-white"
-                  >
-                    Quai {index + 1}
+                    className="h-full rounded-full bg-gradient-to-r from-[#006bff] to-[#00e5ff]"
+                    style={{
+                      width: `${Math.min(100, preparationProgress)}%`,
+                    }}
+                  />
+                </div>
+              </div>
 
-                    <span
-                      className={`h-2 w-2 rounded-full ${
-                        index < occupiedDocks
-                          ? "bg-emerald-400"
-                          : "bg-slate-600"
+              <div className="rounded-xl border border-orange-400/25 bg-[#03152d]/80 p-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-white">
+                    ExpÃ©dition
+                  </span>
+
+                  <span className="text-sm font-black text-orange-300">
+                    {shippingProgress}%
+                  </span>
+                </div>
+
+                <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-800">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-orange-500 to-amber-300"
+                    style={{
+                      width: `${Math.min(100, shippingProgress)}%`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-[#008cff]/25 bg-[#03152d]/80 p-3">
+                <p className="text-[9px] font-black uppercase tracking-wider text-slate-500">
+                  Stock faible
+                </p>
+
+                <p className="mt-1 text-2xl font-black text-white">
+                  {warehouse?.inventory.lowStockReferences ?? 0}
+                </p>
+
+                <p className="text-[10px] text-slate-500">
+                  rÃ©fÃ©rence(s) Ã  surveiller
+                </p>
+              </div>
+            </div>
+
+            {/* IMAGE CENTRALE */}
+            <div className="relative min-h-[430px] overflow-hidden">
+              <Image
+                src="/organia-reference/warehouse-trucks-reference.png"
+                alt="EntrepÃ´t OrganIA Flow"
+                fill
+                sizes="900px"
+                className="object-cover object-[center_58%]"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-r from-[#020817]/25 via-transparent to-[#020817]/25" />
+              <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#020617] to-transparent" />
+
+              <div className="absolute bottom-4 left-4 right-4 grid grid-cols-3 gap-2">
+                <div className="rounded-xl border border-[#008cff]/30 bg-[#020617]/88 p-3 text-center backdrop-blur-md">
+                  <p className="text-xl font-black text-white">
+                    {occupiedDocks}
+                  </p>
+
+                  <p className="text-[9px] uppercase tracking-wider text-slate-500">
+                    Quais occupÃ©s
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-[#008cff]/30 bg-[#020617]/88 p-3 text-center backdrop-blur-md">
+                  <p className="text-xl font-black text-white">
+                    {completedToday}
+                  </p>
+
+                  <p className="text-[9px] uppercase tracking-wider text-slate-500">
+                    TerminÃ©es
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-[#008cff]/30 bg-[#020617]/88 p-3 text-center backdrop-blur-md">
+                  <p className="text-xl font-black text-white">
+                    {totalDocks}
+                  </p>
+
+                  <p className="text-[9px] uppercase tracking-wider text-slate-500">
+                    Quais total
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* QUAIS DROITE */}
+            <div className="relative z-20 border-l border-[#008cff]/20 bg-[#020817]/92 p-3">
+
+              <p className="mb-3 text-[9px] font-black uppercase tracking-[.18em] text-[#49efff]">
+                Ã‰tat des quais
+              </p>
+
+              <div className="space-y-2">
+                {Array.from({ length: totalDocks }).map((_, index) => {
+                  const occupied = index < occupiedDocks;
+
+                  return (
+                    <div
+                      key={index}
+                      className={`rounded-lg border px-3 py-2 ${
+                        occupied
+                          ? "border-emerald-400/40 bg-emerald-500/10"
+                          : "border-[#008cff]/25 bg-[#03152d]/70"
                       }`}
-                    />
-                  </div>
-                ))}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-white">
+                          Quai {index + 1}
+                        </span>
+
+                        <span
+                          className={`h-2 w-2 rounded-full ${
+                            occupied
+                              ? "bg-emerald-400 shadow-[0_0_9px_#34d399]"
+                              : "bg-slate-600"
+                          }`}
+                        />
+                      </div>
+
+                      <p className="mt-1 text-[9px] text-slate-500">
+                        {occupied ? "OccupÃ©" : "Disponible"}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </article>
 
+
         {/* ANALYSE IA */}
-        <article className="rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] to-[#020617] p-5">
-          <h3 className="text-lg font-black text-white">
-            Analyse IA
-          </h3>
-          <p className="text-sm text-slate-500">
-            Santé opérationnelle
+        <article className="relative overflow-hidden rounded-[22px] border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#03152d] to-[#020617] p-5 shadow-[0_0_28px_rgba(0,107,255,.10)]">
+
+          <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-[#00e5ff]/10 blur-[60px]" />
+
+          <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#49efff]">
+            Intelligence
           </p>
 
-          <div className="mx-auto mt-6 flex h-[150px] w-[150px] items-center justify-center rounded-full border-[12px] border-[#00e5ff]/70 bg-[#020617] shadow-[0_0_35px_rgba(0,229,255,.2)]">
+          <h3 className="mt-1 text-xl font-black text-white">
+            Analyse IA
+          </h3>
+
+          <p className="mt-1 text-xs text-slate-500">
+            SantÃ© opÃ©rationnelle
+          </p>
+
+          <div className="relative mx-auto mt-7 flex h-[172px] w-[172px] items-center justify-center rounded-full border-[2px] border-[#00e5ff]/25 shadow-[0_0_42px_rgba(0,229,255,.18)]">
+
+            <div className="absolute inset-[10px] rounded-full border-[10px] border-[#00e5ff]/70 shadow-[inset_0_0_28px_rgba(0,229,255,.16)]" />
+
             <div className="text-center">
-              <p className="text-4xl font-black text-white">
+              <p className="text-5xl font-black text-white">
                 {aiScore}
               </p>
-              <p className="text-xs text-[#49efff]">
-                /100
+
+              <p className="mt-1 text-xs font-bold uppercase tracking-wider text-[#49efff]">
+                Score IA / 100
               </p>
             </div>
           </div>
 
-          <div className="mt-6 space-y-3">
+          <div className="mt-7 space-y-2">
             {(analysis?.recommendations ?? [
               "Performance en attente",
-              "Aucune donnée critique",
+              "Aucune donnÃ©e critique",
               "Optimisation disponible",
             ])
               .slice(0, 4)
-              .map((item) => (
+              .map((item, index) => (
                 <div
-                  key={item}
-                  className="flex items-start gap-3 rounded-xl bg-[#020617]/60 p-3"
+                  key={`${index}-${item}`}
+                  className="flex items-start gap-3 rounded-xl border border-[#008cff]/20 bg-[#020617]/65 p-3"
                 >
-                  <span className="mt-1 h-2 w-2 rounded-full bg-emerald-400" />
-                  <p className="text-sm text-slate-300">
+                  <span
+                    className={`mt-1 h-2 w-2 shrink-0 rounded-full ${
+                      index === 0
+                        ? "bg-emerald-400 shadow-[0_0_8px_#34d399]"
+                        : index === 1
+                          ? "bg-[#00e5ff]"
+                          : "bg-orange-400"
+                    }`}
+                  />
+
+                  <p className="text-xs leading-5 text-slate-300">
                     {item}
                   </p>
                 </div>
               ))}
           </div>
+
+          <div className="mt-5 grid grid-cols-2 gap-2">
+            <div className="rounded-xl border border-[#008cff]/25 bg-[#020617]/70 p-3 text-center">
+              <p className="text-xl font-black text-white">
+                {health}%
+              </p>
+              <p className="text-[9px] uppercase tracking-wider text-slate-500">
+                SantÃ©
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-[#008cff]/25 bg-[#020617]/70 p-3 text-center">
+              <p className="text-xl font-black text-white">
+                {alerts.length}
+              </p>
+              <p className="text-[9px] uppercase tracking-wider text-slate-500">
+                Alertes
+              </p>
+            </div>
+          </div>
         </article>
 
-        {/* MISSIONS */}
-        <article className="rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] to-[#020617] p-5">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-black text-[#49efff]">
-              Mission Control
-            </h3>
+        {/* MISSION CONTROL */}
+        <article className="relative overflow-hidden rounded-[22px] border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#03152d] to-[#020617] p-5 shadow-[0_0_28px_rgba(0,107,255,.10)]">
 
-            <span className="text-xs font-bold text-orange-400">
-              {missions.length} priorité(s)
-            </span>
-          </div>
+          <div className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-[#006bff]/10 blur-[60px]" />
 
-          <div className="mt-5 space-y-3">
-            {topMissions.map((mission) => (
-              <div
-                key={mission.id}
-                className={`rounded-xl border p-4 ${priorityClass[mission.priority]}`}
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <h4 className="text-sm font-black text-white">
-                      {mission.title}
-                    </h4>
+          <div className="relative z-10">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[.20em] text-[#49efff]">
+                  Pilotage IA
+                </p>
 
-                    <p className="mt-1 line-clamp-2 text-xs text-slate-400">
-                      {mission.explanation}
-                    </p>
+                <h3 className="mt-1 text-xl font-black text-white">
+                  Mission Control
+                </h3>
+              </div>
+
+              <span className="rounded-full border border-orange-400/30 bg-orange-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-orange-300">
+                {missions.length} prioritÃ©(s)
+              </span>
+            </div>
+
+            <div className="mt-6 space-y-3">
+              {topMissions.map((mission, index) => (
+                <div
+                  key={mission.id}
+                  className={`rounded-xl border p-4 ${priorityClass[mission.priority]}`}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-black/20 text-xs font-black text-white">
+                      {index + 1}
+                    </div>
+
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-start justify-between gap-2">
+                        <h4 className="text-sm font-black leading-5 text-white">
+                          {mission.title}
+                        </h4>
+
+                        <span className="shrink-0 rounded-full bg-black/25 px-2 py-1 text-[9px] font-black uppercase">
+                          {mission.priority}
+                        </span>
+                      </div>
+
+                      <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-400">
+                        {mission.explanation}
+                      </p>
+
+                      <div className="mt-3 border-t border-white/10 pt-3">
+                        <p className="text-[9px] font-black uppercase tracking-wider text-[#49efff]">
+                          Action recommandÃ©e
+                        </p>
+
+                        <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-300">
+                          {mission.recommendedAction}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-
-                  <span className="rounded-full bg-black/20 px-2 py-1 text-[10px] font-black">
-                    {mission.priority}
-                  </span>
                 </div>
-              </div>
-            ))}
+              ))}
 
-            {topMissions.length === 0 && (
-              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4 text-sm text-emerald-300">
-                Aucune priorité critique.
+              {topMissions.length === 0 && (
+                <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 text-center">
+                  <p className="font-black text-emerald-300">
+                    Situation maÃ®trisÃ©e
+                  </p>
+
+                  <p className="mt-1 text-xs text-slate-400">
+                    Aucune prioritÃ© critique dÃ©tectÃ©e.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-5 rounded-xl border border-[#008cff]/25 bg-[#020617]/70 p-4">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                  Missions analysÃ©es
+                </span>
+
+                <span className="text-sm font-black text-[#49efff]">
+                  {missions.length}
+                </span>
               </div>
-            )}
+            </div>
           </div>
         </article>
 
       </section>
 
+
       {loading && (
         <p className="text-center text-sm text-[#49efff]">
-          Analyse des données en cours...
+          Analyse des donnÃ©es en cours...
         </p>
       )}
 
@@ -540,3 +751,4 @@ export default function DashboardLiveContent() {
     </div>
   );
 }
+
