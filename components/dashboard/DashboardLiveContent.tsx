@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 
@@ -153,7 +153,7 @@ export default function DashboardLiveContent() {
 
         <div className="relative min-h-[500px] overflow-hidden">
 
-          {/* dÃ©cor entrepÃ´t */}
+          {/* décor entrepôt */}
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-gradient-to-r from-[#020817] via-[#03152d]/65 to-[#020817]" />
             <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_center,rgba(0,229,255,.15),transparent_55%)]" />
@@ -194,19 +194,19 @@ export default function DashboardLiveContent() {
 
           {/* LABELS IA */}
           <div className="pointer-events-none absolute left-[34%] top-[13%] z-20 hidden rounded-xl border border-[#00e5ff]/50 bg-[#03152d]/90 px-5 py-3 text-xs font-black text-white shadow-[0_0_20px_rgba(0,229,255,.18)] xl:block">
-            ðŸ“Š ANALYSE
+            📊 ANALYSE
           </div>
 
           <div className="pointer-events-none absolute left-[32%] top-[38%] z-20 hidden rounded-xl border border-[#00e5ff]/50 bg-[#03152d]/90 px-5 py-3 text-xs font-black text-white xl:block">
-            ðŸ“¦ PRIORITÃ‰S
+            📦 PRIORITÉS
           </div>
 
           <div className="pointer-events-none absolute right-[31%] top-[14%] z-20 hidden rounded-xl border border-[#00e5ff]/50 bg-[#03152d]/90 px-5 py-3 text-xs font-black text-white xl:block">
-            â†— PRÃ‰DICTIONS
+            ↗ PRÉDICTIONS
           </div>
 
           <div className="pointer-events-none absolute right-[29%] top-[39%] z-20 hidden rounded-xl border border-[#00e5ff]/50 bg-[#03152d]/90 px-5 py-3 text-xs font-black text-white xl:block">
-            ðŸšš OPTIMISATION
+            🚚 OPTIMISATION
           </div>
 
           {/* ORGANIA CENTRAL */}
@@ -236,19 +236,19 @@ export default function DashboardLiveContent() {
               </div>
 
               <h2 className="mt-5 text-3xl font-black text-white">
-                Bonjour Kevin ðŸ‘‹
+                Bonjour Kevin 👋
               </h2>
 
               <p className="mt-2 text-lg font-bold text-slate-300">
                 {active
-                  ? "Votre entrepÃ´t est sous surveillance IA."
-                  : "Votre cockpit est prÃªt."}
+                  ? "Votre entrepôt est sous surveillance IA."
+                  : "Votre cockpit est prêt."}
               </p>
 
               <p className="mt-4 text-sm leading-6 text-slate-400">
                 {active
-                  ? `${missions.length} prioritÃ©(s) nÃ©cessitent votre attention.`
-                  : "Connectez votre ERP ou lancez le Mode DÃ©mo."}
+                  ? `${missions.length} priorité(s) nécessitent votre attention.`
+                  : "Connectez votre ERP ou lancez le Mode Démo."}
               </p>
 
               <button
@@ -261,19 +261,19 @@ export default function DashboardLiveContent() {
                 className="mt-5 rounded-xl border border-[#00e5ff]/60 bg-gradient-to-r from-[#006bff] to-[#00b8ff] px-5 py-3 text-sm font-black text-white shadow-[0_0_22px_rgba(0,229,255,.35)]"
               >
                 {simulation.running
-                  ? "ArrÃªter le Mode DÃ©mo"
-                  : "Lancer le Mode DÃ©mo"}
+                  ? "Arrêter le Mode Démo"
+                  : "Lancer le Mode Démo"}
               </button>
             </div>
 
             <div className="rounded-2xl border border-[#008cff]/45 bg-[#020617]/90 p-5 backdrop-blur-xl">
               <div className="flex items-center justify-between">
                 <h3 className="font-black text-white">
-                  Ã‰tat global
+                  État global
                 </h3>
 
                 <span className="text-sm font-bold text-emerald-400">
-                  {active ? "â— Actif" : "â— En attente"}
+                  {active ? "● Actif" : "● En attente"}
                 </span>
               </div>
 
@@ -291,15 +291,15 @@ export default function DashboardLiveContent() {
 
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between text-slate-300">
-                    <span>RÃ©ception</span>
+                    <span>Réception</span>
                     <span>{receptionPerformance}%</span>
                   </div>
                   <div className="flex justify-between text-slate-300">
-                    <span>PrÃ©paration</span>
+                    <span>Préparation</span>
                     <span>{preparationProgress}%</span>
                   </div>
                   <div className="flex justify-between text-slate-300">
-                    <span>ExpÃ©dition</span>
+                    <span>Expédition</span>
                     <span>{shippingProgress}%</span>
                   </div>
                   <div className="flex justify-between text-slate-300">
@@ -317,11 +317,11 @@ export default function DashboardLiveContent() {
       {/* KPI */}
       <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
         {[
-          ["ðŸ“¦", "Commandes", orders, "Flux commandes"],
-          ["ðŸšš", "ExpÃ©ditions", shipments, "Flux transport"],
-          ["ðŸ“¥", "RÃ©ceptions", receptions, "En cours"],
-          ["âš¡", "ProductivitÃ©", `${productivity}%`, "Performance"],
-          ["ðŸ‘¥", "Ã‰quipe", team, `${warehouse?.workforce.present ?? 0} actifs`],
+          ["📦", "Commandes", orders, "Flux commandes"],
+          ["🚚", "Expéditions", shipments, "Flux transport"],
+          ["📥", "Réceptions", receptions, "En cours"],
+          ["⚡", "Productivité", `${productivity}%`, "Performance"],
+          ["👥", "Équipe", team, `${warehouse?.workforce.present ?? 0} actifs`],
         ].map(([icon, title, value, subtitle]) => (
           <article
             key={String(title)}
@@ -372,11 +372,11 @@ export default function DashboardLiveContent() {
               </p>
 
               <h3 className="mt-1 text-xl font-black text-white">
-                ActivitÃ© en temps rÃ©el
+                Activité en temps réel
               </h3>
 
               <p className="mt-1 text-xs text-slate-500">
-                Vue opÃ©rationnelle de lâ€™entrepÃ´t et des quais
+                Vue opérationnelle de l’entrepôt et des quais
               </p>
             </div>
 
@@ -401,7 +401,7 @@ export default function DashboardLiveContent() {
               <div className="rounded-xl border border-[#00e5ff]/30 bg-[#03152d]/80 p-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white">
-                    RÃ©ceptions
+                    Réceptions
                   </span>
 
                   <span className="text-lg font-black text-[#49efff]">
@@ -410,14 +410,14 @@ export default function DashboardLiveContent() {
                 </div>
 
                 <p className="mt-1 text-[10px] text-slate-500">
-                  opÃ©rations actives
+                  opérations actives
                 </p>
               </div>
 
               <div className="rounded-xl border border-[#00e5ff]/30 bg-[#03152d]/80 p-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white">
-                    PrÃ©paration
+                    Préparation
                   </span>
 
                   <span className="text-sm font-black text-emerald-400">
@@ -438,7 +438,7 @@ export default function DashboardLiveContent() {
               <div className="rounded-xl border border-orange-400/25 bg-[#03152d]/80 p-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-white">
-                    ExpÃ©dition
+                    Expédition
                   </span>
 
                   <span className="text-sm font-black text-orange-300">
@@ -466,7 +466,7 @@ export default function DashboardLiveContent() {
                 </p>
 
                 <p className="text-[10px] text-slate-500">
-                  rÃ©fÃ©rence(s) Ã  surveiller
+                  référence(s) à surveiller
                 </p>
               </div>
             </div>
@@ -475,7 +475,7 @@ export default function DashboardLiveContent() {
             <div className="relative min-h-[430px] overflow-hidden">
               <Image
                 src="/organia-reference/warehouse-trucks-reference.png"
-                alt="EntrepÃ´t OrganIA Flow"
+                alt="Entrepôt OrganIA Flow"
                 fill
                 sizes="900px"
                 className="object-cover object-[center_58%]"
@@ -491,7 +491,7 @@ export default function DashboardLiveContent() {
                   </p>
 
                   <p className="text-[9px] uppercase tracking-wider text-slate-500">
-                    Quais occupÃ©s
+                    Quais occupés
                   </p>
                 </div>
 
@@ -501,7 +501,7 @@ export default function DashboardLiveContent() {
                   </p>
 
                   <p className="text-[9px] uppercase tracking-wider text-slate-500">
-                    TerminÃ©es
+                    Terminées
                   </p>
                 </div>
 
@@ -521,7 +521,7 @@ export default function DashboardLiveContent() {
             <div className="relative z-20 border-l border-[#008cff]/20 bg-[#020817]/92 p-3">
 
               <p className="mb-3 text-[9px] font-black uppercase tracking-[.18em] text-[#49efff]">
-                Ã‰tat des quais
+                État des quais
               </p>
 
               <div className="space-y-2">
@@ -552,7 +552,7 @@ export default function DashboardLiveContent() {
                       </div>
 
                       <p className="mt-1 text-[9px] text-slate-500">
-                        {occupied ? "OccupÃ©" : "Disponible"}
+                        {occupied ? "Occupé" : "Disponible"}
                       </p>
                     </div>
                   );
@@ -577,7 +577,7 @@ export default function DashboardLiveContent() {
           </h3>
 
           <p className="mt-1 text-xs text-slate-500">
-            SantÃ© opÃ©rationnelle
+            Santé opérationnelle
           </p>
 
           <div className="relative mx-auto mt-7 flex h-[172px] w-[172px] items-center justify-center rounded-full border-[2px] border-[#00e5ff]/25 shadow-[0_0_42px_rgba(0,229,255,.18)]">
@@ -598,7 +598,7 @@ export default function DashboardLiveContent() {
           <div className="mt-7 space-y-2">
             {(analysis?.recommendations ?? [
               "Performance en attente",
-              "Aucune donnÃ©e critique",
+              "Aucune donnée critique",
               "Optimisation disponible",
             ])
               .slice(0, 4)
@@ -630,7 +630,7 @@ export default function DashboardLiveContent() {
                 {health}%
               </p>
               <p className="text-[9px] uppercase tracking-wider text-slate-500">
-                SantÃ©
+                Santé
               </p>
             </div>
 
@@ -663,7 +663,7 @@ export default function DashboardLiveContent() {
               </div>
 
               <span className="rounded-full border border-orange-400/30 bg-orange-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-orange-300">
-                {missions.length} prioritÃ©(s)
+                {missions.length} priorité(s)
               </span>
             </div>
 
@@ -695,7 +695,7 @@ export default function DashboardLiveContent() {
 
                       <div className="mt-3 border-t border-white/10 pt-3">
                         <p className="text-[9px] font-black uppercase tracking-wider text-[#49efff]">
-                          Action recommandÃ©e
+                          Action recommandée
                         </p>
 
                         <p className="mt-1 line-clamp-2 text-xs leading-5 text-slate-300">
@@ -710,11 +710,11 @@ export default function DashboardLiveContent() {
               {topMissions.length === 0 && (
                 <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-5 text-center">
                   <p className="font-black text-emerald-300">
-                    Situation maÃ®trisÃ©e
+                    Situation maîtrisée
                   </p>
 
                   <p className="mt-1 text-xs text-slate-400">
-                    Aucune prioritÃ© critique dÃ©tectÃ©e.
+                    Aucune priorité critique détectée.
                   </p>
                 </div>
               )}
@@ -723,7 +723,7 @@ export default function DashboardLiveContent() {
             <div className="mt-5 rounded-xl border border-[#008cff]/25 bg-[#020617]/70 p-4">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                  Missions analysÃ©es
+                  Missions analysées
                 </span>
 
                 <span className="text-sm font-black text-[#49efff]">
@@ -739,7 +739,7 @@ export default function DashboardLiveContent() {
 
       {loading && (
         <p className="text-center text-sm text-[#49efff]">
-          Analyse des donnÃ©es en cours...
+          Analyse des données en cours...
         </p>
       )}
 
@@ -751,4 +751,3 @@ export default function DashboardLiveContent() {
     </div>
   );
 }
-
