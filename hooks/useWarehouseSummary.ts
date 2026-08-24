@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useState } from "react";
 import { subscribeWarehouseUpdates } from "../lib/warehouse/warehouseLiveStore";
@@ -155,72 +155,150 @@ const EMPTY_SUMMARY: WarehouseSummary = {
   updatedAt: "",
 };
 
-export default function useWarehouseSummary(
-  refreshInterval = 5000
-) {
-  const [data, setData] =
-    useState<WarehouseSummary>(EMPTY_SUMMARY);
+type SharedWarehouseState = {
+  data: WarehouseSummary;
+  error: string | null;
+  loading: boolean;
+  updatedAt: number;
+};
 
-  const [loading, setLoading] = useState(true);
+const CACHE_TTL_MS = 4000;
 
-  const [error, setError] =
-    useState<string | null>(null);
+let sharedState: SharedWarehouseState = {
+  data: EMPTY_SUMMARY,
+  error: null,
+  loading: true,
+  updatedAt: 0,
+};
 
-  const refresh = useCallback(async () => {
-    try {
-      const response = await fetch(
-        "/api/warehouse/summary",
-        {
-          cache: "no-store",
-        }
-      );
+let inFlightRequest: Promise<WarehouseSummary> | null = null;
 
+const listeners = new Set<() => void>();
+
+function notifyListeners() {
+  listeners.forEach((listener) => listener());
+}
+
+function subscribeSharedState(listener: () => void) {
+  listeners.add(listener);
+
+  return () => {
+    listeners.delete(listener);
+  };
+}
+
+async function fetchWarehouseSummary(
+  force = false
+): Promise<WarehouseSummary> {
+  const now = Date.now();
+
+  if (
+    !force &&
+    sharedState.updatedAt > 0 &&
+    now - sharedState.updatedAt < CACHE_TTL_MS
+  ) {
+    return sharedState.data;
+  }
+
+  if (inFlightRequest) {
+    return inFlightRequest;
+  }
+
+  sharedState = {
+    ...sharedState,
+    loading: sharedState.updatedAt === 0,
+  };
+
+  notifyListeners();
+
+  inFlightRequest = fetch("/api/warehouse/summary", {
+    cache: "no-store",
+  })
+    .then(async (response) => {
       if (!response.ok) {
         throw new Error(
           "Impossible de charger les données de l'entrepôt."
         );
       }
 
-      const summary: WarehouseSummary =
-        await response.json();
+      return (await response.json()) as WarehouseSummary;
+    })
+    .then((summary) => {
+      sharedState = {
+        data: summary,
+        error: null,
+        loading: false,
+        updatedAt: Date.now(),
+      };
 
-      setData(summary);
-      setError(null);
-    } catch (caughtError) {
-      console.error(caughtError);
+      notifyListeners();
 
-      setError(
+      return summary;
+    })
+    .catch((caughtError) => {
+      const message =
         caughtError instanceof Error
           ? caughtError.message
-          : "Une erreur est survenue."
-      );
-    } finally {
-      setLoading(false);
+          : "Une erreur est survenue.";
+
+      sharedState = {
+        ...sharedState,
+        error: message,
+        loading: false,
+      };
+
+      notifyListeners();
+
+      throw caughtError;
+    })
+    .finally(() => {
+      inFlightRequest = null;
+    });
+
+  return inFlightRequest;
+}
+
+export default function useWarehouseSummary(
+  refreshInterval = 15000
+) {
+  const [, forceRender] = useState(0);
+
+  useEffect(() => {
+    return subscribeSharedState(() => {
+      forceRender((value) => value + 1);
+    });
+  }, []);
+
+  const refresh = useCallback(async () => {
+    try {
+      await fetchWarehouseSummary(true);
+    } catch {
+      // L'état d'erreur partagé est déjà mis à jour.
     }
   }, []);
 
   useEffect(() => {
-  refresh();
+    void fetchWarehouseSummary(false).catch(() => undefined);
 
-  const intervalId = window.setInterval(
-    refresh,
-    refreshInterval
-  );
+    const intervalId = window.setInterval(() => {
+      void fetchWarehouseSummary(false).catch(() => undefined);
+    }, refreshInterval);
 
-  const unsubscribe = subscribeWarehouseUpdates(() => {
-    refresh();
-  });
+    const unsubscribeWarehouse =
+      subscribeWarehouseUpdates(() => {
+        void fetchWarehouseSummary(true).catch(() => undefined);
+      });
 
-  return () => {
-    window.clearInterval(intervalId);
-    unsubscribe();
-  };
-}, [refresh, refreshInterval]);
+    return () => {
+      window.clearInterval(intervalId);
+      unsubscribeWarehouse();
+    };
+  }, [refreshInterval]);
 
   return {
-    data,
-    loading,
-    error,
+    data: sharedState.data,
+    loading: sharedState.loading,
+    error: sharedState.error,
     refresh,
   };
 }
