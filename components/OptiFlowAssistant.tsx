@@ -1234,7 +1234,6 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
             {messages.map((message) => (
 
-<>
 
               <div
                 key={message.id}
@@ -1256,7 +1255,6 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
               </div>
             
 
-</>
 
 ))}
 
