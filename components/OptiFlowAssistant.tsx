@@ -1011,16 +1011,134 @@ const response = await fetch("/api/assistant/chat", {
     }),
   });
 
-  const payload = await response.json();
+  if (!response.ok || !response.body) {
+    const errorPayload = await response.json().catch(() => null);
+
+    throw new Error(
+      errorPayload?.error ||
+        "Le cerveau OptiFlow AI n'a pas pu répondre.",
+    );
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+
+  let streamBuffer = "";
+  let streamedAnswer = "";
+  let streamedAction: string | null = null;
+  let streamingMessageId: number | null = null;
+  let firstChunkReceived = false;
+
+  const ensureStreamingMessage = () => {
+    if (streamingMessageId !== null) {
+      return streamingMessageId;
+    }
+
+    const id = Date.now() + 1;
+    streamingMessageId = id;
+
+    setMessages((current) => [
+      ...current,
+      {
+        id,
+        author: "assistant",
+        content: "",
+      },
+    ]);
+
+    return id;
+  };
+
+  const updateStreamingMessage = (content: string) => {
+    const id = ensureStreamingMessage();
+
+    setMessages((current) =>
+      current.map((message) =>
+        message.id === id
+          ? {
+              ...message,
+              content,
+            }
+          : message,
+      ),
+    );
+  };
+
+  while (true) {
+    const { value, done } = await reader.read();
+
+    if (done) {
+      break;
+    }
+
+    if (!firstChunkReceived) {
+      firstChunkReceived = true;
+
+      console.info(
+        "[Libot] Premier morceau reçu en",
+        Math.round(
+          performance.now() - assistantStartedAt,
+        ),
+        "ms",
+      );
+    }
+
+    streamBuffer += decoder.decode(value, {
+      stream: true,
+    });
+
+    const lines = streamBuffer.split("\n");
+    streamBuffer = lines.pop() ?? "";
+
+    for (const line of lines) {
+      if (!line.trim()) {
+        continue;
+      }
+
+      const event = JSON.parse(line);
+
+      if (event.type === "delta") {
+        streamedAnswer +=
+          typeof event.delta === "string"
+            ? event.delta
+            : "";
+
+        updateStreamingMessage(streamedAnswer);
+      }
+
+      if (event.type === "done") {
+        if (typeof event.answer === "string") {
+          streamedAnswer = event.answer;
+          updateStreamingMessage(streamedAnswer);
+        }
+
+        streamedAction =
+          typeof event.action === "string"
+            ? event.action
+            : null;
+      }
+
+      if (event.type === "error") {
+        throw new Error(
+          event.error ||
+            "Le streaming Libot a été interrompu.",
+        );
+      }
+    }
+  }
 
   console.info(
-    "[Libot] Réponse IA reçue en",
+    "[Libot] Streaming terminé en",
     Math.round(
       performance.now() - assistantStartedAt,
     ),
     "ms",
   );
 
+  const payload = {
+    answer: streamedAnswer,
+    action: streamedAction,
+  };
   const CREATE_RECEPTION_COMMAND =
     /\[\[CREATE_RECEPTION:(\{[\s\S]*?\})\]\]/;
 
@@ -1104,20 +1222,27 @@ const response = await fetch("/api/assistant/chat", {
     author: "assistant",
     content:
       payload.answer ??
-      payload.error ??
       "Je n'ai pas réussi à répondre.",
   };
 
-  setMessages((current) => [...current, assistantMessage]);
+  if (streamingMessageId === null) {
+    setMessages((current) => [...current, assistantMessage]);
+  } else {
+    setMessages((current) =>
+      current.map((message) =>
+        message.id === streamingMessageId
+          ? assistantMessage
+          : message,
+      ),
+    );
+  }
 
   if (
     typeof payload.action === "string" &&
     payload.action.startsWith("/")
   ) {
     window.setTimeout(() => {
-      closeLibotWithAnimation(
-        payload.action,
-      );
+      closeLibotWithAnimation(payload.action ?? undefined);
     }, 1800);
   }
 } catch {

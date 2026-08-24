@@ -397,9 +397,12 @@ Si aucune coupe transporteur n'est fournie :
 - ne suppose pas qu'une coupe explique le risque ;
 - ne demande l'heure de coupe que si elle est réellement nécessaire pour répondre à la question.
 
-Si aucune priorité commande n'est fournie :
+Si aucune priorité commande n'est fournie dans le contexte ACTUEL :
 - ne parle pas de "charge prioritaire" comme d'un fait ;
-- ne suppose pas quelles commandes sont prioritaires.
+- ne suppose pas quelles commandes sont prioritaires ;
+- ne dis pas "commandes signalées comme prioritaires" ;
+- une priorité mentionnée dans un ancien échange ne devient pas un fait du nouvel instantané ;
+- recommande simplement de réduire le backlog ou de traiter les commandes selon les priorités réellement disponibles.
 
 Si aucune capacité ou cadence n'est fournie :
 - ne dis pas que la charge dépasse la capacité ;
@@ -573,35 +576,8 @@ ${SYSTEM_PROMPT}
 ${MORNING_BRIEF}
 ${RECEPTION_WORKFLOW}\n${OPTIONAL_RECEPTION_FIELDS}\n${context}`,
       input: modelMessages,
+      stream: true,
     });
-
-    const libotOpenAiMs = Date.now() - libotStartedAt;
-
-    const instructionPayload = `${OPTIFLOW_PERSONALITY}
-${LIBOT_BRAIN_V2}
-${SYSTEM_PROMPT}
-${MORNING_BRIEF}
-${RECEPTION_WORKFLOW}
-${OPTIONAL_RECEPTION_FIELDS}
-${context}`;
-
-    console.log("[LIBOT PERF]", {
-      openAiMs: libotOpenAiMs,
-      instructionChars: instructionPayload.length,
-      messageCount: modelMessages.length,
-      simulationChars: JSON.stringify(body.simulationState ?? null).length,
-      warehouseSummaryChars: JSON.stringify(body.warehouseSummary ?? null).length,
-      warehouseAnalysisChars: JSON.stringify(body.warehouseAnalysis ?? null).length,
-    });
-
-    const answer = response.output_text?.trim();
-
-    if (!answer) {
-      return NextResponse.json(
-        { error: "Le cerveau IA n'a retourné aucune réponse." },
-        { status: 502 },
-      );
-    }
 
     const lower = safeMessages.at(-1)?.content.toLowerCase() ?? "";
 
@@ -663,10 +639,98 @@ ${context}`;
       }
     }
 
-return NextResponse.json({
-  answer,
-  action,
-});
+    const instructionPayload = `${OPTIFLOW_PERSONALITY}
+${LIBOT_BRAIN_V2}
+${SYSTEM_PROMPT}
+${MORNING_BRIEF}
+${RECEPTION_WORKFLOW}
+${OPTIONAL_RECEPTION_FIELDS}
+${context}`;
+
+    const encoder = new TextEncoder();
+
+    const readable = new ReadableStream({
+      async start(controller) {
+        let answer = "";
+        let firstTokenMs: number | null = null;
+
+        try {
+          for await (const event of response) {
+            if (event.type === "response.output_text.delta") {
+              const delta = event.delta || "";
+
+              if (!delta) {
+                continue;
+              }
+
+              if (firstTokenMs === null) {
+                firstTokenMs = Date.now() - libotStartedAt;
+
+                console.log("[LIBOT STREAM]", {
+                  firstTokenMs,
+                });
+              }
+
+              answer += delta;
+
+              controller.enqueue(
+                encoder.encode(
+                  JSON.stringify({
+                    type: "delta",
+                    delta,
+                  }) + "\n",
+                ),
+              );
+            }
+          }
+
+          const libotOpenAiMs = Date.now() - libotStartedAt;
+
+          console.log("[LIBOT PERF]", {
+            openAiMs: libotOpenAiMs,
+            firstTokenMs,
+            instructionChars: instructionPayload.length,
+            messageCount: modelMessages.length,
+            simulationChars: JSON.stringify(body.simulationState ?? null).length,
+            warehouseSummaryChars: JSON.stringify(body.warehouseSummary ?? null).length,
+            warehouseAnalysisChars: JSON.stringify(body.warehouseAnalysis ?? null).length,
+          });
+
+          controller.enqueue(
+            encoder.encode(
+              JSON.stringify({
+                type: "done",
+                answer: answer.trim(),
+                action,
+              }) + "\n",
+            ),
+          );
+
+          controller.close();
+        } catch (streamError) {
+          console.error("Erreur streaming Libot :", streamError);
+
+          controller.enqueue(
+            encoder.encode(
+              JSON.stringify({
+                type: "error",
+                error: "Le streaming Libot a été interrompu.",
+              }) + "\n",
+            ),
+          );
+
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(readable, {
+      headers: {
+        "Content-Type": "application/x-ndjson; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        "X-Accel-Buffering": "no",
+      },
+    });
   } catch (error) {
     console.error("Erreur assistant OptiFlow AI :", error);
 
