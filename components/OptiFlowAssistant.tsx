@@ -1002,9 +1002,10 @@ const response = await fetch("/api/assistant/chat", {
       messages: history,
       pathname,
       demoMode: simulation.running || pathname === "/demo",
-      simulationState: simulation.running
-        ? simulation.state
-        : null,
+      simulationState:
+        simulation.running || pathname === "/demo"
+          ? simulation.state
+          : null,
       warehouseSummary,
       warehouseAnalysis,
     }),
