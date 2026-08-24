@@ -1,4 +1,4 @@
-﻿export interface DemoStationSnapshot {
+export interface DemoStationSnapshot {
   status: string;
   ordersTotal: number;
   ordersCompleted: number;
@@ -150,7 +150,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   },
 
   6: {
-    status: "Objectif de cadence atteint",
+    status: "Préparation lancée",
     ordersTotal: 526,
     ordersCompleted: 0,
     ordersInProgress: 18,
@@ -374,6 +374,10 @@ function timeToMinutes(time: string) {
   return hours * 60 + minutes;
 }
 
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
+
 function calculatePreparationProductivity(
   stepId: number,
   snapshot: DemoStationSnapshot
@@ -405,6 +409,23 @@ function calculatePreparationProductivity(
   return Math.round(linesPerPickerHour);
 }
 
+function calculateWarehouseHealth(snapshot: DemoStationSnapshot) {
+  const printedOrders = snapshot.ordersTotal;
+  const completedOrders = snapshot.ordersCompleted;
+
+  if (printedOrders <= 0) {
+    return 100;
+  }
+
+  const health =
+    (completedOrders / printedOrders) * 100;
+
+  return Math.max(
+    0,
+    Math.min(100, Math.round(health)),
+  );
+}
+
 export const demoStationSnapshots: Record<
   number,
   DemoStationSnapshot
@@ -420,6 +441,7 @@ export const demoStationSnapshots: Record<
           numericStepId,
           snapshot
         ),
+        warehouseHealth: calculateWarehouseHealth(snapshot),
       },
     ];
   })

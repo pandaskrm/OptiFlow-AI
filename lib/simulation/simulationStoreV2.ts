@@ -1,4 +1,4 @@
-﻿import type {
+import type {
   SimulationScenario,
   SimulationStateV2,
 } from "./simulationTypesV2";
@@ -45,6 +45,22 @@ export function startSimulationV2() {
     state = tickSimulationV2(state);
     notifySimulationV2();
   }, 3000);
+}
+
+export function setSimulationStateV2(
+  nextState: SimulationStateV2,
+) {
+  if (interval) {
+    clearInterval(interval);
+    interval = null;
+  }
+
+  state = {
+    ...nextState,
+    simulatedAt: new Date().toISOString(),
+  };
+
+  notifySimulationV2();
 }
 
 export function stopSimulationV2() {

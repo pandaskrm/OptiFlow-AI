@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import useVoiceAssistant from "../../hooks/useVoiceAssistant";
@@ -12,6 +12,9 @@ import {
   demoStationSnapshots,
   type DemoStationSnapshot,
 } from "../../lib/demo/demoStationMetrics";
+
+import { createDemoSimulationState } from "../../lib/demo/demoStationSimulation";
+import { setSimulationStateV2 } from "../../lib/simulation/simulationStoreV2";
 
 const STEP_DURATIONS_MS: Record<number, number> = {
   1: 24000,
@@ -329,6 +332,14 @@ export default function DemoStation() {
   );
 
   const finished = index === demoStationSteps.length - 1;
+
+  useEffect(() => {
+    if (!started) return;
+
+    setSimulationStateV2(
+      createDemoSimulationState(snapshot, step.id),
+    );
+  }, [started, step.id, snapshot]);
 
   function getLibotSpeech(stepId: number) {
     const selectedStep =
