@@ -5,6 +5,7 @@ import useVoiceAssistant from "../hooks/useVoiceAssistant";
 import { notifyWarehouseUpdate } from "../lib/warehouse/warehouseLiveStore";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import useSimulationV2 from "../hooks/useSimulationV2";
 
 import OptiFlowMascot from "./OptiFlowMascot";
 import AssistantQuickActions from "./assistant/AssistantQuickActions";
@@ -418,6 +419,7 @@ function createAnswer(question: string, currentPage: string) {
 export default function OptiFlowAssistant() {
   const router = useRouter();
   const pathname = usePathname();
+  const simulation = useSimulationV2();
 
   const currentPage =
     Object.keys(pageNames).find(
@@ -999,7 +1001,10 @@ const response = await fetch("/api/assistant/chat", {
     body: JSON.stringify({
       messages: history,
       pathname,
-      demoMode: pathname === "/demo",
+      demoMode: simulation.running || pathname === "/demo",
+      simulationState: simulation.running
+        ? simulation.state
+        : null,
       warehouseSummary,
       warehouseAnalysis,
     }),
