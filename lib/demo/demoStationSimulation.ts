@@ -11,15 +11,15 @@ export function createDemoSimulationState(
 ): SimulationStateV2 {
   const waitingOrders = Math.max(
     0,
-    snapshot.ordersTotal -
+    snapshot.ordersPrinted -
       snapshot.ordersCompleted -
       snapshot.ordersInProgress,
   );
 
   const pickingProgress =
-    snapshot.ordersTotal > 0
+    snapshot.ordersPrinted > 0
       ? Math.round(
-          (snapshot.ordersCompleted / snapshot.ordersTotal) * 100,
+          (snapshot.ordersCompleted / snapshot.ordersPrinted) * 100,
         )
       : 0;
 

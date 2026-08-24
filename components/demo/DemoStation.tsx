@@ -91,18 +91,21 @@ function MetricCard({
 }
 
 function LiveMetrics({ snapshot }: { snapshot: DemoStationSnapshot }) {
-  const preparationProgress = percent(
-    snapshot.ordersCompleted,
-    snapshot.ordersTotal
-  );
+  const preparationProgress =
+    snapshot.ordersPrinted <= 0
+      ? 0
+      : percent(
+          snapshot.ordersCompleted,
+          snapshot.ordersPrinted
+        );
 
   return (
     <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-6">
       <MetricCard
         icon="📋"
         label="Commandes"
-        value={`${snapshot.ordersCompleted}/${snapshot.ordersTotal}`}
-        detail={`${snapshot.ordersInProgress} en cours`}
+        value={`${snapshot.ordersCompleted}/${snapshot.ordersPrinted}`}
+        detail={`${snapshot.ordersPrinted} imprimées • ${snapshot.ordersInProgress} en cours`}
       />
 
       <MetricCard

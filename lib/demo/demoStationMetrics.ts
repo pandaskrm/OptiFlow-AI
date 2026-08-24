@@ -1,6 +1,7 @@
 export interface DemoStationSnapshot {
   status: string;
   ordersTotal: number;
+  ordersPrinted: number;
   ordersCompleted: number;
   ordersInProgress: number;
   priorityOrders: number;
@@ -27,6 +28,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   1: {
     status: "Briefing du matin",
     ordersTotal: 526,
+    ordersPrinted: 0,
     ordersCompleted: 0,
     ordersInProgress: 0,
     priorityOrders: 41,
@@ -52,6 +54,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   2: {
     status: "Équipes en prise de poste",
     ordersTotal: 526,
+    ordersPrinted: 0,
     ordersCompleted: 0,
     ordersInProgress: 0,
     priorityOrders: 41,
@@ -75,8 +78,9 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   },
 
   3: {
-    status: "Premières préparations",
+    status: "Mail opérationnel détecté",
     ordersTotal: 526,
+    ordersPrinted: 0,
     ordersCompleted: 0,
     ordersInProgress: 0,
     priorityOrders: 39,
@@ -88,7 +92,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
     warehouseHealth: 98,
     receptionsActive: 0,
     receptionsFinished: 0,
-    shipmentsReady: 1,
+    shipmentsReady: 0,
     shipmentsConfirmed: 0,
     shipmentsFinished: 0,
     mailReceived: 1,
@@ -100,8 +104,9 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   },
 
   4: {
-    status: "Montée en cadence",
+    status: "Arrivage en cours de traitement",
     ordersTotal: 526,
+    ordersPrinted: 0,
     ordersCompleted: 0,
     ordersInProgress: 0,
     priorityOrders: 36,
@@ -113,8 +118,8 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
     warehouseHealth: 97,
     receptionsActive: 1,
     receptionsFinished: 0,
-    shipmentsReady: 3,
-    shipmentsConfirmed: 1,
+    shipmentsReady: 0,
+    shipmentsConfirmed: 0,
     shipmentsFinished: 0,
     mailReceived: 1,
     mailAwaitingReply: 0,
@@ -125,8 +130,9 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   },
 
   5: {
-    status: "Cadence opérationnelle",
+    status: "Stock mis à jour",
     ordersTotal: 526,
+    ordersPrinted: 0,
     ordersCompleted: 0,
     ordersInProgress: 0,
     priorityOrders: 32,
@@ -138,9 +144,9 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
     warehouseHealth: 98,
     receptionsActive: 0,
     receptionsFinished: 1,
-    shipmentsReady: 8,
-    shipmentsConfirmed: 4,
-    shipmentsFinished: 1,
+    shipmentsReady: 0,
+    shipmentsConfirmed: 0,
+    shipmentsFinished: 0,
     mailReceived: 1,
     mailAwaitingReply: 0,
     staffPresent: 49,
@@ -152,6 +158,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   6: {
     status: "Préparation lancée",
     ordersTotal: 526,
+    ordersPrinted: 526,
     ordersCompleted: 0,
     ordersInProgress: 18,
     priorityOrders: 27,
@@ -163,9 +170,9 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
     warehouseHealth: 98,
     receptionsActive: 1,
     receptionsFinished: 1,
-    shipmentsReady: 16,
-    shipmentsConfirmed: 8,
-    shipmentsFinished: 4,
+    shipmentsReady: 0,
+    shipmentsConfirmed: 0,
+    shipmentsFinished: 0,
     mailReceived: 2,
     mailAwaitingReply: 0,
     staffPresent: 49,
@@ -177,6 +184,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   7: {
     status: "Ralentissement détecté",
     ordersTotal: 526,
+    ordersPrinted: 526,
     ordersCompleted: 232,
     ordersInProgress: 65,
     priorityOrders: 34,
@@ -202,6 +210,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   8: {
     status: "Action corrective recommandée",
     ordersTotal: 526,
+    ordersPrinted: 526,
     ordersCompleted: 238,
     ordersInProgress: 66,
     priorityOrders: 32,
@@ -227,6 +236,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   9: {
     status: "Trajectoire rétablie",
     ordersTotal: 526,
+    ordersPrinted: 526,
     ordersCompleted: 322,
     ordersInProgress: 56,
     priorityOrders: 20,
@@ -252,6 +262,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   10: {
     status: "Rattrapage confirmé",
     ordersTotal: 526,
+    ordersPrinted: 526,
     ordersCompleted: 407,
     ordersInProgress: 45,
     priorityOrders: 12,
@@ -277,6 +288,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   11: {
     status: "Confirmation transporteur attendue",
     ordersTotal: 526,
+    ordersPrinted: 526,
     ordersCompleted: 455,
     ordersInProgress: 32,
     priorityOrders: 7,
@@ -302,6 +314,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   12: {
     status: "Flux transport sécurisé",
     ordersTotal: 526,
+    ordersPrinted: 526,
     ordersCompleted: 492,
     ordersInProgress: 21,
     priorityOrders: 3,
@@ -327,6 +340,7 @@ const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
   13: {
     status: "Journée clôturée",
     ordersTotal: 526,
+    ordersPrinted: 526,
     ordersCompleted: 518,
     ordersInProgress: 8,
     priorityOrders: 0,
@@ -410,9 +424,10 @@ function calculatePreparationProductivity(
 }
 
 function calculateWarehouseHealth(snapshot: DemoStationSnapshot) {
-  const printedOrders = snapshot.ordersTotal;
+  const printedOrders = snapshot.ordersPrinted;
   const completedOrders = snapshot.ordersCompleted;
 
+  // Aucune commande imprimee = aucune charge de preparation en attente.
   if (printedOrders <= 0) {
     return 100;
   }

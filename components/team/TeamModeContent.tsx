@@ -410,16 +410,297 @@ function TeamRealData() {
 }
 
 function TeamDemoState() {
-  return (
-    <div className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-10 text-center text-white">
-      <h1 className="text-2xl font-bold">
-        Mode Démo Équipe
-      </h1>
+  const simulation = useSimulationV2();
+  const preparation = simulation.state.preparation;
+  const productivity = simulation.state.kpis.productivity;
 
-      <p className="mt-4 text-slate-300">
-        Le scénario Démo utilise les effectifs simulés du moteur
-        OptiFlow AI.
-      </p>
+  const totalStaff =
+    preparation.activePickers + preparation.absentPickers;
+
+  const presentStaff = preparation.activePickers;
+
+  const attendanceRate =
+    totalStaff > 0
+      ? Math.round((presentStaff / totalStaff) * 100)
+      : 100;
+
+  const hasAbsenceRisk = preparation.absentPickers > 0;
+
+  const cards = [
+    {
+      label: "Effectif préparation",
+      value: totalStaff,
+    },
+    {
+      label: "Présents",
+      value: presentStaff,
+    },
+    {
+      label: "Absents",
+      value: preparation.absentPickers,
+    },
+    {
+      label: "Commandes actives",
+      value: preparation.activeOrders,
+    },
+    {
+      label: "Commandes terminées",
+      value: preparation.completedOrders,
+    },
+    {
+      label: "Productivité",
+      value: `${productivity} l/h`,
+    },
+  ];
+
+  return (
+    <div className="flex flex-col gap-4">
+      <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-5 text-white shadow-xl">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400">
+          Module équipe · Démo live
+        </p>
+
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight lg:text-4xl">
+              Pilotage des équipes
+            </h1>
+
+            <p className="mt-4 max-w-3xl text-slate-300">
+              Effectifs et capacité opérationnelle synchronisés avec la journée simulée.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-4">
+            <p className="text-sm text-slate-400">
+              Statut équipe
+            </p>
+
+            <p className="mt-1 text-2xl font-bold text-emerald-400">
+              Simulation synchronisée
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
+        {cards.map((card) => (
+          <div
+            key={card.label}
+            className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+          >
+            <p className="text-sm font-medium text-slate-700">
+              {card.label}
+            </p>
+
+            <p className="mt-2 text-2xl font-bold text-slate-950">
+              {card.value}
+            </p>
+          </div>
+        ))}
+      </section>
+
+      <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
+        <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-950">
+            Capacité opérationnelle
+          </h2>
+
+          <p className="mt-1 text-sm font-medium text-slate-700">
+            Indicateurs calculés depuis le scénario Démo.
+          </p>
+
+          <div className="mt-4 grid gap-3 md:grid-cols-3">
+            <div className="rounded-xl bg-slate-50 p-4">
+              <p className="text-sm font-medium text-slate-700">
+                Taux de présence
+              </p>
+
+              <p className="mt-2 text-2xl font-bold text-slate-950">
+                {attendanceRate}%
+              </p>
+            </div>
+
+            <div className="rounded-xl bg-slate-50 p-4">
+              <p className="text-sm font-medium text-slate-700">
+                Préparateurs actifs
+              </p>
+
+              <p className="mt-2 text-2xl font-bold text-slate-950">
+                {preparation.activePickers}
+              </p>
+            </div>
+
+            <div className="rounded-xl bg-slate-50 p-4">
+              <p className="text-sm font-medium text-slate-700">
+                Avancement préparation
+              </p>
+
+              <p className="mt-2 text-2xl font-bold text-emerald-600">
+                {preparation.pickingProgress}%
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-4 rounded-xl border border-slate-200 p-4">
+            <div className="mb-3 flex items-center justify-between">
+              <p className="font-semibold text-slate-700">
+                Présence de l'équipe
+              </p>
+
+              <p className="text-2xl font-bold text-slate-950">
+                {attendanceRate}%
+              </p>
+            </div>
+
+            <div className="h-4 overflow-hidden rounded-full bg-slate-200">
+              <div
+                className="h-full rounded-full bg-cyan-500 transition-all"
+                style={{
+                  width: `${Math.min(100, attendanceRate)}%`,
+                }}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-4 text-white shadow-xl">
+          <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
+            Analyse IA
+          </p>
+
+          <h2 className="mt-2 text-xl font-bold">
+            Équilibre des ressources
+          </h2>
+
+          <div
+            className={`mt-3 rounded-xl border p-3 ${
+              hasAbsenceRisk
+                ? "border-orange-500/20 bg-orange-500/10"
+                : "border-emerald-500/20 bg-emerald-500/10"
+            }`}
+          >
+            <p className={hasAbsenceRisk ? "text-orange-300" : "text-emerald-300"}>
+              Alerte
+            </p>
+
+            <p className="mt-2 font-semibold text-white">
+              {hasAbsenceRisk
+                ? `${preparation.absentPickers} préparateur(s) absent(s).`
+                : "Effectif préparation complet."}
+            </p>
+          </div>
+
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-slate-400">
+              Recommandation
+            </p>
+
+            <p className="mt-2 font-semibold">
+              {hasAbsenceRisk
+                ? "Adapter la répartition des commandes à la capacité disponible."
+                : "Maintenir la répartition actuelle des équipes."}
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div className="mb-5 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-slate-950">
+              Horaires de référence
+            </h2>
+
+            <p className="mt-1 text-sm font-medium text-slate-700">
+              Organisation fixe de la semaine de travail.
+            </p>
+          </div>
+
+          <span className="rounded-full bg-cyan-100 px-3 py-1 text-xs font-bold text-cyan-700">
+            39 h / semaine
+          </span>
+        </div>
+
+        <div className="overflow-x-auto rounded-2xl border border-slate-200">
+          <table className="w-full min-w-[720px] text-left text-[11px]">
+            <thead className="bg-slate-50 text-slate-600">
+              <tr>
+                <th className="px-2 py-1.5">Jour</th>
+                <th className="px-2 py-1.5">Matin</th>
+                <th className="px-2 py-1.5">Après-midi</th>
+                <th className="px-2 py-1.5">Pauses</th>
+                <th className="px-2 py-1.5">Durée d'une pause</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {weeklySchedule.map((row) => (
+                <tr
+                  key={row.day}
+                  className="border-t border-slate-200"
+                >
+                  <td className="px-2 py-1.5 font-bold text-slate-950">
+                    {row.day}
+                  </td>
+                  <td className="px-2 py-1.5 text-slate-600">
+                    {row.morning}
+                  </td>
+                  <td className="px-2 py-1.5 text-slate-600">
+                    {row.afternoon}
+                  </td>
+                  <td className="px-2 py-1.5 text-slate-600">
+                    {row.breaks}
+                  </td>
+                  <td className="px-2 py-1.5 text-slate-600">
+                    10 minutes
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <h2 className="text-xl font-bold text-slate-950">
+          Synthèse des ressources
+        </h2>
+
+        <div className="mt-2 grid gap-2 md:grid-cols-4">
+          <div className="rounded-lg border border-slate-200 p-2.5">
+            <p className="text-sm font-medium text-slate-700">Présents</p>
+            <p className="mt-2 text-2xl font-bold text-emerald-600">
+              {presentStaff}
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-slate-200 p-2.5">
+            <p className="text-sm font-medium text-slate-700">Absents</p>
+            <p className="mt-2 text-2xl font-bold text-red-600">
+              {preparation.absentPickers}
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-slate-200 p-2.5">
+            <p className="text-sm font-medium text-slate-700">
+              Commandes en cours
+            </p>
+            <p className="mt-2 text-2xl font-bold text-cyan-600">
+              {preparation.activeOrders}
+            </p>
+          </div>
+
+          <div className="rounded-lg border border-slate-200 p-2.5">
+            <p className="text-sm font-medium text-slate-700">
+              En attente
+            </p>
+            <p className="mt-2 text-2xl font-bold text-orange-500">
+              {preparation.waitingOrders}
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

@@ -510,25 +510,257 @@ function AiRealData() {
   );
 }
 
-function AiDemoState() {
-  return (
-    <div className="rounded-3xl border border-cyan-400/20 bg-slate-950 p-10 text-center text-white">
-      <h1 className="text-2xl font-bold">
-        Mode Démo IA
-      </h1>
+function AiDemoState({
+  simulation,
+}: {
+  simulation: ReturnType<typeof useSimulationV2>;
+}) {
+  const { state } = simulation;
+  const preparation = state.preparation;
+  const shipping = state.shipping;
+  const receptions = state.receptions;
+  const kpis = state.kpis;
 
-      <p className="mt-4 text-slate-300">
-        OptiFlow AI analyse actuellement les scénarios simulés du Mode Démo.
-      </p>
+  const totalOrders =
+    preparation.waitingOrders +
+    preparation.activeOrders +
+    preparation.completedOrders;
+
+  const cards = [
+    {
+      label: "Santé dépôt",
+      value: `${kpis.warehouseHealth}%`,
+    },
+    {
+      label: "Alertes actives",
+      value: state.alerts.length,
+    },
+    {
+      label: "Priorités IA",
+      value: state.aiRecommendations.length,
+    },
+    {
+      label: "Réceptions",
+      value: receptions.completed,
+    },
+    {
+      label: "Commandes",
+      value: `${preparation.completedOrders}/${totalOrders}`,
+    },
+    {
+      label: "Expéditions",
+      value: shipping.completedShipments,
+    },
+  ];
+
+  const recommendation =
+    state.aiRecommendations[0];
+
+  const alert = state.alerts[0];
+
+  const healthLabel =
+    kpis.warehouseHealth >= 90
+      ? "Situation maîtrisée"
+      : kpis.warehouseHealth >= 60
+        ? "Vigilance opérationnelle"
+        : "Action immédiate requise";
+
+  return (
+    <div className="flex flex-col gap-4">
+      <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-5 text-white shadow-xl">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-400">
+          Centre de décision · Mode Démo
+        </p>
+
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight lg:text-4xl">
+              IA OrganIA
+            </h1>
+
+            <p className="mt-4 max-w-3xl text-slate-300">
+              Analyse en temps réel du scénario actuellement joué par la Demo Station.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-5 py-4">
+            <p className="text-sm text-slate-400">
+              Statut de l’analyse
+            </p>
+
+            <p className="mt-1 text-2xl font-bold text-emerald-400">
+              Analyse active
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
+        {cards.map((card) => (
+          <div
+            key={card.label}
+            className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
+          >
+            <p className="text-sm font-medium text-slate-700">
+              {card.label}
+            </p>
+
+            <p className="mt-2 text-2xl font-bold text-slate-950">
+              {card.value}
+            </p>
+          </div>
+        ))}
+      </section>
+
+      <div className="grid gap-4 xl:grid-cols-[1fr_360px]">
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-950">
+            Brief IA en direct
+          </h2>
+
+          <p className="mt-1 text-sm font-medium text-slate-700">
+            Synthèse automatique de l’exploitation simulée.
+          </p>
+
+          <div className="mt-4 rounded-xl bg-slate-50 p-4">
+            <p className="leading-7 text-slate-700">
+              {preparation.completedOrders} commande(s) terminée(s) sur{" "}
+              {totalOrders}. {preparation.activeOrders} en cours et{" "}
+              {preparation.waitingOrders} en attente. La santé du dépôt
+              est actuellement de {kpis.warehouseHealth}%.
+            </p>
+          </div>
+
+          <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            <div className="rounded-xl border border-slate-200 p-4">
+              <p className="text-sm text-slate-600">
+                Préparation
+              </p>
+              <p className="mt-2 text-2xl font-bold text-slate-950">
+                {preparation.pickingProgress}%
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 p-4">
+              <p className="text-sm text-slate-600">
+                Productivité
+              </p>
+              <p className="mt-2 text-2xl font-bold text-slate-950">
+                {kpis.productivity} l/h
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 p-4">
+              <p className="text-sm text-slate-600">
+                Service projeté
+              </p>
+              <p className="mt-2 text-2xl font-bold text-slate-950">
+                {kpis.serviceRate}%
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 p-4">
+              <p className="text-sm text-slate-600">
+                Préparateurs actifs
+              </p>
+              <p className="mt-2 text-2xl font-bold text-slate-950">
+                {preparation.activePickers}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-5 text-white shadow-xl">
+          <p className="text-sm uppercase tracking-[0.25em] text-cyan-300">
+            Recommandation principale
+          </p>
+
+          <h2 className="mt-3 text-2xl font-bold">
+            {recommendation?.title ?? healthLabel}
+          </h2>
+
+          <p className="mt-4 text-sm leading-6 text-slate-300">
+            {recommendation?.message ??
+              "Aucune action corrective prioritaire n’est nécessaire actuellement."}
+          </p>
+
+          <div className="mt-5 rounded-xl border border-white/10 bg-white/5 p-4">
+            <p className="text-sm text-slate-400">
+              Santé dépôt
+            </p>
+
+            <p className="mt-2 text-5xl font-bold text-cyan-300">
+              {kpis.warehouseHealth}
+            </p>
+
+            <p className="mt-1 text-sm text-slate-400">
+              sur 100
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-2">
+        <section className="rounded-2xl border border-red-500/20 bg-slate-950 p-5 text-white shadow-xl">
+          <h2 className="text-xl font-bold">
+            Alertes détectées
+          </h2>
+
+          <div className="mt-4">
+            {alert ? (
+              <div className="rounded-xl border border-orange-500/20 bg-orange-500/10 p-4">
+                <p className="font-bold text-orange-300">
+                  {alert.title}
+                </p>
+
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  {alert.message}
+                </p>
+              </div>
+            ) : (
+              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-100">
+                Aucune alerte critique détectée.
+              </div>
+            )}
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-cyan-400/20 bg-slate-950 p-5 text-white shadow-xl">
+          <h2 className="text-xl font-bold">
+            Plan d’action IA
+          </h2>
+
+          <div className="mt-4">
+            {recommendation ? (
+              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                <p className="text-xs font-bold uppercase tracking-widest text-cyan-400">
+                  Action prioritaire
+                </p>
+
+                <p className="mt-2 font-bold text-white">
+                  {recommendation.title}
+                </p>
+
+                <p className="mt-2 text-sm leading-6 text-slate-300">
+                  {recommendation.message}
+                </p>
+              </div>
+            ) : (
+              <div className="rounded-xl border border-dashed border-white/10 bg-white/5 p-6 text-center text-slate-400">
+                Aucune action prioritaire actuellement.
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
-
 export default function AiModeContent() {
   const simulation = useSimulationV2();
 
   if (simulation.running) {
-    return <AiDemoState />;
+    return <AiDemoState simulation={simulation} />;
   }
 
   return <AiRealData />;
