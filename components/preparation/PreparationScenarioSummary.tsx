@@ -1,36 +1,56 @@
 "use client";
 
-import useScenario from "../../hooks/useScenario";
-import { getPreparationDemoData } from "../../lib/demo/preparationDemoData";
+import useSimulationV2 from "../../hooks/useSimulationV2";
+
+const scenarioLabels = {
+  normal: "Normal",
+  peak: "Pic d'activité",
+  black_friday: "Black Friday",
+  transport_issue: "Incident transport",
+  quality_alert: "Alerte qualité",
+} as const;
 
 export default function PreparationScenarioSummary() {
-  const { scenario, data } = useScenario();
-  const preparation = getPreparationDemoData(scenario);
+  const simulation = useSimulationV2();
+  const preparation = simulation.state.preparation;
+  const kpis = simulation.state.kpis;
+
+  const total =
+    preparation.completedOrders +
+    preparation.activeOrders +
+    preparation.waitingOrders;
+
+  const status =
+    preparation.pickingProgress < 60
+      ? "Préparation sous tension"
+      : preparation.waitingOrders > 40
+        ? "Charge élevée"
+        : "Flux maîtrisé";
 
   const cards = [
     {
       label: "Commandes du jour",
-      value: preparation.total,
+      value: total,
     },
     {
       label: "Terminées",
-      value: preparation.completed,
+      value: preparation.completedOrders,
     },
     {
       label: "En préparation",
-      value: preparation.inProgress,
+      value: preparation.activeOrders,
     },
     {
-      label: "Prioritaires",
-      value: preparation.urgent,
+      label: "En attente",
+      value: preparation.waitingOrders,
     },
     {
       label: "Avancement moyen",
-      value: `${preparation.averageProgress}%`,
+      value: `${preparation.pickingProgress}%`,
     },
     {
       label: "Taux de service",
-      value: `${preparation.serviceRate}%`,
+      value: `${kpis.serviceRate}%`,
     },
   ];
 
@@ -48,8 +68,8 @@ export default function PreparationScenarioSummary() {
             </h1>
 
             <p className="mt-4 max-w-2xl text-slate-300">
-              Scénario actif : {data.label}. Les volumes et les priorités
-              sont synchronisés avec le tableau de bord.
+              Scénario actif : {scenarioLabels[simulation.scenario]}.
+              Les volumes sont synchronisés avec le moteur de simulation V2.
             </p>
           </div>
 
@@ -59,7 +79,7 @@ export default function PreparationScenarioSummary() {
             </p>
 
             <p className="text-2xl font-bold text-[#bdf9ff]">
-              {preparation.status}
+              {status}
             </p>
           </div>
         </div>

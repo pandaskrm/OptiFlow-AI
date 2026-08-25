@@ -1,26 +1,56 @@
 "use client";
 
-import useScenario from "../../hooks/useScenario";
-import { getShippingDemoData } from "../../lib/demo/shippingDemoData";
+import useSimulationV2 from "../../hooks/useSimulationV2";
+
+const scenarioLabels = {
+  normal: "Normal",
+  peak: "Pic d'activité",
+  black_friday: "Black Friday",
+  transport_issue: "Incident transport",
+  quality_alert: "Alerte qualité",
+} as const;
 
 export default function ShippingScenarioSummary() {
-  const { scenario, data } = useScenario();
-  const shipping = getShippingDemoData(scenario);
+  const simulation = useSimulationV2();
+  const shipping = simulation.state.shipping;
+  const kpis = simulation.state.kpis;
+
+  const total =
+    shipping.completedShipments +
+    shipping.loadingShipments +
+    shipping.waitingShipments;
+
+  const status =
+    shipping.delayedShipments > 0
+      ? "Transport perturbé"
+      : shipping.waitingShipments > 10
+        ? "Charge élevée"
+        : "Flux maîtrisé";
 
   const cards = [
-    { label: "Expéditions du jour", value: shipping.total },
-    { label: "Expédiées", value: shipping.shipped },
-    { label: "Chargements", value: shipping.loading },
-    { label: "Prioritaires", value: shipping.urgent },
-    { label: "Colis", value: shipping.parcels },
-    { label: "Palettes", value: shipping.pallets },
     {
-      label: "Avancement moyen",
-      value: `${shipping.averageProgress}%`,
+      label: "Expéditions du jour",
+      value: total,
+    },
+    {
+      label: "Expédiées",
+      value: shipping.completedShipments,
+    },
+    {
+      label: "Chargements",
+      value: shipping.loadingShipments,
+    },
+    {
+      label: "En attente",
+      value: shipping.waitingShipments,
+    },
+    {
+      label: "En retard",
+      value: shipping.delayedShipments,
     },
     {
       label: "Taux de service",
-      value: `${shipping.serviceRate}%`,
+      value: `${kpis.serviceRate}%`,
     },
   ];
 
@@ -38,8 +68,8 @@ export default function ShippingScenarioSummary() {
             </h1>
 
             <p className="mt-4 max-w-2xl text-slate-300">
-              Scénario actif : {data.label}. Les volumes d’expédition sont
-              synchronisés avec le tableau de bord.
+              Scénario actif : {scenarioLabels[simulation.scenario]}.
+              Les volumes sont synchronisés avec le moteur de simulation V2.
             </p>
           </div>
 
@@ -49,13 +79,13 @@ export default function ShippingScenarioSummary() {
             </p>
 
             <p className="text-2xl font-bold text-cyan-100">
-              {shipping.status}
+              {status}
             </p>
           </div>
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
         {cards.map((card) => (
           <div
             key={card.label}
