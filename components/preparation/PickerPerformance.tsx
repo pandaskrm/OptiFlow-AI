@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
+import useSimulationV2 from "../../hooks/useSimulationV2";
 
 type Picker = {
   name: string;
@@ -22,39 +23,29 @@ const initialPickers: Picker[] = [
 ];
 
 export default function PickerPerformance() {
-  const [pickers, setPickers] = useState(initialPickers);
+  const simulation = useSimulationV2();
+  const tick = simulation.state.tick;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPickers((current) =>
-        current.map((picker) => ({
+  const ranked = useMemo(() => {
+    return initialPickers
+      .map((picker, index) => {
+        const active = picker.status !== "Disponible";
+
+        return {
           ...picker,
-          lines:
-            picker.status === "Disponible"
-              ? picker.lines
-              : picker.lines + Math.floor(Math.random() * 4),
-          quantity:
-            picker.status === "Disponible"
-              ? picker.quantity
-              : picker.quantity + Math.floor(Math.random() * 18),
+          lines: picker.lines + (active ? tick * (index % 3 + 1) : 0),
+          quantity: picker.quantity + (active ? tick * (index + 3) : 0),
           performance: Math.max(
             88,
             Math.min(
               125,
-              picker.performance + Math.floor(Math.random() * 3) - 1
+              picker.performance + ((tick + index) % 3) - 1
             )
           ),
-        }))
-      );
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const ranked = useMemo(
-    () => [...pickers].sort((a, b) => b.performance - a.performance),
-    [pickers]
-  );
+        };
+      })
+      .sort((a, b) => b.performance - a.performance);
+  }, [tick]);
 
   return (
     <section className="organia-electric-panel organia-electric-panel-v2 rounded-3xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-6 shadow-sm">
