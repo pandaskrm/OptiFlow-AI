@@ -97,8 +97,20 @@ export type WarehousePerformanceSummary = {
   productivity: number;
 };
 
+export type WarehouseReceptionDetail = {
+  id: number;
+  number: string;
+  supplier: string;
+  carrier: string;
+  dock: string;
+  pallets: number;
+  status: string;
+  scheduledAt: string;
+  createdAt: string;
+};
 export type WarehouseSummary = {
   receptions: WarehouseReceptionSummary;
+  receptionDetails: WarehouseReceptionDetail[];
   orders: WarehouseOrderSummary;
   orderDetails: WarehouseOrderDetail[];
   shipments: WarehouseShipmentSummary;
@@ -844,6 +856,17 @@ export async function getWarehouseSummary(): Promise<WarehouseSummary> {
       completionRate: receptionCompletionRate,
     },
 
+    receptionDetails: receptions.map((item) => ({
+      id: item.id,
+      number: item.number,
+      supplier: item.supplier,
+      carrier: item.carrier,
+      dock: item.dock,
+      pallets: item.pallets,
+      status: item.status,
+      scheduledAt: item.scheduledAt,
+      createdAt: item.createdAt.toISOString(),
+    })),
     orders: {
       total: orders.length,
       waiting: waitingOrders,

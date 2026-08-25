@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import { RECEPTION_STATUS } from "../../constants/receptionStatus";
 
@@ -8,50 +10,23 @@ type ReceptionStatsProps = {
   refreshKey: number;
 };
 
-type Reception = {
-  id: number;
-  status: string;
-};
-
 export default function ReceptionStats({
   refreshKey,
 }: ReceptionStatsProps) {
-  const [receptions, setReceptions] = useState<Reception[]>([]);
-  const [loading, setLoading] = useState(true);
-
   const simulation = useSimulationV2();
+  const {
+    data: warehouse,
+    loading,
+    refresh,
+  } = useWarehouseSummary();
 
   useEffect(() => {
-    if (simulation.running) {
-      setLoading(false);
-      return;
+    if (!simulation.running) {
+      void refresh();
     }
+  }, [refreshKey, simulation.running, refresh]);
 
-    async function loadReceptions() {
-      try {
-        setLoading(true);
-
-        const response = await fetch("/api/receptions", {
-          cache: "no-store",
-        });
-
-        if (!response.ok) {
-          throw new Error("Impossible de charger les statistiques.");
-        }
-
-        const data = await response.json();
-        setReceptions(data);
-      } catch (error) {
-        console.error(error);
-        setReceptions([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadReceptions();
-  }, [refreshKey, simulation.running]);
-
+  const receptions = warehouse.receptionDetails;
   const total = simulation.running
     ? simulation.state.kpis.receptions
     : receptions.length;

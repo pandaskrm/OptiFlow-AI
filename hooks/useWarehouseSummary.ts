@@ -21,6 +21,17 @@ export type WarehouseSummary = {
     completionRate: number;
   };
 
+  receptionDetails: {
+    id: number;
+    number: string;
+    supplier: string;
+    carrier: string;
+    dock: string;
+    pallets: number;
+    status: string;
+    scheduledAt: string;
+    createdAt: string;
+  }[];
   orders: {
     total: number;
     waiting: number;
@@ -121,6 +132,7 @@ const EMPTY_SUMMARY: WarehouseSummary = {
     completionRate: 0,
   },
 
+  receptionDetails: [],
   orders: {
     total: 0,
     waiting: 0,

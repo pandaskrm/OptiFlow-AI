@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import useSimulationV2 from "../../hooks/useSimulationV2";
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 import {
   getWorkflowReceptions,
   subscribeWorkflow,
@@ -92,9 +93,16 @@ export default function DockPlanning({
   const [loading, setLoading] = useState(true);
   const simulation = useSimulationV2();
 
+  const {
+    data: warehouse,
+    loading: warehouseLoading,
+    refresh,
+  } = useWarehouseSummary();
+
   useEffect(() => {
     if (simulation.running) {
       setLoading(false);
+
       setReceptions(
         convertDemoReceptions(getWorkflowReceptions())
       );
@@ -108,30 +116,31 @@ export default function DockPlanning({
       };
     }
 
-    async function loadReceptions() {
-      try {
-        setLoading(true);
+    void refresh();
+  }, [refreshKey, simulation.running, refresh]);
 
-        const response = await fetch("/api/receptions", {
-          cache: "no-store",
-        });
-
-        if (!response.ok) {
-          throw new Error("Impossible de charger les quais.");
-        }
-
-        const data = await response.json();
-        setReceptions(data);
-      } catch (error) {
-        console.error(error);
-        setReceptions([]);
-      } finally {
-        setLoading(false);
-      }
+  useEffect(() => {
+    if (simulation.running) {
+      return;
     }
 
-    loadReceptions();
-  }, [refreshKey, simulation.running]);
+    setLoading(warehouseLoading);
+
+    setReceptions(
+      warehouse.receptionDetails.map((item) => ({
+        id: item.id,
+        supplier: item.supplier,
+        carrier: item.carrier,
+        dock: item.dock,
+        pallets: item.pallets,
+        status: item.status,
+      }))
+    );
+  }, [
+    simulation.running,
+    warehouseLoading,
+    warehouse.receptionDetails,
+  ]);
 
   return (
     <div className="organia-electric-panel organia-electric-panel-v2 rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-4 shadow-[0_0_22px_rgba(0,140,255,0.15)] sm:p-6">

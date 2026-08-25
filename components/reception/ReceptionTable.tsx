@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useState } from "react";
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 import {
   getNextStatus,
@@ -148,10 +149,14 @@ export default function ReceptionTable({
   refreshKey,
   onDeleted,
 }: ReceptionTableProps) {
-  const [receptions, setReceptions] =
-    useState<Reception[]>([]);
+  const {
+    data: warehouse,
+    loading,
+    refresh,
+  } = useWarehouseSummary();
 
-  const [loading, setLoading] = useState(true);
+  const receptions: Reception[] =
+    warehouse.receptionDetails;
 
   const [loadingId, setLoadingId] =
     useState<number | null>(null);
@@ -159,33 +164,9 @@ export default function ReceptionTable({
   const [openedId, setOpenedId] =
     useState<number | null>(null);
 
-  async function loadReceptions() {
-    try {
-      setLoading(true);
-
-      const response = await fetch("/api/receptions", {
-        cache: "no-store",
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          "Impossible de charger les réceptions.",
-        );
-      }
-
-      const data: Reception[] = await response.json();
-      setReceptions(data);
-    } catch (error) {
-      console.error(error);
-      setReceptions([]);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    void loadReceptions();
-  }, [refreshKey]);
+    void refresh();
+  }, [refreshKey, refresh]);
 
   async function handleNextStatus(item: Reception) {
     const nextStatus = getNextStatus(item.status);
@@ -216,7 +197,7 @@ export default function ReceptionTable({
         );
       }
 
-      await loadReceptions();
+      await refresh();
       onDeleted();
     } catch (error) {
       alert(
@@ -254,7 +235,7 @@ export default function ReceptionTable({
         );
       }
 
-      await loadReceptions();
+      await refresh();
       onDeleted();
     } catch (error) {
       alert(
