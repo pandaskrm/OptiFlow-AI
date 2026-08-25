@@ -1,15 +1,18 @@
-import { getPreparationStats } from "@/lib/preparation/preparationEngine";
+﻿"use client";
+
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 export default function PreparationStats() {
-  const stats = getPreparationStats();
+  const { data: warehouse } = useWarehouseSummary();
+  const orders = warehouse.orders;
 
   const cards = [
-    { label: "Commandes du jour", value: stats.total },
-    { label: "Terminées", value: stats.completed },
-    { label: "En préparation", value: stats.inProgress },
-    { label: "Prioritaires", value: stats.urgent },
-    { label: "Avancement moyen", value: `${stats.averageProgress}%` },
-    { label: "Taux de service", value: `${stats.serviceRate}%` },
+    { label: "Commandes du jour", value: orders.total },
+    { label: "Terminées", value: orders.completed },
+    { label: "En préparation", value: orders.inPreparation },
+    { label: "Prioritaires", value: orders.priority },
+    { label: "Avancement moyen", value: `${orders.progress}%` },
+    { label: "Taux de service", value: `${orders.serviceRate}%` },
   ];
 
   return (

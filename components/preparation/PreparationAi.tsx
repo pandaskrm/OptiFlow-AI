@@ -42,21 +42,21 @@ export default function PreparationAi({
         orders: operationalOrders,
         workforce: operationalWorkforce,
       })
-    : getPreparationAiInsight();
+    : null;
 
   const prediction: PreparationPrediction | null =
-    "riskLevel" in insight
+    insight && "riskLevel" in insight
       ? (insight as PreparationPrediction)
       : null;
 
   const riskLabel =
     prediction?.riskLevel === "HIGH"
-      ? "Risque élevé"
+      ? "Risque Ã©levÃ©"
       : prediction?.riskLevel === "MEDIUM"
         ? "Sous surveillance"
         : prediction?.riskLevel === "LOW"
-          ? "Objectif maîtrisé"
-          : "Mode démo";
+          ? "Objectif maÃ®trisÃ©"
+          : "Mode dÃ©mo";
 
   const riskClass =
     prediction?.riskLevel === "HIGH"
@@ -93,24 +93,24 @@ export default function PreparationAi({
         <>
           <div className="mt-5 grid grid-cols-2 gap-3">
             <Metric
-              label="Fin estimée"
+              label="Fin estimÃ©e"
               value={prediction.projectedEnd}
               alert={prediction.riskLevel === "HIGH"}
             />
 
             <Metric
-              label="Retard prévu"
+              label="Retard prÃ©vu"
               value={`${prediction.delayMinutes} min`}
               alert={prediction.delayMinutes > 0}
             />
 
             <Metric
-              label="Capacité actuelle"
+              label="CapacitÃ© actuelle"
               value={`${prediction.currentHourlyCapacity} lignes/h`}
             />
 
             <Metric
-              label="Capacité nécessaire"
+              label="CapacitÃ© nÃ©cessaire"
               value={`${prediction.requiredHourlyCapacity} lignes/h`}
               alert={
                 prediction.requiredHourlyCapacity >
@@ -119,7 +119,7 @@ export default function PreparationAi({
             />
 
             <Metric
-              label="Probabilité objectif 14 h"
+              label="ProbabilitÃ© objectif 14 h"
               value={`${prediction.onTimeProbability}%`}
               alert={prediction.onTimeProbability < 70}
             />
@@ -142,7 +142,7 @@ export default function PreparationAi({
             />
 
             <DataRow
-              label="Renfort conseillé"
+              label="Renfort conseillÃ©"
               value={
                 prediction.reinforcementNeeded > 0
                   ? `+${prediction.reinforcementNeeded}`
