@@ -246,7 +246,7 @@ async function fetchWarehouseSummary(
     .then(async (response) => {
       if (!response.ok) {
         throw new Error(
-          "Impossible de charger les donnÃƒÂ©es de l'entrepÃƒÂ´t."
+          "Impossible de charger les données de l'entrepôt."
         );
       }
 
@@ -302,7 +302,7 @@ export default function useWarehouseSummary(
     try {
       await fetchWarehouseSummary(true);
     } catch {
-      // L'ÃƒÂ©tat d'erreur partagÃƒÂ© est dÃƒÂ©jÃƒÂ  mis ÃƒÂ  jour.
+      // L'état d'erreur partagé est déjà mis à jour.
     }
   }, []);
 

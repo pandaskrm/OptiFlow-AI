@@ -56,12 +56,12 @@ export default function PreparationAi({
   };
   const riskLabel =
     prediction?.riskLevel === "HIGH"
-      ? "Risque ÃƒÂ©levÃƒÂ©"
+      ? "Risque élevé"
       : prediction?.riskLevel === "MEDIUM"
         ? "Sous surveillance"
         : prediction?.riskLevel === "LOW"
-          ? "Objectif maÃƒÂ®trisÃƒÂ©"
-          : "Mode dÃƒÂ©mo";
+          ? "Objectif maîtrisé"
+          : "Mode démo";
 
   const riskClass =
     prediction?.riskLevel === "HIGH"
@@ -98,24 +98,24 @@ export default function PreparationAi({
         <>
           <div className="mt-5 grid grid-cols-2 gap-3">
             <Metric
-              label="Fin estimÃƒÂ©e"
+              label="Fin estimée"
               value={prediction.projectedEnd}
               alert={prediction.riskLevel === "HIGH"}
             />
 
             <Metric
-              label="Retard prÃƒÂ©vu"
+              label="Retard prévu"
               value={`${prediction.delayMinutes} min`}
               alert={prediction.delayMinutes > 0}
             />
 
             <Metric
-              label="CapacitÃƒÂ© actuelle"
+              label="Capacité actuelle"
               value={`${prediction.currentHourlyCapacity} lignes/h`}
             />
 
             <Metric
-              label="CapacitÃƒÂ© nÃƒÂ©cessaire"
+              label="Capacité nécessaire"
               value={`${prediction.requiredHourlyCapacity} lignes/h`}
               alert={
                 prediction.requiredHourlyCapacity >
@@ -124,7 +124,7 @@ export default function PreparationAi({
             />
 
             <Metric
-              label="ProbabilitÃƒÂ© objectif 14 h"
+              label="Probabilité objectif 14 h"
               value={`${prediction.onTimeProbability}%`}
               alert={prediction.onTimeProbability < 70}
             />
@@ -147,7 +147,7 @@ export default function PreparationAi({
             />
 
             <DataRow
-              label="Renfort conseillÃƒÂ©"
+              label="Renfort conseillé"
               value={
                 prediction.reinforcementNeeded > 0
                   ? `+${prediction.reinforcementNeeded}`
