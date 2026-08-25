@@ -1,76 +1,56 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { preparationOrders } from "@/lib/preparation/preparationData";
-import type { PreparationOrder, PreparationStatus } from "@/lib/preparation/preparationTypes";
-
-const customers = ["Amazon", "Carrefour", "Nike", "L'Oréal", "Samsung", "Vape Store Lyon", "Pharmacie Marseille"];
-const pickers = ["Lucas", "Emma", "Thomas", "Sarah", "Mehdi", "Inès", "Karim"];
-
-function getStatus(progress: number): PreparationStatus {
-  if (progress >= 100) return "Terminée";
-  if (progress >= 80) return "Contrôle";
-  if (progress > 0) return "En préparation";
-  return "En attente";
-}
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 function priorityStyle(priority: string) {
-  if (priority === "Haute") return "bg-red-500/15 text-red-300";
-  if (priority === "Moyenne") return "bg-amber-500/15 text-amber-300";
+  const normalized = priority.toLowerCase();
+
+  if (["haute", "urgente", "critique"].includes(normalized)) {
+    return "bg-red-500/15 text-red-300";
+  }
+
+  if (["moyenne", "normale"].includes(normalized)) {
+    return "bg-amber-500/15 text-amber-300";
+  }
+
   return "bg-emerald-500/15 text-emerald-300";
 }
 
 function statusStyle(status: string) {
-  if (status === "Terminée") return "bg-emerald-500/15 text-emerald-300";
-  if (status === "Contrôle") return "bg-[#006bff]/15 text-[#66b3ff]";
-  if (status === "En préparation") return "bg-[#00e5ff]/12 text-[#00e5ff]";
+  const normalized = status.toLowerCase();
+
+  if (normalized.includes("termin") || normalized.includes("compl")) {
+    return "bg-emerald-500/15 text-emerald-300";
+  }
+
+  if (normalized.includes("contr")) {
+    return "bg-[#006bff]/15 text-[#66b3ff]";
+  }
+
+  if (normalized.includes("prépar") || normalized.includes("prepar")) {
+    return "bg-[#00e5ff]/12 text-[#00e5ff]";
+  }
+
   return "bg-[#0b1d33] text-slate-300";
 }
 
-function createNewOrder(index: number): PreparationOrder {
-  const customer = customers[Math.floor(Math.random() * customers.length)];
-  const picker = pickers[Math.floor(Math.random() * pickers.length)];
-  const priority = Math.random() > 0.65 ? "Haute" : Math.random() > 0.35 ? "Moyenne" : "Basse";
+function formatDeadline(value: string | null) {
+  if (!value) return "—";
 
-  return {
-    id: `CMD24${Math.floor(1000 + Math.random() * 8999)}`,
-    customer,
-    picker,
-    priority,
-    status: "En attente",
-    progress: 0,
-    lines: Math.floor(10 + Math.random() * 45),
-    deadline: `${10 + index}:${Math.random() > 0.5 ? "15" : "45"}`,
-  };
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) return "—";
+
+  return new Intl.DateTimeFormat("fr-FR", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(date);
 }
 
 export default function PreparationTable() {
-  const [orders, setOrders] = useState<PreparationOrder[]>(preparationOrders);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOrders((currentOrders) =>
-        currentOrders.map((order, index) => {
-          if (order.progress >= 100) {
-            return createNewOrder(index);
-          }
-
-          const nextProgress = Math.min(
-            100,
-            order.progress + Math.floor(4 + Math.random() * 18)
-          );
-
-          return {
-            ...order,
-            progress: nextProgress,
-            status: getStatus(nextProgress),
-          };
-        })
-      );
-    }, 2500);
-
-    return () => clearInterval(interval);
-  }, []);
+  const { data: warehouse, loading } = useWarehouseSummary();
+  const orders = warehouse.orderDetails;
 
   return (
     <section className="organia-electric-panel organia-electric-panel-v2 rounded-3xl border border-[#008cff]/45 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] p-6 shadow-sm">
@@ -79,8 +59,9 @@ export default function PreparationTable() {
           <h2 className="text-xl font-bold text-white">
             Commandes en préparation
           </h2>
+
           <p className="text-sm font-medium text-slate-300">
-            Activité live des préparateurs et commandes du jour.
+            Activité opérationnelle des commandes du jour.
           </p>
         </div>
 
@@ -95,7 +76,6 @@ export default function PreparationTable() {
             <tr>
               <th className="px-4 py-3">Commande</th>
               <th className="px-4 py-3">Client</th>
-              <th className="px-4 py-3">Préparateur</th>
               <th className="px-4 py-3">Priorité</th>
               <th className="px-4 py-3">Lignes</th>
               <th className="px-4 py-3">Avancement</th>
@@ -105,36 +85,93 @@ export default function PreparationTable() {
           </thead>
 
           <tbody className="divide-y divide-[#008cff]/15">
-            {orders.map((order) => (
-              <tr key={order.id} className="text-slate-300 transition hover:bg-[#006bff]/10">
-                <td className="px-4 py-4 font-semibold text-white">{order.id}</td>
-                <td className="px-4 py-4">{order.customer}</td>
-                <td className="px-4 py-4">{order.picker}</td>
-                <td className="px-4 py-4">
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${priorityStyle(order.priority)}`}>
-                    {order.priority}
-                  </span>
-                </td>
-                <td className="px-4 py-4 font-medium">{order.lines}</td>
-                <td className="px-4 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="h-2 w-28 overflow-hidden rounded-full border border-[#008cff]/20 bg-[#020617]">
-                      <div
-                        className="h-2 rounded-full bg-gradient-to-r from-[#006bff] to-[#00e5ff] shadow-[0_0_10px_rgba(0,229,255,0.50)] transition-all duration-700"
-                        style={{ width: `${order.progress}%` }}
-                      />
+            {orders.map((order) => {
+              const progress =
+                order.totalLines > 0
+                  ? Math.min(
+                      100,
+                      Math.round(
+                        (order.preparedLines / order.totalLines) * 100
+                      )
+                    )
+                  : 0;
+
+              return (
+                <tr
+                  key={order.id}
+                  className="text-slate-300 transition hover:bg-[#006bff]/10"
+                >
+                  <td className="px-4 py-4 font-semibold text-white">
+                    {order.number}
+                  </td>
+
+                  <td className="px-4 py-4">{order.customer}</td>
+
+                  <td className="px-4 py-4">
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-semibold ${priorityStyle(
+                        order.priority
+                      )}`}
+                    >
+                      {order.priority}
+                    </span>
+                  </td>
+
+                  <td className="px-4 py-4 font-medium">
+                    {order.preparedLines} / {order.totalLines}
+                  </td>
+
+                  <td className="px-4 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="h-2 w-28 overflow-hidden rounded-full border border-[#008cff]/20 bg-[#020617]">
+                        <div
+                          className="h-2 rounded-full bg-gradient-to-r from-[#006bff] to-[#00e5ff] shadow-[0_0_10px_rgba(0,229,255,0.50)] transition-all duration-700"
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+
+                      <span className="font-semibold">{progress}%</span>
                     </div>
-                    <span className="font-semibold">{order.progress}%</span>
-                  </div>
+                  </td>
+
+                  <td className="px-4 py-4">
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-semibold ${statusStyle(
+                        order.status
+                      )}`}
+                    >
+                      {order.status}
+                    </span>
+                  </td>
+
+                  <td className="px-4 py-4 font-medium">
+                    {formatDeadline(order.scheduledAt)}
+                  </td>
+                </tr>
+              );
+            })}
+
+            {!loading && orders.length === 0 && (
+              <tr>
+                <td
+                  colSpan={7}
+                  className="px-4 py-10 text-center text-sm text-slate-400"
+                >
+                  Aucune commande opérationnelle disponible.
                 </td>
-                <td className="px-4 py-4">
-                  <span className={`rounded-full px-3 py-1 text-xs font-semibold ${statusStyle(order.status)}`}>
-                    {order.status}
-                  </span>
-                </td>
-                <td className="px-4 py-4 font-medium">{order.deadline}</td>
               </tr>
-            ))}
+            )}
+
+            {loading && orders.length === 0 && (
+              <tr>
+                <td
+                  colSpan={7}
+                  className="px-4 py-10 text-center text-sm text-slate-400"
+                >
+                  Chargement des commandes...
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
