@@ -1,17 +1,20 @@
-import { getShippingStats } from "@/lib/shipping/shippingEngine";
+﻿"use client";
+
+import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 
 export default function ShippingStats() {
-  const stats = getShippingStats();
+  const { data: warehouse } = useWarehouseSummary();
+  const shipments = warehouse.shipments;
 
   const cards = [
-    { label: "Expéditions du jour", value: stats.total },
-    { label: "Expédiées", value: stats.shipped },
-    { label: "Chargements", value: stats.loading },
-    { label: "Prioritaires", value: stats.urgent },
-    { label: "Colis", value: stats.parcels },
-    { label: "Palettes", value: stats.pallets },
-    { label: "Avancement moyen", value: `${stats.averageProgress}%` },
-    { label: "Taux de service", value: `${stats.serviceRate}%` },
+    { label: "Expéditions du jour", value: shipments.total },
+    { label: "Expédiées", value: shipments.shipped },
+    { label: "Prêtes", value: shipments.ready },
+    { label: "En attente", value: shipments.waiting },
+    { label: "Colis", value: shipments.totalPackages },
+    { label: "Palettes", value: shipments.totalPallets },
+    { label: "Avancement moyen", value: `${shipments.progress}%` },
+    { label: "Taux de service", value: `${shipments.serviceRate}%` },
   ];
 
   return (
@@ -21,8 +24,13 @@ export default function ShippingStats() {
           key={card.label}
           className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
         >
-          <p className="text-sm font-medium text-slate-700">{card.label}</p>
-          <p className="mt-2 text-3xl font-bold text-slate-950">{card.value}</p>
+          <p className="text-sm font-medium text-slate-700">
+            {card.label}
+          </p>
+
+          <p className="mt-2 text-3xl font-bold text-slate-950">
+            {card.value}
+          </p>
         </div>
       ))}
     </section>

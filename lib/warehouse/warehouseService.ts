@@ -35,6 +35,19 @@ export type WarehouseOrderSummary = {
   serviceRate: number;
 };
 
+export type WarehouseShipmentDetail = {
+  id: number;
+  number: string;
+  orderNumber: string | null;
+  customer: string;
+  carrier: string;
+  dock: string | null;
+  status: string;
+  pallets: number;
+  packages: number;
+  scheduledAt: string | null;
+  shippedAt: string | null;
+};
 export type WarehouseShipmentSummary = {
   total: number;
   waiting: number;
@@ -78,6 +91,7 @@ export type WarehouseSummary = {
   receptions: WarehouseReceptionSummary;
   orders: WarehouseOrderSummary;
   shipments: WarehouseShipmentSummary;
+  shipmentDetails: WarehouseShipmentDetail[];
   inventory: WarehouseInventorySummary;
   workforce: WarehouseWorkforceSummary;
   performance: WarehousePerformanceSummary;
@@ -89,23 +103,23 @@ export type WarehouseSummary = {
 };
 
 const LEGACY_RECEPTION_STATUS = {
-  PLANNED: "Planifiée",
-  AT_DOCK: "À quai",
-  UNLOADING: "Déchargement",
-  INSPECTION: "Contrôle qualité",
-  COMPLETED: "Terminée",
+  PLANNED: "PlanifiÃ©e",
+  AT_DOCK: "Ã€ quai",
+  UNLOADING: "DÃ©chargement",
+  INSPECTION: "ContrÃ´le qualitÃ©",
+  COMPLETED: "TerminÃ©e",
 } as const;
 
 const ORDER_STATUS = {
-  WAITING: ["À préparer", "A preparer", "En attente"],
-  PREPARING: ["En préparation", "En preparation"],
-  COMPLETED: ["Terminée", "Terminee", "Préparée", "Preparee"],
+  WAITING: ["Ã€ prÃ©parer", "A preparer", "En attente"],
+  PREPARING: ["En prÃ©paration", "En preparation"],
+  COMPLETED: ["TerminÃ©e", "Terminee", "PrÃ©parÃ©e", "Preparee"],
 } as const;
 
 const SHIPMENT_STATUS = {
-  WAITING: ["À expédier", "A expedier", "En attente"],
-  READY: ["Prête", "Prete", "Prêt", "Pret"],
-  SHIPPED: ["Expédiée", "Expediee", "Terminée", "Terminee"],
+  WAITING: ["Ã€ expÃ©dier", "A expedier", "En attente"],
+  READY: ["PrÃªte", "Prete", "PrÃªt", "Pret"],
+  SHIPPED: ["ExpÃ©diÃ©e", "Expediee", "TerminÃ©e", "Terminee"],
 } as const;
 
 function normalize(value: string) {
@@ -309,7 +323,7 @@ function buildAlerts({
 
   if (lateReceptions > 0) {
     alerts.push(
-      `${lateReceptions} réception${
+      `${lateReceptions} rÃ©ception${
         lateReceptions > 1 ? "s sont" : " est"
       } en retard.`
     );
@@ -317,7 +331,7 @@ function buildAlerts({
 
   if (occupiedDocks >= 5) {
     alerts.push(
-      `${occupiedDocks}/6 quais sont occupés : risque de saturation.`
+      `${occupiedDocks}/6 quais sont occupÃ©s : risque de saturation.`
     );
   }
 
@@ -325,13 +339,13 @@ function buildAlerts({
     alerts.push(
       `${priorityOrders} commande${
         priorityOrders > 1 ? "s prioritaires" : " prioritaire"
-      } à traiter.`
+      } Ã  traiter.`
     );
   }
 
   if (unavailableReferences > 0) {
     alerts.push(
-      `${unavailableReferences} référence${
+      `${unavailableReferences} rÃ©fÃ©rence${
         unavailableReferences > 1 ? "s sont" : " est"
       } indisponible en stock.`
     );
@@ -339,7 +353,7 @@ function buildAlerts({
 
   if (lowStockReferences > 0) {
     alerts.push(
-      `${lowStockReferences} référence${
+      `${lowStockReferences} rÃ©fÃ©rence${
         lowStockReferences > 1 ? "s sont" : " est"
       } sous le seuil minimum.`
     );
@@ -355,7 +369,7 @@ function buildAlerts({
 
   if (waitingShipments > 0) {
     alerts.push(
-      `${waitingShipments} expédition${
+      `${waitingShipments} expÃ©dition${
         waitingShipments > 1 ? "s sont" : " est"
       } encore en attente.`
     );
@@ -385,13 +399,13 @@ function buildPriorities({
 
   if (lateReceptions > 0) {
     priorities.push(
-      "Traiter les réceptions en retard et vérifier les créneaux transporteurs."
+      "Traiter les rÃ©ceptions en retard et vÃ©rifier les crÃ©neaux transporteurs."
     );
   }
 
   if (occupiedDocks >= 5) {
     priorities.push(
-      "Libérer rapidement un quai pour éviter une file d'attente."
+      "LibÃ©rer rapidement un quai pour Ã©viter une file d'attente."
     );
   }
 
@@ -403,25 +417,25 @@ function buildPriorities({
 
   if (waitingShipments > 0) {
     priorities.push(
-      "Contrôler les expéditions en attente avant leur heure de départ."
+      "ContrÃ´ler les expÃ©ditions en attente avant leur heure de dÃ©part."
     );
   }
 
   if (lowStockReferences > 0) {
     priorities.push(
-      "Analyser les références sous seuil et lancer un réapprovisionnement."
+      "Analyser les rÃ©fÃ©rences sous seuil et lancer un rÃ©approvisionnement."
     );
   }
 
   if (absentEmployees > 0) {
     priorities.push(
-      "Rééquilibrer les équipes selon les absences du jour."
+      "RÃ©Ã©quilibrer les Ã©quipes selon les absences du jour."
     );
   }
 
   if (plannedReceptions > 0) {
     priorities.push(
-      "Préparer les quais pour les prochaines réceptions planifiées."
+      "PrÃ©parer les quais pour les prochaines rÃ©ceptions planifiÃ©es."
     );
   }
 
@@ -432,7 +446,7 @@ export async function getWarehouseSummary(): Promise<WarehouseSummary> {
   const currentSession = await getCurrentSession();
 
   if (!currentSession) {
-    throw new Error("Utilisateur non authentifié.");
+    throw new Error("Utilisateur non authentifiÃ©.");
   }
 
   const companyId = currentSession.company.id;
@@ -841,6 +855,20 @@ export async function getWarehouseSummary(): Promise<WarehouseSummary> {
       progress: shippingProgress,
       serviceRate: shipmentServiceRate,
     },
+
+    shipmentDetails: shipments.map((item) => ({
+      id: item.id,
+      number: item.number,
+      orderNumber: item.orderNumber,
+      customer: item.customer,
+      carrier: item.carrier,
+      dock: item.dock,
+      status: item.status,
+      pallets: item.pallets,
+      packages: item.packages,
+      scheduledAt: item.scheduledAt?.toISOString() ?? null,
+      shippedAt: item.shippedAt?.toISOString() ?? null,
+    })),
 
     inventory: {
       references: inventory.length,

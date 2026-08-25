@@ -44,6 +44,20 @@ export type WarehouseSummary = {
     serviceRate: number;
   };
 
+  shipmentDetails: {
+    id: number;
+    number: string;
+    orderNumber: string | null;
+    customer: string;
+    carrier: string;
+    dock: string | null;
+    status: string;
+    pallets: number;
+    packages: number;
+    scheduledAt: string | null;
+    shippedAt: string | null;
+  }[];
+
   inventory: {
     references: number;
     totalQuantity: number;
@@ -119,6 +133,9 @@ const EMPTY_SUMMARY: WarehouseSummary = {
     progress: 0,
     serviceRate: 0,
   },
+
+
+  shipmentDetails: [],
 
   inventory: {
     references: 0,
@@ -217,7 +234,7 @@ async function fetchWarehouseSummary(
     .then(async (response) => {
       if (!response.ok) {
         throw new Error(
-          "Impossible de charger les données de l'entrepôt."
+          "Impossible de charger les donnÃ©es de l'entrepÃ´t."
         );
       }
 
@@ -273,7 +290,7 @@ export default function useWarehouseSummary(
     try {
       await fetchWarehouseSummary(true);
     } catch {
-      // L'état d'erreur partagé est déjà mis à jour.
+      // L'Ã©tat d'erreur partagÃ© est dÃ©jÃ  mis Ã  jour.
     }
   }, []);
 
