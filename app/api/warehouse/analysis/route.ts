@@ -1,8 +1,15 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { analyzeWarehouse } from "../../../../lib/ai/warehouseAiEngine";
 import { getWarehouseSummary } from "../../../../lib/warehouse/warehouseService";
 
 export const dynamic = "force-dynamic";
+
+function isAuthenticationError(error: unknown) {
+  return (
+    error instanceof Error &&
+    error.message === "Utilisateur non authentifié."
+  );
+}
 
 export async function GET() {
   try {
@@ -22,6 +29,17 @@ export async function GET() {
       }
     );
   } catch (error) {
+    if (isAuthenticationError(error)) {
+      return NextResponse.json(
+        {
+          message: "Utilisateur non authentifié.",
+        },
+        {
+          status: 401,
+        }
+      );
+    }
+
     console.error("Warehouse analysis error:", error);
 
     return NextResponse.json(
