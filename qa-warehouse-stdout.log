@@ -1,0 +1,8 @@
+
+> optiflow-ai@1.0.0 start
+> next start --port 3013
+
+▲ Next.js 16.2.12
+- Local:         http://localhost:3013
+- Network:       http://192.168.1.16:3013
+✓ Ready in 252ms

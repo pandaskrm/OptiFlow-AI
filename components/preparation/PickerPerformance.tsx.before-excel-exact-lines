@@ -308,20 +308,20 @@ export default function PickerPerformance() {
 
         cell.border = {
           top: {
-            style: "thin",
-            color: { argb: "FF808080" },
+            style: "medium",
+            color: { argb: "FF000000" },
           },
           bottom: {
-            style: "thin",
-            color: { argb: "FF808080" },
+            style: "thick",
+            color: { argb: "FF000000" },
           },
           left: {
-            style: "thin",
-            color: { argb: "FF808080" },
+            style: "medium",
+            color: { argb: "FF000000" },
           },
           right: {
-            style: "thin",
-            color: { argb: "FF808080" },
+            style: "medium",
+            color: { argb: "FF000000" },
           },
         };
       });
@@ -381,11 +381,11 @@ export default function PickerPerformance() {
 
       cell.border = {
         top: {
-          style: "thin",
+          style: "medium",
           color: { argb: "FF000000" },
         },
         bottom: {
-          style: "thin",
+          style: "medium",
           color: { argb: "FF000000" },
         },
         left: {

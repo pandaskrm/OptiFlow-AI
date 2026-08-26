@@ -1293,14 +1293,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
             <div className="relative flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl border border-cyan-300/35 bg-[#031326] shadow-[0_0_18px_rgba(0,229,255,.20)]">
-  <img
-    src="/avatars/manager.png"
-    alt="Manager Organ·IA Flow"
-    className="absolute left-1/2 top-0 h-[150%] w-[150%] -translate-x-1/2 object-cover object-top"
-  />
-  <span className="absolute bottom-1 right-1 h-2.5 w-2.5 rounded-full border-2 border-[#031326] bg-emerald-400 shadow-[0_0_8px_#34d399]" />
-</div>
+                <OptiFlowMascot compact headOnly />
 
                 <div>
                   <div className="flex items-center gap-2">
@@ -1371,49 +1364,31 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
             )}
 
             {messages.map((message) => (
+
+
               <div
                 key={message.id}
                 className={
                   message.author === "user"
                     ? "flex justify-end"
-                    : "flex items-end gap-2.5 justify-start"
+                    : "flex justify-start"
                 }
               >
-                {message.author === "assistant" && (
-                  <div className="relative mb-1 h-9 w-9 shrink-0 overflow-hidden rounded-xl border border-cyan-300/25 bg-[#031326] shadow-[0_0_14px_rgba(0,229,255,.12)]">
-                    <img
-                      src="/avatars/manager.png"
-                      alt="Libot"
-                      className="absolute left-1/2 top-0 h-[150%] w-[150%] -translate-x-1/2 object-cover object-top"
-                    />
-                    <span className="absolute bottom-0.5 right-0.5 h-2 w-2 rounded-full border border-[#031326] bg-emerald-400" />
-                  </div>
-                )}
-
-                <div className={message.author === "assistant" ? "max-w-[88%]" : "max-w-[84%] sm:max-w-[88%]"}>
-                  {message.author === "assistant" && (
-                    <div className="mb-1 flex items-center gap-2 px-1">
-                      <span className="text-[9px] font-black uppercase tracking-[0.16em] text-cyan-300">
-                        Libot
-                      </span>
-                      <span className="text-[8px] text-slate-600">
-                        Organ·IA Flow
-                      </span>
-                    </div>
-                  )}
-
-                  <div
-                    className={
-                      message.author === "user"
-                        ? "rounded-2xl rounded-br-md border border-cyan-200/20 bg-gradient-to-br from-cyan-300 to-cyan-500 px-5 py-4 text-sm font-semibold leading-relaxed text-[#02111d] shadow-[0_8px_25px_rgba(0,229,255,.12)] sm:text-[15px] sm:leading-7"
-                        : "rounded-2xl rounded-bl-md border border-cyan-400/15 bg-[#071426]/95 px-4 py-3 text-sm leading-relaxed text-slate-100 shadow-[0_8px_28px_rgba(0,0,0,.28)] sm:px-5 sm:py-4 sm:text-[15px] sm:font-medium sm:leading-7"
-                    }
-                  >
-                    {message.content}
-                  </div>
+                <div
+                  className={
+                    message.author === "user"
+                      ? "max-w-[84%] sm:max-w-[88%] rounded-2xl rounded-br-md border border-cyan-200/20 bg-gradient-to-br from-cyan-300 to-cyan-500 px-5 py-4 text-sm font-semibold leading-relaxed text-[#02111d] shadow-[0_8px_25px_rgba(0,229,255,.12)] sm:text-[15px] sm:leading-7"
+                      : "max-w-[90%] rounded-2xl rounded-bl-md border border-cyan-400/15 bg-[#071426]/95 px-4 py-3 text-sm leading-relaxed text-slate-100 shadow-[0_8px_28px_rgba(0,0,0,.28)] sm:max-w-[94%] sm:px-5 sm:py-4 sm:text-[15px] sm:font-medium sm:leading-7"
+                  }
+                >
+                  {message.content}
                 </div>
               </div>
-            ))}
+            
+
+
+))}
+
             {thinking && (
               <div className="flex justify-start">
                 <div className="flex items-center gap-1 rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3">
@@ -1430,13 +1405,13 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                   Actions suggérées
                 </p>
 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid gap-2 sm:gap-3">
                   {questions.map((question) => (
                     <button
                       key={question}
                       type="button"
                       onClick={() => askQuestion(question)}
-                      className="group min-h-[52px] rounded-xl border border-slate-700/80 bg-slate-900/80 px-3 py-2.5 text-left text-xs font-semibold text-slate-200 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-cyan-500/10 hover:text-white sm:text-sm"
+                      className="group rounded-2xl border border-slate-700/80 bg-slate-900/80 px-3 py-2.5 text-left text-xs font-medium text-slate-200 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-cyan-400/50 hover:bg-cyan-500/10 hover:text-white sm:min-h-14 sm:px-4 sm:py-3.5 sm:text-[15px] sm:font-semibold"
                     >
                       {question}
                     </button>
@@ -1456,7 +1431,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
 
           <form
             onSubmit={handleSubmit}
-            className="border-t border-cyan-400/15 bg-[#020817]/98 p-2.5"
+            className="border-t border-cyan-400/15 bg-[#020817]/98 p-3"
           >
             <div className="flex items-end gap-2 rounded-2xl border border-cyan-400/20 bg-[#071426] p-2 shadow-inner shadow-black/30 transition focus-within:border-cyan-400/60 focus-within:shadow-[0_0_20px_rgba(0,229,255,.08)]">
               <textarea
@@ -1470,7 +1445,7 @@ function handleSubmit(event: FormEvent<HTMLFormElement>) {
                 }}
                 rows={1}
                 placeholder="Exemple : ouvre les réceptions"
-                className="max-h-24 min-h-10 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-600 sm:min-h-12 sm:px-3 sm:py-2.5 sm:text-sm"
+                className="max-h-28 min-h-10 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-white outline-none placeholder:text-slate-600 sm:min-h-14 sm:px-3 sm:py-3 sm:text-base"
               />
 
               <button

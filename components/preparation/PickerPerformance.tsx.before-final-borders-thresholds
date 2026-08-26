@@ -140,7 +140,9 @@ export default function PickerPerformance() {
       periodTitle =
         `MOIS DU ${formatDate(firstDay)} AU ${formatDate(lastDay)}`;
 
-      objectiveLabel = 6000;
+      objectiveLabel = Math.max(
+        ...ranked.map((picker) => picker.workedDays * 300)
+      );
     }
 
     const totalBp = ranked.reduce(
@@ -246,13 +248,7 @@ export default function PickerPerformance() {
     // =========================
 
     ranked.forEach((picker, index) => {
-      const objective =
-        period === "DAY"
-          ? 300
-          : period === "WEEK"
-            ? 1500
-            : 6000;
-
+      const objective = picker.workedDays * 300;
       const objectiveReached = picker.lines >= objective;
 
       const row = worksheet.addRow([
@@ -307,21 +303,13 @@ export default function PickerPerformance() {
         };
 
         cell.border = {
-          top: {
-            style: "thin",
-            color: { argb: "FF808080" },
-          },
-          bottom: {
-            style: "thin",
-            color: { argb: "FF808080" },
-          },
           left: {
             style: "thin",
-            color: { argb: "FF808080" },
+            color: { argb: "FFB7B7B7" },
           },
           right: {
             style: "thin",
-            color: { argb: "FF808080" },
+            color: { argb: "FFB7B7B7" },
           },
         };
       });
@@ -341,7 +329,7 @@ export default function PickerPerformance() {
           ...cell.border,
 
           bottom: {
-            style: "thick",
+            style: "medium",
             color: { argb: "FF000000" },
           },
         };
@@ -381,11 +369,11 @@ export default function PickerPerformance() {
 
       cell.border = {
         top: {
-          style: "thin",
+          style: "medium",
           color: { argb: "FF000000" },
         },
         bottom: {
-          style: "thin",
+          style: "medium",
           color: { argb: "FF000000" },
         },
         left: {

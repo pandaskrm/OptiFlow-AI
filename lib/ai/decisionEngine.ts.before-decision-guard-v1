@@ -1,0 +1,99 @@
+﻿import type { SimulationStateV2 } from "../simulation/simulationTypesV2";
+
+type UnknownRecord = Record<string, unknown>;
+
+function isRecord(value: unknown): value is UnknownRecord {
+  return typeof value === "object" && value !== null;
+}
+
+function isSimulationStateV2(value: unknown): value is SimulationStateV2 {
+  if (!isRecord(value)) return false;
+
+  return (
+    typeof value.running === "boolean" &&
+    typeof value.scenario === "string" &&
+    isRecord(value.preparation) &&
+    isRecord(value.receptions) &&
+    isRecord(value.shipping) &&
+    isRecord(value.stock) &&
+    isRecord(value.docks) &&
+    isRecord(value.kpis) &&
+    Array.isArray(value.alerts) &&
+    Array.isArray(value.aiRecommendations)
+  );
+}
+
+export function buildDecisionContext(
+  simulationState: unknown,
+): string {
+  if (!isSimulationStateV2(simulationState)) {
+    return "";
+  }
+
+  const {
+    preparation,
+    receptions,
+    shipping,
+    stock,
+    docks,
+    kpis,
+    alerts,
+    aiRecommendations,
+  } = simulationState;
+
+  const facts = [
+    `Preparation: ${preparation.waitingOrders} en attente, ${preparation.activeOrders} actives, ${preparation.completedOrders} terminees, progression ${preparation.pickingProgress} %, ${preparation.activePickers} preparateurs actifs, ${preparation.absentPickers} absents.`,
+    `Receptions: ${receptions.planned} planifiees, ${receptions.atDock} a quai, ${receptions.unloading} en dechargement, ${receptions.completed} terminees, ${receptions.palletsReceived} palettes recues.`,
+    `Expeditions: ${shipping.waitingShipments} en attente, ${shipping.loadingShipments} en chargement, ${shipping.completedShipments} terminees, ${shipping.delayedShipments} en retard.`,
+    `Stock: ${stock.stockouts} ruptures, ${stock.lowStockReferences} references basses, precision ${stock.inventoryAccuracy} %.`,
+    `Quais: ${docks.occupied}/${docks.total} occupes, ${docks.available} disponibles, ${docks.trucksWaiting} camions en attente.`,
+    `KPI: taux service ${kpis.serviceRate} %, productivite ${kpis.productivity}, sante entrepot ${kpis.warehouseHealth}/100.`,
+  ];
+
+  const explicitAlerts = alerts.map(
+    (alert) =>
+      `[${alert.level}] ${alert.title}: ${alert.message}`,
+  );
+
+  const explicitRecommendations = aiRecommendations.map(
+    (recommendation) =>
+      `[${recommendation.priority}] ${recommendation.title}: ${recommendation.message}`,
+  );
+
+  return `
+### DECISION ENGINE V1 ###
+
+Les informations suivantes sont extraites directement de l'instantane courant.
+
+FAITS COURANTS
+${facts.map((fact) => `- ${fact}`).join("\n")}
+
+ALERTES EXPLICITES
+${
+  explicitAlerts.length > 0
+    ? explicitAlerts.map((alert) => `- ${alert}`).join("\n")
+    : "- Aucune alerte explicite."
+}
+
+RECOMMANDATIONS EXPLICITES
+${
+  explicitRecommendations.length > 0
+    ? explicitRecommendations
+        .map((recommendation) => `- ${recommendation}`)
+        .join("\n")
+    : "- Aucune recommandation explicite."
+}
+
+REGLES DE DECISION
+- Les FAITS ci-dessus peuvent etre affirmes.
+- Une ALERTE explicite peut etre citee comme alerte du systeme.
+- Une RECOMMANDATION explicite peut etre proposee comme action.
+- L'absence de recommandation explicite n'autorise pas a inventer une procedure technique.
+- Une anomalie visible peut etre localisee a partir des KPI.
+- Une cause racine ne peut etre affirmee que si elle est explicitement fournie.
+- Si la cause n'est pas connue, recommander une verification operationnelle generale.
+- Ne jamais inventer de procedure WMS, ERP, RF, allocation, vague, mission, verrou, hold ou logs.
+
+### FIN DECISION ENGINE V1 ###
+`.trim();
+}

@@ -1,0 +1,12 @@
+Warehouse summary error: Error: Utilisateur non authentifié.
+    at x (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__0bvo-_f._.js:1:7668)
+    at async i (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__1bcngud._.js:1:14421)
+    at async u (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__1bcngud._.js:1:18296)
+    at async l (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__1bcngud._.js:1:19337)
+    at async Module.A [as handler] (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__1bcngud._.js:1:20444)
+Warehouse analysis error: Error: Utilisateur non authentifié.
+    at x (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__0bvo-_f._.js:1:7668)
+    at async o (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__0bvo-_f._.js:1:15202)
+    at async u (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__0bvo-_f._.js:1:19167)
+    at async l (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__0bvo-_f._.js:1:20208)
+    at async Module.A [as handler] (C:\Users\lca-w\Desktop\optiflow-ai\.next\server\chunks\[root-of-the-server]__0bvo-_f._.js:1:21315)

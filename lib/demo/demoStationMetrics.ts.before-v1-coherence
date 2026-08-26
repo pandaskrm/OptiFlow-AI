@@ -1,0 +1,463 @@
+export interface DemoStationSnapshot {
+  status: string;
+  ordersTotal: number;
+  ordersPrinted: number;
+  ordersCompleted: number;
+  ordersInProgress: number;
+  priorityOrders: number;
+  preparedLines: number;
+  preparedUnits: number;
+  parcels: number;
+  productivity: number;
+  projectedService: number;
+  warehouseHealth: number;
+  receptionsActive: number;
+  receptionsFinished: number;
+  shipmentsReady: number;
+  shipmentsConfirmed: number;
+  shipmentsFinished: number;
+  mailReceived: number;
+  mailAwaitingReply: number;
+  staffPresent: number;
+  pickersActive: number;
+  stockMovements: number;
+  alerts: number;
+}
+
+const rawDemoStationSnapshots: Record<number, DemoStationSnapshot> = {
+  1: {
+    status: "Briefing du matin",
+    ordersTotal: 526,
+    ordersPrinted: 0,
+    ordersCompleted: 0,
+    ordersInProgress: 0,
+    priorityOrders: 41,
+    preparedLines: 0,
+    preparedUnits: 0,
+    parcels: 0,
+    productivity: 0,
+    projectedService: 99,
+    warehouseHealth: 98,
+    receptionsActive: 0,
+    receptionsFinished: 0,
+    shipmentsReady: 0,
+    shipmentsConfirmed: 0,
+    shipmentsFinished: 0,
+    mailReceived: 0,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 0,
+    alerts: 0,
+  },
+
+  2: {
+    status: "Équipes en prise de poste",
+    ordersTotal: 526,
+    ordersPrinted: 0,
+    ordersCompleted: 0,
+    ordersInProgress: 0,
+    priorityOrders: 41,
+    preparedLines: 0,
+    preparedUnits: 0,
+    parcels: 0,
+    productivity: 0,
+    projectedService: 99,
+    warehouseHealth: 98,
+    receptionsActive: 0,
+    receptionsFinished: 0,
+    shipmentsReady: 0,
+    shipmentsConfirmed: 0,
+    shipmentsFinished: 0,
+    mailReceived: 0,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 0,
+    alerts: 0,
+  },
+
+  3: {
+    status: "Premières préparations",
+    ordersTotal: 526,
+    ordersPrinted: 0,
+    ordersCompleted: 0,
+    ordersInProgress: 0,
+    priorityOrders: 39,
+    preparedLines: 0,
+    preparedUnits: 0,
+    parcels: 0,
+    productivity: 0,
+    projectedService: 97,
+    warehouseHealth: 98,
+    receptionsActive: 0,
+    receptionsFinished: 0,
+    shipmentsReady: 1,
+    shipmentsConfirmed: 0,
+    shipmentsFinished: 0,
+    mailReceived: 1,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 0,
+    alerts: 0,
+  },
+
+  4: {
+    status: "Montée en cadence",
+    ordersTotal: 526,
+    ordersPrinted: 0,
+    ordersCompleted: 0,
+    ordersInProgress: 0,
+    priorityOrders: 36,
+    preparedLines: 0,
+    preparedUnits: 0,
+    parcels: 0,
+    productivity: 0,
+    projectedService: 97,
+    warehouseHealth: 97,
+    receptionsActive: 1,
+    receptionsFinished: 0,
+    shipmentsReady: 3,
+    shipmentsConfirmed: 1,
+    shipmentsFinished: 0,
+    mailReceived: 1,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 8,
+    alerts: 0,
+  },
+
+  5: {
+    status: "Cadence opérationnelle",
+    ordersTotal: 526,
+    ordersPrinted: 0,
+    ordersCompleted: 0,
+    ordersInProgress: 0,
+    priorityOrders: 32,
+    preparedLines: 0,
+    preparedUnits: 0,
+    parcels: 0,
+    productivity: 0,
+    projectedService: 98,
+    warehouseHealth: 98,
+    receptionsActive: 0,
+    receptionsFinished: 1,
+    shipmentsReady: 8,
+    shipmentsConfirmed: 4,
+    shipmentsFinished: 1,
+    mailReceived: 1,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 26,
+    alerts: 0,
+  },
+
+  6: {
+    status: "Préparation lancée",
+    ordersTotal: 526,
+    ordersPrinted: 526,
+    ordersCompleted: 0,
+    ordersInProgress: 18,
+    priorityOrders: 27,
+    preparedLines: 0,
+    preparedUnits: 0,
+    parcels: 0,
+    productivity: 0,
+    projectedService: 99,
+    warehouseHealth: 98,
+    receptionsActive: 1,
+    receptionsFinished: 1,
+    shipmentsReady: 16,
+    shipmentsConfirmed: 8,
+    shipmentsFinished: 4,
+    mailReceived: 2,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 41,
+    alerts: 0,
+  },
+
+  7: {
+    status: "Ralentissement détecté",
+    ordersTotal: 526,
+    ordersPrinted: 526,
+    ordersCompleted: 232,
+    ordersInProgress: 65,
+    priorityOrders: 34,
+    preparedLines: 6870,
+    preparedUnits: 43100,
+    parcels: 472,
+    productivity: 82,
+    projectedService: 89,
+    warehouseHealth: 87,
+    receptionsActive: 1,
+    receptionsFinished: 2,
+    shipmentsReady: 36,
+    shipmentsConfirmed: 23,
+    shipmentsFinished: 13,
+    mailReceived: 4,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 66,
+    alerts: 1,
+  },
+
+  8: {
+    status: "Action corrective recommandée",
+    ordersTotal: 526,
+    ordersPrinted: 526,
+    ordersCompleted: 238,
+    ordersInProgress: 66,
+    priorityOrders: 32,
+    preparedLines: 7040,
+    preparedUnits: 44300,
+    parcels: 485,
+    productivity: 83,
+    projectedService: 90,
+    warehouseHealth: 88,
+    receptionsActive: 1,
+    receptionsFinished: 2,
+    shipmentsReady: 38,
+    shipmentsConfirmed: 24,
+    shipmentsFinished: 14,
+    mailReceived: 4,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 69,
+    alerts: 1,
+  },
+
+  9: {
+    status: "Trajectoire rétablie",
+    ordersTotal: 526,
+    ordersPrinted: 526,
+    ordersCompleted: 322,
+    ordersInProgress: 56,
+    priorityOrders: 20,
+    preparedLines: 9220,
+    preparedUnits: 58900,
+    parcels: 642,
+    productivity: 99,
+    projectedService: 97,
+    warehouseHealth: 95,
+    receptionsActive: 0,
+    receptionsFinished: 3,
+    shipmentsReady: 57,
+    shipmentsConfirmed: 43,
+    shipmentsFinished: 27,
+    mailReceived: 5,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 90,
+    alerts: 0,
+  },
+
+  10: {
+    status: "Rattrapage confirmé",
+    ordersTotal: 526,
+    ordersPrinted: 526,
+    ordersCompleted: 407,
+    ordersInProgress: 45,
+    priorityOrders: 12,
+    preparedLines: 11640,
+    preparedUnits: 74800,
+    parcels: 806,
+    productivity: 104,
+    projectedService: 99,
+    warehouseHealth: 97,
+    receptionsActive: 0,
+    receptionsFinished: 3,
+    shipmentsReady: 76,
+    shipmentsConfirmed: 61,
+    shipmentsFinished: 45,
+    mailReceived: 7,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 107,
+    alerts: 0,
+  },
+
+  11: {
+    status: "Confirmation transporteur attendue",
+    ordersTotal: 526,
+    ordersPrinted: 526,
+    ordersCompleted: 455,
+    ordersInProgress: 32,
+    priorityOrders: 7,
+    preparedLines: 13120,
+    preparedUnits: 84500,
+    parcels: 907,
+    productivity: 101,
+    projectedService: 98,
+    warehouseHealth: 94,
+    receptionsActive: 0,
+    receptionsFinished: 3,
+    shipmentsReady: 89,
+    shipmentsConfirmed: 72,
+    shipmentsFinished: 57,
+    mailReceived: 8,
+    mailAwaitingReply: 1,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 115,
+    alerts: 1,
+  },
+
+  12: {
+    status: "Flux transport sécurisé",
+    ordersTotal: 526,
+    ordersPrinted: 526,
+    ordersCompleted: 492,
+    ordersInProgress: 21,
+    priorityOrders: 3,
+    preparedLines: 14250,
+    preparedUnits: 92100,
+    parcels: 982,
+    productivity: 100,
+    projectedService: 99,
+    warehouseHealth: 98,
+    receptionsActive: 0,
+    receptionsFinished: 3,
+    shipmentsReady: 99,
+    shipmentsConfirmed: 89,
+    shipmentsFinished: 73,
+    mailReceived: 9,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 124,
+    alerts: 0,
+  },
+
+  13: {
+    status: "Journée clôturée",
+    ordersTotal: 526,
+    ordersPrinted: 526,
+    ordersCompleted: 518,
+    ordersInProgress: 8,
+    priorityOrders: 0,
+    preparedLines: 14880,
+    preparedUnits: 97200,
+    parcels: 1040,
+    productivity: 100,
+    projectedService: 99,
+    warehouseHealth: 98,
+    receptionsActive: 0,
+    receptionsFinished: 3,
+    shipmentsReady: 0,
+    shipmentsConfirmed: 0,
+    shipmentsFinished: 96,
+    mailReceived: 9,
+    mailAwaitingReply: 0,
+    staffPresent: 49,
+    pickersActive: 36,
+    stockMovements: 131,
+    alerts: 0,
+  },
+};
+
+
+const PREPARATION_START_MINUTES = 9 * 60 + 20;
+
+const STEP_TIMES: Record<number, string> = {
+  1: "08:00",
+  2: "08:10",
+  3: "08:24",
+  4: "08:31",
+  5: "09:05",
+  6: "09:20",
+  7: "12:15",
+  8: "12:17",
+  9: "13:05",
+  10: "14:35",
+  11: "15:40",
+  12: "16:05",
+  13: "17:30",
+};
+
+function timeToMinutes(time: string) {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function calculatePreparationProductivity(
+  stepId: number,
+  snapshot: DemoStationSnapshot
+) {
+  const stepTime = STEP_TIMES[stepId];
+
+  if (
+    !stepTime ||
+    snapshot.preparedLines <= 0 ||
+    snapshot.pickersActive <= 0
+  ) {
+    return 0;
+  }
+
+  const elapsedMinutes =
+    timeToMinutes(stepTime) - PREPARATION_START_MINUTES;
+
+  if (elapsedMinutes <= 0) {
+    return 0;
+  }
+
+  const elapsedHours = elapsedMinutes / 60;
+
+  const linesPerPickerHour =
+    snapshot.preparedLines /
+    snapshot.pickersActive /
+    elapsedHours;
+
+  return Math.round(linesPerPickerHour);
+}
+
+function calculateWarehouseHealth(snapshot: DemoStationSnapshot) {
+  const printedOrders = snapshot.ordersPrinted;
+  const completedOrders = snapshot.ordersCompleted;
+
+  // Aucune commande imprimee = aucune charge de preparation en attente.
+  if (printedOrders <= 0) {
+    return 100;
+  }
+
+  const health =
+    (completedOrders / printedOrders) * 100;
+
+  return Math.max(
+    0,
+    Math.min(100, Math.round(health)),
+  );
+}
+
+export const demoStationSnapshots: Record<
+  number,
+  DemoStationSnapshot
+> = Object.fromEntries(
+  Object.entries(rawDemoStationSnapshots).map(([stepId, snapshot]) => {
+    const numericStepId = Number(stepId);
+
+    return [
+      numericStepId,
+      {
+        ...snapshot,
+        productivity: calculatePreparationProductivity(
+          numericStepId,
+          snapshot
+        ),
+        warehouseHealth: calculateWarehouseHealth(snapshot),
+      },
+    ];
+  })
+);

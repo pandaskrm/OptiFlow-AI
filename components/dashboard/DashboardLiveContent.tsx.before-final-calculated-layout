@@ -338,7 +338,7 @@ export default function DashboardLiveContent() {
 
           <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(0,229,255,.025)_1px,transparent_1px),linear-gradient(90deg,rgba(0,229,255,.025)_1px,transparent_1px)] [background-size:42px_42px]" />
 
-          <div className="absolute left-[49%] top-[48%] h-[390px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00bfff]/18 blur-[70px]" />
+          <div className="absolute left-[42.5%] top-[48%] h-[390px] w-[650px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00bfff]/18 blur-[70px]" />
 
           {/* MANAGER HUD */}
           <div className="pointer-events-none absolute left-[18px] top-[42px] z-20 hidden w-[150px] space-y-3 xl:block">
@@ -431,7 +431,7 @@ export default function DashboardLiveContent() {
 
 
           {/* CERVEAU / NOYAU IA */}
-          <div className="absolute left-[49%] top-[44%] z-10 hidden h-[335px] w-[600px] -translate-x-1/2 -translate-y-1/2 xl:block">
+          <div className="absolute left-[42.5%] top-[44%] z-10 hidden h-[335px] w-[600px] -translate-x-1/2 -translate-y-1/2 xl:block">
 
             {/* halo */}
             <div className="absolute left-1/2 top-1/2 h-[285px] w-[285px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#00bfff]/20 blur-[52px]" />
@@ -501,7 +501,7 @@ export default function DashboardLiveContent() {
 
 
           {/* CONNEXION ANALYSE */}
-          <div className="absolute left-[33.5%] top-[22%] z-20 hidden xl:block">
+          <div className="absolute left-[26%] top-[22%] z-20 hidden xl:block">
 
             <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.22)]">
               📊 ANALYSE
@@ -515,7 +515,7 @@ export default function DashboardLiveContent() {
 
 
           {/* CONNEXION PRIORITES */}
-          <div className="absolute left-[32%] top-[43%] z-20 hidden xl:block">
+          <div className="absolute left-[24%] top-[43%] z-20 hidden xl:block">
 
             <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.26)] [animation-delay:.7s]">
               📦 PRIORITÉS
@@ -529,7 +529,7 @@ export default function DashboardLiveContent() {
 
 
           {/* RIGHT LIVE HUD */}
-          <div className="pointer-events-none absolute right-[395px] top-[28px] z-20 hidden w-[120px] space-y-2 2xl:block">
+          <div className="pointer-events-none absolute right-[435px] top-[28px] z-20 hidden w-[120px] space-y-2 2xl:block">
 
             <div className="rounded-xl border border-[#00e5ff]/25 bg-[#031326]/75 p-2.5 shadow-[0_0_24px_rgba(0,229,255,.08)] backdrop-blur-md">
 
@@ -628,7 +628,7 @@ export default function DashboardLiveContent() {
 
           </div>
           {/* CONNEXION PREDICTIONS */}
-          <div className="absolute right-[33%] top-[23%] z-20 hidden xl:block">
+          <div className="absolute right-[39%] top-[23%] z-20 hidden xl:block">
 
             <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.26)] [animation-delay:1.1s]">
               ↗ PRÉDICTIONS
@@ -642,7 +642,7 @@ export default function DashboardLiveContent() {
 
 
           {/* CONNEXION OPTIMISATION */}
-          <div className="absolute right-[33%] top-[44%] z-20 hidden xl:block">
+          <div className="absolute right-[40%] top-[44%] z-20 hidden xl:block">
 
             <div className="organia-floating rounded-xl border border-[#00e5ff]/60 bg-[#03152d]/95 px-5 py-3 text-xs font-black text-white shadow-[0_0_22px_rgba(0,229,255,.26)] [animation-delay:1.7s]">
               🚚 OPTIMISATION

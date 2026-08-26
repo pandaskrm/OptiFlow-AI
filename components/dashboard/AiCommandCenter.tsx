@@ -79,7 +79,7 @@ export default function AiCommandCenter({
           <div className="absolute bottom-5 left-8 h-[220px] w-[220px] rounded-full bg-[#00e5ff]/15 blur-[65px]" />
 
           <Image
-            src="/organia-reference/libot-manager-crossed.png"
+            src="/avatars/manager.png"
             alt="Libot Manager"
             fill
             priority

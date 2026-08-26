@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
-import ExcelJS from "exceljs";
+import * as XLSX from "xlsx";
 
 type Period = "DAY" | "WEEK" | "MONTH";
 
@@ -75,422 +75,45 @@ export default function PickerPerformance() {
     [period]
   );
 
-  const exportExcel = async () => {
-    const workbook = new ExcelJS.Workbook();
+  const exportExcel = () => {
+    const rows = ranked.map((picker, index) => {
+      const objective = picker.workedDays * 300;
 
-    workbook.creator = "Organ·IA Flow";
-    workbook.created = new Date();
-
-    const worksheet = workbook.addWorksheet("Classement", {
-      views: [
-        {
-          state: "frozen",
-          ySplit: 2,
-          showGridLines: true,
-        },
-      ],
+      return {
+        Rang: index + 1,
+        Préparateur: picker.name,
+        BP: picker.bp,
+        Colis: picker.parcels,
+        Lignes: picker.lines,
+        Quantité: picker.quantity,
+        "Jours travaillés": picker.workedDays,
+        Objectif: objective,
+        Écart: picker.lines - objective,
+        "Objectif atteint": picker.lines >= objective ? "Oui" : "Non",
+      };
     });
 
-    const formatDate = (date: Date) =>
-      date.toLocaleDateString("fr-FR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      });
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    worksheet["!cols"] = [
+      { wch: 8 },
+      { wch: 24 },
+      { wch: 10 },
+      { wch: 10 },
+      { wch: 12 },
+      { wch: 14 },
+      { wch: 16 },
+      { wch: 12 },
+      { wch: 12 },
+      { wch: 18 },
+    ];
 
-    const today = new Date();
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Classement");
 
-    let periodTitle = "";
-    let objectiveLabel = 300;
-
-    if (period === "DAY") {
-      periodTitle = `JOURNÉE DU ${formatDate(today)}`;
-      objectiveLabel = 300;
-    }
-
-    if (period === "WEEK") {
-      const monday = new Date(today);
-      const day = monday.getDay();
-      const diff = day === 0 ? -6 : 1 - day;
-
-      monday.setDate(monday.getDate() + diff);
-
-      const sunday = new Date(monday);
-      sunday.setDate(monday.getDate() + 6);
-
-      periodTitle =
-        `SEMAINE DU ${formatDate(monday)} AU ${formatDate(sunday)}`;
-
-      objectiveLabel = 1500;
-    }
-
-    if (period === "MONTH") {
-      const firstDay = new Date(
-        today.getFullYear(),
-        today.getMonth(),
-        1
-      );
-
-      const lastDay = new Date(
-        today.getFullYear(),
-        today.getMonth() + 1,
-        0
-      );
-
-      periodTitle =
-        `MOIS DU ${formatDate(firstDay)} AU ${formatDate(lastDay)}`;
-
-      objectiveLabel = 6000;
-    }
-
-    const totalBp = ranked.reduce(
-      (sum, picker) => sum + picker.bp,
-      0
+    XLSX.writeFile(
+      workbook,
+      `performance-preparateurs-${period.toLowerCase()}.xlsx`
     );
-
-    const totalParcels = ranked.reduce(
-      (sum, picker) => sum + picker.parcels,
-      0
-    );
-
-    const totalLines = ranked.reduce(
-      (sum, picker) => sum + picker.lines,
-      0
-    );
-
-    const totalQuantity = ranked.reduce(
-      (sum, picker) => sum + picker.quantity,
-      0
-    );
-
-    // =========================
-    // TITRE DE PERIODE
-    // =========================
-
-    worksheet.mergeCells("A1:E1");
-
-    const periodCell = worksheet.getCell("A1");
-
-    periodCell.value = periodTitle;
-
-    periodCell.font = {
-      bold: true,
-      size: 11,
-      color: { argb: "FF111111" },
-    };
-
-    periodCell.alignment = {
-      horizontal: "center",
-      vertical: "middle",
-    };
-
-    worksheet.getRow(1).height = 23;
-
-    // =========================
-    // ENTETES TYPE TABLEAU OPENSi
-    // =========================
-
-    const headerRow = worksheet.addRow([
-      "Préparateur",
-      "Nombre de BP",
-      "Somme de Nb colis",
-      "Somme de Nb lignes",
-      "Somme de Qté totale",
-    ]);
-
-    headerRow.height = 23;
-
-    headerRow.eachCell((cell) => {
-      cell.font = {
-        bold: true,
-        size: 10,
-        color: { argb: "FF111111" },
-      };
-
-      cell.fill = {
-        type: "pattern",
-        pattern: "solid",
-        fgColor: { argb: "FFD9EAF7" },
-      };
-
-      cell.alignment = {
-        horizontal: "center",
-        vertical: "middle",
-        wrapText: true,
-      };
-
-      cell.border = {
-        top: {
-          style: "thin",
-          color: { argb: "FF808080" },
-        },
-        bottom: {
-          style: "thin",
-          color: { argb: "FF808080" },
-        },
-        left: {
-          style: "thin",
-          color: { argb: "FF808080" },
-        },
-        right: {
-          style: "thin",
-          color: { argb: "FF808080" },
-        },
-      };
-    });
-
-    let lastObjectiveRow = -1;
-
-    // =========================
-    // CLASSEMENT
-    // =========================
-
-    ranked.forEach((picker, index) => {
-      const objective =
-        period === "DAY"
-          ? 300
-          : period === "WEEK"
-            ? 1500
-            : 6000;
-
-      const objectiveReached = picker.lines >= objective;
-
-      const row = worksheet.addRow([
-        picker.name,
-        picker.bp,
-        picker.parcels,
-        picker.lines,
-        picker.quantity,
-      ]);
-
-      row.height = 20;
-
-      if (objectiveReached) {
-        lastObjectiveRow = row.number;
-      }
-
-      // TOP 3 = JAUNE
-      if (index < 3) {
-        row.eachCell((cell) => {
-          cell.fill = {
-            type: "pattern",
-            pattern: "solid",
-            fgColor: { argb: "FFFFFF00" },
-          };
-
-          cell.font = {
-            bold: false,
-            color: { argb: "FF000000" },
-          };
-        });
-      }
-
-      // 4 A 10 = ORANGE
-      else if (index < 10) {
-        row.eachCell((cell) => {
-          cell.fill = {
-            type: "pattern",
-            pattern: "solid",
-            fgColor: { argb: "FFFFC000" },
-          };
-
-          cell.font = {
-            color: { argb: "FF000000" },
-          };
-        });
-      }
-
-      row.eachCell((cell, columnNumber) => {
-        cell.alignment = {
-          horizontal: columnNumber === 1 ? "left" : "center",
-          vertical: "middle",
-        };
-
-        cell.border = {
-          top: {
-            style: "thin",
-            color: { argb: "FF808080" },
-          },
-          bottom: {
-            style: "thin",
-            color: { argb: "FF808080" },
-          },
-          left: {
-            style: "thin",
-            color: { argb: "FF808080" },
-          },
-          right: {
-            style: "thin",
-            color: { argb: "FF808080" },
-          },
-        };
-      });
-    });
-
-    // =========================
-    // TRAIT OBJECTIF
-    // =========================
-
-    if (lastObjectiveRow > 0) {
-      const objectiveRow = worksheet.getRow(lastObjectiveRow);
-
-      for (let column = 1; column <= 5; column++) {
-        const cell = objectiveRow.getCell(column);
-
-        cell.border = {
-          ...cell.border,
-
-          bottom: {
-            style: "thick",
-            color: { argb: "FF000000" },
-          },
-        };
-      }
-    }
-
-    // =========================
-    // TOTAL GENERAL
-    // =========================
-
-    const totalRow = worksheet.addRow([
-      "TOTAL GÉNÉRAL",
-      totalBp,
-      totalParcels,
-      totalLines,
-      totalQuantity,
-    ]);
-
-    totalRow.height = 21;
-
-    totalRow.eachCell((cell, columnNumber) => {
-      cell.fill = {
-        type: "pattern",
-        pattern: "solid",
-        fgColor: { argb: "FFBFE3F1" },
-      };
-
-      cell.font = {
-        bold: true,
-        color: { argb: "FF111111" },
-      };
-
-      cell.alignment = {
-        horizontal: columnNumber === 1 ? "left" : "center",
-        vertical: "middle",
-      };
-
-      cell.border = {
-        top: {
-          style: "thin",
-          color: { argb: "FF000000" },
-        },
-        bottom: {
-          style: "thin",
-          color: { argb: "FF000000" },
-        },
-        left: {
-          style: "thin",
-          color: { argb: "FF000000" },
-        },
-        right: {
-          style: "thin",
-          color: { argb: "FF000000" },
-        },
-      };
-    });
-
-    // =========================
-    // FORMAT NOMBRES
-    // =========================
-
-    for (
-      let rowNumber = 3;
-      rowNumber <= totalRow.number;
-      rowNumber++
-    ) {
-      worksheet.getCell(`B${rowNumber}`).numFmt = "#,##0";
-      worksheet.getCell(`C${rowNumber}`).numFmt = "#,##0";
-      worksheet.getCell(`D${rowNumber}`).numFmt = "#,##0";
-      worksheet.getCell(`E${rowNumber}`).numFmt = "#,##0";
-    }
-
-    // =========================
-    // LARGEURS COMPACTES
-    // =========================
-
-    worksheet.getColumn("A").width = 23;
-    worksheet.getColumn("B").width = 15;
-    worksheet.getColumn("C").width = 17;
-    worksheet.getColumn("D").width = 19;
-    worksheet.getColumn("E").width = 20;
-
-    // Filtre comme un tableau Excel
-    worksheet.autoFilter = {
-      from: "A2",
-      to: "E2",
-    };
-
-    // =========================
-    // IMPRESSION A4 PORTRAIT
-    // =========================
-
-    worksheet.pageSetup.orientation = "portrait";
-    worksheet.pageSetup.paperSize = 9;
-
-    worksheet.pageSetup.fitToPage = true;
-    worksheet.pageSetup.fitToWidth = 1;
-    worksheet.pageSetup.fitToHeight = 1;
-
-    worksheet.pageSetup.horizontalCentered = true;
-    worksheet.pageSetup.verticalCentered = false;
-
-    worksheet.pageSetup.margins = {
-      left: 0.25,
-      right: 0.25,
-      top: 0.30,
-      bottom: 0.30,
-      header: 0.10,
-      footer: 0.10,
-    };
-
-    worksheet.pageSetup.printArea =
-      `A1:E${totalRow.number}`;
-
-    worksheet.pageSetup.printTitlesRow = "1:2";
-
-    // Petit rappel objectif uniquement en pied de page,
-    // pas dans le tableau imprimé.
-    worksheet.headerFooter.oddFooter =
-      `&LObjectif ${objectiveLabel} lignes&COrgan·IA Flow&RPage &P / &N`;
-
-    // =========================
-    // EXPORT
-    // =========================
-
-    const buffer = await workbook.xlsx.writeBuffer();
-
-    const blob = new Blob([buffer], {
-      type:
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    });
-
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-
-    const safePeriod = periodTitle
-      .toLowerCase()
-      .replaceAll("/", "-")
-      .replaceAll(" ", "_");
-
-    anchor.href = url;
-    anchor.download =
-      `classement-preparateurs-${safePeriod}.xlsx`;
-
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-
-    URL.revokeObjectURL(url);
   };
 
   return (
