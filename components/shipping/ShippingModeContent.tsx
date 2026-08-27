@@ -10,6 +10,7 @@ import ShippingTable from "./ShippingTable";
 import ShippingAi from "./ShippingAi";
 import ShippingDecisionPanel from "./ShippingDecisionPanel";
 import ShippingTimeline from "./ShippingTimeline";
+import PickupScan from "./PickupScan";
 
 function ShippingRealData() {
   const {
@@ -160,6 +161,10 @@ function ShippingRealData() {
           </div>
         </div>
       </section>
+
+      <PickupScan />
+
+      
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {cards.map((card) => (
