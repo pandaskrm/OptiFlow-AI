@@ -7,4 +7,5 @@ export type Reception = {
   pallets: number;
   status: string;
   scheduledAt: string;
+  arrivedAt?: string | null;
 };

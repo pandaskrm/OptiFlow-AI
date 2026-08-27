@@ -101,6 +101,119 @@ function formatScheduledAt(value?: string | null) {
   };
 }
 
+function formatCountdownDifference(
+  milliseconds: number,
+) {
+  const totalSeconds = Math.max(
+    0,
+    Math.floor(Math.abs(milliseconds) / 1000),
+  );
+
+  const hours = Math.floor(totalSeconds / 3600);
+
+  const minutes = Math.floor(
+    (totalSeconds % 3600) / 60,
+  );
+
+  const seconds = totalSeconds % 60;
+
+  return [
+    hours.toString().padStart(2, "0"),
+    minutes.toString().padStart(2, "0"),
+    seconds.toString().padStart(2, "0"),
+  ].join(":");
+}
+
+function getTruckCountdown(
+  scheduledAt?: string | null,
+  arrivedAt?: string | null,
+  status?: string,
+  nowTimestamp?: number,
+) {
+  if (!scheduledAt) {
+    return null;
+  }
+
+  if (
+    status === RECEPTION_STATUS.COMPLETED &&
+    !arrivedAt
+  ) {
+    return null;
+  }
+
+  const scheduledDate = new Date(scheduledAt);
+
+  if (Number.isNaN(scheduledDate.getTime())) {
+    return null;
+  }
+
+  const referenceTimestamp =
+    typeof nowTimestamp === "number"
+      ? nowTimestamp
+      : Date.now();
+
+  if (arrivedAt) {
+    const arrivalDate = new Date(arrivedAt);
+
+    if (!Number.isNaN(arrivalDate.getTime())) {
+      const difference =
+        arrivalDate.getTime() -
+        scheduledDate.getTime();
+
+      if (Math.abs(difference) < 60000) {
+        return {
+          label: "Arrivé à l'heure",
+          detail: "< 1 min d'écart",
+          className:
+            "border-emerald-500/35 bg-emerald-500/10 text-emerald-300",
+        };
+      }
+
+      const minutes = Math.round(
+        Math.abs(difference) / 60000,
+      );
+
+      if (difference > 0) {
+        return {
+          label: `Arrivé ${minutes} min en retard`,
+          detail: "Arrivée enregistrée",
+          className:
+            "border-red-500/35 bg-red-500/10 text-red-300",
+        };
+      }
+
+      return {
+        label: `Arrivé ${minutes} min en avance`,
+        detail: "Arrivée enregistrée",
+        className:
+          "border-emerald-500/35 bg-emerald-500/10 text-emerald-300",
+      };
+    }
+  }
+
+  const difference =
+    scheduledDate.getTime() - referenceTimestamp;
+
+  if (difference > 0) {
+    return {
+      label: `Arrivée dans ${formatCountdownDifference(
+        difference,
+      )}`,
+      detail: "Compte à rebours",
+      className:
+        "border-[#00e5ff]/35 bg-[#006bff]/10 text-[#7df9ff]",
+    };
+  }
+
+  return {
+    label: `RETARD +${formatCountdownDifference(
+      difference,
+    )}`,
+    detail: "Camion non arrivé",
+    className:
+      "border-red-500/45 bg-red-500/10 text-red-300",
+  };
+}
 function getPlanningStatus(
   scheduledAt?: string | null,
   status?: string,
@@ -179,6 +292,9 @@ export default function ReceptionTable({
   const receptions: Reception[] =
     warehouse.receptionDetails;
 
+  const [nowTimestamp, setNowTimestamp] =
+    useState(() => Date.now());
+
   const [loadingId, setLoadingId] =
     useState<number | null>(null);
 
@@ -200,6 +316,16 @@ export default function ReceptionTable({
   useEffect(() => {
     void refresh();
   }, [refreshKey, refresh]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setNowTimestamp(Date.now());
+    }, 1000);
+
+    return () => {
+      window.clearInterval(timer);
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -515,6 +641,14 @@ export default function ReceptionTable({
                   item.status,
                 );
 
+              const truckCountdown =
+                getTruckCountdown(
+                  item.scheduledAt,
+                  item.arrivedAt,
+                  item.status,
+                  nowTimestamp,
+                );
+
               return (
                 <article
                   key={item.id}
@@ -771,6 +905,14 @@ export default function ReceptionTable({
                       item.status,
                     );
 
+                  const truckCountdown =
+                    getTruckCountdown(
+                      item.scheduledAt,
+                      item.arrivedAt,
+                      item.status,
+                      nowTimestamp,
+                    );
+
                   return (
                     <Fragment key={item.id}>
                       <tr className="border-t border-[#008cff]/20 hover:bg-slate-800/70">
@@ -793,6 +935,20 @@ export default function ReceptionTable({
                           <p className="mt-1 text-sm text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.45)]">
                             {scheduledAt.time}
                           </p>
+
+                          {truckCountdown && (
+                            <div
+                              className={`mt-2 rounded-lg border px-2.5 py-2 ${truckCountdown.className}`}
+                            >
+                              <p className="text-xs font-black tabular-nums">
+                                {truckCountdown.label}
+                              </p>
+
+                              <p className="mt-0.5 text-[9px] uppercase tracking-[0.12em] opacity-60">
+                                {truckCountdown.detail}
+                              </p>
+                            </div>
+                          )}
 
                           {planningStatus && (
                             <span
