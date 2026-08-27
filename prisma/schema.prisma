@@ -374,6 +374,10 @@ model MailMessage {
   receptionId       Int?
   externalId        String
   internetMessageId String?
+  outlookFolderId   String?
+  outlookFolderName String?
+  isRead            Boolean   @default(false)
+  readAt            DateTime?
   subject           String
   senderEmail       String
   senderName        String?
@@ -401,6 +405,8 @@ model MailMessage {
   @@index([connectionId])
   @@index([receptionId])
   @@index([receivedAt])
+  @@index([companyId, isRead])
+  @@index([companyId, outlookFolderId])
 }
 
 /**
@@ -427,24 +433,31 @@ model MailAttachment {
 }
 
 model MailConnection {
-  id                    String    @id @default(cuid())
+  id                    String  @id @default(cuid())
   companyId             String
   provider              String
   emailAddress          String
   host                  String?
-  port                  Int       @default(993)
+  port                  Int     @default(993)
   username              String?
   passwordEncrypted     String?
   tenantId              String?
   clientId              String?
   clientSecretEncrypted String?
-  isEnabled             Boolean   @default(false)
-  status                String    @default("DISCONNECTED")
-  lastTestedAt          DateTime?
-  lastSyncedAt          DateTime?
-  lastError             String?
-  createdAt             DateTime  @default(now())
-  updatedAt             DateTime  @updatedAt
+
+  authType              String    @default("LEGACY")
+  accessTokenEncrypted  String?
+  refreshTokenEncrypted String?
+  tokenExpiresAt        DateTime?
+  oauthScopes           String?
+
+  isEnabled    Boolean   @default(false)
+  status       String    @default("DISCONNECTED")
+  lastTestedAt DateTime?
+  lastSyncedAt DateTime?
+  lastError    String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   mailMessages MailMessage[]

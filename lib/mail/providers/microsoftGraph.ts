@@ -1,4 +1,4 @@
-﻿type MicrosoftGraphConnection = {
+type MicrosoftGraphConnection = {
   tenantId: string;
   clientId: string;
   clientSecret: string;
@@ -18,6 +18,8 @@ export type MicrosoftGraphMessage = {
   internetMessageId?: string | null;
   subject?: string | null;
   receivedDateTime?: string | null;
+  isRead?: boolean;
+  parentFolderId?: string | null;
   hasAttachments?: boolean;
   from?: {
     emailAddress?: {
@@ -33,6 +35,24 @@ export type MicrosoftGraphMessage = {
 
 type MicrosoftGraphMessagesResponse = {
   value?: MicrosoftGraphMessage[];
+};
+
+export type MicrosoftGraphMailFolder = {
+  id: string;
+  displayName?: string | null;
+  parentFolderId?: string | null;
+  childFolderCount?: number | null;
+};
+
+type MicrosoftGraphMailFoldersResponse = {
+  value?: MicrosoftGraphMailFolder[];
+};
+
+export type MicrosoftGraphMailFolderNode = {
+  id: string;
+  displayName: string;
+  parentFolderId: string | null;
+  path: string;
 };
 
 type MicrosoftGraphAttachmentListItem = {
@@ -202,6 +222,8 @@ export async function listMicrosoftGraphMessages({
       "internetMessageId",
       "subject",
       "receivedDateTime",
+      "isRead",
+      "parentFolderId",
       "from",
       "body",
       "hasAttachments",
@@ -340,4 +362,142 @@ export async function listMicrosoftGraphFileAttachments({
   }
 
   return attachments;
+}
+
+export async function listMicrosoftGraphMailFolders({
+  tenantId,
+  clientId,
+  clientSecret,
+  mailbox,
+}: MicrosoftGraphConnection) {
+  const accessToken = await getMicrosoftGraphToken({
+    tenantId,
+    clientId,
+    clientSecret,
+  });
+
+  async function fetchFolders(url: string) {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/json",
+      },
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        await readErrorMessage(
+          response,
+          "Impossible de récupérer les dossiers Outlook.",
+        ),
+      );
+    }
+
+    const data =
+      (await response.json()) as MicrosoftGraphMailFoldersResponse;
+
+    return Array.isArray(data.value)
+      ? data.value
+      : [];
+  }
+
+  const rootFolders = await fetchFolders(
+    `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
+      mailbox,
+    )}/mailFolders?$top=100&$select=id,displayName,parentFolderId,childFolderCount`,
+  );
+
+  const collected = new Map<string, MicrosoftGraphMailFolder>();
+
+  async function walk(
+    folder: MicrosoftGraphMailFolder,
+  ): Promise<void> {
+    if (!folder.id) {
+      return;
+    }
+
+    collected.set(folder.id, folder);
+
+    if (!folder.childFolderCount) {
+      return;
+    }
+
+    const children = await fetchFolders(
+      `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
+        mailbox,
+      )}/mailFolders/${encodeURIComponent(
+        folder.id,
+      )}/childFolders?$top=100&$select=id,displayName,parentFolderId,childFolderCount`,
+    );
+
+    for (const child of children) {
+      await walk(child);
+    }
+  }
+
+  for (const folder of rootFolders) {
+    await walk(folder);
+  }
+
+  return Array.from(collected.values());
+}
+
+export async function getMicrosoftGraphMailFolderTree({
+  tenantId,
+  clientId,
+  clientSecret,
+  mailbox,
+}: MicrosoftGraphConnection) {
+  const folders = await listMicrosoftGraphMailFolders({
+    tenantId,
+    clientId,
+    clientSecret,
+    mailbox,
+  });
+
+  const byId = new Map(
+    folders.map((folder) => [folder.id, folder]),
+  );
+
+  function buildPath(folder: MicrosoftGraphMailFolder) {
+    const parts: string[] = [];
+    const visited = new Set<string>();
+
+    let current: MicrosoftGraphMailFolder | undefined =
+      folder;
+
+    while (current?.id && !visited.has(current.id)) {
+      visited.add(current.id);
+
+      const name =
+        current.displayName?.trim() || "Dossier sans nom";
+
+      parts.unshift(name);
+
+      if (!current.parentFolderId) {
+        break;
+      }
+
+      current = byId.get(current.parentFolderId);
+    }
+
+    return parts.join(" > ");
+  }
+
+  return folders
+    .map(
+      (folder): MicrosoftGraphMailFolderNode => ({
+        id: folder.id,
+        displayName:
+          folder.displayName?.trim() ||
+          "Dossier sans nom",
+        parentFolderId:
+          folder.parentFolderId ?? null,
+        path: buildPath(folder),
+      }),
+    )
+    .sort((a, b) =>
+      a.path.localeCompare(b.path, "fr"),
+    );
 }

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 
@@ -51,6 +51,22 @@ export default function MailConnectionForm() {
 
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+
+  const [loadingFolders, setLoadingFolders] =
+    useState(false);
+
+  const [showAdvancedMicrosoft, setShowAdvancedMicrosoft] =
+    useState(false);
+
+  const [outlookFolders, setOutlookFolders] =
+    useState<
+      Array<{
+        id: string;
+        displayName: string;
+        parentFolderId: string | null;
+        path: string;
+      }>
+    >([]);
 
   useEffect(() => {
     async function loadConfiguration() {
@@ -203,6 +219,61 @@ export default function MailConnectionForm() {
     }
   }
 
+  async function loadOutlookFolders() {
+    setLoadingFolders(true);
+    setMessage("");
+    setIsError(false);
+
+    try {
+      const response = await fetch("/api/mail/folders", {
+        method: "GET",
+        cache: "no-store",
+      });
+
+      const data = (await response.json()) as {
+        success?: boolean;
+        count?: number;
+        folders?: Array<{
+          id: string;
+          displayName: string;
+          parentFolderId: string | null;
+          path: string;
+        }>;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ??
+            "Impossible de récupérer les dossiers Outlook.",
+        );
+      }
+
+      const folders = data.folders ?? [];
+
+      setOutlookFolders(folders);
+
+      setMessage(
+        `${folders.length} dossier${
+          folders.length > 1 ? "s" : ""
+        } Outlook récupéré${
+          folders.length > 1 ? "s" : ""
+        }.`,
+      );
+    } catch (error) {
+      setOutlookFolders([]);
+      setIsError(true);
+
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Impossible de récupérer les dossiers Outlook.",
+      );
+    } finally {
+      setLoadingFolders(false);
+    }
+  }
+
   if (loading) {
     return (
       <section className="rounded-2xl border border-slate-800 bg-slate-900 p-5">
@@ -222,11 +293,11 @@ export default function MailConnectionForm() {
           </p>
 
           <h2 className="mt-2 text-2xl font-bold text-white">
-            Connecter la boîte de réception
+            Connecter Microsoft Outlook
           </h2>
 
           <p className="mt-2 text-sm text-slate-500">
-            Prépare automatiquement les futures réceptions à partir des avis d'arrivage.
+            Connectez votre messagerie professionnelle à Organ·IA Flow.
           </p>
         </div>
 
@@ -319,7 +390,22 @@ export default function MailConnectionForm() {
           </>
         ) : (
           <>
-            <Field label="Tenant ID">
+            <div className="md:col-span-2">
+          <button
+            type="button"
+            onClick={() =>
+              setShowAdvancedMicrosoft((value) => !value)
+            }
+            className="text-xs font-semibold text-slate-500 transition hover:text-cyan-300"
+          >
+            {showAdvancedMicrosoft
+              ? "Masquer la configuration administrateur"
+              : "Configuration administrateur Microsoft"}
+          </button>
+        </div>
+
+        {showAdvancedMicrosoft && (
+          <Field label="Tenant ID">
               <input
                 value={tenantId}
                 onChange={(event) =>
@@ -329,8 +415,10 @@ export default function MailConnectionForm() {
                 className="h-11 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none placeholder:text-slate-600 focus:border-cyan-500"
               />
             </Field>
+        )}
 
-            <Field label="Client ID">
+            {showAdvancedMicrosoft && (
+          <Field label="Client ID">
               <input
                 value={clientId}
                 onChange={(event) =>
@@ -340,9 +428,11 @@ export default function MailConnectionForm() {
                 className="h-11 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none placeholder:text-slate-600 focus:border-cyan-500"
               />
             </Field>
+        )}
 
             <div className="lg:col-span-2">
-              <Field label="Secret client">
+              {showAdvancedMicrosoft && (
+        <Field label="Secret client">
                 <input
                   type="password"
                   value={clientSecret}
@@ -355,6 +445,7 @@ export default function MailConnectionForm() {
                   className="h-11 w-full rounded-xl border border-slate-700 bg-slate-800 px-4 text-white outline-none placeholder:text-slate-600 focus:border-cyan-500"
                 />
               </Field>
+      )}
             </div>
           </>
         )}
@@ -389,7 +480,7 @@ export default function MailConnectionForm() {
         <button
           type="button"
           onClick={testConfiguration}
-          disabled={testing || saving}
+          disabled={testing || saving || loadingFolders}
           className="rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 px-5 py-3 font-bold text-white disabled:opacity-50"
         >
           {testing
@@ -400,14 +491,65 @@ export default function MailConnectionForm() {
         <button
           type="button"
           onClick={saveConfiguration}
-          disabled={testing || saving}
+          disabled={testing || saving || loadingFolders}
           className="rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-300 disabled:opacity-50"
         >
           {saving
             ? "Enregistrement..."
             : "Enregistrer"}
         </button>
+
+        <button
+          type="button"
+          onClick={loadOutlookFolders}
+          disabled={
+            testing ||
+            saving ||
+            loadingFolders ||
+            provider !== "MICROSOFT_365"
+          }
+          className="rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-5 py-3 font-semibold text-cyan-300 transition hover:border-cyan-400 hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {loadingFolders
+            ? "Chargement des dossiers..."
+            : "Charger les dossiers Outlook"}
+        </button>
       </div>
+
+      {outlookFolders.length > 0 && (
+        <div className="mt-6 overflow-hidden rounded-2xl border border-cyan-500/20 bg-slate-950/60">
+          <div className="flex items-center justify-between border-b border-cyan-500/15 px-4 py-3">
+            <div>
+              <p className="text-sm font-bold text-white">
+                Arborescence Outlook
+              </p>
+
+              <p className="mt-0.5 text-xs text-slate-500">
+                Dossiers réellement détectés dans Microsoft 365
+              </p>
+            </div>
+
+            <span className="rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-bold text-cyan-300">
+              {outlookFolders.length}
+            </span>
+          </div>
+
+          <div className="max-h-80 overflow-y-auto p-2">
+            {outlookFolders.map((folder) => (
+              <div
+                key={folder.id}
+                className="rounded-xl px-3 py-2 text-sm text-slate-300 transition hover:bg-white/5"
+              >
+                <span className="mr-2 text-cyan-400">
+                  📁
+                </span>
+
+                {folder.path}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -46,6 +46,11 @@ export type MailConnectionMinAggregateOutputType = {
   tenantId: string | null
   clientId: string | null
   clientSecretEncrypted: string | null
+  authType: string | null
+  accessTokenEncrypted: string | null
+  refreshTokenEncrypted: string | null
+  tokenExpiresAt: Date | null
+  oauthScopes: string | null
   isEnabled: boolean | null
   status: string | null
   lastTestedAt: Date | null
@@ -67,6 +72,11 @@ export type MailConnectionMaxAggregateOutputType = {
   tenantId: string | null
   clientId: string | null
   clientSecretEncrypted: string | null
+  authType: string | null
+  accessTokenEncrypted: string | null
+  refreshTokenEncrypted: string | null
+  tokenExpiresAt: Date | null
+  oauthScopes: string | null
   isEnabled: boolean | null
   status: string | null
   lastTestedAt: Date | null
@@ -88,6 +98,11 @@ export type MailConnectionCountAggregateOutputType = {
   tenantId: number
   clientId: number
   clientSecretEncrypted: number
+  authType: number
+  accessTokenEncrypted: number
+  refreshTokenEncrypted: number
+  tokenExpiresAt: number
+  oauthScopes: number
   isEnabled: number
   status: number
   lastTestedAt: number
@@ -119,6 +134,11 @@ export type MailConnectionMinAggregateInputType = {
   tenantId?: true
   clientId?: true
   clientSecretEncrypted?: true
+  authType?: true
+  accessTokenEncrypted?: true
+  refreshTokenEncrypted?: true
+  tokenExpiresAt?: true
+  oauthScopes?: true
   isEnabled?: true
   status?: true
   lastTestedAt?: true
@@ -140,6 +160,11 @@ export type MailConnectionMaxAggregateInputType = {
   tenantId?: true
   clientId?: true
   clientSecretEncrypted?: true
+  authType?: true
+  accessTokenEncrypted?: true
+  refreshTokenEncrypted?: true
+  tokenExpiresAt?: true
+  oauthScopes?: true
   isEnabled?: true
   status?: true
   lastTestedAt?: true
@@ -161,6 +186,11 @@ export type MailConnectionCountAggregateInputType = {
   tenantId?: true
   clientId?: true
   clientSecretEncrypted?: true
+  authType?: true
+  accessTokenEncrypted?: true
+  refreshTokenEncrypted?: true
+  tokenExpiresAt?: true
+  oauthScopes?: true
   isEnabled?: true
   status?: true
   lastTestedAt?: true
@@ -269,6 +299,11 @@ export type MailConnectionGroupByOutputType = {
   tenantId: string | null
   clientId: string | null
   clientSecretEncrypted: string | null
+  authType: string
+  accessTokenEncrypted: string | null
+  refreshTokenEncrypted: string | null
+  tokenExpiresAt: Date | null
+  oauthScopes: string | null
   isEnabled: boolean
   status: string
   lastTestedAt: Date | null
@@ -313,6 +348,11 @@ export type MailConnectionWhereInput = {
   tenantId?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   clientId?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   clientSecretEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  authType?: Prisma.StringFilter<"MailConnection"> | string
+  accessTokenEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  refreshTokenEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  tokenExpiresAt?: Prisma.DateTimeNullableFilter<"MailConnection"> | Date | string | null
+  oauthScopes?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   isEnabled?: Prisma.BoolFilter<"MailConnection"> | boolean
   status?: Prisma.StringFilter<"MailConnection"> | string
   lastTestedAt?: Prisma.DateTimeNullableFilter<"MailConnection"> | Date | string | null
@@ -336,6 +376,11 @@ export type MailConnectionOrderByWithRelationInput = {
   tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   clientSecretEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  authType?: Prisma.SortOrder
+  accessTokenEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  refreshTokenEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  tokenExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  oauthScopes?: Prisma.SortOrderInput | Prisma.SortOrder
   isEnabled?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastTestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -363,6 +408,11 @@ export type MailConnectionWhereUniqueInput = Prisma.AtLeast<{
   tenantId?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   clientId?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   clientSecretEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  authType?: Prisma.StringFilter<"MailConnection"> | string
+  accessTokenEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  refreshTokenEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  tokenExpiresAt?: Prisma.DateTimeNullableFilter<"MailConnection"> | Date | string | null
+  oauthScopes?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   isEnabled?: Prisma.BoolFilter<"MailConnection"> | boolean
   status?: Prisma.StringFilter<"MailConnection"> | string
   lastTestedAt?: Prisma.DateTimeNullableFilter<"MailConnection"> | Date | string | null
@@ -386,6 +436,11 @@ export type MailConnectionOrderByWithAggregationInput = {
   tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrderInput | Prisma.SortOrder
   clientSecretEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  authType?: Prisma.SortOrder
+  accessTokenEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  refreshTokenEncrypted?: Prisma.SortOrderInput | Prisma.SortOrder
+  tokenExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  oauthScopes?: Prisma.SortOrderInput | Prisma.SortOrder
   isEnabled?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastTestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -415,6 +470,11 @@ export type MailConnectionScalarWhereWithAggregatesInput = {
   tenantId?: Prisma.StringNullableWithAggregatesFilter<"MailConnection"> | string | null
   clientId?: Prisma.StringNullableWithAggregatesFilter<"MailConnection"> | string | null
   clientSecretEncrypted?: Prisma.StringNullableWithAggregatesFilter<"MailConnection"> | string | null
+  authType?: Prisma.StringWithAggregatesFilter<"MailConnection"> | string
+  accessTokenEncrypted?: Prisma.StringNullableWithAggregatesFilter<"MailConnection"> | string | null
+  refreshTokenEncrypted?: Prisma.StringNullableWithAggregatesFilter<"MailConnection"> | string | null
+  tokenExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MailConnection"> | Date | string | null
+  oauthScopes?: Prisma.StringNullableWithAggregatesFilter<"MailConnection"> | string | null
   isEnabled?: Prisma.BoolWithAggregatesFilter<"MailConnection"> | boolean
   status?: Prisma.StringWithAggregatesFilter<"MailConnection"> | string
   lastTestedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MailConnection"> | Date | string | null
@@ -435,6 +495,11 @@ export type MailConnectionCreateInput = {
   tenantId?: string | null
   clientId?: string | null
   clientSecretEncrypted?: string | null
+  authType?: string
+  accessTokenEncrypted?: string | null
+  refreshTokenEncrypted?: string | null
+  tokenExpiresAt?: Date | string | null
+  oauthScopes?: string | null
   isEnabled?: boolean
   status?: string
   lastTestedAt?: Date | string | null
@@ -458,6 +523,11 @@ export type MailConnectionUncheckedCreateInput = {
   tenantId?: string | null
   clientId?: string | null
   clientSecretEncrypted?: string | null
+  authType?: string
+  accessTokenEncrypted?: string | null
+  refreshTokenEncrypted?: string | null
+  tokenExpiresAt?: Date | string | null
+  oauthScopes?: string | null
   isEnabled?: boolean
   status?: string
   lastTestedAt?: Date | string | null
@@ -479,6 +549,11 @@ export type MailConnectionUpdateInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -502,6 +577,11 @@ export type MailConnectionUncheckedUpdateInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -524,6 +604,11 @@ export type MailConnectionCreateManyInput = {
   tenantId?: string | null
   clientId?: string | null
   clientSecretEncrypted?: string | null
+  authType?: string
+  accessTokenEncrypted?: string | null
+  refreshTokenEncrypted?: string | null
+  tokenExpiresAt?: Date | string | null
+  oauthScopes?: string | null
   isEnabled?: boolean
   status?: string
   lastTestedAt?: Date | string | null
@@ -544,6 +629,11 @@ export type MailConnectionUpdateManyMutationInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -565,6 +655,11 @@ export type MailConnectionUncheckedUpdateManyInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -606,6 +701,11 @@ export type MailConnectionCountOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   clientSecretEncrypted?: Prisma.SortOrder
+  authType?: Prisma.SortOrder
+  accessTokenEncrypted?: Prisma.SortOrder
+  refreshTokenEncrypted?: Prisma.SortOrder
+  tokenExpiresAt?: Prisma.SortOrder
+  oauthScopes?: Prisma.SortOrder
   isEnabled?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastTestedAt?: Prisma.SortOrder
@@ -631,6 +731,11 @@ export type MailConnectionMaxOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   clientSecretEncrypted?: Prisma.SortOrder
+  authType?: Prisma.SortOrder
+  accessTokenEncrypted?: Prisma.SortOrder
+  refreshTokenEncrypted?: Prisma.SortOrder
+  tokenExpiresAt?: Prisma.SortOrder
+  oauthScopes?: Prisma.SortOrder
   isEnabled?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastTestedAt?: Prisma.SortOrder
@@ -652,6 +757,11 @@ export type MailConnectionMinOrderByAggregateInput = {
   tenantId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   clientSecretEncrypted?: Prisma.SortOrder
+  authType?: Prisma.SortOrder
+  accessTokenEncrypted?: Prisma.SortOrder
+  refreshTokenEncrypted?: Prisma.SortOrder
+  tokenExpiresAt?: Prisma.SortOrder
+  oauthScopes?: Prisma.SortOrder
   isEnabled?: Prisma.SortOrder
   status?: Prisma.SortOrder
   lastTestedAt?: Prisma.SortOrder
@@ -734,6 +844,11 @@ export type MailConnectionCreateWithoutCompanyInput = {
   tenantId?: string | null
   clientId?: string | null
   clientSecretEncrypted?: string | null
+  authType?: string
+  accessTokenEncrypted?: string | null
+  refreshTokenEncrypted?: string | null
+  tokenExpiresAt?: Date | string | null
+  oauthScopes?: string | null
   isEnabled?: boolean
   status?: string
   lastTestedAt?: Date | string | null
@@ -755,6 +870,11 @@ export type MailConnectionUncheckedCreateWithoutCompanyInput = {
   tenantId?: string | null
   clientId?: string | null
   clientSecretEncrypted?: string | null
+  authType?: string
+  accessTokenEncrypted?: string | null
+  refreshTokenEncrypted?: string | null
+  tokenExpiresAt?: Date | string | null
+  oauthScopes?: string | null
   isEnabled?: boolean
   status?: string
   lastTestedAt?: Date | string | null
@@ -806,6 +926,11 @@ export type MailConnectionScalarWhereInput = {
   tenantId?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   clientId?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   clientSecretEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  authType?: Prisma.StringFilter<"MailConnection"> | string
+  accessTokenEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  refreshTokenEncrypted?: Prisma.StringNullableFilter<"MailConnection"> | string | null
+  tokenExpiresAt?: Prisma.DateTimeNullableFilter<"MailConnection"> | Date | string | null
+  oauthScopes?: Prisma.StringNullableFilter<"MailConnection"> | string | null
   isEnabled?: Prisma.BoolFilter<"MailConnection"> | boolean
   status?: Prisma.StringFilter<"MailConnection"> | string
   lastTestedAt?: Prisma.DateTimeNullableFilter<"MailConnection"> | Date | string | null
@@ -826,6 +951,11 @@ export type MailConnectionCreateWithoutMailMessagesInput = {
   tenantId?: string | null
   clientId?: string | null
   clientSecretEncrypted?: string | null
+  authType?: string
+  accessTokenEncrypted?: string | null
+  refreshTokenEncrypted?: string | null
+  tokenExpiresAt?: Date | string | null
+  oauthScopes?: string | null
   isEnabled?: boolean
   status?: string
   lastTestedAt?: Date | string | null
@@ -848,6 +978,11 @@ export type MailConnectionUncheckedCreateWithoutMailMessagesInput = {
   tenantId?: string | null
   clientId?: string | null
   clientSecretEncrypted?: string | null
+  authType?: string
+  accessTokenEncrypted?: string | null
+  refreshTokenEncrypted?: string | null
+  tokenExpiresAt?: Date | string | null
+  oauthScopes?: string | null
   isEnabled?: boolean
   status?: string
   lastTestedAt?: Date | string | null
@@ -884,6 +1019,11 @@ export type MailConnectionUpdateWithoutMailMessagesInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -906,6 +1046,11 @@ export type MailConnectionUncheckedUpdateWithoutMailMessagesInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -926,6 +1071,11 @@ export type MailConnectionCreateManyCompanyInput = {
   tenantId?: string | null
   clientId?: string | null
   clientSecretEncrypted?: string | null
+  authType?: string
+  accessTokenEncrypted?: string | null
+  refreshTokenEncrypted?: string | null
+  tokenExpiresAt?: Date | string | null
+  oauthScopes?: string | null
   isEnabled?: boolean
   status?: string
   lastTestedAt?: Date | string | null
@@ -946,6 +1096,11 @@ export type MailConnectionUpdateWithoutCompanyInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -967,6 +1122,11 @@ export type MailConnectionUncheckedUpdateWithoutCompanyInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -988,6 +1148,11 @@ export type MailConnectionUncheckedUpdateManyWithoutCompanyInput = {
   tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clientSecretEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authType?: Prisma.StringFieldUpdateOperationsInput | string
+  accessTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenEncrypted?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  oauthScopes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.StringFieldUpdateOperationsInput | string
   lastTestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1040,6 +1205,11 @@ export type MailConnectionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   tenantId?: boolean
   clientId?: boolean
   clientSecretEncrypted?: boolean
+  authType?: boolean
+  accessTokenEncrypted?: boolean
+  refreshTokenEncrypted?: boolean
+  tokenExpiresAt?: boolean
+  oauthScopes?: boolean
   isEnabled?: boolean
   status?: boolean
   lastTestedAt?: boolean
@@ -1064,6 +1234,11 @@ export type MailConnectionSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   tenantId?: boolean
   clientId?: boolean
   clientSecretEncrypted?: boolean
+  authType?: boolean
+  accessTokenEncrypted?: boolean
+  refreshTokenEncrypted?: boolean
+  tokenExpiresAt?: boolean
+  oauthScopes?: boolean
   isEnabled?: boolean
   status?: boolean
   lastTestedAt?: boolean
@@ -1086,6 +1261,11 @@ export type MailConnectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   tenantId?: boolean
   clientId?: boolean
   clientSecretEncrypted?: boolean
+  authType?: boolean
+  accessTokenEncrypted?: boolean
+  refreshTokenEncrypted?: boolean
+  tokenExpiresAt?: boolean
+  oauthScopes?: boolean
   isEnabled?: boolean
   status?: boolean
   lastTestedAt?: boolean
@@ -1108,6 +1288,11 @@ export type MailConnectionSelectScalar = {
   tenantId?: boolean
   clientId?: boolean
   clientSecretEncrypted?: boolean
+  authType?: boolean
+  accessTokenEncrypted?: boolean
+  refreshTokenEncrypted?: boolean
+  tokenExpiresAt?: boolean
+  oauthScopes?: boolean
   isEnabled?: boolean
   status?: boolean
   lastTestedAt?: boolean
@@ -1117,7 +1302,7 @@ export type MailConnectionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type MailConnectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "provider" | "emailAddress" | "host" | "port" | "username" | "passwordEncrypted" | "tenantId" | "clientId" | "clientSecretEncrypted" | "isEnabled" | "status" | "lastTestedAt" | "lastSyncedAt" | "lastError" | "createdAt" | "updatedAt", ExtArgs["result"]["mailConnection"]>
+export type MailConnectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "provider" | "emailAddress" | "host" | "port" | "username" | "passwordEncrypted" | "tenantId" | "clientId" | "clientSecretEncrypted" | "authType" | "accessTokenEncrypted" | "refreshTokenEncrypted" | "tokenExpiresAt" | "oauthScopes" | "isEnabled" | "status" | "lastTestedAt" | "lastSyncedAt" | "lastError" | "createdAt" | "updatedAt", ExtArgs["result"]["mailConnection"]>
 export type MailConnectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   mailMessages?: boolean | Prisma.MailConnection$mailMessagesArgs<ExtArgs>
@@ -1148,6 +1333,11 @@ export type $MailConnectionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     tenantId: string | null
     clientId: string | null
     clientSecretEncrypted: string | null
+    authType: string
+    accessTokenEncrypted: string | null
+    refreshTokenEncrypted: string | null
+    tokenExpiresAt: Date | null
+    oauthScopes: string | null
     isEnabled: boolean
     status: string
     lastTestedAt: Date | null
@@ -1591,6 +1781,11 @@ export interface MailConnectionFieldRefs {
   readonly tenantId: Prisma.FieldRef<"MailConnection", 'String'>
   readonly clientId: Prisma.FieldRef<"MailConnection", 'String'>
   readonly clientSecretEncrypted: Prisma.FieldRef<"MailConnection", 'String'>
+  readonly authType: Prisma.FieldRef<"MailConnection", 'String'>
+  readonly accessTokenEncrypted: Prisma.FieldRef<"MailConnection", 'String'>
+  readonly refreshTokenEncrypted: Prisma.FieldRef<"MailConnection", 'String'>
+  readonly tokenExpiresAt: Prisma.FieldRef<"MailConnection", 'DateTime'>
+  readonly oauthScopes: Prisma.FieldRef<"MailConnection", 'String'>
   readonly isEnabled: Prisma.FieldRef<"MailConnection", 'Boolean'>
   readonly status: Prisma.FieldRef<"MailConnection", 'String'>
   readonly lastTestedAt: Prisma.FieldRef<"MailConnection", 'DateTime'>

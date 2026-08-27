@@ -43,6 +43,10 @@ export type MailMessageMinAggregateOutputType = {
   receptionId: number | null
   externalId: string | null
   internetMessageId: string | null
+  outlookFolderId: string | null
+  outlookFolderName: string | null
+  isRead: boolean | null
+  readAt: Date | null
   subject: string | null
   senderEmail: string | null
   senderName: string | null
@@ -66,6 +70,10 @@ export type MailMessageMaxAggregateOutputType = {
   receptionId: number | null
   externalId: string | null
   internetMessageId: string | null
+  outlookFolderId: string | null
+  outlookFolderName: string | null
+  isRead: boolean | null
+  readAt: Date | null
   subject: string | null
   senderEmail: string | null
   senderName: string | null
@@ -89,6 +97,10 @@ export type MailMessageCountAggregateOutputType = {
   receptionId: number
   externalId: number
   internetMessageId: number
+  outlookFolderId: number
+  outlookFolderName: number
+  isRead: number
+  readAt: number
   subject: number
   senderEmail: number
   senderName: number
@@ -125,6 +137,10 @@ export type MailMessageMinAggregateInputType = {
   receptionId?: true
   externalId?: true
   internetMessageId?: true
+  outlookFolderId?: true
+  outlookFolderName?: true
+  isRead?: true
+  readAt?: true
   subject?: true
   senderEmail?: true
   senderName?: true
@@ -148,6 +164,10 @@ export type MailMessageMaxAggregateInputType = {
   receptionId?: true
   externalId?: true
   internetMessageId?: true
+  outlookFolderId?: true
+  outlookFolderName?: true
+  isRead?: true
+  readAt?: true
   subject?: true
   senderEmail?: true
   senderName?: true
@@ -171,6 +191,10 @@ export type MailMessageCountAggregateInputType = {
   receptionId?: true
   externalId?: true
   internetMessageId?: true
+  outlookFolderId?: true
+  outlookFolderName?: true
+  isRead?: true
+  readAt?: true
   subject?: true
   senderEmail?: true
   senderName?: true
@@ -282,6 +306,10 @@ export type MailMessageGroupByOutputType = {
   receptionId: number | null
   externalId: string
   internetMessageId: string | null
+  outlookFolderId: string | null
+  outlookFolderName: string | null
+  isRead: boolean
+  readAt: Date | null
   subject: string
   senderEmail: string
   senderName: string | null
@@ -329,6 +357,10 @@ export type MailMessageWhereInput = {
   receptionId?: Prisma.IntNullableFilter<"MailMessage"> | number | null
   externalId?: Prisma.StringFilter<"MailMessage"> | string
   internetMessageId?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  outlookFolderId?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  outlookFolderName?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  isRead?: Prisma.BoolFilter<"MailMessage"> | boolean
+  readAt?: Prisma.DateTimeNullableFilter<"MailMessage"> | Date | string | null
   subject?: Prisma.StringFilter<"MailMessage"> | string
   senderEmail?: Prisma.StringFilter<"MailMessage"> | string
   senderName?: Prisma.StringNullableFilter<"MailMessage"> | string | null
@@ -358,6 +390,10 @@ export type MailMessageOrderByWithRelationInput = {
   receptionId?: Prisma.SortOrderInput | Prisma.SortOrder
   externalId?: Prisma.SortOrder
   internetMessageId?: Prisma.SortOrderInput | Prisma.SortOrder
+  outlookFolderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  outlookFolderName?: Prisma.SortOrderInput | Prisma.SortOrder
+  isRead?: Prisma.SortOrder
+  readAt?: Prisma.SortOrderInput | Prisma.SortOrder
   subject?: Prisma.SortOrder
   senderEmail?: Prisma.SortOrder
   senderName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -391,6 +427,10 @@ export type MailMessageWhereUniqueInput = Prisma.AtLeast<{
   receptionId?: Prisma.IntNullableFilter<"MailMessage"> | number | null
   externalId?: Prisma.StringFilter<"MailMessage"> | string
   internetMessageId?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  outlookFolderId?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  outlookFolderName?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  isRead?: Prisma.BoolFilter<"MailMessage"> | boolean
+  readAt?: Prisma.DateTimeNullableFilter<"MailMessage"> | Date | string | null
   subject?: Prisma.StringFilter<"MailMessage"> | string
   senderEmail?: Prisma.StringFilter<"MailMessage"> | string
   senderName?: Prisma.StringNullableFilter<"MailMessage"> | string | null
@@ -420,6 +460,10 @@ export type MailMessageOrderByWithAggregationInput = {
   receptionId?: Prisma.SortOrderInput | Prisma.SortOrder
   externalId?: Prisma.SortOrder
   internetMessageId?: Prisma.SortOrderInput | Prisma.SortOrder
+  outlookFolderId?: Prisma.SortOrderInput | Prisma.SortOrder
+  outlookFolderName?: Prisma.SortOrderInput | Prisma.SortOrder
+  isRead?: Prisma.SortOrder
+  readAt?: Prisma.SortOrderInput | Prisma.SortOrder
   subject?: Prisma.SortOrder
   senderEmail?: Prisma.SortOrder
   senderName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -452,6 +496,10 @@ export type MailMessageScalarWhereWithAggregatesInput = {
   receptionId?: Prisma.IntNullableWithAggregatesFilter<"MailMessage"> | number | null
   externalId?: Prisma.StringWithAggregatesFilter<"MailMessage"> | string
   internetMessageId?: Prisma.StringNullableWithAggregatesFilter<"MailMessage"> | string | null
+  outlookFolderId?: Prisma.StringNullableWithAggregatesFilter<"MailMessage"> | string | null
+  outlookFolderName?: Prisma.StringNullableWithAggregatesFilter<"MailMessage"> | string | null
+  isRead?: Prisma.BoolWithAggregatesFilter<"MailMessage"> | boolean
+  readAt?: Prisma.DateTimeNullableWithAggregatesFilter<"MailMessage"> | Date | string | null
   subject?: Prisma.StringWithAggregatesFilter<"MailMessage"> | string
   senderEmail?: Prisma.StringWithAggregatesFilter<"MailMessage"> | string
   senderName?: Prisma.StringNullableWithAggregatesFilter<"MailMessage"> | string | null
@@ -473,6 +521,10 @@ export type MailMessageCreateInput = {
   id?: string
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -501,6 +553,10 @@ export type MailMessageUncheckedCreateInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -523,6 +579,10 @@ export type MailMessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -551,6 +611,10 @@ export type MailMessageUncheckedUpdateInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -576,6 +640,10 @@ export type MailMessageCreateManyInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -597,6 +665,10 @@ export type MailMessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -620,6 +692,10 @@ export type MailMessageUncheckedUpdateManyInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -659,6 +735,10 @@ export type MailMessageCountOrderByAggregateInput = {
   receptionId?: Prisma.SortOrder
   externalId?: Prisma.SortOrder
   internetMessageId?: Prisma.SortOrder
+  outlookFolderId?: Prisma.SortOrder
+  outlookFolderName?: Prisma.SortOrder
+  isRead?: Prisma.SortOrder
+  readAt?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   senderEmail?: Prisma.SortOrder
   senderName?: Prisma.SortOrder
@@ -688,6 +768,10 @@ export type MailMessageMaxOrderByAggregateInput = {
   receptionId?: Prisma.SortOrder
   externalId?: Prisma.SortOrder
   internetMessageId?: Prisma.SortOrder
+  outlookFolderId?: Prisma.SortOrder
+  outlookFolderName?: Prisma.SortOrder
+  isRead?: Prisma.SortOrder
+  readAt?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   senderEmail?: Prisma.SortOrder
   senderName?: Prisma.SortOrder
@@ -711,6 +795,10 @@ export type MailMessageMinOrderByAggregateInput = {
   receptionId?: Prisma.SortOrder
   externalId?: Prisma.SortOrder
   internetMessageId?: Prisma.SortOrder
+  outlookFolderId?: Prisma.SortOrder
+  outlookFolderName?: Prisma.SortOrder
+  isRead?: Prisma.SortOrder
+  readAt?: Prisma.SortOrder
   subject?: Prisma.SortOrder
   senderEmail?: Prisma.SortOrder
   senderName?: Prisma.SortOrder
@@ -931,6 +1019,10 @@ export type MailMessageCreateWithoutCompanyInput = {
   id?: string
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -957,6 +1049,10 @@ export type MailMessageUncheckedCreateWithoutCompanyInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1011,6 +1107,10 @@ export type MailMessageScalarWhereInput = {
   receptionId?: Prisma.IntNullableFilter<"MailMessage"> | number | null
   externalId?: Prisma.StringFilter<"MailMessage"> | string
   internetMessageId?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  outlookFolderId?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  outlookFolderName?: Prisma.StringNullableFilter<"MailMessage"> | string | null
+  isRead?: Prisma.BoolFilter<"MailMessage"> | boolean
+  readAt?: Prisma.DateTimeNullableFilter<"MailMessage"> | Date | string | null
   subject?: Prisma.StringFilter<"MailMessage"> | string
   senderEmail?: Prisma.StringFilter<"MailMessage"> | string
   senderName?: Prisma.StringNullableFilter<"MailMessage"> | string | null
@@ -1032,6 +1132,10 @@ export type MailMessageCreateWithoutMembershipInput = {
   id?: string
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1059,6 +1163,10 @@ export type MailMessageUncheckedCreateWithoutMembershipInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1106,6 +1214,10 @@ export type MailMessageCreateWithoutReceptionInput = {
   id?: string
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1132,6 +1244,10 @@ export type MailMessageUncheckedCreateWithoutReceptionInput = {
   connectionId?: string | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1180,6 +1296,10 @@ export type MailMessageCreateWithoutAttachmentsInput = {
   id?: string
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1207,6 +1327,10 @@ export type MailMessageUncheckedCreateWithoutAttachmentsInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1244,6 +1368,10 @@ export type MailMessageUpdateWithoutAttachmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1271,6 +1399,10 @@ export type MailMessageUncheckedUpdateWithoutAttachmentsInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1292,6 +1424,10 @@ export type MailMessageCreateWithoutConnectionInput = {
   id?: string
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1318,6 +1454,10 @@ export type MailMessageUncheckedCreateWithoutConnectionInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1368,6 +1508,10 @@ export type MailMessageCreateManyCompanyInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1389,6 +1533,10 @@ export type MailMessageUpdateWithoutCompanyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1415,6 +1563,10 @@ export type MailMessageUncheckedUpdateWithoutCompanyInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1439,6 +1591,10 @@ export type MailMessageUncheckedUpdateManyWithoutCompanyInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1463,6 +1619,10 @@ export type MailMessageCreateManyMembershipInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1483,6 +1643,10 @@ export type MailMessageUpdateWithoutMembershipInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1510,6 +1674,10 @@ export type MailMessageUncheckedUpdateWithoutMembershipInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1534,6 +1702,10 @@ export type MailMessageUncheckedUpdateManyWithoutMembershipInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1556,6 +1728,10 @@ export type MailMessageCreateManyReceptionInput = {
   connectionId?: string | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1577,6 +1753,10 @@ export type MailMessageUpdateWithoutReceptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1603,6 +1783,10 @@ export type MailMessageUncheckedUpdateWithoutReceptionInput = {
   connectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1627,6 +1811,10 @@ export type MailMessageUncheckedUpdateManyWithoutReceptionInput = {
   connectionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1650,6 +1838,10 @@ export type MailMessageCreateManyConnectionInput = {
   receptionId?: number | null
   externalId: string
   internetMessageId?: string | null
+  outlookFolderId?: string | null
+  outlookFolderName?: string | null
+  isRead?: boolean
+  readAt?: Date | string | null
   subject: string
   senderEmail: string
   senderName?: string | null
@@ -1671,6 +1863,10 @@ export type MailMessageUpdateWithoutConnectionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1697,6 +1893,10 @@ export type MailMessageUncheckedUpdateWithoutConnectionInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1721,6 +1921,10 @@ export type MailMessageUncheckedUpdateManyWithoutConnectionInput = {
   receptionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   externalId?: Prisma.StringFieldUpdateOperationsInput | string
   internetMessageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  outlookFolderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isRead?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  readAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subject?: Prisma.StringFieldUpdateOperationsInput | string
   senderEmail?: Prisma.StringFieldUpdateOperationsInput | string
   senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1776,6 +1980,10 @@ export type MailMessageSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   receptionId?: boolean
   externalId?: boolean
   internetMessageId?: boolean
+  outlookFolderId?: boolean
+  outlookFolderName?: boolean
+  isRead?: boolean
+  readAt?: boolean
   subject?: boolean
   senderEmail?: boolean
   senderName?: boolean
@@ -1806,6 +2014,10 @@ export type MailMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   receptionId?: boolean
   externalId?: boolean
   internetMessageId?: boolean
+  outlookFolderId?: boolean
+  outlookFolderName?: boolean
+  isRead?: boolean
+  readAt?: boolean
   subject?: boolean
   senderEmail?: boolean
   senderName?: boolean
@@ -1834,6 +2046,10 @@ export type MailMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   receptionId?: boolean
   externalId?: boolean
   internetMessageId?: boolean
+  outlookFolderId?: boolean
+  outlookFolderName?: boolean
+  isRead?: boolean
+  readAt?: boolean
   subject?: boolean
   senderEmail?: boolean
   senderName?: boolean
@@ -1862,6 +2078,10 @@ export type MailMessageSelectScalar = {
   receptionId?: boolean
   externalId?: boolean
   internetMessageId?: boolean
+  outlookFolderId?: boolean
+  outlookFolderName?: boolean
+  isRead?: boolean
+  readAt?: boolean
   subject?: boolean
   senderEmail?: boolean
   senderName?: boolean
@@ -1879,7 +2099,7 @@ export type MailMessageSelectScalar = {
   membershipId?: boolean
 }
 
-export type MailMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "connectionId" | "receptionId" | "externalId" | "internetMessageId" | "subject" | "senderEmail" | "senderName" | "receivedAt" | "bodyText" | "bodyHtml" | "status" | "classification" | "confidence" | "extractedData" | "processingError" | "processedAt" | "createdAt" | "updatedAt" | "membershipId", ExtArgs["result"]["mailMessage"]>
+export type MailMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "connectionId" | "receptionId" | "externalId" | "internetMessageId" | "outlookFolderId" | "outlookFolderName" | "isRead" | "readAt" | "subject" | "senderEmail" | "senderName" | "receivedAt" | "bodyText" | "bodyHtml" | "status" | "classification" | "confidence" | "extractedData" | "processingError" | "processedAt" | "createdAt" | "updatedAt" | "membershipId", ExtArgs["result"]["mailMessage"]>
 export type MailMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   connection?: boolean | Prisma.MailMessage$connectionArgs<ExtArgs>
@@ -1917,6 +2137,10 @@ export type $MailMessagePayload<ExtArgs extends runtime.Types.Extensions.Interna
     receptionId: number | null
     externalId: string
     internetMessageId: string | null
+    outlookFolderId: string | null
+    outlookFolderName: string | null
+    isRead: boolean
+    readAt: Date | null
     subject: string
     senderEmail: string
     senderName: string | null
@@ -2366,6 +2590,10 @@ export interface MailMessageFieldRefs {
   readonly receptionId: Prisma.FieldRef<"MailMessage", 'Int'>
   readonly externalId: Prisma.FieldRef<"MailMessage", 'String'>
   readonly internetMessageId: Prisma.FieldRef<"MailMessage", 'String'>
+  readonly outlookFolderId: Prisma.FieldRef<"MailMessage", 'String'>
+  readonly outlookFolderName: Prisma.FieldRef<"MailMessage", 'String'>
+  readonly isRead: Prisma.FieldRef<"MailMessage", 'Boolean'>
+  readonly readAt: Prisma.FieldRef<"MailMessage", 'DateTime'>
   readonly subject: Prisma.FieldRef<"MailMessage", 'String'>
   readonly senderEmail: Prisma.FieldRef<"MailMessage", 'String'>
   readonly senderName: Prisma.FieldRef<"MailMessage", 'String'>

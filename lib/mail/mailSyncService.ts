@@ -1,4 +1,4 @@
-﻿import { decryptMailSecret } from "./crypto";
+import { decryptMailSecret } from "./crypto";
 import {
   listMicrosoftGraphFileAttachments,
   listMicrosoftGraphMessages,
@@ -173,6 +173,15 @@ export async function synchronizeMicrosoftMailbox({
             externalId: graphMessage.id,
             internetMessageId:
               graphMessage.internetMessageId ?? null,
+            outlookFolderId:
+              graphMessage.parentFolderId ?? null,
+            outlookFolderName: "Boîte de réception",
+            isRead:
+              graphMessage.isRead === true,
+            readAt:
+              graphMessage.isRead === true
+                ? new Date()
+                : null,
             subject:
               graphMessage.subject?.trim() ||
               "Arrivage sans objet",
@@ -197,6 +206,31 @@ export async function synchronizeMicrosoftMailbox({
         }));
 
       if (existing) {
+        const outlookIsRead = graphMessage.isRead === true;
+
+        const becameRead =
+          !existing.isRead &&
+          outlookIsRead;
+
+        await prisma.mailMessage.update({
+          where: {
+            id: existing.id,
+          },
+          data: {
+            internetMessageId:
+              graphMessage.internetMessageId ??
+              existing.internetMessageId,
+            outlookFolderId:
+              graphMessage.parentFolderId ?? null,
+            outlookFolderName: "Boîte de réception",
+            isRead: outlookIsRead,
+            readAt:
+              becameRead && !existing.readAt
+                ? new Date()
+                : existing.readAt,
+          },
+        });
+
         duplicates += 1;
       } else {
         imported += 1;
