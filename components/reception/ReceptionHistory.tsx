@@ -121,9 +121,18 @@ function formatDuration(
     return "—";
   }
 
+  const totalSeconds =
+    Math.floor(
+      milliseconds / 1000,
+    );
+
+  if (totalSeconds < 60) {
+    return `${Math.max(totalSeconds, 0)} s`;
+  }
+
   const totalMinutes =
     Math.floor(
-      milliseconds / 60000,
+      totalSeconds / 60,
     );
 
   const hours =
@@ -135,9 +144,7 @@ function formatDuration(
     totalMinutes % 60;
 
   if (hours <= 0) {
-    return totalMinutes <= 0
-      ? "< 1 min"
-      : `${minutes} min`;
+    return `${totalMinutes} min`;
   }
 
   return `${hours} h ${String(
@@ -145,6 +152,51 @@ function formatDuration(
   ).padStart(2, "0")} min`;
 }
 
+function getScheduleDelta(
+  scheduledAt?: string | null,
+  arrivedAt?: string | null,
+) {
+  if (!scheduledAt || !arrivedAt) {
+    return null;
+  }
+
+  const scheduled = new Date(scheduledAt);
+  const arrived = new Date(arrivedAt);
+
+  if (
+    Number.isNaN(scheduled.getTime()) ||
+    Number.isNaN(arrived.getTime())
+  ) {
+    return null;
+  }
+
+  const deltaMinutes = Math.round(
+    (arrived.getTime() - scheduled.getTime()) /
+      60000,
+  );
+
+  if (deltaMinutes === 0) {
+    return {
+      label: "À l'heure",
+      detail: "0 min",
+      tone: "ontime",
+    };
+  }
+
+  if (deltaMinutes > 0) {
+    return {
+      label: "En retard",
+      detail: `+${deltaMinutes} min`,
+      tone: "late",
+    };
+  }
+
+  return {
+    label: "En avance",
+    detail: `${deltaMinutes} min`,
+    tone: "early",
+  };
+}
 function getEventLabel(type: string) {
   switch (type) {
     case "ARRIVED_AT_DOCK":
@@ -593,6 +645,108 @@ export default function ReceptionHistory() {
                         </div>
 
                       </div>
+
+                      {(() => {
+                        const scheduleDelta =
+                          getScheduleDelta(
+                            reception.scheduledAt,
+                            reception.arrivedAt,
+                          );
+
+                        return (
+                          <div className="mt-5">
+                            <p className="text-xs font-black uppercase tracking-[0.15em] text-[#00e5ff]">
+                              Performance opérationnelle
+                            </p>
+
+                            <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
+
+                              <div className="rounded-xl border border-[#008cff]/20 bg-[#061426]/70 p-3">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-slate-600">
+                                  Ponctualité
+                                </p>
+
+                                {!scheduleDelta ? (
+                                  <p className="mt-1 font-black text-slate-500">
+                                    —
+                                  </p>
+                                ) : (
+                                  <>
+                                    <p
+                                      className={`mt-1 font-black ${
+                                        scheduleDelta.tone === "late"
+                                          ? "text-rose-300"
+                                          : scheduleDelta.tone === "early"
+                                            ? "text-[#7df9ff]"
+                                            : "text-emerald-300"
+                                      }`}
+                                    >
+                                      {scheduleDelta.label}
+                                    </p>
+
+                                    <p className="mt-1 text-xs font-bold text-slate-400">
+                                      {scheduleDelta.detail}
+                                    </p>
+                                  </>
+                                )}
+                              </div>
+
+                              <div className="rounded-xl border border-[#008cff]/20 bg-[#061426]/70 p-3">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-slate-600">
+                                  Attente avant déchargement
+                                </p>
+
+                                <p className="mt-1 font-black text-white">
+                                  {formatDuration(
+                                    reception.arrivedAt,
+                                    reception.unloadingStartedAt,
+                                  )}
+                                </p>
+                              </div>
+
+                              <div className="rounded-xl border border-[#008cff]/20 bg-[#061426]/70 p-3">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-slate-600">
+                                  Déchargement
+                                </p>
+
+                                <p className="mt-1 font-black text-white">
+                                  {formatDuration(
+                                    reception.unloadingStartedAt,
+                                    reception.inspectionStartedAt,
+                                  )}
+                                </p>
+                              </div>
+
+                              <div className="rounded-xl border border-[#008cff]/20 bg-[#061426]/70 p-3">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-slate-600">
+                                  Contrôle qualité
+                                </p>
+
+                                <p className="mt-1 font-black text-white">
+                                  {formatDuration(
+                                    reception.inspectionStartedAt,
+                                    reception.completedAt,
+                                  )}
+                                </p>
+                              </div>
+
+                              <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.06] p-3">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-slate-600">
+                                  Durée totale
+                                </p>
+
+                                <p className="mt-1 font-black text-emerald-300">
+                                  {formatDuration(
+                                    reception.arrivedAt,
+                                    reception.completedAt,
+                                  )}
+                                </p>
+                              </div>
+
+                            </div>
+                          </div>
+                        );
+                      })()}
 
                       {reception.receptionEvents.length > 0 && (
                         <div className="mt-5">
