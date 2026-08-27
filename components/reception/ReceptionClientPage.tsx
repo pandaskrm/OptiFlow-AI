@@ -8,9 +8,11 @@ import ReceptionStats from "./ReceptionStats";
 import ReceptionTable from "./ReceptionTable";
 import ReceptionDemoTable from "./ReceptionDemoTable";
 import DockPlanning from "./DockPlanning";
+import ReceptionHistory from "./ReceptionHistory";
 
 export default function ReceptionClientPage() {
   const [refreshKey, setRefreshKey] = useState(0);
+  const [activeView, setActiveView] = useState<"operations" | "history">("operations");
   const simulation = useSimulationV2();
 
   useEffect(() => {
@@ -116,7 +118,35 @@ export default function ReceptionClientPage() {
         </div>
       </section>
 
-      <ReceptionStats refreshKey={refreshKey} />
+      <div className="grid grid-cols-2 gap-2 rounded-2xl border border-[#008cff]/30 bg-[#020617]/70 p-1.5 sm:max-w-md">
+        <button
+          type="button"
+          onClick={() => setActiveView("operations")}
+          className={`min-h-11 rounded-xl px-4 text-sm font-black transition ${
+            activeView === "operations"
+              ? "border border-[#00e5ff]/50 bg-[#008cff]/20 text-[#7df9ff] shadow-[0_0_14px_rgba(0,229,255,0.10)]"
+              : "text-slate-500 hover:text-slate-300"
+          }`}
+        >
+          Opérations
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveView("history")}
+          className={`min-h-11 rounded-xl px-4 text-sm font-black transition ${
+            activeView === "history"
+              ? "border border-[#00e5ff]/50 bg-[#008cff]/20 text-[#7df9ff] shadow-[0_0_14px_rgba(0,229,255,0.10)]"
+              : "text-slate-500 hover:text-slate-300"
+          }`}
+        >
+          Historique
+        </button>
+      </div>
+
+      {activeView === "operations" ? (
+        <>
+          <ReceptionStats refreshKey={refreshKey} />
 
       {!simulation.running && (
         <ReceptionForm onSaved={refresh} />
@@ -124,13 +154,17 @@ export default function ReceptionClientPage() {
 
       <DockPlanning refreshKey={refreshKey} />
 
-      {simulation.running ? (
-        <ReceptionDemoTable />
+          {simulation.running ? (
+            <ReceptionDemoTable />
+          ) : (
+            <ReceptionTable
+              refreshKey={refreshKey}
+              onDeleted={refresh}
+            />
+          )}
+        </>
       ) : (
-        <ReceptionTable
-          refreshKey={refreshKey}
-          onDeleted={refresh}
-        />
+        <ReceptionHistory />
       )}
     </div>
   );
