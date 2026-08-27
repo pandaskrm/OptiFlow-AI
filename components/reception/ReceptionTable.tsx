@@ -10,7 +10,28 @@ import {
   STATUS_ORDER,
 } from "../../constants/receptionStatus";
 import { Reception } from "../../types/reception";
-import ReceptionTimeline from "../timeline/ReceptionTimeline";
+
+import ReceptionDeliveryNoteModal from "./ReceptionDeliveryNoteModal";
+
+type ReceptionDocument = {
+  id: string;
+  type: string;
+  name: string;
+  contentType: string;
+  size: number;
+  capturedAt: string;
+  createdAt: string;
+};
+
+function canDeleteCompletedReception(
+  role?: string | null,
+) {
+  return (
+    role === "OWNER" ||
+    role === "ADMIN" ||
+    role === "LOGISTICS_MANAGER"
+  );
+}
 
 type ReceptionTableProps = {
   refreshKey: number;
@@ -161,23 +182,74 @@ export default function ReceptionTable({
   const [loadingId, setLoadingId] =
     useState<number | null>(null);
 
-  const [openedId, setOpenedId] =
+  const [currentRole, setCurrentRole] =
+    useState<string | null>(null);
+
+  const [documentsByReception, setDocumentsByReception] =
+    useState<Record<number, ReceptionDocument[]>>({});
+
+  const [documentsLoadingId, setDocumentsLoadingId] =
     useState<number | null>(null);
+
+  const [uploadingDocumentId, setUploadingDocumentId] =
+    useState<number | null>(null);
+
+  const [pendingDockReception, setPendingDockReception] =
+    useState<Reception | null>(null);
 
   useEffect(() => {
     void refresh();
   }, [refreshKey, refresh]);
 
-  async function handleNextStatus(item: Reception) {
-    const nextStatus = getNextStatus(item.status);
+  useEffect(() => {
+    let cancelled = false;
 
-    if (nextStatus === item.status) {
-      return;
+    async function loadCurrentRole() {
+      try {
+        const response = await fetch("/api/auth/session", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          return;
+        }
+
+        const data = (await response.json()) as {
+          role?: string;
+        };
+
+        if (!cancelled) {
+          setCurrentRole(data.role ?? null);
+        }
+      } catch {
+        // La sécurité réelle reste assurée côté API DELETE.
+      }
     }
 
-    try {
-      setLoadingId(item.id);
+    void loadCurrentRole();
 
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    receptions.forEach((reception) => {
+      if (
+        documentsByReception[reception.id] === undefined
+      ) {
+        void loadDocuments(reception.id);
+      }
+    });
+  }, [receptions]);
+
+  async function updateReceptionStatus(
+    item: Reception,
+    nextStatus: string,
+  ) {
+    setLoadingId(item.id);
+
+    try {
       const response = await fetch(
         `/api/receptions/${item.id}`,
         {
@@ -192,22 +264,146 @@ export default function ReceptionTable({
       );
 
       if (!response.ok) {
+        const payload = await response
+          .json()
+          .catch(() => null);
+
         throw new Error(
-          "Impossible de mettre à jour la réception.",
+          payload?.error ||
+            "Impossible de mettre à jour la réception.",
         );
       }
 
       await refresh();
       onDeleted();
+    } finally {
+      setLoadingId(null);
+    }
+  }
+
+  async function loadDocuments(receptionId: number) {
+    try {
+      setDocumentsLoadingId(receptionId);
+
+      const response = await fetch(
+        `/api/receptions/${receptionId}/documents`,
+        {
+          cache: "no-store",
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Impossible de charger le bon de livraison.",
+        );
+      }
+
+      const data = await response.json();
+
+      setDocumentsByReception((current) => ({
+        ...current,
+        [receptionId]: Array.isArray(data.documents)
+          ? data.documents
+          : [],
+      }));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setDocumentsLoadingId(null);
+    }
+  }
+
+  async function uploadDocument(
+    receptionId: number,
+    file: File,
+  ) {
+    try {
+      setUploadingDocumentId(receptionId);
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch(
+        `/api/receptions/${receptionId}/documents`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+            "Impossible d'enregistrer le bon de livraison.",
+        );
+      }
+
+      await loadDocuments(receptionId);
+    } catch (error) {
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Impossible d'enregistrer le bon de livraison.",
+      );
+    } finally {
+      setUploadingDocumentId(null);
+    }
+  }
+
+  function formatDocumentDate(value: string) {
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+      return "";
+    }
+
+    return new Intl.DateTimeFormat("fr-FR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+  }
+  async function handleNextStatus(item: Reception) {
+    const nextStatus = getNextStatus(item.status);
+
+    if (nextStatus === item.status) {
+      return;
+    }
+
+    if (nextStatus === RECEPTION_STATUS.AT_DOCK) {
+      setPendingDockReception(item);
+      return;
+    }
+
+    try {
+      await updateReceptionStatus(
+        item,
+        nextStatus,
+      );
     } catch (error) {
       alert(
         error instanceof Error
           ? error.message
           : "Une erreur est survenue.",
       );
-    } finally {
-      setLoadingId(null);
     }
+  }
+
+  async function confirmDockArrival() {
+    if (!pendingDockReception) {
+      return;
+    }
+
+    await updateReceptionStatus(
+      pendingDockReception,
+      RECEPTION_STATUS.AT_DOCK,
+    );
+
+    setPendingDockReception(null);
   }
 
   async function deleteReception(id: number) {
@@ -250,6 +446,18 @@ export default function ReceptionTable({
 
   return (
     <section className="organia-electric-panel organia-electric-panel-v2 overflow-hidden rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] shadow-[0_0_22px_rgba(0,140,255,0.15)]">
+      {pendingDockReception && (
+        <ReceptionDeliveryNoteModal
+          receptionId={pendingDockReception.id}
+          receptionNumber={pendingDockReception.number}
+          supplier={pendingDockReception.supplier}
+          onCompleted={confirmDockArrival}
+          onCancel={() =>
+            setPendingDockReception(null)
+          }
+        />
+      )}
+
       <header className="border-b border-[#008cff]/25 p-4 sm:p-6">
         <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#00e5ff] drop-shadow-[0_0_7px_rgba(0,229,255,0.45)]">
           Réceptions
@@ -297,10 +505,6 @@ export default function ReceptionTable({
 
               const isLoading =
                 loadingId === item.id;
-
-              const isOpened =
-                openedId === item.id;
-
               const scheduledAt = formatScheduledAt(
                 item.scheduledAt,
               );
@@ -410,19 +614,69 @@ export default function ReceptionTable({
                     </div>
 
                     <div className="mt-4 grid grid-cols-2 gap-2">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setOpenedId(
-                            isOpened ? null : item.id,
-                          )
-                        }
-                        className="min-h-12 rounded-xl border border-[#008cff]/40 bg-[#071426] px-3 py-3 text-sm font-bold text-white transition active:scale-[0.98]"
-                      >
-                        {isOpened
-                          ? "Masquer le détail"
-                          : "Voir le détail"}
-                      </button>
+                      <div className="min-h-12">
+  {(() => {
+    const documents =
+      documentsByReception[item.id] ?? [];
+
+    const document = documents[0];
+
+    if (documentsLoadingId === item.id) {
+      return (
+        <div className="flex min-h-12 items-center justify-center rounded-xl border border-[#008cff]/30 bg-[#071426] px-3 text-sm text-slate-500">
+          Chargement du BL...
+        </div>
+      );
+    }
+
+    if (document) {
+      return (
+        <a
+          href={`/api/receptions/${item.id}/documents/${document.id}`}
+          target="_blank"
+          rel="noreferrer"
+          className="flex min-h-12 items-center justify-center gap-2 rounded-xl border border-emerald-500/35 bg-emerald-500/10 px-3 py-3 text-center text-sm font-bold text-emerald-300 transition active:scale-[0.98]"
+        >
+          <span>📄</span>
+          <span>Voir le BL</span>
+        </a>
+      );
+    }
+
+    return (
+      <label className="flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#008cff]/40 bg-[#071426] px-3 py-3 text-center text-sm font-bold text-[#7df9ff] transition active:scale-[0.98]">
+        <span>📷</span>
+
+        <span>
+          {uploadingDocumentId === item.id
+            ? "Enregistrement..."
+            : "Ajouter un BL"}
+        </span>
+
+        <input
+          type="file"
+          accept="image/*"
+          capture="environment"
+          className="hidden"
+          disabled={uploadingDocumentId === item.id}
+          onChange={(event) => {
+            const file =
+              event.target.files?.[0];
+
+            if (file) {
+              void uploadDocument(
+                item.id,
+                file,
+              );
+            }
+
+            event.target.value = "";
+          }}
+        />
+      </label>
+    );
+  })()}
+</div>
 
                       <button
                         type="button"
@@ -445,20 +699,23 @@ export default function ReceptionTable({
                       onClick={() =>
                         void deleteReception(item.id)
                       }
-                      disabled={isLoading}
+                      disabled={
+                        isLoading ||
+                        (isCompleted &&
+                          !canDeleteCompletedReception(
+                            currentRole,
+                          ))
+                      }
                       className="mt-2 min-h-11 w-full rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm font-bold text-red-300 transition active:scale-[0.98] disabled:opacity-40"
                     >
-                      Supprimer la réception
+                      {isCompleted &&
+                      !canDeleteCompletedReception(
+                        currentRole,
+                      )
+                        ? "Réception verrouillée"
+                        : "Supprimer la réception"}
                     </button>
                   </div>
-
-                  {isOpened && (
-                    <div className="border-t border-[#008cff]/20 bg-slate-950 p-4">
-                      <ReceptionTimeline
-                        reception={item}
-                      />
-                    </div>
-                  )}
                 </article>
               );
             })}
@@ -478,7 +735,7 @@ export default function ReceptionTable({
                     "Palettes",
                     "Statut",
                     "Progression",
-                    "Timeline",
+                    "Bon de livraison",
                     "Action",
                     "Supprimer",
                   ].map((heading) => (
@@ -503,10 +760,6 @@ export default function ReceptionTable({
 
                   const isLoading =
                     loadingId === item.id;
-
-                  const isOpened =
-                    openedId === item.id;
-
                   const scheduledAt =
                     formatScheduledAt(
                       item.scheduledAt,
@@ -587,22 +840,68 @@ export default function ReceptionTable({
                         </td>
 
                         <td className="p-4 text-center">
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setOpenedId(
-                                isOpened
-                                  ? null
-                                  : item.id,
-                              )
-                            }
-                            className="rounded-lg border border-[#00e5ff]/45 bg-[#006bff]/30 px-3 py-2 text-sm font-bold text-[#7df9ff] transition hover:bg-[#008cff]/45 hover:shadow-[0_0_16px_rgba(0,229,255,0.25)]"
-                          >
-                            {isOpened
-                              ? "Masquer"
-                              : "Voir"}
-                          </button>
-                        </td>
+  {(() => {
+    const documents =
+      documentsByReception[item.id] ?? [];
+
+    const document = documents[0];
+
+    if (documentsLoadingId === item.id) {
+      return (
+        <span className="text-xs text-slate-500">
+          Chargement...
+        </span>
+      );
+    }
+
+    if (document) {
+      return (
+        <div className="flex flex-col items-center gap-2">
+          <a
+            href={`/api/receptions/${item.id}/documents/${document.id}`}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-lg border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-sm font-bold text-emerald-300 transition hover:bg-emerald-500/20"
+          >
+            📄 Voir le BL
+          </a>
+
+          <span className="text-[10px] text-slate-500">
+            {formatDocumentDate(
+              document.capturedAt,
+            )}
+          </span>
+        </div>
+      );
+    }
+
+    return (
+      <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-[#00e5ff]/45 bg-[#006bff]/20 px-3 py-2 text-sm font-bold text-[#7df9ff] transition hover:bg-[#008cff]/30">
+        📷 Ajouter BL
+
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          disabled={uploadingDocumentId === item.id}
+          onChange={(event) => {
+            const file =
+              event.target.files?.[0];
+
+            if (file) {
+              void uploadDocument(
+                item.id,
+                file,
+              );
+            }
+
+            event.target.value = "";
+          }}
+        />
+      </label>
+    );
+  })()}
+</td>
 
                         <td className="p-4 text-center">
                           <button
@@ -631,26 +930,19 @@ export default function ReceptionTable({
                                 item.id,
                               )
                             }
-                            disabled={isLoading}
+                            disabled={
+                        isLoading ||
+                        (isCompleted &&
+                          !canDeleteCompletedReception(
+                            currentRole,
+                          ))
+                      }
                             className="rounded-lg bg-red-600 px-3 py-2 hover:bg-red-500 disabled:bg-slate-700"
                           >
                             Supprimer
                           </button>
                         </td>
                       </tr>
-
-                      {isOpened && (
-                        <tr className="border-t border-[#008cff]/20">
-                          <td
-                            colSpan={11}
-                            className="bg-slate-950 p-6"
-                          >
-                            <ReceptionTimeline
-                              reception={item}
-                            />
-                          </td>
-                        </tr>
-                      )}
                     </Fragment>
                   );
                 })}
