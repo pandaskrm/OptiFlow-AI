@@ -64,6 +64,8 @@ export async function PATCH(
 
   let body: {
     status?: string;
+    inspectorUserIds?: string[];
+    inspectorNames?: string[];
   };
 
   try {
@@ -83,11 +85,61 @@ export async function PATCH(
   const nextStatus =
     body.status?.trim();
 
+  const inspectorUserIds =
+    Array.isArray(body.inspectorUserIds)
+      ? Array.from(
+          new Set(
+            body.inspectorUserIds
+              .filter(
+                (value): value is string =>
+                  typeof value === "string",
+              )
+              .map((value) => value.trim())
+              .filter(Boolean),
+          ),
+        )
+      : [];
+
+  const inspectorNames =
+    Array.isArray(body.inspectorNames)
+      ? Array.from(
+          new Set(
+            body.inspectorNames
+              .filter(
+                (value): value is string =>
+                  typeof value === "string",
+              )
+              .map((value) =>
+                value
+                  .trim()
+                  .replace(/\s+/g, " "),
+              )
+              .filter(Boolean),
+          ),
+        )
+      : [];
+
   if (!nextStatus) {
     return NextResponse.json(
       {
         error:
           "Le nouveau statut est obligatoire.",
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  if (
+    nextStatus === INSPECTION_STATUS &&
+    inspectorUserIds.length === 0 &&
+    inspectorNames.length === 0
+  ) {
+    return NextResponse.json(
+      {
+        error:
+          "Sélectionnez au moins une personne pour effectuer le contrôle qualité.",
       },
       {
         status: 400,
@@ -138,6 +190,48 @@ export async function PATCH(
             ? "RECEPTION_COMPLETED"
             : "STATUS_CHANGED";
 
+  const selectedInspectors =
+    nextStatus === INSPECTION_STATUS
+      ? await prisma.membership.findMany({
+          where: {
+            companyId: auth.company.id,
+            isActive: true,
+            userId: {
+              in: inspectorUserIds,
+            },
+            user: {
+              isActive: true,
+            },
+          },
+
+          include: {
+            user: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        })
+      : [];
+
+  if (
+    nextStatus === INSPECTION_STATUS &&
+    selectedInspectors.length !==
+      inspectorUserIds.length
+  ) {
+    return NextResponse.json(
+      {
+        error:
+          "Un ou plusieurs contrôleurs sélectionnés sont invalides ou inactifs.",
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+
   const updated =
     await prisma.$transaction(
       async (tx) => {
@@ -170,6 +264,48 @@ export async function PATCH(
                   : reception.completedAt,
             },
           });
+
+        if (
+          nextStatus === INSPECTION_STATUS
+        ) {
+          await tx.receptionInspector.deleteMany({
+            where: {
+              receptionId: reception.id,
+            },
+          });
+
+          const inspectorRows = [
+            ...selectedInspectors.map(
+              (membership) => ({
+                companyId: auth.company.id,
+                receptionId: reception.id,
+                userId: membership.user.id,
+                firstName:
+                  membership.user.firstName,
+                lastName:
+                  membership.user.lastName,
+                assignedAt: now,
+              }),
+            ),
+
+            ...inspectorNames.map(
+              (name) => ({
+                companyId: auth.company.id,
+                receptionId: reception.id,
+                userId: null,
+                firstName: name,
+                lastName: "",
+                assignedAt: now,
+              }),
+            ),
+          ];
+
+          if (inspectorRows.length > 0) {
+            await tx.receptionInspector.createMany({
+              data: inspectorRows,
+            });
+          }
+        }
 
         await tx.receptionEvent.create({
           data: {
@@ -218,6 +354,27 @@ export async function PATCH(
                   receptionUpdate.inspectionStartedAt,
                 completedAt:
                   receptionUpdate.completedAt,
+
+                inspectors: [
+                  ...selectedInspectors.map(
+                    (membership) => ({
+                      userId:
+                        membership.user.id,
+                      firstName:
+                        membership.user.firstName,
+                      lastName:
+                        membership.user.lastName,
+                    }),
+                  ),
+
+                  ...inspectorNames.map(
+                    (name) => ({
+                      userId: null,
+                      firstName: name,
+                      lastName: "",
+                    }),
+                  ),
+                ],
               }),
           },
         });
@@ -268,6 +425,7 @@ export async function DELETE(
       },
     );
   }
+
 
   const reception =
     await prisma.reception.findFirst({

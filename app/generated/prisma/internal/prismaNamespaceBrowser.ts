@@ -64,6 +64,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   Reception: 'Reception',
   ReceptionDocument: 'ReceptionDocument',
+  ReceptionInspector: 'ReceptionInspector',
   ReceptionEvent: 'ReceptionEvent',
   Order: 'Order',
   Shipment: 'Shipment',
@@ -311,6 +312,20 @@ export const ReceptionDocumentScalarFieldEnum = {
 } as const
 
 export type ReceptionDocumentScalarFieldEnum = (typeof ReceptionDocumentScalarFieldEnum)[keyof typeof ReceptionDocumentScalarFieldEnum]
+
+
+export const ReceptionInspectorScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  receptionId: 'receptionId',
+  userId: 'userId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  assignedAt: 'assignedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ReceptionInspectorScalarFieldEnum = (typeof ReceptionInspectorScalarFieldEnum)[keyof typeof ReceptionInspectorScalarFieldEnum]
 
 
 export const ReceptionEventScalarFieldEnum = {

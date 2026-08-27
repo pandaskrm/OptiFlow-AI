@@ -12,6 +12,7 @@ import {
 import { Reception } from "../../types/reception";
 
 import ReceptionDeliveryNoteModal from "./ReceptionDeliveryNoteModal";
+import ReceptionInspectorModal from "./ReceptionInspectorModal";
 
 type ReceptionDocument = {
   id: string;
@@ -313,6 +314,11 @@ export default function ReceptionTable({
   const [pendingDockReception, setPendingDockReception] =
     useState<Reception | null>(null);
 
+  const [
+    pendingInspectorReception,
+    setPendingInspectorReception,
+  ] = useState<Reception | null>(null);
+
   useEffect(() => {
     void refresh();
   }, [refreshKey, refresh]);
@@ -372,6 +378,8 @@ export default function ReceptionTable({
   async function updateReceptionStatus(
     item: Reception,
     nextStatus: string,
+    inspectorUserIds?: string[],
+    inspectorNames?: string[],
   ) {
     setLoadingId(item.id);
 
@@ -385,6 +393,12 @@ export default function ReceptionTable({
           },
           body: JSON.stringify({
             status: nextStatus,
+            ...(inspectorUserIds
+              ? { inspectorUserIds }
+              : {}),
+            ...(inspectorNames
+              ? { inspectorNames }
+              : {}),
           }),
         },
       );
@@ -505,6 +519,14 @@ export default function ReceptionTable({
       return;
     }
 
+    if (
+      nextStatus ===
+      RECEPTION_STATUS.INSPECTION
+    ) {
+      setPendingInspectorReception(item);
+      return;
+    }
+
     try {
       await updateReceptionStatus(
         item,
@@ -517,6 +539,26 @@ export default function ReceptionTable({
           : "Une erreur est survenue.",
       );
     }
+  }
+
+  async function confirmInspection(
+    payload: {
+      inspectorUserIds: string[];
+      inspectorNames: string[];
+    },
+  ) {
+    if (!pendingInspectorReception) {
+      return;
+    }
+
+    await updateReceptionStatus(
+      pendingInspectorReception,
+      RECEPTION_STATUS.INSPECTION,
+      payload.inspectorUserIds,
+      payload.inspectorNames,
+    );
+
+    setPendingInspectorReception(null);
   }
 
   async function confirmDockArrival() {
@@ -572,6 +614,21 @@ export default function ReceptionTable({
 
   return (
     <section className="organia-electric-panel organia-electric-panel-v2 overflow-hidden rounded-2xl border border-[#008cff]/55 bg-gradient-to-br from-[#071426] via-[#04111f] to-[#020617] shadow-[0_0_22px_rgba(0,140,255,0.15)]">
+      {pendingInspectorReception && (
+        <ReceptionInspectorModal
+          receptionNumber={
+            pendingInspectorReception.number
+          }
+          supplier={
+            pendingInspectorReception.supplier
+          }
+          onConfirm={confirmInspection}
+          onCancel={() =>
+            setPendingInspectorReception(null)
+          }
+        />
+      )}
+
       {pendingDockReception && (
         <ReceptionDeliveryNoteModal
           receptionId={pendingDockReception.id}

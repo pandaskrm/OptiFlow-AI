@@ -397,6 +397,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   Reception: 'Reception',
   ReceptionDocument: 'ReceptionDocument',
+  ReceptionInspector: 'ReceptionInspector',
   ReceptionEvent: 'ReceptionEvent',
   Order: 'Order',
   Shipment: 'Shipment',
@@ -421,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionEvent" | "order" | "shipment" | "inventory" | "workforce" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
+    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "shipment" | "inventory" | "workforce" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1387,6 +1388,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ReceptionInspector: {
+      payload: Prisma.$ReceptionInspectorPayload<ExtArgs>
+      fields: Prisma.ReceptionInspectorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReceptionInspectorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReceptionInspectorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>
+        }
+        findFirst: {
+          args: Prisma.ReceptionInspectorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReceptionInspectorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>
+        }
+        findMany: {
+          args: Prisma.ReceptionInspectorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>[]
+        }
+        create: {
+          args: Prisma.ReceptionInspectorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>
+        }
+        createMany: {
+          args: Prisma.ReceptionInspectorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReceptionInspectorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>[]
+        }
+        delete: {
+          args: Prisma.ReceptionInspectorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>
+        }
+        update: {
+          args: Prisma.ReceptionInspectorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReceptionInspectorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReceptionInspectorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReceptionInspectorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReceptionInspectorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionInspectorPayload>
+        }
+        aggregate: {
+          args: Prisma.ReceptionInspectorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReceptionInspector>
+        }
+        groupBy: {
+          args: Prisma.ReceptionInspectorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceptionInspectorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReceptionInspectorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceptionInspectorCountAggregateOutputType> | number
+        }
+      }
+    }
     ReceptionEvent: {
       payload: Prisma.$ReceptionEventPayload<ExtArgs>
       fields: Prisma.ReceptionEventFieldRefs
@@ -2314,6 +2389,20 @@ export const ReceptionDocumentScalarFieldEnum = {
 export type ReceptionDocumentScalarFieldEnum = (typeof ReceptionDocumentScalarFieldEnum)[keyof typeof ReceptionDocumentScalarFieldEnum]
 
 
+export const ReceptionInspectorScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  receptionId: 'receptionId',
+  userId: 'userId',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  assignedAt: 'assignedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ReceptionInspectorScalarFieldEnum = (typeof ReceptionInspectorScalarFieldEnum)[keyof typeof ReceptionInspectorScalarFieldEnum]
+
+
 export const ReceptionEventScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -2757,6 +2846,7 @@ export type GlobalOmitConfig = {
   auditLog?: Prisma.AuditLogOmit
   reception?: Prisma.ReceptionOmit
   receptionDocument?: Prisma.ReceptionDocumentOmit
+  receptionInspector?: Prisma.ReceptionInspectorOmit
   receptionEvent?: Prisma.ReceptionEventOmit
   order?: Prisma.OrderOmit
   shipment?: Prisma.ShipmentOmit

@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../lib/auth/session";
 import { prisma } from "../../../../lib/prisma";
@@ -52,7 +52,20 @@ export async function GET() {
           createdAt: true,
           updatedAt: true,
 
-          receptionDocuments: {
+          receptionInspectors: {
+          orderBy: {
+            assignedAt: "asc",
+          },
+          select: {
+            id: true,
+            userId: true,
+            firstName: true,
+            lastName: true,
+            assignedAt: true,
+          },
+        },
+
+        receptionDocuments: {
             orderBy: {
               capturedAt: "desc",
             },

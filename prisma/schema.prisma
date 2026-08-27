@@ -55,15 +55,16 @@ model Company {
   mailConnections MailConnection[]
   mailMessages    MailMessage[]
 
-  receptions         Reception[]
-  receptionDocuments ReceptionDocument[]
-  receptionEvents    ReceptionEvent[]
-  orders             Order[]
-  shipments          Shipment[]
-  inventories        Inventory[]
-  workforce          Workforce[]
-  carriers           Carrier[]
-  businessRules      BusinessRule[]
+  receptions          Reception[]
+  receptionDocuments  ReceptionDocument[]
+  receptionEvents     ReceptionEvent[]
+  receptionInspectors ReceptionInspector[]
+  orders              Order[]
+  shipments           Shipment[]
+  inventories         Inventory[]
+  workforce           Workforce[]
+  carriers            Carrier[]
+  businessRules       BusinessRule[]
 }
 
 /**
@@ -274,11 +275,12 @@ model Reception {
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
 
-  companyId          String?
-  company            Company?            @relation(fields: [companyId], references: [id], onDelete: SetNull)
-  mailMessages       MailMessage[]
-  receptionDocuments ReceptionDocument[]
-  receptionEvents    ReceptionEvent[]
+  companyId           String?
+  company             Company?             @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  mailMessages        MailMessage[]
+  receptionDocuments  ReceptionDocument[]
+  receptionEvents     ReceptionEvent[]
+  receptionInspectors ReceptionInspector[]
 
   @@index([companyId])
 }
@@ -303,6 +305,25 @@ model ReceptionDocument {
   @@index([receptionId])
   @@index([companyId, receptionId])
   @@index([capturedAt])
+}
+
+model ReceptionInspector {
+  id          String   @id @default(cuid())
+  companyId   String
+  receptionId Int
+  userId      String?
+  firstName   String
+  lastName    String
+  assignedAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  reception Reception @relation(fields: [receptionId], references: [id], onDelete: Cascade)
+
+  @@unique([receptionId, userId])
+  @@index([companyId])
+  @@index([receptionId])
+  @@index([userId])
 }
 
 model ReceptionEvent {

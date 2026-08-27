@@ -42,6 +42,14 @@ type HistoricalReception = {
   updatedAt: string;
 
   receptionDocuments: ReceptionDocument[];
+
+  receptionInspectors: {
+    id: string;
+    userId: string | null;
+    firstName: string;
+    lastName: string;
+    assignedAt: string;
+  }[];
   receptionEvents: ReceptionEvent[];
 };
 
@@ -747,6 +755,50 @@ export default function ReceptionHistory() {
                           </div>
                         );
                       })()}
+
+                      {reception.receptionInspectors.length > 0 && (
+                        <div className="mt-5">
+                          <p className="text-xs font-black uppercase tracking-[0.15em] text-[#00e5ff]">
+                            Contrôle qualité
+                          </p>
+
+                          <div className="mt-3 rounded-xl border border-[#008cff]/25 bg-[#061426]/70 p-4">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-slate-600">
+                              Contrôlé par
+                            </p>
+
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              {reception.receptionInspectors.map(
+                                (inspector) => {
+                                  const fullName =
+                                    [
+                                      inspector.firstName,
+                                      inspector.lastName,
+                                    ]
+                                      .filter(Boolean)
+                                      .join(" ");
+
+                                  return (
+                                    <span
+                                      key={inspector.id}
+                                      className="rounded-full border border-[#00e5ff]/35 bg-[#006bff]/15 px-3 py-1.5 text-xs font-black text-[#7df9ff]"
+                                    >
+                                      {fullName}
+                                    </span>
+                                  );
+                                },
+                              )}
+                            </div>
+
+                            <p className="mt-3 text-xs text-slate-500">
+                              Début du contrôle :{" "}
+                              {formatTime(
+                                reception.inspectionStartedAt,
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                      )}
 
                       {reception.receptionEvents.length > 0 && (
                         <div className="mt-5">

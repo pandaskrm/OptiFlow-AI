@@ -83,6 +83,11 @@ export type Reception = Prisma.ReceptionModel
  */
 export type ReceptionDocument = Prisma.ReceptionDocumentModel
 /**
+ * Model ReceptionInspector
+ * 
+ */
+export type ReceptionInspector = Prisma.ReceptionInspectorModel
+/**
  * Model ReceptionEvent
  * 
  */
