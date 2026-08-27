@@ -57,6 +57,7 @@ model Company {
 
   receptions         Reception[]
   receptionDocuments ReceptionDocument[]
+  receptionEvents    ReceptionEvent[]
   orders             Order[]
   shipments          Shipment[]
   inventories        Inventory[]
@@ -258,22 +259,26 @@ model AuditLog {
  */
 
 model Reception {
-  id          Int       @id @default(autoincrement())
-  number      String    @unique
-  supplier    String
-  carrier     String
-  dock        String
-  pallets     Int
-  status      String
-  scheduledAt String
-  completedAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id                  Int       @id @default(autoincrement())
+  number              String    @unique
+  supplier            String
+  carrier             String
+  dock                String
+  pallets             Int
+  status              String
+  scheduledAt         String
+  arrivedAt           DateTime?
+  unloadingStartedAt  DateTime?
+  inspectionStartedAt DateTime?
+  completedAt         DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   companyId          String?
   company            Company?            @relation(fields: [companyId], references: [id], onDelete: SetNull)
   mailMessages       MailMessage[]
   receptionDocuments ReceptionDocument[]
+  receptionEvents    ReceptionEvent[]
 
   @@index([companyId])
 }
@@ -298,6 +303,25 @@ model ReceptionDocument {
   @@index([receptionId])
   @@index([companyId, receptionId])
   @@index([capturedAt])
+}
+
+model ReceptionEvent {
+  id          String   @id @default(cuid())
+  companyId   String
+  receptionId Int
+  type        String
+  fromStatus  String?
+  toStatus    String?
+  happenedAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  reception Reception @relation(fields: [receptionId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@index([receptionId])
+  @@index([companyId, receptionId])
+  @@index([happenedAt])
 }
 
 model Order {

@@ -64,6 +64,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   Reception: 'Reception',
   ReceptionDocument: 'ReceptionDocument',
+  ReceptionEvent: 'ReceptionEvent',
   Order: 'Order',
   Shipment: 'Shipment',
   Inventory: 'Inventory',
@@ -283,6 +284,9 @@ export const ReceptionScalarFieldEnum = {
   pallets: 'pallets',
   status: 'status',
   scheduledAt: 'scheduledAt',
+  arrivedAt: 'arrivedAt',
+  unloadingStartedAt: 'unloadingStartedAt',
+  inspectionStartedAt: 'inspectionStartedAt',
   completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -307,6 +311,20 @@ export const ReceptionDocumentScalarFieldEnum = {
 } as const
 
 export type ReceptionDocumentScalarFieldEnum = (typeof ReceptionDocumentScalarFieldEnum)[keyof typeof ReceptionDocumentScalarFieldEnum]
+
+
+export const ReceptionEventScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  receptionId: 'receptionId',
+  type: 'type',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  happenedAt: 'happenedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ReceptionEventScalarFieldEnum = (typeof ReceptionEventScalarFieldEnum)[keyof typeof ReceptionEventScalarFieldEnum]
 
 
 export const OrderScalarFieldEnum = {

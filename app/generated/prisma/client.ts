@@ -107,6 +107,11 @@ export type Reception = Prisma.ReceptionModel
  */
 export type ReceptionDocument = Prisma.ReceptionDocumentModel
 /**
+ * Model ReceptionEvent
+ * 
+ */
+export type ReceptionEvent = Prisma.ReceptionEventModel
+/**
  * Model Order
  * 
  */

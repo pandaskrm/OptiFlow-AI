@@ -1,8 +1,11 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../lib/auth/session";
 import { prisma } from "../../../../lib/prisma";
 
+const AT_DOCK_STATUS = "À quai";
+const UNLOADING_STATUS = "Déchargement";
+const INSPECTION_STATUS = "Contrôle qualité";
 const COMPLETED_STATUS = "Terminée";
 
 function parseReceptionId(value: string) {
@@ -103,6 +106,9 @@ export async function PATCH(
         id: true,
         number: true,
         status: true,
+        arrivedAt: true,
+        unloadingStartedAt: true,
+        inspectionStartedAt: true,
         completedAt: true,
       },
     });
@@ -119,48 +125,106 @@ export async function PATCH(
     );
   }
 
-  const isCompleting =
-    nextStatus === COMPLETED_STATUS;
+  const now = new Date();
+
+  const eventType =
+    nextStatus === AT_DOCK_STATUS
+      ? "ARRIVED_AT_DOCK"
+      : nextStatus === UNLOADING_STATUS
+        ? "UNLOADING_STARTED"
+        : nextStatus === INSPECTION_STATUS
+          ? "INSPECTION_STARTED"
+          : nextStatus === COMPLETED_STATUS
+            ? "RECEPTION_COMPLETED"
+            : "STATUS_CHANGED";
 
   const updated =
-    await prisma.reception.update({
-      where: {
-        id: reception.id,
-      },
-      data: {
-        status: nextStatus,
-        completedAt:
-          isCompleting
-            ? reception.completedAt ??
-              new Date()
-            : reception.completedAt,
-      },
-    });
+    await prisma.$transaction(
+      async (tx) => {
+        const receptionUpdate =
+          await tx.reception.update({
+            where: {
+              id: reception.id,
+            },
+            data: {
+              status: nextStatus,
 
-  await prisma.auditLog.create({
-    data: {
-      companyId:
-        auth.company.id,
-      actorId:
-        auth.user.id,
-      action:
-        "RECEPTION_STATUS_UPDATED",
-      entityType:
-        "Reception",
-      entityId:
-        String(reception.id),
-      details:
-        JSON.stringify({
-          receptionNumber:
-            reception.number,
-          previousStatus:
-            reception.status,
-          nextStatus,
-          completedAt:
-            updated.completedAt,
-        }),
-    },
-  });
+              arrivedAt:
+                nextStatus === AT_DOCK_STATUS
+                  ? reception.arrivedAt ?? now
+                  : reception.arrivedAt,
+
+              unloadingStartedAt:
+                nextStatus === UNLOADING_STATUS
+                  ? reception.unloadingStartedAt ?? now
+                  : reception.unloadingStartedAt,
+
+              inspectionStartedAt:
+                nextStatus === INSPECTION_STATUS
+                  ? reception.inspectionStartedAt ?? now
+                  : reception.inspectionStartedAt,
+
+              completedAt:
+                nextStatus === COMPLETED_STATUS
+                  ? reception.completedAt ?? now
+                  : reception.completedAt,
+            },
+          });
+
+        await tx.receptionEvent.create({
+          data: {
+            companyId:
+              auth.company.id,
+            receptionId:
+              reception.id,
+            type:
+              eventType,
+            fromStatus:
+              reception.status,
+            toStatus:
+              nextStatus,
+            happenedAt:
+              now,
+          },
+        });
+
+        await tx.auditLog.create({
+          data: {
+            companyId:
+              auth.company.id,
+            actorId:
+              auth.user.id,
+            action:
+              "RECEPTION_STATUS_UPDATED",
+            entityType:
+              "Reception",
+            entityId:
+              String(reception.id),
+            details:
+              JSON.stringify({
+                receptionNumber:
+                  reception.number,
+                previousStatus:
+                  reception.status,
+                nextStatus,
+                eventType,
+                happenedAt:
+                  now,
+                arrivedAt:
+                  receptionUpdate.arrivedAt,
+                unloadingStartedAt:
+                  receptionUpdate.unloadingStartedAt,
+                inspectionStartedAt:
+                  receptionUpdate.inspectionStartedAt,
+                completedAt:
+                  receptionUpdate.completedAt,
+              }),
+          },
+        });
+
+        return receptionUpdate;
+      },
+    );
 
   return NextResponse.json(
     updated,
