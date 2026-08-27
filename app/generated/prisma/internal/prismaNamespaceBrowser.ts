@@ -63,6 +63,7 @@ export const ModelName = {
   Dock: 'Dock',
   AuditLog: 'AuditLog',
   Reception: 'Reception',
+  ReceptionDocument: 'ReceptionDocument',
   Order: 'Order',
   Shipment: 'Shipment',
   Inventory: 'Inventory',
@@ -289,6 +290,23 @@ export const ReceptionScalarFieldEnum = {
 } as const
 
 export type ReceptionScalarFieldEnum = (typeof ReceptionScalarFieldEnum)[keyof typeof ReceptionScalarFieldEnum]
+
+
+export const ReceptionDocumentScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  receptionId: 'receptionId',
+  type: 'type',
+  name: 'name',
+  contentType: 'contentType',
+  size: 'size',
+  content: 'content',
+  capturedAt: 'capturedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReceptionDocumentScalarFieldEnum = (typeof ReceptionDocumentScalarFieldEnum)[keyof typeof ReceptionDocumentScalarFieldEnum]
 
 
 export const OrderScalarFieldEnum = {

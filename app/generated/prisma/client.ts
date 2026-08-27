@@ -102,6 +102,11 @@ export type AuditLog = Prisma.AuditLogModel
  */
 export type Reception = Prisma.ReceptionModel
 /**
+ * Model ReceptionDocument
+ * 
+ */
+export type ReceptionDocument = Prisma.ReceptionDocumentModel
+/**
  * Model Order
  * 
  */

@@ -396,6 +396,7 @@ export const ModelName = {
   Dock: 'Dock',
   AuditLog: 'AuditLog',
   Reception: 'Reception',
+  ReceptionDocument: 'ReceptionDocument',
   Order: 'Order',
   Shipment: 'Shipment',
   Inventory: 'Inventory',
@@ -419,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "order" | "shipment" | "inventory" | "workforce" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
+    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "order" | "shipment" | "inventory" | "workforce" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1311,6 +1312,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ReceptionDocument: {
+      payload: Prisma.$ReceptionDocumentPayload<ExtArgs>
+      fields: Prisma.ReceptionDocumentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReceptionDocumentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReceptionDocumentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>
+        }
+        findFirst: {
+          args: Prisma.ReceptionDocumentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReceptionDocumentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>
+        }
+        findMany: {
+          args: Prisma.ReceptionDocumentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>[]
+        }
+        create: {
+          args: Prisma.ReceptionDocumentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>
+        }
+        createMany: {
+          args: Prisma.ReceptionDocumentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReceptionDocumentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>[]
+        }
+        delete: {
+          args: Prisma.ReceptionDocumentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>
+        }
+        update: {
+          args: Prisma.ReceptionDocumentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReceptionDocumentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReceptionDocumentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReceptionDocumentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReceptionDocumentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReceptionDocumentPayload>
+        }
+        aggregate: {
+          args: Prisma.ReceptionDocumentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReceptionDocument>
+        }
+        groupBy: {
+          args: Prisma.ReceptionDocumentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceptionDocumentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReceptionDocumentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReceptionDocumentCountAggregateOutputType> | number
+        }
+      }
+    }
     Order: {
       payload: Prisma.$OrderPayload<ExtArgs>
       fields: Prisma.OrderFieldRefs
@@ -2144,6 +2219,23 @@ export const ReceptionScalarFieldEnum = {
 export type ReceptionScalarFieldEnum = (typeof ReceptionScalarFieldEnum)[keyof typeof ReceptionScalarFieldEnum]
 
 
+export const ReceptionDocumentScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  receptionId: 'receptionId',
+  type: 'type',
+  name: 'name',
+  contentType: 'contentType',
+  size: 'size',
+  content: 'content',
+  capturedAt: 'capturedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReceptionDocumentScalarFieldEnum = (typeof ReceptionDocumentScalarFieldEnum)[keyof typeof ReceptionDocumentScalarFieldEnum]
+
+
 export const OrderScalarFieldEnum = {
   id: 'id',
   number: 'number',
@@ -2424,20 +2516,6 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-/**
  * Reference to a field of type 'Bytes'
  */
 export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
@@ -2448,6 +2526,20 @@ export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Bytes[]'
  */
 export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**
@@ -2572,6 +2664,7 @@ export type GlobalOmitConfig = {
   dock?: Prisma.DockOmit
   auditLog?: Prisma.AuditLogOmit
   reception?: Prisma.ReceptionOmit
+  receptionDocument?: Prisma.ReceptionDocumentOmit
   order?: Prisma.OrderOmit
   shipment?: Prisma.ShipmentOmit
   inventory?: Prisma.InventoryOmit

@@ -262,6 +262,7 @@ export type CompanyWhereInput = {
   mailConnections?: Prisma.MailConnectionListRelationFilter
   mailMessages?: Prisma.MailMessageListRelationFilter
   receptions?: Prisma.ReceptionListRelationFilter
+  receptionDocuments?: Prisma.ReceptionDocumentListRelationFilter
   orders?: Prisma.OrderListRelationFilter
   shipments?: Prisma.ShipmentListRelationFilter
   inventories?: Prisma.InventoryListRelationFilter
@@ -293,6 +294,7 @@ export type CompanyOrderByWithRelationInput = {
   mailConnections?: Prisma.MailConnectionOrderByRelationAggregateInput
   mailMessages?: Prisma.MailMessageOrderByRelationAggregateInput
   receptions?: Prisma.ReceptionOrderByRelationAggregateInput
+  receptionDocuments?: Prisma.ReceptionDocumentOrderByRelationAggregateInput
   orders?: Prisma.OrderOrderByRelationAggregateInput
   shipments?: Prisma.ShipmentOrderByRelationAggregateInput
   inventories?: Prisma.InventoryOrderByRelationAggregateInput
@@ -327,6 +329,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   mailConnections?: Prisma.MailConnectionListRelationFilter
   mailMessages?: Prisma.MailMessageListRelationFilter
   receptions?: Prisma.ReceptionListRelationFilter
+  receptionDocuments?: Prisma.ReceptionDocumentListRelationFilter
   orders?: Prisma.OrderListRelationFilter
   shipments?: Prisma.ShipmentListRelationFilter
   inventories?: Prisma.InventoryListRelationFilter
@@ -398,6 +401,7 @@ export type CompanyCreateInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -429,6 +433,7 @@ export type CompanyUncheckedCreateInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -460,6 +465,7 @@ export type CompanyUpdateInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -491,6 +497,7 @@ export type CompanyUncheckedUpdateInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -711,6 +718,20 @@ export type CompanyUpdateOneWithoutReceptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutReceptionsInput, Prisma.CompanyUpdateWithoutReceptionsInput>, Prisma.CompanyUncheckedUpdateWithoutReceptionsInput>
 }
 
+export type CompanyCreateNestedOneWithoutReceptionDocumentsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutReceptionDocumentsInput, Prisma.CompanyUncheckedCreateWithoutReceptionDocumentsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutReceptionDocumentsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutReceptionDocumentsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutReceptionDocumentsInput, Prisma.CompanyUncheckedCreateWithoutReceptionDocumentsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutReceptionDocumentsInput
+  upsert?: Prisma.CompanyUpsertWithoutReceptionDocumentsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutReceptionDocumentsInput, Prisma.CompanyUpdateWithoutReceptionDocumentsInput>, Prisma.CompanyUncheckedUpdateWithoutReceptionDocumentsInput>
+}
+
 export type CompanyCreateNestedOneWithoutOrdersInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutOrdersInput, Prisma.CompanyUncheckedCreateWithoutOrdersInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutOrdersInput
@@ -840,6 +861,7 @@ export type CompanyCreateWithoutBusinessRulesInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -870,6 +892,7 @@ export type CompanyUncheckedCreateWithoutBusinessRulesInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -916,6 +939,7 @@ export type CompanyUpdateWithoutBusinessRulesInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -946,6 +970,7 @@ export type CompanyUncheckedUpdateWithoutBusinessRulesInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -975,6 +1000,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -1005,6 +1031,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -1051,6 +1078,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -1081,6 +1109,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1111,6 +1140,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -1141,6 +1171,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -1187,6 +1218,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -1217,6 +1249,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1248,6 +1281,7 @@ export type CompanyCreateWithoutCarriersInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -1278,6 +1312,7 @@ export type CompanyUncheckedCreateWithoutCarriersInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -1324,6 +1359,7 @@ export type CompanyUpdateWithoutCarriersInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -1354,6 +1390,7 @@ export type CompanyUncheckedUpdateWithoutCarriersInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1383,6 +1420,7 @@ export type CompanyCreateWithoutWarehousesInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -1413,6 +1451,7 @@ export type CompanyUncheckedCreateWithoutWarehousesInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -1459,6 +1498,7 @@ export type CompanyUpdateWithoutWarehousesInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -1489,6 +1529,7 @@ export type CompanyUncheckedUpdateWithoutWarehousesInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1519,6 +1560,7 @@ export type CompanyCreateWithoutAuditLogsInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -1549,6 +1591,7 @@ export type CompanyUncheckedCreateWithoutAuditLogsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -1595,6 +1638,7 @@ export type CompanyUpdateWithoutAuditLogsInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -1625,6 +1669,7 @@ export type CompanyUncheckedUpdateWithoutAuditLogsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1655,6 +1700,7 @@ export type CompanyCreateWithoutReceptionsInput = {
   erpConnections?: Prisma.ErpConnectionCreateNestedManyWithoutCompanyInput
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -1685,6 +1731,7 @@ export type CompanyUncheckedCreateWithoutReceptionsInput = {
   erpConnections?: Prisma.ErpConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -1731,6 +1778,7 @@ export type CompanyUpdateWithoutReceptionsInput = {
   erpConnections?: Prisma.ErpConnectionUpdateManyWithoutCompanyNestedInput
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -1761,6 +1809,147 @@ export type CompanyUncheckedUpdateWithoutReceptionsInput = {
   erpConnections?: Prisma.ErpConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutReceptionDocumentsInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutReceptionDocumentsInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutReceptionDocumentsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutReceptionDocumentsInput, Prisma.CompanyUncheckedCreateWithoutReceptionDocumentsInput>
+}
+
+export type CompanyUpsertWithoutReceptionDocumentsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutReceptionDocumentsInput, Prisma.CompanyUncheckedUpdateWithoutReceptionDocumentsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutReceptionDocumentsInput, Prisma.CompanyUncheckedCreateWithoutReceptionDocumentsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutReceptionDocumentsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutReceptionDocumentsInput, Prisma.CompanyUncheckedUpdateWithoutReceptionDocumentsInput>
+}
+
+export type CompanyUpdateWithoutReceptionDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutReceptionDocumentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1792,6 +1981,7 @@ export type CompanyCreateWithoutOrdersInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
@@ -1822,6 +2012,7 @@ export type CompanyUncheckedCreateWithoutOrdersInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
@@ -1868,6 +2059,7 @@ export type CompanyUpdateWithoutOrdersInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
@@ -1898,6 +2090,7 @@ export type CompanyUncheckedUpdateWithoutOrdersInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
@@ -1928,6 +2121,7 @@ export type CompanyCreateWithoutShipmentsInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
@@ -1958,6 +2152,7 @@ export type CompanyUncheckedCreateWithoutShipmentsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
@@ -2004,6 +2199,7 @@ export type CompanyUpdateWithoutShipmentsInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
@@ -2034,6 +2230,7 @@ export type CompanyUncheckedUpdateWithoutShipmentsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2064,6 +2261,7 @@ export type CompanyCreateWithoutInventoriesInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
@@ -2094,6 +2292,7 @@ export type CompanyUncheckedCreateWithoutInventoriesInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
@@ -2140,6 +2339,7 @@ export type CompanyUpdateWithoutInventoriesInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
@@ -2170,6 +2370,7 @@ export type CompanyUncheckedUpdateWithoutInventoriesInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2200,6 +2401,7 @@ export type CompanyCreateWithoutWorkforceInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -2230,6 +2432,7 @@ export type CompanyUncheckedCreateWithoutWorkforceInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -2276,6 +2479,7 @@ export type CompanyUpdateWithoutWorkforceInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -2306,6 +2510,7 @@ export type CompanyUncheckedUpdateWithoutWorkforceInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2335,6 +2540,7 @@ export type CompanyCreateWithoutMailMessagesInput = {
   erpConnections?: Prisma.ErpConnectionCreateNestedManyWithoutCompanyInput
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -2365,6 +2571,7 @@ export type CompanyUncheckedCreateWithoutMailMessagesInput = {
   erpConnections?: Prisma.ErpConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -2411,6 +2618,7 @@ export type CompanyUpdateWithoutMailMessagesInput = {
   erpConnections?: Prisma.ErpConnectionUpdateManyWithoutCompanyNestedInput
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -2441,6 +2649,7 @@ export type CompanyUncheckedUpdateWithoutMailMessagesInput = {
   erpConnections?: Prisma.ErpConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2471,6 +2680,7 @@ export type CompanyCreateWithoutMailConnectionsInput = {
   erpConnections?: Prisma.ErpConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -2501,6 +2711,7 @@ export type CompanyUncheckedCreateWithoutMailConnectionsInput = {
   erpConnections?: Prisma.ErpConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -2547,6 +2758,7 @@ export type CompanyUpdateWithoutMailConnectionsInput = {
   erpConnections?: Prisma.ErpConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -2577,6 +2789,7 @@ export type CompanyUncheckedUpdateWithoutMailConnectionsInput = {
   erpConnections?: Prisma.ErpConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2607,6 +2820,7 @@ export type CompanyCreateWithoutErpConnectionsInput = {
   mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
@@ -2637,6 +2851,7 @@ export type CompanyUncheckedCreateWithoutErpConnectionsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
   mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
   receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
   shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
@@ -2683,6 +2898,7 @@ export type CompanyUpdateWithoutErpConnectionsInput = {
   mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
@@ -2713,6 +2929,7 @@ export type CompanyUncheckedUpdateWithoutErpConnectionsInput = {
   mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
   mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
   receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
   shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
@@ -2735,6 +2952,7 @@ export type CompanyCountOutputType = {
   mailConnections: number
   mailMessages: number
   receptions: number
+  receptionDocuments: number
   orders: number
   shipments: number
   inventories: number
@@ -2752,6 +2970,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   mailConnections?: boolean | CompanyCountOutputTypeCountMailConnectionsArgs
   mailMessages?: boolean | CompanyCountOutputTypeCountMailMessagesArgs
   receptions?: boolean | CompanyCountOutputTypeCountReceptionsArgs
+  receptionDocuments?: boolean | CompanyCountOutputTypeCountReceptionDocumentsArgs
   orders?: boolean | CompanyCountOutputTypeCountOrdersArgs
   shipments?: boolean | CompanyCountOutputTypeCountShipmentsArgs
   inventories?: boolean | CompanyCountOutputTypeCountInventoriesArgs
@@ -2829,6 +3048,13 @@ export type CompanyCountOutputTypeCountReceptionsArgs<ExtArgs extends runtime.Ty
 /**
  * CompanyCountOutputType without action
  */
+export type CompanyCountOutputTypeCountReceptionDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReceptionDocumentWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
 export type CompanyCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OrderWhereInput
 }
@@ -2892,6 +3118,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   mailConnections?: boolean | Prisma.Company$mailConnectionsArgs<ExtArgs>
   mailMessages?: boolean | Prisma.Company$mailMessagesArgs<ExtArgs>
   receptions?: boolean | Prisma.Company$receptionsArgs<ExtArgs>
+  receptionDocuments?: boolean | Prisma.Company$receptionDocumentsArgs<ExtArgs>
   orders?: boolean | Prisma.Company$ordersArgs<ExtArgs>
   shipments?: boolean | Prisma.Company$shipmentsArgs<ExtArgs>
   inventories?: boolean | Prisma.Company$inventoriesArgs<ExtArgs>
@@ -2962,6 +3189,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   mailConnections?: boolean | Prisma.Company$mailConnectionsArgs<ExtArgs>
   mailMessages?: boolean | Prisma.Company$mailMessagesArgs<ExtArgs>
   receptions?: boolean | Prisma.Company$receptionsArgs<ExtArgs>
+  receptionDocuments?: boolean | Prisma.Company$receptionDocumentsArgs<ExtArgs>
   orders?: boolean | Prisma.Company$ordersArgs<ExtArgs>
   shipments?: boolean | Prisma.Company$shipmentsArgs<ExtArgs>
   inventories?: boolean | Prisma.Company$inventoriesArgs<ExtArgs>
@@ -2984,6 +3212,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     mailConnections: Prisma.$MailConnectionPayload<ExtArgs>[]
     mailMessages: Prisma.$MailMessagePayload<ExtArgs>[]
     receptions: Prisma.$ReceptionPayload<ExtArgs>[]
+    receptionDocuments: Prisma.$ReceptionDocumentPayload<ExtArgs>[]
     orders: Prisma.$OrderPayload<ExtArgs>[]
     shipments: Prisma.$ShipmentPayload<ExtArgs>[]
     inventories: Prisma.$InventoryPayload<ExtArgs>[]
@@ -3408,6 +3637,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   mailConnections<T extends Prisma.Company$mailConnectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$mailConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MailConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mailMessages<T extends Prisma.Company$mailMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$mailMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MailMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   receptions<T extends Prisma.Company$receptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$receptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReceptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receptionDocuments<T extends Prisma.Company$receptionDocumentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$receptionDocumentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReceptionDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   orders<T extends Prisma.Company$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shipments<T extends Prisma.Company$shipmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$shipmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShipmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventories<T extends Prisma.Company$inventoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$inventoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4039,6 +4269,30 @@ export type Company$receptionsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.ReceptionScalarFieldEnum | Prisma.ReceptionScalarFieldEnum[]
+}
+
+/**
+ * Company.receptionDocuments
+ */
+export type Company$receptionDocumentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReceptionDocument
+   */
+  select?: Prisma.ReceptionDocumentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReceptionDocument
+   */
+  omit?: Prisma.ReceptionDocumentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReceptionDocumentInclude<ExtArgs> | null
+  where?: Prisma.ReceptionDocumentWhereInput
+  orderBy?: Prisma.ReceptionDocumentOrderByWithRelationInput | Prisma.ReceptionDocumentOrderByWithRelationInput[]
+  cursor?: Prisma.ReceptionDocumentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReceptionDocumentScalarFieldEnum | Prisma.ReceptionDocumentScalarFieldEnum[]
 }
 
 /**

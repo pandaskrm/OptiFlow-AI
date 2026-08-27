@@ -55,13 +55,14 @@ model Company {
   mailConnections MailConnection[]
   mailMessages    MailMessage[]
 
-  receptions    Reception[]
-  orders        Order[]
-  shipments     Shipment[]
-  inventories   Inventory[]
-  workforce     Workforce[]
-  carriers      Carrier[]
-  businessRules BusinessRule[]
+  receptions         Reception[]
+  receptionDocuments ReceptionDocument[]
+  orders             Order[]
+  shipments          Shipment[]
+  inventories        Inventory[]
+  workforce          Workforce[]
+  carriers           Carrier[]
+  businessRules      BusinessRule[]
 }
 
 /**
@@ -269,11 +270,34 @@ model Reception {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  companyId    String?
-  company      Company?      @relation(fields: [companyId], references: [id], onDelete: SetNull)
-  mailMessages MailMessage[]
+  companyId          String?
+  company            Company?            @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  mailMessages       MailMessage[]
+  receptionDocuments ReceptionDocument[]
 
   @@index([companyId])
+}
+
+model ReceptionDocument {
+  id          String   @id @default(cuid())
+  companyId   String
+  receptionId Int
+  type        String   @default("DELIVERY_NOTE")
+  name        String
+  contentType String
+  size        Int
+  content     Bytes
+  capturedAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  reception Reception @relation(fields: [receptionId], references: [id], onDelete: Cascade)
+
+  @@index([companyId])
+  @@index([receptionId])
+  @@index([companyId, receptionId])
+  @@index([capturedAt])
 }
 
 model Order {
