@@ -7,15 +7,13 @@ export const runtime = "nodejs";
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-type PickupAnalysis = {
-  carrier: string | null;
-  pickupDate: string | null;
-  pickupTime: string | null;
+type PickupRequestAnalysis = {
+  customer: string | null;
+  address: string | null;
+  reference: string | null;
   pallets: number | null;
   packages: number | null;
   weightKg: number | null;
-  reference: string | null;
-  destination: string | null;
   notes: string | null;
   confidence: number;
 };
@@ -29,16 +27,23 @@ function cleanJsonBlock(value: string) {
 }
 
 function safeNumber(value: unknown) {
-  if (typeof value === "number" && Number.isFinite(value)) {
+  if (
+    typeof value === "number" &&
+    Number.isFinite(value)
+  ) {
     return value;
   }
 
-  if (typeof value === "string" && value.trim()) {
-    const parsed = Number(
-      value
-        .replace(",", ".")
-        .replace(/[^\d.-]/g, ""),
-    );
+  if (
+    typeof value === "string" &&
+    value.trim()
+  ) {
+    const normalized = value
+      .replace(/\s/g, "")
+      .replace(",", ".")
+      .replace(/[^\d.-]/g, "");
+
+    const parsed = Number(normalized);
 
     return Number.isFinite(parsed)
       ? parsed
@@ -49,7 +54,8 @@ function safeNumber(value: unknown) {
 }
 
 function safeString(value: unknown) {
-  return typeof value === "string" && value.trim()
+  return typeof value === "string" &&
+    value.trim()
     ? value.trim()
     : null;
 }
@@ -65,8 +71,11 @@ export async function POST(request: Request) {
   }
 
   try {
-    const formData = await request.formData();
-    const file = formData.get("file");
+    const formData =
+      await request.formData();
+
+    const file =
+      formData.get("file");
 
     if (!(file instanceof File)) {
       return NextResponse.json(
@@ -98,7 +107,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey =
+      process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
       return NextResponse.json(
@@ -118,41 +128,49 @@ export async function POST(request: Request) {
       `data:${file.type};base64,${bytes.toString("base64")}`;
 
     const prompt = `
-Tu analyses une photographie d'une demande d'enlèvement transporteur
-dans un entrepôt logistique français.
+Tu analyses une photographie d'une feuille interne intitulée
+"DEMANDE D'ENLEVEMENT DE PALETTES".
 
-Lis uniquement les informations réellement visibles sur le document.
+Cette feuille est envoyée ensuite à ALL SOLUTIONS.
 
-Retourne STRICTEMENT un objet JSON avec cette structure :
+IMPORTANT :
+ALL SOLUTIONS n'est pas une donnée à rechercher dans le document.
+C'est le destinataire connu du workflow.
+
+Lis uniquement les informations réellement visibles sur la feuille.
+
+Retourne STRICTEMENT un objet JSON :
 
 {
-  "carrier": string | null,
-  "pickupDate": string | null,
-  "pickupTime": string | null,
+  "customer": string | null,
+  "address": string | null,
+  "reference": string | null,
   "pallets": number | null,
   "packages": number | null,
   "weightKg": number | null,
-  "reference": string | null,
-  "destination": string | null,
   "notes": string | null,
   "confidence": number
 }
 
 Règles impératives :
-- N'invente aucune information.
+
+- N'invente jamais une information.
 - Une donnée absente ou illisible doit être null.
-- pickupDate doit être au format YYYY-MM-DD uniquement si la date est certaine.
-- pickupTime doit être au format HH:MM uniquement si l'heure est certaine.
-- weightKg doit contenir uniquement le poids en kilogrammes.
-- pallets correspond au nombre de palettes.
-- packages correspond au nombre de colis.
-- carrier correspond au transporteur réellement identifié.
-- reference correspond à la référence d'enlèvement ou de dossier si elle existe.
-- destination correspond à la destination si elle apparaît.
-- notes contient seulement une information utile réellement présente qui ne rentre pas dans les autres champs.
-- confidence est compris entre 0 et 1.
+- customer = valeur réellement écrite dans le champ Client.
+- address = adresse réellement visible sous le client.
+- reference = référence commande / référence client visible.
+- pallets = nombre de palettes.
+- packages = nombre de colis.
+- weightKg = poids total exprimé en kilogrammes.
+- Si le document indique des tonnes, convertis uniquement si l'unité est parfaitement certaine.
+- notes = seulement une information utile réellement visible qui ne correspond pas aux autres champs.
+- confidence doit être compris entre 0 et 1.
+- Ne cherche PAS un transporteur.
+- Ne cherche PAS une date d'enlèvement.
+- Ne cherche PAS une heure.
+- Ne cherche PAS une destination transport.
 - Aucun markdown.
-- Aucun commentaire hors JSON.
+- Aucun texte hors JSON.
 `.trim();
 
     const response = await fetch(
@@ -160,8 +178,10 @@ Règles impératives :
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
+          Authorization:
+            `Bearer ${apiKey}`,
+          "Content-Type":
+            "application/json",
         },
         body: JSON.stringify({
           model:
@@ -186,7 +206,8 @@ Règles impératives :
       },
     );
 
-    const result = await response.json();
+    const result =
+      await response.json();
 
     if (!response.ok) {
       console.error(
@@ -214,10 +235,14 @@ Règles impératives :
                     type?: string;
                     text?: string;
                   }>;
-                }) => item.content ?? [],
+                }) =>
+                  item.content ?? [],
               )
-              .map((item: { text?: string }) =>
-                item.text ?? "",
+              .map(
+                (item: {
+                  text?: string;
+                }) =>
+                  item.text ?? "",
               )
               .join("")
           : "";
@@ -232,7 +257,8 @@ Règles impératives :
       );
     }
 
-    let parsed: Record<string, unknown>;
+    let parsed:
+      Record<string, unknown>;
 
     try {
       parsed = JSON.parse(
@@ -253,69 +279,118 @@ Règles impératives :
       );
     }
 
-    const analysis: PickupAnalysis = {
-      carrier: safeString(parsed.carrier),
-      pickupDate:
-        safeString(parsed.pickupDate),
-      pickupTime:
-        safeString(parsed.pickupTime),
-      pallets:
-        safeNumber(parsed.pallets),
-      packages:
-        safeNumber(parsed.packages),
-      weightKg:
-        safeNumber(parsed.weightKg),
-      reference:
-        safeString(parsed.reference),
-      destination:
-        safeString(parsed.destination),
-      notes:
-        safeString(parsed.notes),
-      confidence:
-        Math.min(
-          1,
-          Math.max(
-            0,
-            safeNumber(parsed.confidence) ?? 0,
+    const analysis:
+      PickupRequestAnalysis = {
+        customer:
+          safeString(parsed.customer),
+        address:
+          safeString(parsed.address),
+        reference:
+          safeString(parsed.reference),
+        pallets:
+          safeNumber(parsed.pallets),
+        packages:
+          safeNumber(parsed.packages),
+        weightKg:
+          safeNumber(parsed.weightKg),
+        notes:
+          safeString(parsed.notes),
+        confidence:
+          Math.min(
+            1,
+            Math.max(
+              0,
+              safeNumber(
+                parsed.confidence,
+              ) ?? 0,
+            ),
           ),
-        ),
-    };
+      };
 
-    let matchedCarrier = null;
-
-    if (analysis.carrier) {
-      matchedCarrier =
-        await prisma.carrier.findFirst({
-          where: {
-            companyId: auth.company.id,
-            isActive: true,
-            name: {
-              contains: analysis.carrier,
-              mode: "insensitive",
+    const allSolutions =
+      await prisma.carrier.findFirst({
+        where: {
+          companyId: auth.company.id,
+          isActive: true,
+          OR: [
+            {
+              name: {
+                contains:
+                  "ALL SOLUTIONS",
+                mode: "insensitive",
+              },
             },
-          },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            secondaryEmail: true,
-            contactName: true,
-          },
-        });
-    }
+            {
+              code: {
+                contains:
+                  "ALL",
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          secondaryEmail: true,
+          contactName: true,
+        },
+      });
+
+    const missingRequiredFields = [
+      analysis.reference
+        ? null
+        : "reference",
+      analysis.pallets !== null
+        ? null
+        : "pallets",
+      analysis.packages !== null
+        ? null
+        : "packages",
+      analysis.weightKg !== null
+        ? null
+        : "weightKg",
+    ].filter(
+      (value): value is string =>
+        value !== null,
+    );
 
     return NextResponse.json({
       success: true,
+
+      workflow:
+        "ALL_SOLUTIONS_PICKUP_REQUEST",
+
+      recipient: {
+        name:
+          allSolutions?.name ??
+          "ALL SOLUTIONS",
+        carrierId:
+          allSolutions?.id ?? null,
+        email:
+          allSolutions?.email ?? null,
+        secondaryEmail:
+          allSolutions?.secondaryEmail ??
+          null,
+        contactName:
+          allSolutions?.contactName ??
+          null,
+      },
+
       file: {
         name: file.name,
         type: file.type,
         size: file.size,
       },
+
       analysis,
-      carrier: matchedCarrier,
+
+      missingRequiredFields,
+
       requiresReview:
         analysis.confidence < 0.8 ||
-        !analysis.carrier,
+        missingRequiredFields.length > 0,
     });
   } catch (error) {
     console.error(
