@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../lib/auth/session";
 import { prisma } from "../../../../lib/prisma";
@@ -341,15 +341,19 @@ const clientSpecificRules: RuleTemplate[] = [
     scope: "CLIENT",
     targetValue: "CAZA VAPE",
     priority: "HAUTE",
-    badge: "📄 Facture",
-    workflow: "Contrôle facture",
+    badge: "📄 Facture · Chrono Express",
+    workflow: "Contrôle facture et transport",
     explanation:
-      "Une facture doit accompagner cette commande.",
+      "Une facture doit accompagner cette commande et l'expédition doit être effectuée uniquement en Chrono Express.",
     checklist: [
       "Ajouter la facture",
       "Contrôler les informations client",
+      "Vérifier que le transporteur est Chrono Express",
     ],
-    actions: ["GENERER_CHECKLIST_CLIENT"],
+    actions: [
+      "GENERER_CHECKLIST_CLIENT",
+      "FORCER_CHRONO_EXPRESS",
+    ],
   },
 ];
 
