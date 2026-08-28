@@ -362,6 +362,10 @@ model Order {
   // Date reelle a laquelle le client a passe la commande dans OpenSi.
   // Cette date pilote l'ordre des files de preparation PDA.
   orderDate     DateTime?
+  // Reservation atomique d'une commande envoyee sur un PDA.
+  pdaReservedBy       String?
+  pdaReservedAt       DateTime?
+  pdaReservationToken String?   @unique
   scheduledAt   DateTime?
   completedAt   DateTime?
   createdAt     DateTime  @default(now())

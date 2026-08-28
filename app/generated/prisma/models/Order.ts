@@ -48,6 +48,9 @@ export type OrderMinAggregateOutputType = {
   totalLines: number | null
   preparedLines: number | null
   orderDate: Date | null
+  pdaReservedBy: string | null
+  pdaReservedAt: Date | null
+  pdaReservationToken: string | null
   scheduledAt: Date | null
   completedAt: Date | null
   createdAt: Date | null
@@ -65,6 +68,9 @@ export type OrderMaxAggregateOutputType = {
   totalLines: number | null
   preparedLines: number | null
   orderDate: Date | null
+  pdaReservedBy: string | null
+  pdaReservedAt: Date | null
+  pdaReservationToken: string | null
   scheduledAt: Date | null
   completedAt: Date | null
   createdAt: Date | null
@@ -82,6 +88,9 @@ export type OrderCountAggregateOutputType = {
   totalLines: number
   preparedLines: number
   orderDate: number
+  pdaReservedBy: number
+  pdaReservedAt: number
+  pdaReservationToken: number
   scheduledAt: number
   completedAt: number
   createdAt: number
@@ -113,6 +122,9 @@ export type OrderMinAggregateInputType = {
   totalLines?: true
   preparedLines?: true
   orderDate?: true
+  pdaReservedBy?: true
+  pdaReservedAt?: true
+  pdaReservationToken?: true
   scheduledAt?: true
   completedAt?: true
   createdAt?: true
@@ -130,6 +142,9 @@ export type OrderMaxAggregateInputType = {
   totalLines?: true
   preparedLines?: true
   orderDate?: true
+  pdaReservedBy?: true
+  pdaReservedAt?: true
+  pdaReservationToken?: true
   scheduledAt?: true
   completedAt?: true
   createdAt?: true
@@ -147,6 +162,9 @@ export type OrderCountAggregateInputType = {
   totalLines?: true
   preparedLines?: true
   orderDate?: true
+  pdaReservedBy?: true
+  pdaReservedAt?: true
+  pdaReservationToken?: true
   scheduledAt?: true
   completedAt?: true
   createdAt?: true
@@ -251,6 +269,9 @@ export type OrderGroupByOutputType = {
   totalLines: number
   preparedLines: number
   orderDate: Date | null
+  pdaReservedBy: string | null
+  pdaReservedAt: Date | null
+  pdaReservationToken: string | null
   scheduledAt: Date | null
   completedAt: Date | null
   createdAt: Date
@@ -291,6 +312,9 @@ export type OrderWhereInput = {
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
   orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  pdaReservedBy?: Prisma.StringNullableFilter<"Order"> | string | null
+  pdaReservedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  pdaReservationToken?: Prisma.StringNullableFilter<"Order"> | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -309,6 +333,9 @@ export type OrderOrderByWithRelationInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdaReservedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdaReservedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdaReservationToken?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -320,6 +347,7 @@ export type OrderOrderByWithRelationInput = {
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   number?: string
+  pdaReservationToken?: string
   AND?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
@@ -330,13 +358,15 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
   orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  pdaReservedBy?: Prisma.StringNullableFilter<"Order"> | string | null
+  pdaReservedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   companyId?: Prisma.StringNullableFilter<"Order"> | string | null
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
-}, "id" | "number">
+}, "id" | "number" | "pdaReservationToken">
 
 export type OrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -348,6 +378,9 @@ export type OrderOrderByWithAggregationInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdaReservedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdaReservedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  pdaReservationToken?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -373,6 +406,9 @@ export type OrderScalarWhereWithAggregatesInput = {
   totalLines?: Prisma.IntWithAggregatesFilter<"Order"> | number
   preparedLines?: Prisma.IntWithAggregatesFilter<"Order"> | number
   orderDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  pdaReservedBy?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  pdaReservedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  pdaReservationToken?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   scheduledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -389,6 +425,9 @@ export type OrderCreateInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  pdaReservedBy?: string | null
+  pdaReservedAt?: Date | string | null
+  pdaReservationToken?: string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -406,6 +445,9 @@ export type OrderUncheckedCreateInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  pdaReservedBy?: string | null
+  pdaReservedAt?: Date | string | null
+  pdaReservationToken?: string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -422,6 +464,9 @@ export type OrderUpdateInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -439,6 +484,9 @@ export type OrderUncheckedUpdateInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -456,6 +504,9 @@ export type OrderCreateManyInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  pdaReservedBy?: string | null
+  pdaReservedAt?: Date | string | null
+  pdaReservationToken?: string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -472,6 +523,9 @@ export type OrderUpdateManyMutationInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -488,6 +542,9 @@ export type OrderUncheckedUpdateManyInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -515,6 +572,9 @@ export type OrderCountOrderByAggregateInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrder
+  pdaReservedBy?: Prisma.SortOrder
+  pdaReservedAt?: Prisma.SortOrder
+  pdaReservationToken?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -538,6 +598,9 @@ export type OrderMaxOrderByAggregateInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrder
+  pdaReservedBy?: Prisma.SortOrder
+  pdaReservedAt?: Prisma.SortOrder
+  pdaReservationToken?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -555,6 +618,9 @@ export type OrderMinOrderByAggregateInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrder
+  pdaReservedBy?: Prisma.SortOrder
+  pdaReservedAt?: Prisma.SortOrder
+  pdaReservationToken?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -619,6 +685,9 @@ export type OrderCreateWithoutCompanyInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  pdaReservedBy?: string | null
+  pdaReservedAt?: Date | string | null
+  pdaReservationToken?: string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -635,6 +704,9 @@ export type OrderUncheckedCreateWithoutCompanyInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  pdaReservedBy?: string | null
+  pdaReservedAt?: Date | string | null
+  pdaReservationToken?: string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -680,6 +752,9 @@ export type OrderScalarWhereInput = {
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
   orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  pdaReservedBy?: Prisma.StringNullableFilter<"Order"> | string | null
+  pdaReservedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  pdaReservationToken?: Prisma.StringNullableFilter<"Order"> | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -697,6 +772,9 @@ export type OrderCreateManyCompanyInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  pdaReservedBy?: string | null
+  pdaReservedAt?: Date | string | null
+  pdaReservationToken?: string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -712,6 +790,9 @@ export type OrderUpdateWithoutCompanyInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -728,6 +809,9 @@ export type OrderUncheckedUpdateWithoutCompanyInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -744,6 +828,9 @@ export type OrderUncheckedUpdateManyWithoutCompanyInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -762,6 +849,9 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   totalLines?: boolean
   preparedLines?: boolean
   orderDate?: boolean
+  pdaReservedBy?: boolean
+  pdaReservedAt?: boolean
+  pdaReservationToken?: boolean
   scheduledAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -780,6 +870,9 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   totalLines?: boolean
   preparedLines?: boolean
   orderDate?: boolean
+  pdaReservedBy?: boolean
+  pdaReservedAt?: boolean
+  pdaReservationToken?: boolean
   scheduledAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -798,6 +891,9 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   totalLines?: boolean
   preparedLines?: boolean
   orderDate?: boolean
+  pdaReservedBy?: boolean
+  pdaReservedAt?: boolean
+  pdaReservationToken?: boolean
   scheduledAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -816,6 +912,9 @@ export type OrderSelectScalar = {
   totalLines?: boolean
   preparedLines?: boolean
   orderDate?: boolean
+  pdaReservedBy?: boolean
+  pdaReservedAt?: boolean
+  pdaReservationToken?: boolean
   scheduledAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -823,7 +922,7 @@ export type OrderSelectScalar = {
   companyId?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "customer" | "carrier" | "priority" | "status" | "totalLines" | "preparedLines" | "orderDate" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "customer" | "carrier" | "priority" | "status" | "totalLines" | "preparedLines" | "orderDate" | "pdaReservedBy" | "pdaReservedAt" | "pdaReservationToken" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.Order$companyArgs<ExtArgs>
 }
@@ -849,6 +948,9 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     totalLines: number
     preparedLines: number
     orderDate: Date | null
+    pdaReservedBy: string | null
+    pdaReservedAt: Date | null
+    pdaReservationToken: string | null
     scheduledAt: Date | null
     completedAt: Date | null
     createdAt: Date
@@ -1287,6 +1389,9 @@ export interface OrderFieldRefs {
   readonly totalLines: Prisma.FieldRef<"Order", 'Int'>
   readonly preparedLines: Prisma.FieldRef<"Order", 'Int'>
   readonly orderDate: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly pdaReservedBy: Prisma.FieldRef<"Order", 'String'>
+  readonly pdaReservedAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly pdaReservationToken: Prisma.FieldRef<"Order", 'String'>
   readonly scheduledAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
