@@ -161,6 +161,18 @@ const connection = await prisma.erpConnection.findFirst({
           ? Math.min(Number(order.preparedLines), totalLines)
           : 0;
 
+      const totalQuantity =
+        Number.isFinite(order.totalQuantity) &&
+        Number(order.totalQuantity) >= 0
+          ? Number(order.totalQuantity)
+          : null;
+
+      const orderDate =
+        order.orderDate &&
+        !Number.isNaN(Date.parse(order.orderDate))
+          ? new Date(order.orderDate)
+          : null;
+
       const scheduledAt =
         order.scheduledAt &&
         !Number.isNaN(Date.parse(order.scheduledAt))
@@ -173,22 +185,32 @@ const connection = await prisma.erpConnection.findFirst({
         },
         update: {
           customer: order.customer,
+          customerCode: order.customerCode || null,
+          country: order.country || null,
+          paymentMethod: order.paymentMethod || null,
           carrier: order.carrier || null,
           priority: order.priority || "Normale",
           status: order.status || "À préparer",
           totalLines,
+          totalQuantity,
           preparedLines,
+          orderDate,
           scheduledAt,
           companyId,
         },
         create: {
           number: order.number,
           customer: order.customer,
+          customerCode: order.customerCode || null,
+          country: order.country || null,
+          paymentMethod: order.paymentMethod || null,
           carrier: order.carrier || null,
           priority: order.priority || "Normale",
           status: order.status || "À préparer",
           totalLines,
+          totalQuantity,
           preparedLines,
+          orderDate,
           scheduledAt,
           companyId,
         },

@@ -45,7 +45,12 @@ export type ErpOrder = {
   carrier?: string | null;
   priority: string;
   status: string;
+  customerCode?: string | null;
+  country?: string | null;
+  paymentMethod?: string | null;
+  orderDate?: string | null;
   totalLines?: number;
+  totalQuantity?: number;
   preparedLines?: number;
   scheduledAt?: string | null;
 };

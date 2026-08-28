@@ -30,12 +30,14 @@ export type OrderAvgAggregateOutputType = {
   id: number | null
   totalLines: number | null
   preparedLines: number | null
+  totalQuantity: number | null
 }
 
 export type OrderSumAggregateOutputType = {
   id: number | null
   totalLines: number | null
   preparedLines: number | null
+  totalQuantity: number | null
 }
 
 export type OrderMinAggregateOutputType = {
@@ -48,6 +50,10 @@ export type OrderMinAggregateOutputType = {
   totalLines: number | null
   preparedLines: number | null
   orderDate: Date | null
+  customerCode: string | null
+  country: string | null
+  paymentMethod: string | null
+  totalQuantity: number | null
   pdaReservedBy: string | null
   pdaReservedAt: Date | null
   pdaReservationToken: string | null
@@ -68,6 +74,10 @@ export type OrderMaxAggregateOutputType = {
   totalLines: number | null
   preparedLines: number | null
   orderDate: Date | null
+  customerCode: string | null
+  country: string | null
+  paymentMethod: string | null
+  totalQuantity: number | null
   pdaReservedBy: string | null
   pdaReservedAt: Date | null
   pdaReservationToken: string | null
@@ -88,6 +98,10 @@ export type OrderCountAggregateOutputType = {
   totalLines: number
   preparedLines: number
   orderDate: number
+  customerCode: number
+  country: number
+  paymentMethod: number
+  totalQuantity: number
   pdaReservedBy: number
   pdaReservedAt: number
   pdaReservationToken: number
@@ -104,12 +118,14 @@ export type OrderAvgAggregateInputType = {
   id?: true
   totalLines?: true
   preparedLines?: true
+  totalQuantity?: true
 }
 
 export type OrderSumAggregateInputType = {
   id?: true
   totalLines?: true
   preparedLines?: true
+  totalQuantity?: true
 }
 
 export type OrderMinAggregateInputType = {
@@ -122,6 +138,10 @@ export type OrderMinAggregateInputType = {
   totalLines?: true
   preparedLines?: true
   orderDate?: true
+  customerCode?: true
+  country?: true
+  paymentMethod?: true
+  totalQuantity?: true
   pdaReservedBy?: true
   pdaReservedAt?: true
   pdaReservationToken?: true
@@ -142,6 +162,10 @@ export type OrderMaxAggregateInputType = {
   totalLines?: true
   preparedLines?: true
   orderDate?: true
+  customerCode?: true
+  country?: true
+  paymentMethod?: true
+  totalQuantity?: true
   pdaReservedBy?: true
   pdaReservedAt?: true
   pdaReservationToken?: true
@@ -162,6 +186,10 @@ export type OrderCountAggregateInputType = {
   totalLines?: true
   preparedLines?: true
   orderDate?: true
+  customerCode?: true
+  country?: true
+  paymentMethod?: true
+  totalQuantity?: true
   pdaReservedBy?: true
   pdaReservedAt?: true
   pdaReservationToken?: true
@@ -269,6 +297,10 @@ export type OrderGroupByOutputType = {
   totalLines: number
   preparedLines: number
   orderDate: Date | null
+  customerCode: string | null
+  country: string | null
+  paymentMethod: string | null
+  totalQuantity: number | null
   pdaReservedBy: string | null
   pdaReservedAt: Date | null
   pdaReservationToken: string | null
@@ -312,6 +344,10 @@ export type OrderWhereInput = {
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
   orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  customerCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  country?: Prisma.StringNullableFilter<"Order"> | string | null
+  paymentMethod?: Prisma.StringNullableFilter<"Order"> | string | null
+  totalQuantity?: Prisma.IntNullableFilter<"Order"> | number | null
   pdaReservedBy?: Prisma.StringNullableFilter<"Order"> | string | null
   pdaReservedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   pdaReservationToken?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -333,6 +369,10 @@ export type OrderOrderByWithRelationInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
   pdaReservedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   pdaReservedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   pdaReservationToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -358,6 +398,10 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
   orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  customerCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  country?: Prisma.StringNullableFilter<"Order"> | string | null
+  paymentMethod?: Prisma.StringNullableFilter<"Order"> | string | null
+  totalQuantity?: Prisma.IntNullableFilter<"Order"> | number | null
   pdaReservedBy?: Prisma.StringNullableFilter<"Order"> | string | null
   pdaReservedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
@@ -378,6 +422,10 @@ export type OrderOrderByWithAggregationInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  totalQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
   pdaReservedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   pdaReservedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   pdaReservationToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -406,6 +454,10 @@ export type OrderScalarWhereWithAggregatesInput = {
   totalLines?: Prisma.IntWithAggregatesFilter<"Order"> | number
   preparedLines?: Prisma.IntWithAggregatesFilter<"Order"> | number
   orderDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  customerCode?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  paymentMethod?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  totalQuantity?: Prisma.IntNullableWithAggregatesFilter<"Order"> | number | null
   pdaReservedBy?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   pdaReservedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   pdaReservationToken?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -425,6 +477,10 @@ export type OrderCreateInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  customerCode?: string | null
+  country?: string | null
+  paymentMethod?: string | null
+  totalQuantity?: number | null
   pdaReservedBy?: string | null
   pdaReservedAt?: Date | string | null
   pdaReservationToken?: string | null
@@ -445,6 +501,10 @@ export type OrderUncheckedCreateInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  customerCode?: string | null
+  country?: string | null
+  paymentMethod?: string | null
+  totalQuantity?: number | null
   pdaReservedBy?: string | null
   pdaReservedAt?: Date | string | null
   pdaReservationToken?: string | null
@@ -464,6 +524,10 @@ export type OrderUpdateInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -484,6 +548,10 @@ export type OrderUncheckedUpdateInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -504,6 +572,10 @@ export type OrderCreateManyInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  customerCode?: string | null
+  country?: string | null
+  paymentMethod?: string | null
+  totalQuantity?: number | null
   pdaReservedBy?: string | null
   pdaReservedAt?: Date | string | null
   pdaReservationToken?: string | null
@@ -523,6 +595,10 @@ export type OrderUpdateManyMutationInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -542,6 +618,10 @@ export type OrderUncheckedUpdateManyInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -572,6 +652,10 @@ export type OrderCountOrderByAggregateInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrder
+  customerCode?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
+  totalQuantity?: Prisma.SortOrder
   pdaReservedBy?: Prisma.SortOrder
   pdaReservedAt?: Prisma.SortOrder
   pdaReservationToken?: Prisma.SortOrder
@@ -586,6 +670,7 @@ export type OrderAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
+  totalQuantity?: Prisma.SortOrder
 }
 
 export type OrderMaxOrderByAggregateInput = {
@@ -598,6 +683,10 @@ export type OrderMaxOrderByAggregateInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrder
+  customerCode?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
+  totalQuantity?: Prisma.SortOrder
   pdaReservedBy?: Prisma.SortOrder
   pdaReservedAt?: Prisma.SortOrder
   pdaReservationToken?: Prisma.SortOrder
@@ -618,6 +707,10 @@ export type OrderMinOrderByAggregateInput = {
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
   orderDate?: Prisma.SortOrder
+  customerCode?: Prisma.SortOrder
+  country?: Prisma.SortOrder
+  paymentMethod?: Prisma.SortOrder
+  totalQuantity?: Prisma.SortOrder
   pdaReservedBy?: Prisma.SortOrder
   pdaReservedAt?: Prisma.SortOrder
   pdaReservationToken?: Prisma.SortOrder
@@ -632,6 +725,7 @@ export type OrderSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
+  totalQuantity?: Prisma.SortOrder
 }
 
 export type OrderCreateNestedManyWithoutCompanyInput = {
@@ -685,6 +779,10 @@ export type OrderCreateWithoutCompanyInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  customerCode?: string | null
+  country?: string | null
+  paymentMethod?: string | null
+  totalQuantity?: number | null
   pdaReservedBy?: string | null
   pdaReservedAt?: Date | string | null
   pdaReservationToken?: string | null
@@ -704,6 +802,10 @@ export type OrderUncheckedCreateWithoutCompanyInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  customerCode?: string | null
+  country?: string | null
+  paymentMethod?: string | null
+  totalQuantity?: number | null
   pdaReservedBy?: string | null
   pdaReservedAt?: Date | string | null
   pdaReservationToken?: string | null
@@ -752,6 +854,10 @@ export type OrderScalarWhereInput = {
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
   orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  customerCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  country?: Prisma.StringNullableFilter<"Order"> | string | null
+  paymentMethod?: Prisma.StringNullableFilter<"Order"> | string | null
+  totalQuantity?: Prisma.IntNullableFilter<"Order"> | number | null
   pdaReservedBy?: Prisma.StringNullableFilter<"Order"> | string | null
   pdaReservedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   pdaReservationToken?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -772,6 +878,10 @@ export type OrderCreateManyCompanyInput = {
   totalLines?: number
   preparedLines?: number
   orderDate?: Date | string | null
+  customerCode?: string | null
+  country?: string | null
+  paymentMethod?: string | null
+  totalQuantity?: number | null
   pdaReservedBy?: string | null
   pdaReservedAt?: Date | string | null
   pdaReservationToken?: string | null
@@ -790,6 +900,10 @@ export type OrderUpdateWithoutCompanyInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -809,6 +923,10 @@ export type OrderUncheckedUpdateWithoutCompanyInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -828,6 +946,10 @@ export type OrderUncheckedUpdateManyWithoutCompanyInput = {
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
   orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  customerCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  paymentMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  totalQuantity?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   pdaReservedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pdaReservedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   pdaReservationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -849,6 +971,10 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   totalLines?: boolean
   preparedLines?: boolean
   orderDate?: boolean
+  customerCode?: boolean
+  country?: boolean
+  paymentMethod?: boolean
+  totalQuantity?: boolean
   pdaReservedBy?: boolean
   pdaReservedAt?: boolean
   pdaReservationToken?: boolean
@@ -870,6 +996,10 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   totalLines?: boolean
   preparedLines?: boolean
   orderDate?: boolean
+  customerCode?: boolean
+  country?: boolean
+  paymentMethod?: boolean
+  totalQuantity?: boolean
   pdaReservedBy?: boolean
   pdaReservedAt?: boolean
   pdaReservationToken?: boolean
@@ -891,6 +1021,10 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   totalLines?: boolean
   preparedLines?: boolean
   orderDate?: boolean
+  customerCode?: boolean
+  country?: boolean
+  paymentMethod?: boolean
+  totalQuantity?: boolean
   pdaReservedBy?: boolean
   pdaReservedAt?: boolean
   pdaReservationToken?: boolean
@@ -912,6 +1046,10 @@ export type OrderSelectScalar = {
   totalLines?: boolean
   preparedLines?: boolean
   orderDate?: boolean
+  customerCode?: boolean
+  country?: boolean
+  paymentMethod?: boolean
+  totalQuantity?: boolean
   pdaReservedBy?: boolean
   pdaReservedAt?: boolean
   pdaReservationToken?: boolean
@@ -922,7 +1060,7 @@ export type OrderSelectScalar = {
   companyId?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "customer" | "carrier" | "priority" | "status" | "totalLines" | "preparedLines" | "orderDate" | "pdaReservedBy" | "pdaReservedAt" | "pdaReservationToken" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "customer" | "carrier" | "priority" | "status" | "totalLines" | "preparedLines" | "orderDate" | "customerCode" | "country" | "paymentMethod" | "totalQuantity" | "pdaReservedBy" | "pdaReservedAt" | "pdaReservationToken" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.Order$companyArgs<ExtArgs>
 }
@@ -948,6 +1086,10 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     totalLines: number
     preparedLines: number
     orderDate: Date | null
+    customerCode: string | null
+    country: string | null
+    paymentMethod: string | null
+    totalQuantity: number | null
     pdaReservedBy: string | null
     pdaReservedAt: Date | null
     pdaReservationToken: string | null
@@ -1389,6 +1531,10 @@ export interface OrderFieldRefs {
   readonly totalLines: Prisma.FieldRef<"Order", 'Int'>
   readonly preparedLines: Prisma.FieldRef<"Order", 'Int'>
   readonly orderDate: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly customerCode: Prisma.FieldRef<"Order", 'String'>
+  readonly country: Prisma.FieldRef<"Order", 'String'>
+  readonly paymentMethod: Prisma.FieldRef<"Order", 'String'>
+  readonly totalQuantity: Prisma.FieldRef<"Order", 'Int'>
   readonly pdaReservedBy: Prisma.FieldRef<"Order", 'String'>
   readonly pdaReservedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly pdaReservationToken: Prisma.FieldRef<"Order", 'String'>
