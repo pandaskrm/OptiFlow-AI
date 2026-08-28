@@ -2430,6 +2430,7 @@ export const OrderScalarFieldEnum = {
   status: 'status',
   totalLines: 'totalLines',
   preparedLines: 'preparedLines',
+  orderDate: 'orderDate',
   scheduledAt: 'scheduledAt',
   completedAt: 'completedAt',
   createdAt: 'createdAt',

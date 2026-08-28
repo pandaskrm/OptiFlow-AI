@@ -69,8 +69,8 @@ model Company {
 
 /**
  * REGLES METIER CONFIGURABLES
- * Chaque entreprise peut définir ses propres priorités,
- * procédures, badges, checklists et actions.
+ * Chaque entreprise peut dÃ©finir ses propres prioritÃ©s,
+ * procÃ©dures, badges, checklists et actions.
  */
 
 model BusinessRule {
@@ -253,10 +253,10 @@ model AuditLog {
 }
 
 /**
- * DONNÃ‰ES LOGISTIQUES
+ * DONNÃƒâ€°ES LOGISTIQUES
  * companyId reste facultatif pendant la transition afin de ne pas casser
- * les API actuelles. Il deviendra obligatoire quand lâ€™isolation multi-client
- * sera branchÃ©e dans les services.
+ * les API actuelles. Il deviendra obligatoire quand lÃ¢â‚¬â„¢isolation multi-client
+ * sera branchÃƒÂ©e dans les services.
  */
 
 model Reception {
@@ -355,9 +355,14 @@ model Order {
   customer      String
   carrier       String?
   priority      String    @default("Normale")
-  status        String    @default("Ã€ prÃ©parer")
+  status        String    @default("Ãƒâ‚¬ prÃƒÂ©parer")
   totalLines    Int       @default(0)
   preparedLines Int       @default(0)
+
+  // Date reelle a laquelle le client a passe la commande dans OpenSi.
+  // Cette date pilote l'ordre des files de preparation PDA.
+  orderDate     DateTime?
+
   scheduledAt   DateTime?
   completedAt   DateTime?
   createdAt     DateTime  @default(now())
@@ -376,7 +381,7 @@ model Shipment {
   customer    String
   carrier     String
   dock        String?
-  status      String    @default("Ã€ expÃ©dier")
+  status      String    @default("Ãƒâ‚¬ expÃƒÂ©dier")
   pallets     Int       @default(0)
   packages    Int       @default(0)
   scheduledAt DateTime?
@@ -413,7 +418,7 @@ model Workforce {
   name           String
   team           String?
   zone           String?
-  status         String   @default("PrÃ©sent")
+  status         String   @default("PrÃƒÂ©sent")
   workedMinutes  Int      @default(0)
   processedUnits Int      @default(0)
   workDate       DateTime @default(now())
@@ -428,8 +433,8 @@ model Workforce {
 
 /**
  * CONNEXIONS ERP
- * Une configuration ERP appartient obligatoirement à une entreprise.
- * Les informations sensibles devront être chiffrées côté serveur.
+ * Une configuration ERP appartient obligatoirement Ã  une entreprise.
+ * Les informations sensibles devront Ãªtre chiffrÃ©es cÃ´tÃ© serveur.
  */
 
 /**
@@ -483,7 +488,7 @@ model MailMessage {
 }
 
 /**
- * PIÈCES JOINTES DES E-MAILS LOGISTIQUES
+ * PIÃˆCES JOINTES DES E-MAILS LOGISTIQUES
  */
 
 model MailAttachment {
@@ -562,3 +567,4 @@ model ErpConnection {
   @@index([provider])
   @@index([status])
 }
+

@@ -47,6 +47,7 @@ export type OrderMinAggregateOutputType = {
   status: string | null
   totalLines: number | null
   preparedLines: number | null
+  orderDate: Date | null
   scheduledAt: Date | null
   completedAt: Date | null
   createdAt: Date | null
@@ -63,6 +64,7 @@ export type OrderMaxAggregateOutputType = {
   status: string | null
   totalLines: number | null
   preparedLines: number | null
+  orderDate: Date | null
   scheduledAt: Date | null
   completedAt: Date | null
   createdAt: Date | null
@@ -79,6 +81,7 @@ export type OrderCountAggregateOutputType = {
   status: number
   totalLines: number
   preparedLines: number
+  orderDate: number
   scheduledAt: number
   completedAt: number
   createdAt: number
@@ -109,6 +112,7 @@ export type OrderMinAggregateInputType = {
   status?: true
   totalLines?: true
   preparedLines?: true
+  orderDate?: true
   scheduledAt?: true
   completedAt?: true
   createdAt?: true
@@ -125,6 +129,7 @@ export type OrderMaxAggregateInputType = {
   status?: true
   totalLines?: true
   preparedLines?: true
+  orderDate?: true
   scheduledAt?: true
   completedAt?: true
   createdAt?: true
@@ -141,6 +146,7 @@ export type OrderCountAggregateInputType = {
   status?: true
   totalLines?: true
   preparedLines?: true
+  orderDate?: true
   scheduledAt?: true
   completedAt?: true
   createdAt?: true
@@ -244,6 +250,7 @@ export type OrderGroupByOutputType = {
   status: string
   totalLines: number
   preparedLines: number
+  orderDate: Date | null
   scheduledAt: Date | null
   completedAt: Date | null
   createdAt: Date
@@ -283,6 +290,7 @@ export type OrderWhereInput = {
   status?: Prisma.StringFilter<"Order"> | string
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
+  orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -300,6 +308,7 @@ export type OrderOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
+  orderDate?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -320,6 +329,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.StringFilter<"Order"> | string
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
+  orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -337,6 +347,7 @@ export type OrderOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
+  orderDate?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -361,6 +372,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   status?: Prisma.StringWithAggregatesFilter<"Order"> | string
   totalLines?: Prisma.IntWithAggregatesFilter<"Order"> | number
   preparedLines?: Prisma.IntWithAggregatesFilter<"Order"> | number
+  orderDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -376,6 +388,7 @@ export type OrderCreateInput = {
   status?: string
   totalLines?: number
   preparedLines?: number
+  orderDate?: Date | string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -392,6 +405,7 @@ export type OrderUncheckedCreateInput = {
   status?: string
   totalLines?: number
   preparedLines?: number
+  orderDate?: Date | string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -407,6 +421,7 @@ export type OrderUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -423,6 +438,7 @@ export type OrderUncheckedUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -439,6 +455,7 @@ export type OrderCreateManyInput = {
   status?: string
   totalLines?: number
   preparedLines?: number
+  orderDate?: Date | string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -454,6 +471,7 @@ export type OrderUpdateManyMutationInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -469,6 +487,7 @@ export type OrderUncheckedUpdateManyInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -495,6 +514,7 @@ export type OrderCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
+  orderDate?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -517,6 +537,7 @@ export type OrderMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
+  orderDate?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -533,6 +554,7 @@ export type OrderMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   totalLines?: Prisma.SortOrder
   preparedLines?: Prisma.SortOrder
+  orderDate?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -596,6 +618,7 @@ export type OrderCreateWithoutCompanyInput = {
   status?: string
   totalLines?: number
   preparedLines?: number
+  orderDate?: Date | string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -611,6 +634,7 @@ export type OrderUncheckedCreateWithoutCompanyInput = {
   status?: string
   totalLines?: number
   preparedLines?: number
+  orderDate?: Date | string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -655,6 +679,7 @@ export type OrderScalarWhereInput = {
   status?: Prisma.StringFilter<"Order"> | string
   totalLines?: Prisma.IntFilter<"Order"> | number
   preparedLines?: Prisma.IntFilter<"Order"> | number
+  orderDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   scheduledAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -671,6 +696,7 @@ export type OrderCreateManyCompanyInput = {
   status?: string
   totalLines?: number
   preparedLines?: number
+  orderDate?: Date | string | null
   scheduledAt?: Date | string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
@@ -685,6 +711,7 @@ export type OrderUpdateWithoutCompanyInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -700,6 +727,7 @@ export type OrderUncheckedUpdateWithoutCompanyInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -715,6 +743,7 @@ export type OrderUncheckedUpdateManyWithoutCompanyInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   totalLines?: Prisma.IntFieldUpdateOperationsInput | number
   preparedLines?: Prisma.IntFieldUpdateOperationsInput | number
+  orderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -732,6 +761,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   status?: boolean
   totalLines?: boolean
   preparedLines?: boolean
+  orderDate?: boolean
   scheduledAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -749,6 +779,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   status?: boolean
   totalLines?: boolean
   preparedLines?: boolean
+  orderDate?: boolean
   scheduledAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -766,6 +797,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   status?: boolean
   totalLines?: boolean
   preparedLines?: boolean
+  orderDate?: boolean
   scheduledAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -783,6 +815,7 @@ export type OrderSelectScalar = {
   status?: boolean
   totalLines?: boolean
   preparedLines?: boolean
+  orderDate?: boolean
   scheduledAt?: boolean
   completedAt?: boolean
   createdAt?: boolean
@@ -790,7 +823,7 @@ export type OrderSelectScalar = {
   companyId?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "customer" | "carrier" | "priority" | "status" | "totalLines" | "preparedLines" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "customer" | "carrier" | "priority" | "status" | "totalLines" | "preparedLines" | "orderDate" | "scheduledAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.Order$companyArgs<ExtArgs>
 }
@@ -815,6 +848,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     status: string
     totalLines: number
     preparedLines: number
+    orderDate: Date | null
     scheduledAt: Date | null
     completedAt: Date | null
     createdAt: Date
@@ -1252,6 +1286,7 @@ export interface OrderFieldRefs {
   readonly status: Prisma.FieldRef<"Order", 'String'>
   readonly totalLines: Prisma.FieldRef<"Order", 'Int'>
   readonly preparedLines: Prisma.FieldRef<"Order", 'Int'>
+  readonly orderDate: Prisma.FieldRef<"Order", 'DateTime'>
   readonly scheduledAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly completedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
