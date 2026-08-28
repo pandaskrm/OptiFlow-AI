@@ -13,6 +13,7 @@ import { Reception } from "../../types/reception";
 
 import ReceptionDeliveryNoteModal from "./ReceptionDeliveryNoteModal";
 import ReceptionInspectorModal from "./ReceptionInspectorModal";
+import ReceptionQualityValidationModal from "./ReceptionQualityValidationModal";
 
 type ReceptionDocument = {
   id: string;
@@ -319,6 +320,11 @@ export default function ReceptionTable({
     setPendingInspectorReception,
   ] = useState<Reception | null>(null);
 
+  const [
+    pendingQualityReception,
+    setPendingQualityReception,
+  ] = useState<Reception | null>(null);
+
   useEffect(() => {
     void refresh();
   }, [refreshKey, refresh]);
@@ -380,6 +386,11 @@ export default function ReceptionTable({
     nextStatus: string,
     inspectorUserIds?: string[],
     inspectorNames?: string[],
+    qualityValidation?: {
+      qualityResult: "CONFORME" | "ANOMALIE";
+      qualityValidatedBy: string;
+      qualityComment: string;
+    },
   ) {
     setLoadingId(item.id);
 
@@ -398,6 +409,9 @@ export default function ReceptionTable({
               : {}),
             ...(inspectorNames
               ? { inspectorNames }
+              : {}),
+            ...(qualityValidation
+              ? qualityValidation
               : {}),
           }),
         },
@@ -527,6 +541,14 @@ export default function ReceptionTable({
       return;
     }
 
+    if (
+      nextStatus ===
+      RECEPTION_STATUS.COMPLETED
+    ) {
+      setPendingQualityReception(item);
+      return;
+    }
+
     try {
       await updateReceptionStatus(
         item,
@@ -559,6 +581,28 @@ export default function ReceptionTable({
     );
 
     setPendingInspectorReception(null);
+  }
+
+  async function confirmQualityValidation(
+    payload: {
+      qualityResult: "CONFORME" | "ANOMALIE";
+      qualityValidatedBy: string;
+      qualityComment: string;
+    },
+  ) {
+    if (!pendingQualityReception) {
+      return;
+    }
+
+    await updateReceptionStatus(
+      pendingQualityReception,
+      RECEPTION_STATUS.COMPLETED,
+      undefined,
+      undefined,
+      payload,
+    );
+
+    setPendingQualityReception(null);
   }
 
   async function confirmDockArrival() {
@@ -625,6 +669,23 @@ export default function ReceptionTable({
           onConfirm={confirmInspection}
           onCancel={() =>
             setPendingInspectorReception(null)
+          }
+        />
+      )}
+
+      {pendingQualityReception && (
+        <ReceptionQualityValidationModal
+          receptionNumber={
+            pendingQualityReception.number
+          }
+          supplier={
+            pendingQualityReception.supplier
+          }
+          onConfirm={
+            confirmQualityValidation
+          }
+          onCancel={() =>
+            setPendingQualityReception(null)
           }
         />
       )}

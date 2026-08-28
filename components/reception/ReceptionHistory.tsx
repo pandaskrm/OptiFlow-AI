@@ -38,6 +38,11 @@ type HistoricalReception = {
   inspectionStartedAt: string | null;
   completedAt: string | null;
 
+  qualityResult: string | null;
+  qualityValidatedBy: string | null;
+  qualityValidatedAt: string | null;
+  qualityComment: string | null;
+
   createdAt: string;
   updatedAt: string;
 
@@ -796,6 +801,60 @@ export default function ReceptionHistory() {
                                 reception.inspectionStartedAt,
                               )}
                             </p>
+
+                            {reception.qualityResult && (
+                              <div className="mt-4 border-t border-[#008cff]/20 pt-4">
+
+                                <div className="flex flex-wrap items-center gap-2">
+                                  <span className="text-[10px] font-bold uppercase tracking-[0.13em] text-slate-600">
+                                    Résultat
+                                  </span>
+
+                                  <span
+                                    className={[
+                                      "rounded-full border px-3 py-1 text-xs font-black",
+                                      reception.qualityResult === "CONFORME"
+                                        ? "border-emerald-500/35 bg-emerald-500/10 text-emerald-300"
+                                        : "border-amber-500/35 bg-amber-500/10 text-amber-300",
+                                    ].join(" ")}
+                                  >
+                                    {reception.qualityResult === "CONFORME"
+                                      ? "✓ Conforme"
+                                      : "⚠ Anomalie"}
+                                  </span>
+                                </div>
+
+                                {reception.qualityValidatedBy && (
+                                  <p className="mt-3 text-sm text-slate-400">
+                                    Validé par :{" "}
+                                    <span className="font-black text-white">
+                                      {reception.qualityValidatedBy}
+                                    </span>
+                                  </p>
+                                )}
+
+                                {reception.qualityValidatedAt && (
+                                  <p className="mt-1 text-xs text-slate-500">
+                                    Validation :{" "}
+                                    {formatDateTime(
+                                      reception.qualityValidatedAt,
+                                    )}
+                                  </p>
+                                )}
+
+                                {reception.qualityComment && (
+                                  <div className="mt-3 rounded-lg border border-slate-700 bg-slate-950/50 p-3">
+                                    <p className="text-[10px] font-bold uppercase tracking-[0.13em] text-slate-600">
+                                      Commentaire
+                                    </p>
+
+                                    <p className="mt-1 whitespace-pre-wrap text-sm text-slate-300">
+                                      {reception.qualityComment}
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}

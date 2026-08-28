@@ -48,6 +48,10 @@ export type ReceptionMinAggregateOutputType = {
   arrivedAt: Date | null
   unloadingStartedAt: Date | null
   inspectionStartedAt: Date | null
+  qualityResult: string | null
+  qualityValidatedBy: string | null
+  qualityValidatedAt: Date | null
+  qualityComment: string | null
   completedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -66,6 +70,10 @@ export type ReceptionMaxAggregateOutputType = {
   arrivedAt: Date | null
   unloadingStartedAt: Date | null
   inspectionStartedAt: Date | null
+  qualityResult: string | null
+  qualityValidatedBy: string | null
+  qualityValidatedAt: Date | null
+  qualityComment: string | null
   completedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -84,6 +92,10 @@ export type ReceptionCountAggregateOutputType = {
   arrivedAt: number
   unloadingStartedAt: number
   inspectionStartedAt: number
+  qualityResult: number
+  qualityValidatedBy: number
+  qualityValidatedAt: number
+  qualityComment: number
   completedAt: number
   createdAt: number
   updatedAt: number
@@ -114,6 +126,10 @@ export type ReceptionMinAggregateInputType = {
   arrivedAt?: true
   unloadingStartedAt?: true
   inspectionStartedAt?: true
+  qualityResult?: true
+  qualityValidatedBy?: true
+  qualityValidatedAt?: true
+  qualityComment?: true
   completedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -132,6 +148,10 @@ export type ReceptionMaxAggregateInputType = {
   arrivedAt?: true
   unloadingStartedAt?: true
   inspectionStartedAt?: true
+  qualityResult?: true
+  qualityValidatedBy?: true
+  qualityValidatedAt?: true
+  qualityComment?: true
   completedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -150,6 +170,10 @@ export type ReceptionCountAggregateInputType = {
   arrivedAt?: true
   unloadingStartedAt?: true
   inspectionStartedAt?: true
+  qualityResult?: true
+  qualityValidatedBy?: true
+  qualityValidatedAt?: true
+  qualityComment?: true
   completedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -255,6 +279,10 @@ export type ReceptionGroupByOutputType = {
   arrivedAt: Date | null
   unloadingStartedAt: Date | null
   inspectionStartedAt: Date | null
+  qualityResult: string | null
+  qualityValidatedBy: string | null
+  qualityValidatedAt: Date | null
+  qualityComment: string | null
   completedAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -296,6 +324,10 @@ export type ReceptionWhereInput = {
   arrivedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   unloadingStartedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   inspectionStartedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
+  qualityResult?: Prisma.StringNullableFilter<"Reception"> | string | null
+  qualityValidatedBy?: Prisma.StringNullableFilter<"Reception"> | string | null
+  qualityValidatedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
+  qualityComment?: Prisma.StringNullableFilter<"Reception"> | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
@@ -319,6 +351,10 @@ export type ReceptionOrderByWithRelationInput = {
   arrivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   unloadingStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   inspectionStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  qualityResult?: Prisma.SortOrderInput | Prisma.SortOrder
+  qualityValidatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  qualityValidatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  qualityComment?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -345,6 +381,10 @@ export type ReceptionWhereUniqueInput = Prisma.AtLeast<{
   arrivedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   unloadingStartedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   inspectionStartedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
+  qualityResult?: Prisma.StringNullableFilter<"Reception"> | string | null
+  qualityValidatedBy?: Prisma.StringNullableFilter<"Reception"> | string | null
+  qualityValidatedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
+  qualityComment?: Prisma.StringNullableFilter<"Reception"> | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
@@ -368,6 +408,10 @@ export type ReceptionOrderByWithAggregationInput = {
   arrivedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   unloadingStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   inspectionStartedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  qualityResult?: Prisma.SortOrderInput | Prisma.SortOrder
+  qualityValidatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  qualityValidatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  qualityComment?: Prisma.SortOrderInput | Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -394,6 +438,10 @@ export type ReceptionScalarWhereWithAggregatesInput = {
   arrivedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reception"> | Date | string | null
   unloadingStartedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reception"> | Date | string | null
   inspectionStartedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reception"> | Date | string | null
+  qualityResult?: Prisma.StringNullableWithAggregatesFilter<"Reception"> | string | null
+  qualityValidatedBy?: Prisma.StringNullableWithAggregatesFilter<"Reception"> | string | null
+  qualityValidatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reception"> | Date | string | null
+  qualityComment?: Prisma.StringNullableWithAggregatesFilter<"Reception"> | string | null
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Reception"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Reception"> | Date | string
@@ -411,6 +459,10 @@ export type ReceptionCreateInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -433,6 +485,10 @@ export type ReceptionUncheckedCreateInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -454,6 +510,10 @@ export type ReceptionUpdateInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -476,6 +536,10 @@ export type ReceptionUncheckedUpdateInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -498,6 +562,10 @@ export type ReceptionCreateManyInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -515,6 +583,10 @@ export type ReceptionUpdateManyMutationInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -532,6 +604,10 @@ export type ReceptionUncheckedUpdateManyInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -560,6 +636,10 @@ export type ReceptionCountOrderByAggregateInput = {
   arrivedAt?: Prisma.SortOrder
   unloadingStartedAt?: Prisma.SortOrder
   inspectionStartedAt?: Prisma.SortOrder
+  qualityResult?: Prisma.SortOrder
+  qualityValidatedBy?: Prisma.SortOrder
+  qualityValidatedAt?: Prisma.SortOrder
+  qualityComment?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -583,6 +663,10 @@ export type ReceptionMaxOrderByAggregateInput = {
   arrivedAt?: Prisma.SortOrder
   unloadingStartedAt?: Prisma.SortOrder
   inspectionStartedAt?: Prisma.SortOrder
+  qualityResult?: Prisma.SortOrder
+  qualityValidatedBy?: Prisma.SortOrder
+  qualityValidatedAt?: Prisma.SortOrder
+  qualityComment?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -601,6 +685,10 @@ export type ReceptionMinOrderByAggregateInput = {
   arrivedAt?: Prisma.SortOrder
   unloadingStartedAt?: Prisma.SortOrder
   inspectionStartedAt?: Prisma.SortOrder
+  qualityResult?: Prisma.SortOrder
+  qualityValidatedBy?: Prisma.SortOrder
+  qualityValidatedAt?: Prisma.SortOrder
+  qualityComment?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -741,6 +829,10 @@ export type ReceptionCreateWithoutCompanyInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -762,6 +854,10 @@ export type ReceptionUncheckedCreateWithoutCompanyInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -812,6 +908,10 @@ export type ReceptionScalarWhereInput = {
   arrivedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   unloadingStartedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   inspectionStartedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
+  qualityResult?: Prisma.StringNullableFilter<"Reception"> | string | null
+  qualityValidatedBy?: Prisma.StringNullableFilter<"Reception"> | string | null
+  qualityValidatedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
+  qualityComment?: Prisma.StringNullableFilter<"Reception"> | string | null
   completedAt?: Prisma.DateTimeNullableFilter<"Reception"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Reception"> | Date | string
@@ -829,6 +929,10 @@ export type ReceptionCreateWithoutReceptionDocumentsInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -850,6 +954,10 @@ export type ReceptionUncheckedCreateWithoutReceptionDocumentsInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -886,6 +994,10 @@ export type ReceptionUpdateWithoutReceptionDocumentsInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -907,6 +1019,10 @@ export type ReceptionUncheckedUpdateWithoutReceptionDocumentsInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -927,6 +1043,10 @@ export type ReceptionCreateWithoutReceptionInspectorsInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -948,6 +1068,10 @@ export type ReceptionUncheckedCreateWithoutReceptionInspectorsInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -984,6 +1108,10 @@ export type ReceptionUpdateWithoutReceptionInspectorsInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1005,6 +1133,10 @@ export type ReceptionUncheckedUpdateWithoutReceptionInspectorsInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1025,6 +1157,10 @@ export type ReceptionCreateWithoutReceptionEventsInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1046,6 +1182,10 @@ export type ReceptionUncheckedCreateWithoutReceptionEventsInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1082,6 +1222,10 @@ export type ReceptionUpdateWithoutReceptionEventsInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1103,6 +1247,10 @@ export type ReceptionUncheckedUpdateWithoutReceptionEventsInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1123,6 +1271,10 @@ export type ReceptionCreateWithoutMailMessagesInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1144,6 +1296,10 @@ export type ReceptionUncheckedCreateWithoutMailMessagesInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1180,6 +1336,10 @@ export type ReceptionUpdateWithoutMailMessagesInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1201,6 +1361,10 @@ export type ReceptionUncheckedUpdateWithoutMailMessagesInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1222,6 +1386,10 @@ export type ReceptionCreateManyCompanyInput = {
   arrivedAt?: Date | string | null
   unloadingStartedAt?: Date | string | null
   inspectionStartedAt?: Date | string | null
+  qualityResult?: string | null
+  qualityValidatedBy?: string | null
+  qualityValidatedAt?: Date | string | null
+  qualityComment?: string | null
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1238,6 +1406,10 @@ export type ReceptionUpdateWithoutCompanyInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1259,6 +1431,10 @@ export type ReceptionUncheckedUpdateWithoutCompanyInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1280,6 +1456,10 @@ export type ReceptionUncheckedUpdateManyWithoutCompanyInput = {
   arrivedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   unloadingStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   inspectionStartedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityResult?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  qualityValidatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  qualityComment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1355,6 +1535,10 @@ export type ReceptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   arrivedAt?: boolean
   unloadingStartedAt?: boolean
   inspectionStartedAt?: boolean
+  qualityResult?: boolean
+  qualityValidatedBy?: boolean
+  qualityValidatedAt?: boolean
+  qualityComment?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1379,6 +1563,10 @@ export type ReceptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   arrivedAt?: boolean
   unloadingStartedAt?: boolean
   inspectionStartedAt?: boolean
+  qualityResult?: boolean
+  qualityValidatedBy?: boolean
+  qualityValidatedAt?: boolean
+  qualityComment?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1398,6 +1586,10 @@ export type ReceptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   arrivedAt?: boolean
   unloadingStartedAt?: boolean
   inspectionStartedAt?: boolean
+  qualityResult?: boolean
+  qualityValidatedBy?: boolean
+  qualityValidatedAt?: boolean
+  qualityComment?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1417,13 +1609,17 @@ export type ReceptionSelectScalar = {
   arrivedAt?: boolean
   unloadingStartedAt?: boolean
   inspectionStartedAt?: boolean
+  qualityResult?: boolean
+  qualityValidatedBy?: boolean
+  qualityValidatedAt?: boolean
+  qualityComment?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   companyId?: boolean
 }
 
-export type ReceptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "supplier" | "carrier" | "dock" | "pallets" | "status" | "scheduledAt" | "arrivedAt" | "unloadingStartedAt" | "inspectionStartedAt" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["reception"]>
+export type ReceptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "number" | "supplier" | "carrier" | "dock" | "pallets" | "status" | "scheduledAt" | "arrivedAt" | "unloadingStartedAt" | "inspectionStartedAt" | "qualityResult" | "qualityValidatedBy" | "qualityValidatedAt" | "qualityComment" | "completedAt" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["reception"]>
 export type ReceptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.Reception$companyArgs<ExtArgs>
   mailMessages?: boolean | Prisma.Reception$mailMessagesArgs<ExtArgs>
@@ -1460,6 +1656,10 @@ export type $ReceptionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     arrivedAt: Date | null
     unloadingStartedAt: Date | null
     inspectionStartedAt: Date | null
+    qualityResult: string | null
+    qualityValidatedBy: string | null
+    qualityValidatedAt: Date | null
+    qualityComment: string | null
     completedAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -1903,6 +2103,10 @@ export interface ReceptionFieldRefs {
   readonly arrivedAt: Prisma.FieldRef<"Reception", 'DateTime'>
   readonly unloadingStartedAt: Prisma.FieldRef<"Reception", 'DateTime'>
   readonly inspectionStartedAt: Prisma.FieldRef<"Reception", 'DateTime'>
+  readonly qualityResult: Prisma.FieldRef<"Reception", 'String'>
+  readonly qualityValidatedBy: Prisma.FieldRef<"Reception", 'String'>
+  readonly qualityValidatedAt: Prisma.FieldRef<"Reception", 'DateTime'>
+  readonly qualityComment: Prisma.FieldRef<"Reception", 'String'>
   readonly completedAt: Prisma.FieldRef<"Reception", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Reception", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Reception", 'DateTime'>

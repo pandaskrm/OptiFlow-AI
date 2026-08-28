@@ -66,6 +66,9 @@ export async function PATCH(
     status?: string;
     inspectorUserIds?: string[];
     inspectorNames?: string[];
+    qualityResult?: string;
+    qualityValidatedBy?: string;
+    qualityComment?: string;
   };
 
   try {
@@ -119,6 +122,23 @@ export async function PATCH(
         )
       : [];
 
+  const qualityResult =
+    typeof body.qualityResult === "string"
+      ? body.qualityResult.trim().toUpperCase()
+      : "";
+
+  const qualityValidatedBy =
+    typeof body.qualityValidatedBy === "string"
+      ? body.qualityValidatedBy
+          .trim()
+          .replace(/\s+/g, " ")
+      : "";
+
+  const qualityComment =
+    typeof body.qualityComment === "string"
+      ? body.qualityComment.trim()
+      : "";
+
   if (!nextStatus) {
     return NextResponse.json(
       {
@@ -145,6 +165,50 @@ export async function PATCH(
         status: 400,
       },
     );
+  }
+
+  if (nextStatus === COMPLETED_STATUS) {
+    if (
+      qualityResult !== "CONFORME" &&
+      qualityResult !== "ANOMALIE"
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Le résultat du contrôle qualité est obligatoire avant de terminer la réception.",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    if (!qualityValidatedBy) {
+      return NextResponse.json(
+        {
+          error:
+            "Le nom de la personne qui valide le contrôle est obligatoire.",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    if (
+      qualityResult === "ANOMALIE" &&
+      !qualityComment
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Un commentaire est obligatoire lorsqu'une anomalie est constatée.",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
   }
 
   const reception =
@@ -258,6 +322,26 @@ export async function PATCH(
                   ? reception.inspectionStartedAt ?? now
                   : reception.inspectionStartedAt,
 
+              qualityResult:
+                nextStatus === COMPLETED_STATUS
+                  ? qualityResult
+                  : undefined,
+
+              qualityValidatedBy:
+                nextStatus === COMPLETED_STATUS
+                  ? qualityValidatedBy
+                  : undefined,
+
+              qualityValidatedAt:
+                nextStatus === COMPLETED_STATUS
+                  ? now
+                  : undefined,
+
+              qualityComment:
+                nextStatus === COMPLETED_STATUS
+                  ? qualityComment || null
+                  : undefined,
+
               completedAt:
                 nextStatus === COMPLETED_STATUS
                   ? reception.completedAt ?? now
@@ -355,6 +439,18 @@ export async function PATCH(
                 completedAt:
                   receptionUpdate.completedAt,
 
+                qualityResult:
+                  receptionUpdate.qualityResult,
+
+                qualityValidatedBy:
+                  receptionUpdate.qualityValidatedBy,
+
+                qualityValidatedAt:
+                  receptionUpdate.qualityValidatedAt,
+
+                qualityComment:
+                  receptionUpdate.qualityComment,
+
                 inspectors: [
                   ...selectedInspectors.map(
                     (membership) => ({
@@ -425,6 +521,7 @@ export async function DELETE(
       },
     );
   }
+
 
 
   const reception =

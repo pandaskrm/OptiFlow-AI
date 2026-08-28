@@ -48,6 +48,10 @@ export async function GET() {
           unloadingStartedAt: true,
           inspectionStartedAt: true,
           completedAt: true,
+          qualityResult: true,
+          qualityValidatedBy: true,
+          qualityValidatedAt: true,
+          qualityComment: true,
 
           createdAt: true,
           updatedAt: true,
