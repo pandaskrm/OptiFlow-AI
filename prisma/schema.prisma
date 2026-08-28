@@ -350,35 +350,75 @@ model ReceptionEvent {
 }
 
 model Order {
-  id            Int       @id @default(autoincrement())
-  number        String    @unique
+  id            Int     @id @default(autoincrement())
+  number        String  @unique
   customer      String
   carrier       String?
-  priority      String    @default("Normale")
-  status        String    @default("À préparer")
-  totalLines    Int       @default(0)
-  preparedLines Int       @default(0)
+  priority      String  @default("Normale")
+  status        String  @default("À préparer")
+  totalLines    Int     @default(0)
+  preparedLines Int     @default(0)
 
   // Date reelle a laquelle le client a passe la commande dans OpenSi.
   // Cette date pilote l'ordre des files de preparation PDA.
-  orderDate     DateTime?
-  customerCode  String?
-  country       String?
-  paymentMethod String?
-  totalQuantity Int?
+  orderDate           DateTime?
+  customerCode        String?
+  country             String?
+  paymentMethod       String?
+  totalQuantity       Int?
   // Reservation atomique d'une commande envoyee sur un PDA.
   pdaReservedBy       String?
   pdaReservedAt       DateTime?
   pdaReservationToken String?   @unique
-  scheduledAt   DateTime?
-  completedAt   DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  scheduledAt         DateTime?
+  completedAt         DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   companyId String?
-  company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  company   Company?    @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  lines     OrderLine[]
 
   @@index([companyId])
+}
+
+model OrderLine {
+  id Int @id @default(autoincrement())
+
+  // Identifiant article provenant de l'ERP.
+  sku String
+
+  // Designation affichee au preparateur.
+  label String
+
+  // Emplacement de picking transmis par l'ERP/WMS.
+  location String?
+
+  // Code-barres utilise pour le controle PDA.
+  barcode String?
+
+  // Quantite demandee sur la commande client.
+  requestedQuantity Int
+
+  // Quantite effectivement preparee.
+  preparedQuantity Int @default(0)
+
+  // Quantite declaree manquante pendant la preparation.
+  missingQuantity Int @default(0)
+
+  // Position de la ligne dans la commande source.
+  lineNumber Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([sku])
+  @@index([barcode])
+  @@index([location])
 }
 
 model Shipment {
