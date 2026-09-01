@@ -2,6 +2,7 @@
 
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
+import PresencePlanningSection from "./PresencePlanningSection";
 
 const weeklySchedule = [
   {
@@ -482,6 +483,8 @@ function TeamDemoState() {
           </div>
         </div>
       </section>
+
+      <PresencePlanningSection />
 
       <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
         {cards.map((card) => (
