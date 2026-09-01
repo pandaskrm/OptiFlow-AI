@@ -216,3 +216,13 @@ export type ErpConnection = Prisma.ErpConnectionModel
  * 
  */
 export type WorkforcePerformanceDay = Prisma.WorkforcePerformanceDayModel
+/**
+ * Model PresenceScheduleHabit
+ * 
+ */
+export type PresenceScheduleHabit = Prisma.PresenceScheduleHabitModel
+/**
+ * Model PresenceScheduleChange
+ * 
+ */
+export type PresenceScheduleChange = Prisma.PresenceScheduleChangeModel

@@ -85,7 +85,9 @@ export const ModelName = {
   MailAttachment: 'MailAttachment',
   MailConnection: 'MailConnection',
   ErpConnection: 'ErpConnection',
-  WorkforcePerformanceDay: 'WorkforcePerformanceDay'
+  WorkforcePerformanceDay: 'WorkforcePerformanceDay',
+  PresenceScheduleHabit: 'PresenceScheduleHabit',
+  PresenceScheduleChange: 'PresenceScheduleChange'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -757,6 +759,52 @@ export const WorkforcePerformanceDayScalarFieldEnum = {
 } as const
 
 export type WorkforcePerformanceDayScalarFieldEnum = (typeof WorkforcePerformanceDayScalarFieldEnum)[keyof typeof WorkforcePerformanceDayScalarFieldEnum]
+
+
+export const PresenceScheduleHabitScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  dayOfWeek: 'dayOfWeek',
+  isWorkingDay: 'isWorkingDay',
+  morningStart: 'morningStart',
+  morningEnd: 'morningEnd',
+  afternoonStart: 'afternoonStart',
+  afternoonEnd: 'afternoonEnd',
+  sampleCount: 'sampleCount',
+  confidence: 'confidence',
+  firstObservedAt: 'firstObservedAt',
+  lastObservedAt: 'lastObservedAt',
+  effectiveFrom: 'effectiveFrom',
+  effectiveUntil: 'effectiveUntil',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PresenceScheduleHabitScalarFieldEnum = (typeof PresenceScheduleHabitScalarFieldEnum)[keyof typeof PresenceScheduleHabitScalarFieldEnum]
+
+
+export const PresenceScheduleChangeScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  workDate: 'workDate',
+  dayOfWeek: 'dayOfWeek',
+  kind: 'kind',
+  message: 'message',
+  expectedSnapshot: 'expectedSnapshot',
+  actualSnapshot: 'actualSnapshot',
+  severity: 'severity',
+  status: 'status',
+  detectedAt: 'detectedAt',
+  acknowledgedAt: 'acknowledgedAt',
+  acknowledgedBy: 'acknowledgedBy',
+  resolvedAt: 'resolvedAt',
+  resolvedBy: 'resolvedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PresenceScheduleChangeScalarFieldEnum = (typeof PresenceScheduleChangeScalarFieldEnum)[keyof typeof PresenceScheduleChangeScalarFieldEnum]
 
 
 export const SortOrder = {

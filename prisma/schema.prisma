@@ -491,11 +491,13 @@ model Workforce {
   job        WorkforceJob? @relation(fields: [jobId], references: [id], onDelete: SetNull)
   membership Membership?   @relation(fields: [membershipId], references: [id], onDelete: SetNull)
 
-  presenceSchedules PresenceSchedule[]
-  presencePunches   PresencePunch[]
-  presenceDays      PresenceDay[]
-  absenceRequests   AbsenceRequest[]
-  performanceDays   WorkforcePerformanceDay[]
+  presenceSchedules       PresenceSchedule[]
+  presencePunches         PresencePunch[]
+  presenceDays            PresenceDay[]
+  absenceRequests         AbsenceRequest[]
+  performanceDays         WorkforcePerformanceDay[]
+  presenceScheduleHabits  PresenceScheduleHabit[]
+  presenceScheduleChanges PresenceScheduleChange[]
 
   @@index([companyId])
   @@index([jobId])
@@ -871,4 +873,56 @@ model WorkforcePerformanceDay {
   @@unique([workforceId, workDate])
   @@index([workDate])
   @@index([workforceId, workDate])
+}
+
+model PresenceScheduleHabit {
+  id              String    @id @default(cuid())
+  workforceId     Int
+  dayOfWeek       Int
+  isWorkingDay    Boolean
+  morningStart    String?
+  morningEnd      String?
+  afternoonStart  String?
+  afternoonEnd    String?
+  sampleCount     Int       @default(0)
+  confidence      Float     @default(0)
+  firstObservedAt DateTime?
+  lastObservedAt  DateTime?
+  effectiveFrom   DateTime  @default(now())
+  effectiveUntil  DateTime?
+  status          String    @default("ACTIVE")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  workforce Workforce @relation(fields: [workforceId], references: [id], onDelete: Cascade)
+
+  @@index([workforceId, dayOfWeek, status])
+  @@index([workforceId, effectiveFrom])
+  @@index([status])
+}
+
+model PresenceScheduleChange {
+  id               String    @id @default(cuid())
+  workforceId      Int
+  workDate         DateTime
+  dayOfWeek        Int
+  kind             String
+  message          String
+  expectedSnapshot String?
+  actualSnapshot   String?
+  severity         String    @default("INFO")
+  status           String    @default("OPEN")
+  detectedAt       DateTime  @default(now())
+  acknowledgedAt   DateTime?
+  acknowledgedBy   String?
+  resolvedAt       DateTime?
+  resolvedBy       String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  workforce Workforce @relation(fields: [workforceId], references: [id], onDelete: Cascade)
+
+  @@index([workforceId, workDate])
+  @@index([workforceId, status])
+  @@index([workDate, status])
 }

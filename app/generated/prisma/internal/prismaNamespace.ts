@@ -418,7 +418,9 @@ export const ModelName = {
   MailAttachment: 'MailAttachment',
   MailConnection: 'MailConnection',
   ErpConnection: 'ErpConnection',
-  WorkforcePerformanceDay: 'WorkforcePerformanceDay'
+  WorkforcePerformanceDay: 'WorkforcePerformanceDay',
+  PresenceScheduleHabit: 'PresenceScheduleHabit',
+  PresenceScheduleChange: 'PresenceScheduleChange'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -434,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection" | "workforcePerformanceDay"
+    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection" | "workforcePerformanceDay" | "presenceScheduleHabit" | "presenceScheduleChange"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3028,6 +3030,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PresenceScheduleHabit: {
+      payload: Prisma.$PresenceScheduleHabitPayload<ExtArgs>
+      fields: Prisma.PresenceScheduleHabitFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PresenceScheduleHabitFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PresenceScheduleHabitFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>
+        }
+        findFirst: {
+          args: Prisma.PresenceScheduleHabitFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PresenceScheduleHabitFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>
+        }
+        findMany: {
+          args: Prisma.PresenceScheduleHabitFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>[]
+        }
+        create: {
+          args: Prisma.PresenceScheduleHabitCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>
+        }
+        createMany: {
+          args: Prisma.PresenceScheduleHabitCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PresenceScheduleHabitCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>[]
+        }
+        delete: {
+          args: Prisma.PresenceScheduleHabitDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>
+        }
+        update: {
+          args: Prisma.PresenceScheduleHabitUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>
+        }
+        deleteMany: {
+          args: Prisma.PresenceScheduleHabitDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PresenceScheduleHabitUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PresenceScheduleHabitUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>[]
+        }
+        upsert: {
+          args: Prisma.PresenceScheduleHabitUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleHabitPayload>
+        }
+        aggregate: {
+          args: Prisma.PresenceScheduleHabitAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePresenceScheduleHabit>
+        }
+        groupBy: {
+          args: Prisma.PresenceScheduleHabitGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PresenceScheduleHabitGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PresenceScheduleHabitCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PresenceScheduleHabitCountAggregateOutputType> | number
+        }
+      }
+    }
+    PresenceScheduleChange: {
+      payload: Prisma.$PresenceScheduleChangePayload<ExtArgs>
+      fields: Prisma.PresenceScheduleChangeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PresenceScheduleChangeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PresenceScheduleChangeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>
+        }
+        findFirst: {
+          args: Prisma.PresenceScheduleChangeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PresenceScheduleChangeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>
+        }
+        findMany: {
+          args: Prisma.PresenceScheduleChangeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>[]
+        }
+        create: {
+          args: Prisma.PresenceScheduleChangeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>
+        }
+        createMany: {
+          args: Prisma.PresenceScheduleChangeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PresenceScheduleChangeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>[]
+        }
+        delete: {
+          args: Prisma.PresenceScheduleChangeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>
+        }
+        update: {
+          args: Prisma.PresenceScheduleChangeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>
+        }
+        deleteMany: {
+          args: Prisma.PresenceScheduleChangeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PresenceScheduleChangeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PresenceScheduleChangeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>[]
+        }
+        upsert: {
+          args: Prisma.PresenceScheduleChangeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceScheduleChangePayload>
+        }
+        aggregate: {
+          args: Prisma.PresenceScheduleChangeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePresenceScheduleChange>
+        }
+        groupBy: {
+          args: Prisma.PresenceScheduleChangeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PresenceScheduleChangeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PresenceScheduleChangeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PresenceScheduleChangeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3722,6 +3872,52 @@ export const WorkforcePerformanceDayScalarFieldEnum = {
 export type WorkforcePerformanceDayScalarFieldEnum = (typeof WorkforcePerformanceDayScalarFieldEnum)[keyof typeof WorkforcePerformanceDayScalarFieldEnum]
 
 
+export const PresenceScheduleHabitScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  dayOfWeek: 'dayOfWeek',
+  isWorkingDay: 'isWorkingDay',
+  morningStart: 'morningStart',
+  morningEnd: 'morningEnd',
+  afternoonStart: 'afternoonStart',
+  afternoonEnd: 'afternoonEnd',
+  sampleCount: 'sampleCount',
+  confidence: 'confidence',
+  firstObservedAt: 'firstObservedAt',
+  lastObservedAt: 'lastObservedAt',
+  effectiveFrom: 'effectiveFrom',
+  effectiveUntil: 'effectiveUntil',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PresenceScheduleHabitScalarFieldEnum = (typeof PresenceScheduleHabitScalarFieldEnum)[keyof typeof PresenceScheduleHabitScalarFieldEnum]
+
+
+export const PresenceScheduleChangeScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  workDate: 'workDate',
+  dayOfWeek: 'dayOfWeek',
+  kind: 'kind',
+  message: 'message',
+  expectedSnapshot: 'expectedSnapshot',
+  actualSnapshot: 'actualSnapshot',
+  severity: 'severity',
+  status: 'status',
+  detectedAt: 'detectedAt',
+  acknowledgedAt: 'acknowledgedAt',
+  acknowledgedBy: 'acknowledgedBy',
+  resolvedAt: 'resolvedAt',
+  resolvedBy: 'resolvedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PresenceScheduleChangeScalarFieldEnum = (typeof PresenceScheduleChangeScalarFieldEnum)[keyof typeof PresenceScheduleChangeScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4004,6 +4200,8 @@ export type GlobalOmitConfig = {
   mailConnection?: Prisma.MailConnectionOmit
   erpConnection?: Prisma.ErpConnectionOmit
   workforcePerformanceDay?: Prisma.WorkforcePerformanceDayOmit
+  presenceScheduleHabit?: Prisma.PresenceScheduleHabitOmit
+  presenceScheduleChange?: Prisma.PresenceScheduleChangeOmit
 }
 
 /* Types for Logging */
