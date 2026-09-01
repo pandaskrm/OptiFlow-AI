@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   useEffect,
@@ -216,6 +216,9 @@ export default function PresencePlanningSection() {
   const [refreshKey, setRefreshKey] =
     useState(0);
 
+  const [adoptingChangeId, setAdoptingChangeId] =
+    useState<string | null>(null);
+
   useEffect(() => {
     let cancelled = false;
 
@@ -313,6 +316,56 @@ export default function PresencePlanningSection() {
     }
     finally {
       setLearning(false);
+    }
+  }
+
+  async function adoptNewPattern(
+    changeId: string,
+  ) {
+    const accepted =
+      window.confirm(
+        "Adopter ce rythme comme nouvelle habitude pour ce collaborateur ? Le planning officiel ne sera pas modifie.",
+      );
+
+    if (!accepted) {
+      return;
+    }
+
+    setAdoptingChangeId(
+      changeId,
+    );
+
+    setError(null);
+
+    try {
+      const response =
+        await fetch(
+          `/api/presence/planning/changes/${changeId}/adopt`,
+          {
+            method: "POST",
+          },
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          `HTTP ${response.status}`,
+        );
+      }
+
+      setRefreshKey(
+        (value) =>
+          value + 1,
+      );
+    }
+    catch {
+      setError(
+        "Impossible d'adopter ce nouveau rythme.",
+      );
+    }
+    finally {
+      setAdoptingChangeId(
+        null,
+      );
     }
   }
 
@@ -604,6 +657,28 @@ export default function PresencePlanningSection() {
                                     <p className="mt-2 text-xs leading-relaxed text-slate-500">
                                       {change.message}
                                     </p>
+
+                                    {change.kind ===
+                                      "NEW_RECURRING_PATTERN" && (
+                                      <button
+                                        type="button"
+                                        disabled={
+                                          adoptingChangeId ===
+                                          change.id
+                                        }
+                                        onClick={() =>
+                                          void adoptNewPattern(
+                                            change.id,
+                                          )
+                                        }
+                                        className="mt-3 w-full rounded-lg bg-cyan-600 px-3 py-2 text-xs font-bold text-white transition hover:bg-cyan-700 disabled:cursor-wait disabled:opacity-50"
+                                      >
+                                        {adoptingChangeId ===
+                                        change.id
+                                          ? "Adoption..."
+                                          : "Adopter comme nouveau rythme"}
+                                      </button>
+                                    )}
                                   </div>
                                 ),
                               )}
