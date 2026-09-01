@@ -404,6 +404,9 @@ export const ModelName = {
   Shipment: 'Shipment',
   Inventory: 'Inventory',
   Workforce: 'Workforce',
+  WorkforceJob: 'WorkforceJob',
+  WorkforceAccessCode: 'WorkforceAccessCode',
+  PresenceQrSession: 'PresenceQrSession',
   PresenceSchedule: 'PresenceSchedule',
   PresencePunch: 'PresencePunch',
   PresenceDay: 'PresenceDay',
@@ -430,7 +433,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
+    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1914,6 +1917,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WorkforceJob: {
+      payload: Prisma.$WorkforceJobPayload<ExtArgs>
+      fields: Prisma.WorkforceJobFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkforceJobFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkforceJobFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>
+        }
+        findFirst: {
+          args: Prisma.WorkforceJobFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkforceJobFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>
+        }
+        findMany: {
+          args: Prisma.WorkforceJobFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>[]
+        }
+        create: {
+          args: Prisma.WorkforceJobCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>
+        }
+        createMany: {
+          args: Prisma.WorkforceJobCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkforceJobCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>[]
+        }
+        delete: {
+          args: Prisma.WorkforceJobDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>
+        }
+        update: {
+          args: Prisma.WorkforceJobUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkforceJobDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkforceJobUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkforceJobUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkforceJobUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceJobPayload>
+        }
+        aggregate: {
+          args: Prisma.WorkforceJobAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkforceJob>
+        }
+        groupBy: {
+          args: Prisma.WorkforceJobGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkforceJobGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkforceJobCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkforceJobCountAggregateOutputType> | number
+        }
+      }
+    }
+    WorkforceAccessCode: {
+      payload: Prisma.$WorkforceAccessCodePayload<ExtArgs>
+      fields: Prisma.WorkforceAccessCodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkforceAccessCodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkforceAccessCodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>
+        }
+        findFirst: {
+          args: Prisma.WorkforceAccessCodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkforceAccessCodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>
+        }
+        findMany: {
+          args: Prisma.WorkforceAccessCodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>[]
+        }
+        create: {
+          args: Prisma.WorkforceAccessCodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>
+        }
+        createMany: {
+          args: Prisma.WorkforceAccessCodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkforceAccessCodeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>[]
+        }
+        delete: {
+          args: Prisma.WorkforceAccessCodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>
+        }
+        update: {
+          args: Prisma.WorkforceAccessCodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkforceAccessCodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkforceAccessCodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkforceAccessCodeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkforceAccessCodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceAccessCodePayload>
+        }
+        aggregate: {
+          args: Prisma.WorkforceAccessCodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkforceAccessCode>
+        }
+        groupBy: {
+          args: Prisma.WorkforceAccessCodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkforceAccessCodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkforceAccessCodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkforceAccessCodeCountAggregateOutputType> | number
+        }
+      }
+    }
+    PresenceQrSession: {
+      payload: Prisma.$PresenceQrSessionPayload<ExtArgs>
+      fields: Prisma.PresenceQrSessionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PresenceQrSessionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PresenceQrSessionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>
+        }
+        findFirst: {
+          args: Prisma.PresenceQrSessionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PresenceQrSessionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>
+        }
+        findMany: {
+          args: Prisma.PresenceQrSessionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>[]
+        }
+        create: {
+          args: Prisma.PresenceQrSessionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>
+        }
+        createMany: {
+          args: Prisma.PresenceQrSessionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PresenceQrSessionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>[]
+        }
+        delete: {
+          args: Prisma.PresenceQrSessionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>
+        }
+        update: {
+          args: Prisma.PresenceQrSessionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>
+        }
+        deleteMany: {
+          args: Prisma.PresenceQrSessionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PresenceQrSessionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PresenceQrSessionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>[]
+        }
+        upsert: {
+          args: Prisma.PresenceQrSessionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresenceQrSessionPayload>
+        }
+        aggregate: {
+          args: Prisma.PresenceQrSessionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePresenceQrSession>
+        }
+        groupBy: {
+          args: Prisma.PresenceQrSessionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PresenceQrSessionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PresenceQrSessionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PresenceQrSessionCountAggregateOutputType> | number
+        }
+      }
+    }
     PresenceSchedule: {
       payload: Prisma.$PresenceSchedulePayload<ExtArgs>
       fields: Prisma.PresenceScheduleFieldRefs
@@ -3111,6 +3336,10 @@ export const WorkforceScalarFieldEnum = {
   jobTitle: 'jobTitle',
   contractType: 'contractType',
   agency: 'agency',
+  jobId: 'jobId',
+  membershipId: 'membershipId',
+  onboardingStatus: 'onboardingStatus',
+  onboardingSource: 'onboardingSource',
   isActive: 'isActive',
   zone: 'zone',
   status: 'status',
@@ -3123,6 +3352,61 @@ export const WorkforceScalarFieldEnum = {
 } as const
 
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
+
+
+export const WorkforceJobScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  code: 'code',
+  name: 'name',
+  service: 'service',
+  sortOrder: 'sortOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforceJobScalarFieldEnum = (typeof WorkforceJobScalarFieldEnum)[keyof typeof WorkforceJobScalarFieldEnum]
+
+
+export const WorkforceAccessCodeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  label: 'label',
+  codeHash: 'codeHash',
+  codeHint: 'codeHint',
+  agency: 'agency',
+  contractType: 'contractType',
+  isActive: 'isActive',
+  requiresApproval: 'requiresApproval',
+  maxUses: 'maxUses',
+  usedCount: 'usedCount',
+  expiresAt: 'expiresAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforceAccessCodeScalarFieldEnum = (typeof WorkforceAccessCodeScalarFieldEnum)[keyof typeof WorkforceAccessCodeScalarFieldEnum]
+
+
+export const PresenceQrSessionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  workDate: 'workDate',
+  type: 'type',
+  tokenHash: 'tokenHash',
+  tokenHint: 'tokenHint',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  printedAt: 'printedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PresenceQrSessionScalarFieldEnum = (typeof PresenceQrSessionScalarFieldEnum)[keyof typeof PresenceQrSessionScalarFieldEnum]
 
 
 export const PresenceScheduleScalarFieldEnum = {
@@ -3612,6 +3896,9 @@ export type GlobalOmitConfig = {
   shipment?: Prisma.ShipmentOmit
   inventory?: Prisma.InventoryOmit
   workforce?: Prisma.WorkforceOmit
+  workforceJob?: Prisma.WorkforceJobOmit
+  workforceAccessCode?: Prisma.WorkforceAccessCodeOmit
+  presenceQrSession?: Prisma.PresenceQrSessionOmit
   presenceSchedule?: Prisma.PresenceScheduleOmit
   presencePunch?: Prisma.PresencePunchOmit
   presenceDay?: Prisma.PresenceDayOmit

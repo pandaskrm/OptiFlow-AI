@@ -47,6 +47,10 @@ export type WorkforceMinAggregateOutputType = {
   jobTitle: string | null
   contractType: string | null
   agency: string | null
+  jobId: string | null
+  membershipId: string | null
+  onboardingStatus: string | null
+  onboardingSource: string | null
   isActive: boolean | null
   zone: string | null
   status: string | null
@@ -67,6 +71,10 @@ export type WorkforceMaxAggregateOutputType = {
   jobTitle: string | null
   contractType: string | null
   agency: string | null
+  jobId: string | null
+  membershipId: string | null
+  onboardingStatus: string | null
+  onboardingSource: string | null
   isActive: boolean | null
   zone: string | null
   status: string | null
@@ -87,6 +95,10 @@ export type WorkforceCountAggregateOutputType = {
   jobTitle: number
   contractType: number
   agency: number
+  jobId: number
+  membershipId: number
+  onboardingStatus: number
+  onboardingSource: number
   isActive: number
   zone: number
   status: number
@@ -121,6 +133,10 @@ export type WorkforceMinAggregateInputType = {
   jobTitle?: true
   contractType?: true
   agency?: true
+  jobId?: true
+  membershipId?: true
+  onboardingStatus?: true
+  onboardingSource?: true
   isActive?: true
   zone?: true
   status?: true
@@ -141,6 +157,10 @@ export type WorkforceMaxAggregateInputType = {
   jobTitle?: true
   contractType?: true
   agency?: true
+  jobId?: true
+  membershipId?: true
+  onboardingStatus?: true
+  onboardingSource?: true
   isActive?: true
   zone?: true
   status?: true
@@ -161,6 +181,10 @@ export type WorkforceCountAggregateInputType = {
   jobTitle?: true
   contractType?: true
   agency?: true
+  jobId?: true
+  membershipId?: true
+  onboardingStatus?: true
+  onboardingSource?: true
   isActive?: true
   zone?: true
   status?: true
@@ -268,6 +292,10 @@ export type WorkforceGroupByOutputType = {
   jobTitle: string | null
   contractType: string | null
   agency: string | null
+  jobId: string | null
+  membershipId: string | null
+  onboardingStatus: string
+  onboardingSource: string
   isActive: boolean
   zone: string | null
   status: string
@@ -311,6 +339,10 @@ export type WorkforceWhereInput = {
   jobTitle?: Prisma.StringNullableFilter<"Workforce"> | string | null
   contractType?: Prisma.StringNullableFilter<"Workforce"> | string | null
   agency?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  jobId?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  membershipId?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  onboardingStatus?: Prisma.StringFilter<"Workforce"> | string
+  onboardingSource?: Prisma.StringFilter<"Workforce"> | string
   isActive?: Prisma.BoolFilter<"Workforce"> | boolean
   zone?: Prisma.StringNullableFilter<"Workforce"> | string | null
   status?: Prisma.StringFilter<"Workforce"> | string
@@ -321,6 +353,8 @@ export type WorkforceWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Workforce"> | Date | string
   companyId?: Prisma.StringNullableFilter<"Workforce"> | string | null
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  job?: Prisma.XOR<Prisma.WorkforceJobNullableScalarRelationFilter, Prisma.WorkforceJobWhereInput> | null
+  membership?: Prisma.XOR<Prisma.MembershipNullableScalarRelationFilter, Prisma.MembershipWhereInput> | null
   presenceSchedules?: Prisma.PresenceScheduleListRelationFilter
   presencePunches?: Prisma.PresencePunchListRelationFilter
   presenceDays?: Prisma.PresenceDayListRelationFilter
@@ -336,6 +370,10 @@ export type WorkforceOrderByWithRelationInput = {
   jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   contractType?: Prisma.SortOrderInput | Prisma.SortOrder
   agency?: Prisma.SortOrderInput | Prisma.SortOrder
+  jobId?: Prisma.SortOrderInput | Prisma.SortOrder
+  membershipId?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardingStatus?: Prisma.SortOrder
+  onboardingSource?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   zone?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -346,6 +384,8 @@ export type WorkforceOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   companyId?: Prisma.SortOrderInput | Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
+  job?: Prisma.WorkforceJobOrderByWithRelationInput
+  membership?: Prisma.MembershipOrderByWithRelationInput
   presenceSchedules?: Prisma.PresenceScheduleOrderByRelationAggregateInput
   presencePunches?: Prisma.PresencePunchOrderByRelationAggregateInput
   presenceDays?: Prisma.PresenceDayOrderByRelationAggregateInput
@@ -355,6 +395,7 @@ export type WorkforceOrderByWithRelationInput = {
 export type WorkforceWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   employeeNumber?: string
+  membershipId?: string
   AND?: Prisma.WorkforceWhereInput | Prisma.WorkforceWhereInput[]
   OR?: Prisma.WorkforceWhereInput[]
   NOT?: Prisma.WorkforceWhereInput | Prisma.WorkforceWhereInput[]
@@ -364,6 +405,9 @@ export type WorkforceWhereUniqueInput = Prisma.AtLeast<{
   jobTitle?: Prisma.StringNullableFilter<"Workforce"> | string | null
   contractType?: Prisma.StringNullableFilter<"Workforce"> | string | null
   agency?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  jobId?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  onboardingStatus?: Prisma.StringFilter<"Workforce"> | string
+  onboardingSource?: Prisma.StringFilter<"Workforce"> | string
   isActive?: Prisma.BoolFilter<"Workforce"> | boolean
   zone?: Prisma.StringNullableFilter<"Workforce"> | string | null
   status?: Prisma.StringFilter<"Workforce"> | string
@@ -374,11 +418,13 @@ export type WorkforceWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Workforce"> | Date | string
   companyId?: Prisma.StringNullableFilter<"Workforce"> | string | null
   company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  job?: Prisma.XOR<Prisma.WorkforceJobNullableScalarRelationFilter, Prisma.WorkforceJobWhereInput> | null
+  membership?: Prisma.XOR<Prisma.MembershipNullableScalarRelationFilter, Prisma.MembershipWhereInput> | null
   presenceSchedules?: Prisma.PresenceScheduleListRelationFilter
   presencePunches?: Prisma.PresencePunchListRelationFilter
   presenceDays?: Prisma.PresenceDayListRelationFilter
   absenceRequests?: Prisma.AbsenceRequestListRelationFilter
-}, "id" | "employeeNumber">
+}, "id" | "employeeNumber" | "membershipId">
 
 export type WorkforceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -389,6 +435,10 @@ export type WorkforceOrderByWithAggregationInput = {
   jobTitle?: Prisma.SortOrderInput | Prisma.SortOrder
   contractType?: Prisma.SortOrderInput | Prisma.SortOrder
   agency?: Prisma.SortOrderInput | Prisma.SortOrder
+  jobId?: Prisma.SortOrderInput | Prisma.SortOrder
+  membershipId?: Prisma.SortOrderInput | Prisma.SortOrder
+  onboardingStatus?: Prisma.SortOrder
+  onboardingSource?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   zone?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -417,6 +467,10 @@ export type WorkforceScalarWhereWithAggregatesInput = {
   jobTitle?: Prisma.StringNullableWithAggregatesFilter<"Workforce"> | string | null
   contractType?: Prisma.StringNullableWithAggregatesFilter<"Workforce"> | string | null
   agency?: Prisma.StringNullableWithAggregatesFilter<"Workforce"> | string | null
+  jobId?: Prisma.StringNullableWithAggregatesFilter<"Workforce"> | string | null
+  membershipId?: Prisma.StringNullableWithAggregatesFilter<"Workforce"> | string | null
+  onboardingStatus?: Prisma.StringWithAggregatesFilter<"Workforce"> | string
+  onboardingSource?: Prisma.StringWithAggregatesFilter<"Workforce"> | string
   isActive?: Prisma.BoolWithAggregatesFilter<"Workforce"> | boolean
   zone?: Prisma.StringNullableWithAggregatesFilter<"Workforce"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"Workforce"> | string
@@ -436,6 +490,8 @@ export type WorkforceCreateInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -445,6 +501,8 @@ export type WorkforceCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   company?: Prisma.CompanyCreateNestedOneWithoutWorkforceInput
+  job?: Prisma.WorkforceJobCreateNestedOneWithoutWorkersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutWorkforceInput
   presenceSchedules?: Prisma.PresenceScheduleCreateNestedManyWithoutWorkforceInput
   presencePunches?: Prisma.PresencePunchCreateNestedManyWithoutWorkforceInput
   presenceDays?: Prisma.PresenceDayCreateNestedManyWithoutWorkforceInput
@@ -460,6 +518,10 @@ export type WorkforceUncheckedCreateInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  jobId?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -483,6 +545,8 @@ export type WorkforceUpdateInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -492,6 +556,8 @@ export type WorkforceUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneWithoutWorkforceNestedInput
+  job?: Prisma.WorkforceJobUpdateOneWithoutWorkersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutWorkforceNestedInput
   presenceSchedules?: Prisma.PresenceScheduleUpdateManyWithoutWorkforceNestedInput
   presencePunches?: Prisma.PresencePunchUpdateManyWithoutWorkforceNestedInput
   presenceDays?: Prisma.PresenceDayUpdateManyWithoutWorkforceNestedInput
@@ -507,6 +573,10 @@ export type WorkforceUncheckedUpdateInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -531,6 +601,10 @@ export type WorkforceCreateManyInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  jobId?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -550,6 +624,8 @@ export type WorkforceUpdateManyMutationInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -569,6 +645,10 @@ export type WorkforceUncheckedUpdateManyInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -590,6 +670,11 @@ export type WorkforceOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type WorkforceNullableScalarRelationFilter = {
+  is?: Prisma.WorkforceWhereInput | null
+  isNot?: Prisma.WorkforceWhereInput | null
+}
+
 export type WorkforceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   employeeNumber?: Prisma.SortOrder
@@ -599,6 +684,10 @@ export type WorkforceCountOrderByAggregateInput = {
   jobTitle?: Prisma.SortOrder
   contractType?: Prisma.SortOrder
   agency?: Prisma.SortOrder
+  jobId?: Prisma.SortOrder
+  membershipId?: Prisma.SortOrder
+  onboardingStatus?: Prisma.SortOrder
+  onboardingSource?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   zone?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -625,6 +714,10 @@ export type WorkforceMaxOrderByAggregateInput = {
   jobTitle?: Prisma.SortOrder
   contractType?: Prisma.SortOrder
   agency?: Prisma.SortOrder
+  jobId?: Prisma.SortOrder
+  membershipId?: Prisma.SortOrder
+  onboardingStatus?: Prisma.SortOrder
+  onboardingSource?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   zone?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -645,6 +738,10 @@ export type WorkforceMinOrderByAggregateInput = {
   jobTitle?: Prisma.SortOrder
   contractType?: Prisma.SortOrder
   agency?: Prisma.SortOrder
+  jobId?: Prisma.SortOrder
+  membershipId?: Prisma.SortOrder
+  onboardingStatus?: Prisma.SortOrder
+  onboardingSource?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   zone?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -706,6 +803,80 @@ export type WorkforceUncheckedUpdateManyWithoutCompanyNestedInput = {
   connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
   update?: Prisma.WorkforceUpdateWithWhereUniqueWithoutCompanyInput | Prisma.WorkforceUpdateWithWhereUniqueWithoutCompanyInput[]
   updateMany?: Prisma.WorkforceUpdateManyWithWhereWithoutCompanyInput | Prisma.WorkforceUpdateManyWithWhereWithoutCompanyInput[]
+  deleteMany?: Prisma.WorkforceScalarWhereInput | Prisma.WorkforceScalarWhereInput[]
+}
+
+export type WorkforceCreateNestedOneWithoutMembershipInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutMembershipInput, Prisma.WorkforceUncheckedCreateWithoutMembershipInput>
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutMembershipInput
+  connect?: Prisma.WorkforceWhereUniqueInput
+}
+
+export type WorkforceUncheckedCreateNestedOneWithoutMembershipInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutMembershipInput, Prisma.WorkforceUncheckedCreateWithoutMembershipInput>
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutMembershipInput
+  connect?: Prisma.WorkforceWhereUniqueInput
+}
+
+export type WorkforceUpdateOneWithoutMembershipNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutMembershipInput, Prisma.WorkforceUncheckedCreateWithoutMembershipInput>
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutMembershipInput
+  upsert?: Prisma.WorkforceUpsertWithoutMembershipInput
+  disconnect?: Prisma.WorkforceWhereInput | boolean
+  delete?: Prisma.WorkforceWhereInput | boolean
+  connect?: Prisma.WorkforceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkforceUpdateToOneWithWhereWithoutMembershipInput, Prisma.WorkforceUpdateWithoutMembershipInput>, Prisma.WorkforceUncheckedUpdateWithoutMembershipInput>
+}
+
+export type WorkforceUncheckedUpdateOneWithoutMembershipNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutMembershipInput, Prisma.WorkforceUncheckedCreateWithoutMembershipInput>
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutMembershipInput
+  upsert?: Prisma.WorkforceUpsertWithoutMembershipInput
+  disconnect?: Prisma.WorkforceWhereInput | boolean
+  delete?: Prisma.WorkforceWhereInput | boolean
+  connect?: Prisma.WorkforceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.WorkforceUpdateToOneWithWhereWithoutMembershipInput, Prisma.WorkforceUpdateWithoutMembershipInput>, Prisma.WorkforceUncheckedUpdateWithoutMembershipInput>
+}
+
+export type WorkforceCreateNestedManyWithoutJobInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutJobInput, Prisma.WorkforceUncheckedCreateWithoutJobInput> | Prisma.WorkforceCreateWithoutJobInput[] | Prisma.WorkforceUncheckedCreateWithoutJobInput[]
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutJobInput | Prisma.WorkforceCreateOrConnectWithoutJobInput[]
+  createMany?: Prisma.WorkforceCreateManyJobInputEnvelope
+  connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+}
+
+export type WorkforceUncheckedCreateNestedManyWithoutJobInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutJobInput, Prisma.WorkforceUncheckedCreateWithoutJobInput> | Prisma.WorkforceCreateWithoutJobInput[] | Prisma.WorkforceUncheckedCreateWithoutJobInput[]
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutJobInput | Prisma.WorkforceCreateOrConnectWithoutJobInput[]
+  createMany?: Prisma.WorkforceCreateManyJobInputEnvelope
+  connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+}
+
+export type WorkforceUpdateManyWithoutJobNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutJobInput, Prisma.WorkforceUncheckedCreateWithoutJobInput> | Prisma.WorkforceCreateWithoutJobInput[] | Prisma.WorkforceUncheckedCreateWithoutJobInput[]
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutJobInput | Prisma.WorkforceCreateOrConnectWithoutJobInput[]
+  upsert?: Prisma.WorkforceUpsertWithWhereUniqueWithoutJobInput | Prisma.WorkforceUpsertWithWhereUniqueWithoutJobInput[]
+  createMany?: Prisma.WorkforceCreateManyJobInputEnvelope
+  set?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  disconnect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  delete?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  update?: Prisma.WorkforceUpdateWithWhereUniqueWithoutJobInput | Prisma.WorkforceUpdateWithWhereUniqueWithoutJobInput[]
+  updateMany?: Prisma.WorkforceUpdateManyWithWhereWithoutJobInput | Prisma.WorkforceUpdateManyWithWhereWithoutJobInput[]
+  deleteMany?: Prisma.WorkforceScalarWhereInput | Prisma.WorkforceScalarWhereInput[]
+}
+
+export type WorkforceUncheckedUpdateManyWithoutJobNestedInput = {
+  create?: Prisma.XOR<Prisma.WorkforceCreateWithoutJobInput, Prisma.WorkforceUncheckedCreateWithoutJobInput> | Prisma.WorkforceCreateWithoutJobInput[] | Prisma.WorkforceUncheckedCreateWithoutJobInput[]
+  connectOrCreate?: Prisma.WorkforceCreateOrConnectWithoutJobInput | Prisma.WorkforceCreateOrConnectWithoutJobInput[]
+  upsert?: Prisma.WorkforceUpsertWithWhereUniqueWithoutJobInput | Prisma.WorkforceUpsertWithWhereUniqueWithoutJobInput[]
+  createMany?: Prisma.WorkforceCreateManyJobInputEnvelope
+  set?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  disconnect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  delete?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  connect?: Prisma.WorkforceWhereUniqueInput | Prisma.WorkforceWhereUniqueInput[]
+  update?: Prisma.WorkforceUpdateWithWhereUniqueWithoutJobInput | Prisma.WorkforceUpdateWithWhereUniqueWithoutJobInput[]
+  updateMany?: Prisma.WorkforceUpdateManyWithWhereWithoutJobInput | Prisma.WorkforceUpdateManyWithWhereWithoutJobInput[]
   deleteMany?: Prisma.WorkforceScalarWhereInput | Prisma.WorkforceScalarWhereInput[]
 }
 
@@ -773,6 +944,8 @@ export type WorkforceCreateWithoutCompanyInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -781,6 +954,8 @@ export type WorkforceCreateWithoutCompanyInput = {
   workDate?: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
+  job?: Prisma.WorkforceJobCreateNestedOneWithoutWorkersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutWorkforceInput
   presenceSchedules?: Prisma.PresenceScheduleCreateNestedManyWithoutWorkforceInput
   presencePunches?: Prisma.PresencePunchCreateNestedManyWithoutWorkforceInput
   presenceDays?: Prisma.PresenceDayCreateNestedManyWithoutWorkforceInput
@@ -796,6 +971,10 @@ export type WorkforceUncheckedCreateWithoutCompanyInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  jobId?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -848,6 +1027,10 @@ export type WorkforceScalarWhereInput = {
   jobTitle?: Prisma.StringNullableFilter<"Workforce"> | string | null
   contractType?: Prisma.StringNullableFilter<"Workforce"> | string | null
   agency?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  jobId?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  membershipId?: Prisma.StringNullableFilter<"Workforce"> | string | null
+  onboardingStatus?: Prisma.StringFilter<"Workforce"> | string
+  onboardingSource?: Prisma.StringFilter<"Workforce"> | string
   isActive?: Prisma.BoolFilter<"Workforce"> | boolean
   zone?: Prisma.StringNullableFilter<"Workforce"> | string | null
   status?: Prisma.StringFilter<"Workforce"> | string
@@ -859,7 +1042,7 @@ export type WorkforceScalarWhereInput = {
   companyId?: Prisma.StringNullableFilter<"Workforce"> | string | null
 }
 
-export type WorkforceCreateWithoutPresenceSchedulesInput = {
+export type WorkforceCreateWithoutMembershipInput = {
   employeeNumber: string
   name: string
   team?: string | null
@@ -867,6 +1050,8 @@ export type WorkforceCreateWithoutPresenceSchedulesInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -876,6 +1061,209 @@ export type WorkforceCreateWithoutPresenceSchedulesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   company?: Prisma.CompanyCreateNestedOneWithoutWorkforceInput
+  job?: Prisma.WorkforceJobCreateNestedOneWithoutWorkersInput
+  presenceSchedules?: Prisma.PresenceScheduleCreateNestedManyWithoutWorkforceInput
+  presencePunches?: Prisma.PresencePunchCreateNestedManyWithoutWorkforceInput
+  presenceDays?: Prisma.PresenceDayCreateNestedManyWithoutWorkforceInput
+  absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutWorkforceInput
+}
+
+export type WorkforceUncheckedCreateWithoutMembershipInput = {
+  id?: number
+  employeeNumber: string
+  name: string
+  team?: string | null
+  service?: string | null
+  jobTitle?: string | null
+  contractType?: string | null
+  agency?: string | null
+  jobId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
+  isActive?: boolean
+  zone?: string | null
+  status?: string
+  workedMinutes?: number
+  processedUnits?: number
+  workDate?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  presenceSchedules?: Prisma.PresenceScheduleUncheckedCreateNestedManyWithoutWorkforceInput
+  presencePunches?: Prisma.PresencePunchUncheckedCreateNestedManyWithoutWorkforceInput
+  presenceDays?: Prisma.PresenceDayUncheckedCreateNestedManyWithoutWorkforceInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutWorkforceInput
+}
+
+export type WorkforceCreateOrConnectWithoutMembershipInput = {
+  where: Prisma.WorkforceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkforceCreateWithoutMembershipInput, Prisma.WorkforceUncheckedCreateWithoutMembershipInput>
+}
+
+export type WorkforceUpsertWithoutMembershipInput = {
+  update: Prisma.XOR<Prisma.WorkforceUpdateWithoutMembershipInput, Prisma.WorkforceUncheckedUpdateWithoutMembershipInput>
+  create: Prisma.XOR<Prisma.WorkforceCreateWithoutMembershipInput, Prisma.WorkforceUncheckedCreateWithoutMembershipInput>
+  where?: Prisma.WorkforceWhereInput
+}
+
+export type WorkforceUpdateToOneWithWhereWithoutMembershipInput = {
+  where?: Prisma.WorkforceWhereInput
+  data: Prisma.XOR<Prisma.WorkforceUpdateWithoutMembershipInput, Prisma.WorkforceUncheckedUpdateWithoutMembershipInput>
+}
+
+export type WorkforceUpdateWithoutMembershipInput = {
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  workedMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  processedUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutWorkforceNestedInput
+  job?: Prisma.WorkforceJobUpdateOneWithoutWorkersNestedInput
+  presenceSchedules?: Prisma.PresenceScheduleUpdateManyWithoutWorkforceNestedInput
+  presencePunches?: Prisma.PresencePunchUpdateManyWithoutWorkforceNestedInput
+  presenceDays?: Prisma.PresenceDayUpdateManyWithoutWorkforceNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutWorkforceNestedInput
+}
+
+export type WorkforceUncheckedUpdateWithoutMembershipInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  workedMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  processedUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenceSchedules?: Prisma.PresenceScheduleUncheckedUpdateManyWithoutWorkforceNestedInput
+  presencePunches?: Prisma.PresencePunchUncheckedUpdateManyWithoutWorkforceNestedInput
+  presenceDays?: Prisma.PresenceDayUncheckedUpdateManyWithoutWorkforceNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutWorkforceNestedInput
+}
+
+export type WorkforceCreateWithoutJobInput = {
+  employeeNumber: string
+  name: string
+  team?: string | null
+  service?: string | null
+  jobTitle?: string | null
+  contractType?: string | null
+  agency?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
+  isActive?: boolean
+  zone?: string | null
+  status?: string
+  workedMinutes?: number
+  processedUnits?: number
+  workDate?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutWorkforceInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutWorkforceInput
+  presenceSchedules?: Prisma.PresenceScheduleCreateNestedManyWithoutWorkforceInput
+  presencePunches?: Prisma.PresencePunchCreateNestedManyWithoutWorkforceInput
+  presenceDays?: Prisma.PresenceDayCreateNestedManyWithoutWorkforceInput
+  absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutWorkforceInput
+}
+
+export type WorkforceUncheckedCreateWithoutJobInput = {
+  id?: number
+  employeeNumber: string
+  name: string
+  team?: string | null
+  service?: string | null
+  jobTitle?: string | null
+  contractType?: string | null
+  agency?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
+  isActive?: boolean
+  zone?: string | null
+  status?: string
+  workedMinutes?: number
+  processedUnits?: number
+  workDate?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+  presenceSchedules?: Prisma.PresenceScheduleUncheckedCreateNestedManyWithoutWorkforceInput
+  presencePunches?: Prisma.PresencePunchUncheckedCreateNestedManyWithoutWorkforceInput
+  presenceDays?: Prisma.PresenceDayUncheckedCreateNestedManyWithoutWorkforceInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutWorkforceInput
+}
+
+export type WorkforceCreateOrConnectWithoutJobInput = {
+  where: Prisma.WorkforceWhereUniqueInput
+  create: Prisma.XOR<Prisma.WorkforceCreateWithoutJobInput, Prisma.WorkforceUncheckedCreateWithoutJobInput>
+}
+
+export type WorkforceCreateManyJobInputEnvelope = {
+  data: Prisma.WorkforceCreateManyJobInput | Prisma.WorkforceCreateManyJobInput[]
+  skipDuplicates?: boolean
+}
+
+export type WorkforceUpsertWithWhereUniqueWithoutJobInput = {
+  where: Prisma.WorkforceWhereUniqueInput
+  update: Prisma.XOR<Prisma.WorkforceUpdateWithoutJobInput, Prisma.WorkforceUncheckedUpdateWithoutJobInput>
+  create: Prisma.XOR<Prisma.WorkforceCreateWithoutJobInput, Prisma.WorkforceUncheckedCreateWithoutJobInput>
+}
+
+export type WorkforceUpdateWithWhereUniqueWithoutJobInput = {
+  where: Prisma.WorkforceWhereUniqueInput
+  data: Prisma.XOR<Prisma.WorkforceUpdateWithoutJobInput, Prisma.WorkforceUncheckedUpdateWithoutJobInput>
+}
+
+export type WorkforceUpdateManyWithWhereWithoutJobInput = {
+  where: Prisma.WorkforceScalarWhereInput
+  data: Prisma.XOR<Prisma.WorkforceUpdateManyMutationInput, Prisma.WorkforceUncheckedUpdateManyWithoutJobInput>
+}
+
+export type WorkforceCreateWithoutPresenceSchedulesInput = {
+  employeeNumber: string
+  name: string
+  team?: string | null
+  service?: string | null
+  jobTitle?: string | null
+  contractType?: string | null
+  agency?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
+  isActive?: boolean
+  zone?: string | null
+  status?: string
+  workedMinutes?: number
+  processedUnits?: number
+  workDate?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  company?: Prisma.CompanyCreateNestedOneWithoutWorkforceInput
+  job?: Prisma.WorkforceJobCreateNestedOneWithoutWorkersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutWorkforceInput
   presencePunches?: Prisma.PresencePunchCreateNestedManyWithoutWorkforceInput
   presenceDays?: Prisma.PresenceDayCreateNestedManyWithoutWorkforceInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutWorkforceInput
@@ -890,6 +1278,10 @@ export type WorkforceUncheckedCreateWithoutPresenceSchedulesInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  jobId?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -928,6 +1320,8 @@ export type WorkforceUpdateWithoutPresenceSchedulesInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -937,6 +1331,8 @@ export type WorkforceUpdateWithoutPresenceSchedulesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneWithoutWorkforceNestedInput
+  job?: Prisma.WorkforceJobUpdateOneWithoutWorkersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutWorkforceNestedInput
   presencePunches?: Prisma.PresencePunchUpdateManyWithoutWorkforceNestedInput
   presenceDays?: Prisma.PresenceDayUpdateManyWithoutWorkforceNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutWorkforceNestedInput
@@ -951,6 +1347,10 @@ export type WorkforceUncheckedUpdateWithoutPresenceSchedulesInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -973,6 +1373,8 @@ export type WorkforceCreateWithoutPresencePunchesInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -982,6 +1384,8 @@ export type WorkforceCreateWithoutPresencePunchesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   company?: Prisma.CompanyCreateNestedOneWithoutWorkforceInput
+  job?: Prisma.WorkforceJobCreateNestedOneWithoutWorkersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutWorkforceInput
   presenceSchedules?: Prisma.PresenceScheduleCreateNestedManyWithoutWorkforceInput
   presenceDays?: Prisma.PresenceDayCreateNestedManyWithoutWorkforceInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutWorkforceInput
@@ -996,6 +1400,10 @@ export type WorkforceUncheckedCreateWithoutPresencePunchesInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  jobId?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -1034,6 +1442,8 @@ export type WorkforceUpdateWithoutPresencePunchesInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1043,6 +1453,8 @@ export type WorkforceUpdateWithoutPresencePunchesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneWithoutWorkforceNestedInput
+  job?: Prisma.WorkforceJobUpdateOneWithoutWorkersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutWorkforceNestedInput
   presenceSchedules?: Prisma.PresenceScheduleUpdateManyWithoutWorkforceNestedInput
   presenceDays?: Prisma.PresenceDayUpdateManyWithoutWorkforceNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutWorkforceNestedInput
@@ -1057,6 +1469,10 @@ export type WorkforceUncheckedUpdateWithoutPresencePunchesInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1079,6 +1495,8 @@ export type WorkforceCreateWithoutPresenceDaysInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -1088,6 +1506,8 @@ export type WorkforceCreateWithoutPresenceDaysInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   company?: Prisma.CompanyCreateNestedOneWithoutWorkforceInput
+  job?: Prisma.WorkforceJobCreateNestedOneWithoutWorkersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutWorkforceInput
   presenceSchedules?: Prisma.PresenceScheduleCreateNestedManyWithoutWorkforceInput
   presencePunches?: Prisma.PresencePunchCreateNestedManyWithoutWorkforceInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutWorkforceInput
@@ -1102,6 +1522,10 @@ export type WorkforceUncheckedCreateWithoutPresenceDaysInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  jobId?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -1140,6 +1564,8 @@ export type WorkforceUpdateWithoutPresenceDaysInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1149,6 +1575,8 @@ export type WorkforceUpdateWithoutPresenceDaysInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneWithoutWorkforceNestedInput
+  job?: Prisma.WorkforceJobUpdateOneWithoutWorkersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutWorkforceNestedInput
   presenceSchedules?: Prisma.PresenceScheduleUpdateManyWithoutWorkforceNestedInput
   presencePunches?: Prisma.PresencePunchUpdateManyWithoutWorkforceNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutWorkforceNestedInput
@@ -1163,6 +1591,10 @@ export type WorkforceUncheckedUpdateWithoutPresenceDaysInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1185,6 +1617,8 @@ export type WorkforceCreateWithoutAbsenceRequestsInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -1194,6 +1628,8 @@ export type WorkforceCreateWithoutAbsenceRequestsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   company?: Prisma.CompanyCreateNestedOneWithoutWorkforceInput
+  job?: Prisma.WorkforceJobCreateNestedOneWithoutWorkersInput
+  membership?: Prisma.MembershipCreateNestedOneWithoutWorkforceInput
   presenceSchedules?: Prisma.PresenceScheduleCreateNestedManyWithoutWorkforceInput
   presencePunches?: Prisma.PresencePunchCreateNestedManyWithoutWorkforceInput
   presenceDays?: Prisma.PresenceDayCreateNestedManyWithoutWorkforceInput
@@ -1208,6 +1644,10 @@ export type WorkforceUncheckedCreateWithoutAbsenceRequestsInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  jobId?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -1246,6 +1686,8 @@ export type WorkforceUpdateWithoutAbsenceRequestsInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1255,6 +1697,8 @@ export type WorkforceUpdateWithoutAbsenceRequestsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneWithoutWorkforceNestedInput
+  job?: Prisma.WorkforceJobUpdateOneWithoutWorkersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutWorkforceNestedInput
   presenceSchedules?: Prisma.PresenceScheduleUpdateManyWithoutWorkforceNestedInput
   presencePunches?: Prisma.PresencePunchUpdateManyWithoutWorkforceNestedInput
   presenceDays?: Prisma.PresenceDayUpdateManyWithoutWorkforceNestedInput
@@ -1269,6 +1713,10 @@ export type WorkforceUncheckedUpdateWithoutAbsenceRequestsInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1292,6 +1740,10 @@ export type WorkforceCreateManyCompanyInput = {
   jobTitle?: string | null
   contractType?: string | null
   agency?: string | null
+  jobId?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
   isActive?: boolean
   zone?: string | null
   status?: string
@@ -1310,6 +1762,8 @@ export type WorkforceUpdateWithoutCompanyInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1318,6 +1772,8 @@ export type WorkforceUpdateWithoutCompanyInput = {
   workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  job?: Prisma.WorkforceJobUpdateOneWithoutWorkersNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutWorkforceNestedInput
   presenceSchedules?: Prisma.PresenceScheduleUpdateManyWithoutWorkforceNestedInput
   presencePunches?: Prisma.PresencePunchUpdateManyWithoutWorkforceNestedInput
   presenceDays?: Prisma.PresenceDayUpdateManyWithoutWorkforceNestedInput
@@ -1333,6 +1789,10 @@ export type WorkforceUncheckedUpdateWithoutCompanyInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1356,6 +1816,10 @@ export type WorkforceUncheckedUpdateManyWithoutCompanyInput = {
   jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1364,6 +1828,105 @@ export type WorkforceUncheckedUpdateManyWithoutCompanyInput = {
   workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type WorkforceCreateManyJobInput = {
+  id?: number
+  employeeNumber: string
+  name: string
+  team?: string | null
+  service?: string | null
+  jobTitle?: string | null
+  contractType?: string | null
+  agency?: string | null
+  membershipId?: string | null
+  onboardingStatus?: string
+  onboardingSource?: string
+  isActive?: boolean
+  zone?: string | null
+  status?: string
+  workedMinutes?: number
+  processedUnits?: number
+  workDate?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  companyId?: string | null
+}
+
+export type WorkforceUpdateWithoutJobInput = {
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  workedMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  processedUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  company?: Prisma.CompanyUpdateOneWithoutWorkforceNestedInput
+  membership?: Prisma.MembershipUpdateOneWithoutWorkforceNestedInput
+  presenceSchedules?: Prisma.PresenceScheduleUpdateManyWithoutWorkforceNestedInput
+  presencePunches?: Prisma.PresencePunchUpdateManyWithoutWorkforceNestedInput
+  presenceDays?: Prisma.PresenceDayUpdateManyWithoutWorkforceNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutWorkforceNestedInput
+}
+
+export type WorkforceUncheckedUpdateWithoutJobInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  workedMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  processedUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presenceSchedules?: Prisma.PresenceScheduleUncheckedUpdateManyWithoutWorkforceNestedInput
+  presencePunches?: Prisma.PresencePunchUncheckedUpdateManyWithoutWorkforceNestedInput
+  presenceDays?: Prisma.PresenceDayUncheckedUpdateManyWithoutWorkforceNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutWorkforceNestedInput
+}
+
+export type WorkforceUncheckedUpdateManyWithoutJobInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  employeeNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  team?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  service?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jobTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contractType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  agency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  membershipId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  onboardingStatus?: Prisma.StringFieldUpdateOperationsInput | string
+  onboardingSource?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  zone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  workedMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  processedUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  workDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1433,6 +1996,10 @@ export type WorkforceSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   jobTitle?: boolean
   contractType?: boolean
   agency?: boolean
+  jobId?: boolean
+  membershipId?: boolean
+  onboardingStatus?: boolean
+  onboardingSource?: boolean
   isActive?: boolean
   zone?: boolean
   status?: boolean
@@ -1443,6 +2010,8 @@ export type WorkforceSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   updatedAt?: boolean
   companyId?: boolean
   company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+  job?: boolean | Prisma.Workforce$jobArgs<ExtArgs>
+  membership?: boolean | Prisma.Workforce$membershipArgs<ExtArgs>
   presenceSchedules?: boolean | Prisma.Workforce$presenceSchedulesArgs<ExtArgs>
   presencePunches?: boolean | Prisma.Workforce$presencePunchesArgs<ExtArgs>
   presenceDays?: boolean | Prisma.Workforce$presenceDaysArgs<ExtArgs>
@@ -1459,6 +2028,10 @@ export type WorkforceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   jobTitle?: boolean
   contractType?: boolean
   agency?: boolean
+  jobId?: boolean
+  membershipId?: boolean
+  onboardingStatus?: boolean
+  onboardingSource?: boolean
   isActive?: boolean
   zone?: boolean
   status?: boolean
@@ -1469,6 +2042,8 @@ export type WorkforceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   updatedAt?: boolean
   companyId?: boolean
   company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+  job?: boolean | Prisma.Workforce$jobArgs<ExtArgs>
+  membership?: boolean | Prisma.Workforce$membershipArgs<ExtArgs>
 }, ExtArgs["result"]["workforce"]>
 
 export type WorkforceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1480,6 +2055,10 @@ export type WorkforceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   jobTitle?: boolean
   contractType?: boolean
   agency?: boolean
+  jobId?: boolean
+  membershipId?: boolean
+  onboardingStatus?: boolean
+  onboardingSource?: boolean
   isActive?: boolean
   zone?: boolean
   status?: boolean
@@ -1490,6 +2069,8 @@ export type WorkforceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   updatedAt?: boolean
   companyId?: boolean
   company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+  job?: boolean | Prisma.Workforce$jobArgs<ExtArgs>
+  membership?: boolean | Prisma.Workforce$membershipArgs<ExtArgs>
 }, ExtArgs["result"]["workforce"]>
 
 export type WorkforceSelectScalar = {
@@ -1501,6 +2082,10 @@ export type WorkforceSelectScalar = {
   jobTitle?: boolean
   contractType?: boolean
   agency?: boolean
+  jobId?: boolean
+  membershipId?: boolean
+  onboardingStatus?: boolean
+  onboardingSource?: boolean
   isActive?: boolean
   zone?: boolean
   status?: boolean
@@ -1512,9 +2097,11 @@ export type WorkforceSelectScalar = {
   companyId?: boolean
 }
 
-export type WorkforceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeNumber" | "name" | "team" | "service" | "jobTitle" | "contractType" | "agency" | "isActive" | "zone" | "status" | "workedMinutes" | "processedUnits" | "workDate" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["workforce"]>
+export type WorkforceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "employeeNumber" | "name" | "team" | "service" | "jobTitle" | "contractType" | "agency" | "jobId" | "membershipId" | "onboardingStatus" | "onboardingSource" | "isActive" | "zone" | "status" | "workedMinutes" | "processedUnits" | "workDate" | "createdAt" | "updatedAt" | "companyId", ExtArgs["result"]["workforce"]>
 export type WorkforceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+  job?: boolean | Prisma.Workforce$jobArgs<ExtArgs>
+  membership?: boolean | Prisma.Workforce$membershipArgs<ExtArgs>
   presenceSchedules?: boolean | Prisma.Workforce$presenceSchedulesArgs<ExtArgs>
   presencePunches?: boolean | Prisma.Workforce$presencePunchesArgs<ExtArgs>
   presenceDays?: boolean | Prisma.Workforce$presenceDaysArgs<ExtArgs>
@@ -1523,15 +2110,21 @@ export type WorkforceInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 export type WorkforceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+  job?: boolean | Prisma.Workforce$jobArgs<ExtArgs>
+  membership?: boolean | Prisma.Workforce$membershipArgs<ExtArgs>
 }
 export type WorkforceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.Workforce$companyArgs<ExtArgs>
+  job?: boolean | Prisma.Workforce$jobArgs<ExtArgs>
+  membership?: boolean | Prisma.Workforce$membershipArgs<ExtArgs>
 }
 
 export type $WorkforcePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Workforce"
   objects: {
     company: Prisma.$CompanyPayload<ExtArgs> | null
+    job: Prisma.$WorkforceJobPayload<ExtArgs> | null
+    membership: Prisma.$MembershipPayload<ExtArgs> | null
     presenceSchedules: Prisma.$PresenceSchedulePayload<ExtArgs>[]
     presencePunches: Prisma.$PresencePunchPayload<ExtArgs>[]
     presenceDays: Prisma.$PresenceDayPayload<ExtArgs>[]
@@ -1546,6 +2139,10 @@ export type $WorkforcePayload<ExtArgs extends runtime.Types.Extensions.InternalA
     jobTitle: string | null
     contractType: string | null
     agency: string | null
+    jobId: string | null
+    membershipId: string | null
+    onboardingStatus: string
+    onboardingSource: string
     isActive: boolean
     zone: string | null
     status: string
@@ -1950,6 +2547,8 @@ readonly fields: WorkforceFieldRefs;
 export interface Prisma__WorkforceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   company<T extends Prisma.Workforce$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workforce$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  job<T extends Prisma.Workforce$jobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workforce$jobArgs<ExtArgs>>): Prisma.Prisma__WorkforceJobClient<runtime.Types.Result.GetResult<Prisma.$WorkforceJobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  membership<T extends Prisma.Workforce$membershipArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workforce$membershipArgs<ExtArgs>>): Prisma.Prisma__MembershipClient<runtime.Types.Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   presenceSchedules<T extends Prisma.Workforce$presenceSchedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workforce$presenceSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PresenceSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   presencePunches<T extends Prisma.Workforce$presencePunchesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workforce$presencePunchesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PresencePunchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   presenceDays<T extends Prisma.Workforce$presenceDaysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Workforce$presenceDaysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PresenceDayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1991,6 +2590,10 @@ export interface WorkforceFieldRefs {
   readonly jobTitle: Prisma.FieldRef<"Workforce", 'String'>
   readonly contractType: Prisma.FieldRef<"Workforce", 'String'>
   readonly agency: Prisma.FieldRef<"Workforce", 'String'>
+  readonly jobId: Prisma.FieldRef<"Workforce", 'String'>
+  readonly membershipId: Prisma.FieldRef<"Workforce", 'String'>
+  readonly onboardingStatus: Prisma.FieldRef<"Workforce", 'String'>
+  readonly onboardingSource: Prisma.FieldRef<"Workforce", 'String'>
   readonly isActive: Prisma.FieldRef<"Workforce", 'Boolean'>
   readonly zone: Prisma.FieldRef<"Workforce", 'String'>
   readonly status: Prisma.FieldRef<"Workforce", 'String'>
@@ -2417,6 +3020,44 @@ export type Workforce$companyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   include?: Prisma.CompanyInclude<ExtArgs> | null
   where?: Prisma.CompanyWhereInput
+}
+
+/**
+ * Workforce.job
+ */
+export type Workforce$jobArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkforceJob
+   */
+  select?: Prisma.WorkforceJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkforceJob
+   */
+  omit?: Prisma.WorkforceJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceJobInclude<ExtArgs> | null
+  where?: Prisma.WorkforceJobWhereInput
+}
+
+/**
+ * Workforce.membership
+ */
+export type Workforce$membershipArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Membership
+   */
+  select?: Prisma.MembershipSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Membership
+   */
+  omit?: Prisma.MembershipOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MembershipInclude<ExtArgs> | null
+  where?: Prisma.MembershipWhereInput
 }
 
 /**

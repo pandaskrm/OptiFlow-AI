@@ -55,17 +55,20 @@ model Company {
   mailConnections MailConnection[]
   mailMessages    MailMessage[]
 
-  receptions          Reception[]
-  receptionDocuments  ReceptionDocument[]
-  receptionEvents     ReceptionEvent[]
-  receptionInspectors ReceptionInspector[]
-  orders              Order[]
-  shipments           Shipment[]
-  inventories         Inventory[]
-  workforce           Workforce[]
-  carriers            Carrier[]
-  businessRules       BusinessRule[]
-  absenceRequests     AbsenceRequest[]
+  receptions           Reception[]
+  receptionDocuments   ReceptionDocument[]
+  receptionEvents      ReceptionEvent[]
+  receptionInspectors  ReceptionInspector[]
+  orders               Order[]
+  shipments            Shipment[]
+  inventories          Inventory[]
+  workforce            Workforce[]
+  carriers             Carrier[]
+  businessRules        BusinessRule[]
+  workforceJobs        WorkforceJob[]
+  workforceAccessCodes WorkforceAccessCode[]
+  presenceQrSessions   PresenceQrSession[]
+  absenceRequests      AbsenceRequest[]
 }
 
 /**
@@ -107,9 +110,10 @@ model Membership {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company  Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  messages MailMessage[]
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  messages  MailMessage[]
+  workforce Workforce?
 
   @@unique([userId, companyId])
   @@index([companyId])
@@ -461,25 +465,31 @@ model Inventory {
 }
 
 model Workforce {
-  id             Int      @id @default(autoincrement())
-  employeeNumber String   @unique
-  name           String
-  team           String?
-  service        String?
-  jobTitle       String?
-  contractType   String?
-  agency         String?
-  isActive       Boolean  @default(true)
-  zone           String?
-  status         String   @default("Présent")
-  workedMinutes  Int      @default(0)
-  processedUnits Int      @default(0)
-  workDate       DateTime @default(now())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  employeeNumber   String   @unique
+  name             String
+  team             String?
+  service          String?
+  jobTitle         String?
+  contractType     String?
+  agency           String?
+  jobId            String?
+  membershipId     String?  @unique
+  onboardingStatus String   @default("ACTIVE")
+  onboardingSource String   @default("MANUAL")
+  isActive         Boolean  @default(true)
+  zone             String?
+  status           String   @default("Présent")
+  workedMinutes    Int      @default(0)
+  processedUnits   Int      @default(0)
+  workDate         DateTime @default(now())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
-  companyId String?
-  company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId  String?
+  company    Company?      @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  job        WorkforceJob? @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  membership Membership?   @relation(fields: [membershipId], references: [id], onDelete: SetNull)
 
   presenceSchedules PresenceSchedule[]
   presencePunches   PresencePunch[]
@@ -487,6 +497,74 @@ model Workforce {
   absenceRequests   AbsenceRequest[]
 
   @@index([companyId])
+  @@index([jobId])
+  @@index([companyId, service])
+  @@index([companyId, contractType])
+}
+
+model WorkforceJob {
+  id        String   @id @default(cuid())
+  companyId String
+  code      String?
+  name      String
+  service   String
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  workers Workforce[]
+
+  @@unique([companyId, name, service])
+  @@index([companyId, isActive])
+  @@index([companyId, service])
+}
+
+model WorkforceAccessCode {
+  id               String    @id @default(cuid())
+  companyId        String
+  label            String
+  codeHash         String    @unique
+  codeHint         String?
+  agency           String?
+  contractType     String?
+  isActive         Boolean   @default(true)
+  requiresApproval Boolean   @default(false)
+  maxUses          Int?
+  usedCount        Int       @default(0)
+  expiresAt        DateTime?
+  createdBy        String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, isActive])
+  @@index([companyId, agency])
+  @@index([expiresAt])
+}
+
+model PresenceQrSession {
+  id         String    @id @default(cuid())
+  companyId  String
+  workDate   DateTime
+  type       String
+  tokenHash  String    @unique
+  tokenHint  String?
+  validFrom  DateTime
+  validUntil DateTime
+  isActive   Boolean   @default(true)
+  createdBy  String?
+  printedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, workDate, type])
+  @@index([companyId, isActive])
+  @@index([validUntil])
 }
 
 model PresenceSchedule {

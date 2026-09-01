@@ -118,6 +118,21 @@ export type Inventory = Prisma.InventoryModel
  */
 export type Workforce = Prisma.WorkforceModel
 /**
+ * Model WorkforceJob
+ * 
+ */
+export type WorkforceJob = Prisma.WorkforceJobModel
+/**
+ * Model WorkforceAccessCode
+ * 
+ */
+export type WorkforceAccessCode = Prisma.WorkforceAccessCodeModel
+/**
+ * Model PresenceQrSession
+ * 
+ */
+export type PresenceQrSession = Prisma.PresenceQrSessionModel
+/**
  * Model PresenceSchedule
  * 
  */

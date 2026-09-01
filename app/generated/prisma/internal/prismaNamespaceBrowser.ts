@@ -71,6 +71,9 @@ export const ModelName = {
   Shipment: 'Shipment',
   Inventory: 'Inventory',
   Workforce: 'Workforce',
+  WorkforceJob: 'WorkforceJob',
+  WorkforceAccessCode: 'WorkforceAccessCode',
+  PresenceQrSession: 'PresenceQrSession',
   PresenceSchedule: 'PresenceSchedule',
   PresencePunch: 'PresencePunch',
   PresenceDay: 'PresenceDay',
@@ -444,6 +447,10 @@ export const WorkforceScalarFieldEnum = {
   jobTitle: 'jobTitle',
   contractType: 'contractType',
   agency: 'agency',
+  jobId: 'jobId',
+  membershipId: 'membershipId',
+  onboardingStatus: 'onboardingStatus',
+  onboardingSource: 'onboardingSource',
   isActive: 'isActive',
   zone: 'zone',
   status: 'status',
@@ -456,6 +463,61 @@ export const WorkforceScalarFieldEnum = {
 } as const
 
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
+
+
+export const WorkforceJobScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  code: 'code',
+  name: 'name',
+  service: 'service',
+  sortOrder: 'sortOrder',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforceJobScalarFieldEnum = (typeof WorkforceJobScalarFieldEnum)[keyof typeof WorkforceJobScalarFieldEnum]
+
+
+export const WorkforceAccessCodeScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  label: 'label',
+  codeHash: 'codeHash',
+  codeHint: 'codeHint',
+  agency: 'agency',
+  contractType: 'contractType',
+  isActive: 'isActive',
+  requiresApproval: 'requiresApproval',
+  maxUses: 'maxUses',
+  usedCount: 'usedCount',
+  expiresAt: 'expiresAt',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforceAccessCodeScalarFieldEnum = (typeof WorkforceAccessCodeScalarFieldEnum)[keyof typeof WorkforceAccessCodeScalarFieldEnum]
+
+
+export const PresenceQrSessionScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  workDate: 'workDate',
+  type: 'type',
+  tokenHash: 'tokenHash',
+  tokenHint: 'tokenHint',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  isActive: 'isActive',
+  createdBy: 'createdBy',
+  printedAt: 'printedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PresenceQrSessionScalarFieldEnum = (typeof PresenceQrSessionScalarFieldEnum)[keyof typeof PresenceQrSessionScalarFieldEnum]
 
 
 export const PresenceScheduleScalarFieldEnum = {

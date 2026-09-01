@@ -201,6 +201,7 @@ export type MembershipWhereInput = {
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   messages?: Prisma.MailMessageListRelationFilter
+  workforce?: Prisma.XOR<Prisma.WorkforceNullableScalarRelationFilter, Prisma.WorkforceWhereInput> | null
 }
 
 export type MembershipOrderByWithRelationInput = {
@@ -214,6 +215,7 @@ export type MembershipOrderByWithRelationInput = {
   user?: Prisma.UserOrderByWithRelationInput
   company?: Prisma.CompanyOrderByWithRelationInput
   messages?: Prisma.MailMessageOrderByRelationAggregateInput
+  workforce?: Prisma.WorkforceOrderByWithRelationInput
 }
 
 export type MembershipWhereUniqueInput = Prisma.AtLeast<{
@@ -231,6 +233,7 @@ export type MembershipWhereUniqueInput = Prisma.AtLeast<{
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
   messages?: Prisma.MailMessageListRelationFilter
+  workforce?: Prisma.XOR<Prisma.WorkforceNullableScalarRelationFilter, Prisma.WorkforceWhereInput> | null
 }, "id" | "userId_companyId">
 
 export type MembershipOrderByWithAggregationInput = {
@@ -268,6 +271,7 @@ export type MembershipCreateInput = {
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
   company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
   messages?: Prisma.MailMessageCreateNestedManyWithoutMembershipInput
+  workforce?: Prisma.WorkforceCreateNestedOneWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateInput = {
@@ -279,6 +283,7 @@ export type MembershipUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   messages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutMembershipInput
+  workforce?: Prisma.WorkforceUncheckedCreateNestedOneWithoutMembershipInput
 }
 
 export type MembershipUpdateInput = {
@@ -290,6 +295,7 @@ export type MembershipUpdateInput = {
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
   messages?: Prisma.MailMessageUpdateManyWithoutMembershipNestedInput
+  workforce?: Prisma.WorkforceUpdateOneWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateInput = {
@@ -301,6 +307,7 @@ export type MembershipUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MailMessageUncheckedUpdateManyWithoutMembershipNestedInput
+  workforce?: Prisma.WorkforceUncheckedUpdateOneWithoutMembershipNestedInput
 }
 
 export type MembershipCreateManyInput = {
@@ -465,6 +472,22 @@ export type MembershipUncheckedUpdateManyWithoutCompanyNestedInput = {
   deleteMany?: Prisma.MembershipScalarWhereInput | Prisma.MembershipScalarWhereInput[]
 }
 
+export type MembershipCreateNestedOneWithoutWorkforceInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutWorkforceInput, Prisma.MembershipUncheckedCreateWithoutWorkforceInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutWorkforceInput
+  connect?: Prisma.MembershipWhereUniqueInput
+}
+
+export type MembershipUpdateOneWithoutWorkforceNestedInput = {
+  create?: Prisma.XOR<Prisma.MembershipCreateWithoutWorkforceInput, Prisma.MembershipUncheckedCreateWithoutWorkforceInput>
+  connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutWorkforceInput
+  upsert?: Prisma.MembershipUpsertWithoutWorkforceInput
+  disconnect?: Prisma.MembershipWhereInput | boolean
+  delete?: Prisma.MembershipWhereInput | boolean
+  connect?: Prisma.MembershipWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MembershipUpdateToOneWithWhereWithoutWorkforceInput, Prisma.MembershipUpdateWithoutWorkforceInput>, Prisma.MembershipUncheckedUpdateWithoutWorkforceInput>
+}
+
 export type MembershipCreateNestedOneWithoutMessagesInput = {
   create?: Prisma.XOR<Prisma.MembershipCreateWithoutMessagesInput, Prisma.MembershipUncheckedCreateWithoutMessagesInput>
   connectOrCreate?: Prisma.MembershipCreateOrConnectWithoutMessagesInput
@@ -489,6 +512,7 @@ export type MembershipCreateWithoutUserInput = {
   updatedAt?: Date | string
   company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
   messages?: Prisma.MailMessageCreateNestedManyWithoutMembershipInput
+  workforce?: Prisma.WorkforceCreateNestedOneWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateWithoutUserInput = {
@@ -499,6 +523,7 @@ export type MembershipUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   messages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutMembershipInput
+  workforce?: Prisma.WorkforceUncheckedCreateNestedOneWithoutMembershipInput
 }
 
 export type MembershipCreateOrConnectWithoutUserInput = {
@@ -548,6 +573,7 @@ export type MembershipCreateWithoutCompanyInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
   messages?: Prisma.MailMessageCreateNestedManyWithoutMembershipInput
+  workforce?: Prisma.WorkforceCreateNestedOneWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateWithoutCompanyInput = {
@@ -558,6 +584,7 @@ export type MembershipUncheckedCreateWithoutCompanyInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   messages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutMembershipInput
+  workforce?: Prisma.WorkforceUncheckedCreateNestedOneWithoutMembershipInput
 }
 
 export type MembershipCreateOrConnectWithoutCompanyInput = {
@@ -586,6 +613,66 @@ export type MembershipUpdateManyWithWhereWithoutCompanyInput = {
   data: Prisma.XOR<Prisma.MembershipUpdateManyMutationInput, Prisma.MembershipUncheckedUpdateManyWithoutCompanyInput>
 }
 
+export type MembershipCreateWithoutWorkforceInput = {
+  id?: string
+  role?: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutMembershipsInput
+  company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
+  messages?: Prisma.MailMessageCreateNestedManyWithoutMembershipInput
+}
+
+export type MembershipUncheckedCreateWithoutWorkforceInput = {
+  id?: string
+  userId: string
+  companyId: string
+  role?: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  messages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutMembershipInput
+}
+
+export type MembershipCreateOrConnectWithoutWorkforceInput = {
+  where: Prisma.MembershipWhereUniqueInput
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutWorkforceInput, Prisma.MembershipUncheckedCreateWithoutWorkforceInput>
+}
+
+export type MembershipUpsertWithoutWorkforceInput = {
+  update: Prisma.XOR<Prisma.MembershipUpdateWithoutWorkforceInput, Prisma.MembershipUncheckedUpdateWithoutWorkforceInput>
+  create: Prisma.XOR<Prisma.MembershipCreateWithoutWorkforceInput, Prisma.MembershipUncheckedCreateWithoutWorkforceInput>
+  where?: Prisma.MembershipWhereInput
+}
+
+export type MembershipUpdateToOneWithWhereWithoutWorkforceInput = {
+  where?: Prisma.MembershipWhereInput
+  data: Prisma.XOR<Prisma.MembershipUpdateWithoutWorkforceInput, Prisma.MembershipUncheckedUpdateWithoutWorkforceInput>
+}
+
+export type MembershipUpdateWithoutWorkforceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
+  company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
+  messages?: Prisma.MailMessageUpdateManyWithoutMembershipNestedInput
+}
+
+export type MembershipUncheckedUpdateWithoutWorkforceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  messages?: Prisma.MailMessageUncheckedUpdateManyWithoutMembershipNestedInput
+}
+
 export type MembershipCreateWithoutMessagesInput = {
   id?: string
   role?: string
@@ -594,6 +681,7 @@ export type MembershipCreateWithoutMessagesInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutMembershipsInput
   company: Prisma.CompanyCreateNestedOneWithoutMembershipsInput
+  workforce?: Prisma.WorkforceCreateNestedOneWithoutMembershipInput
 }
 
 export type MembershipUncheckedCreateWithoutMessagesInput = {
@@ -604,6 +692,7 @@ export type MembershipUncheckedCreateWithoutMessagesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  workforce?: Prisma.WorkforceUncheckedCreateNestedOneWithoutMembershipInput
 }
 
 export type MembershipCreateOrConnectWithoutMessagesInput = {
@@ -630,6 +719,7 @@ export type MembershipUpdateWithoutMessagesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
   company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
+  workforce?: Prisma.WorkforceUpdateOneWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutMessagesInput = {
@@ -640,6 +730,7 @@ export type MembershipUncheckedUpdateWithoutMessagesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workforce?: Prisma.WorkforceUncheckedUpdateOneWithoutMembershipNestedInput
 }
 
 export type MembershipCreateManyUserInput = {
@@ -659,6 +750,7 @@ export type MembershipUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   company?: Prisma.CompanyUpdateOneRequiredWithoutMembershipsNestedInput
   messages?: Prisma.MailMessageUpdateManyWithoutMembershipNestedInput
+  workforce?: Prisma.WorkforceUpdateOneWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutUserInput = {
@@ -669,6 +761,7 @@ export type MembershipUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MailMessageUncheckedUpdateManyWithoutMembershipNestedInput
+  workforce?: Prisma.WorkforceUncheckedUpdateOneWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateManyWithoutUserInput = {
@@ -697,6 +790,7 @@ export type MembershipUpdateWithoutCompanyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutMembershipsNestedInput
   messages?: Prisma.MailMessageUpdateManyWithoutMembershipNestedInput
+  workforce?: Prisma.WorkforceUpdateOneWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateWithoutCompanyInput = {
@@ -707,6 +801,7 @@ export type MembershipUncheckedUpdateWithoutCompanyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   messages?: Prisma.MailMessageUncheckedUpdateManyWithoutMembershipNestedInput
+  workforce?: Prisma.WorkforceUncheckedUpdateOneWithoutMembershipNestedInput
 }
 
 export type MembershipUncheckedUpdateManyWithoutCompanyInput = {
@@ -760,6 +855,7 @@ export type MembershipSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.Membership$messagesArgs<ExtArgs>
+  workforce?: boolean | Prisma.Membership$workforceArgs<ExtArgs>
   _count?: boolean | Prisma.MembershipCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["membership"]>
 
@@ -802,6 +898,7 @@ export type MembershipInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   messages?: boolean | Prisma.Membership$messagesArgs<ExtArgs>
+  workforce?: boolean | Prisma.Membership$workforceArgs<ExtArgs>
   _count?: boolean | Prisma.MembershipCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MembershipIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -819,6 +916,7 @@ export type $MembershipPayload<ExtArgs extends runtime.Types.Extensions.Internal
     user: Prisma.$UserPayload<ExtArgs>
     company: Prisma.$CompanyPayload<ExtArgs>
     messages: Prisma.$MailMessagePayload<ExtArgs>[]
+    workforce: Prisma.$WorkforcePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1225,6 +1323,7 @@ export interface Prisma__MembershipClient<T, Null = never, ExtArgs extends runti
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   messages<T extends Prisma.Membership$messagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MailMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  workforce<T extends Prisma.Membership$workforceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Membership$workforceArgs<ExtArgs>>): Prisma.Prisma__WorkforceClient<runtime.Types.Result.GetResult<Prisma.$WorkforcePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1683,6 +1782,25 @@ export type Membership$messagesArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.MailMessageScalarFieldEnum | Prisma.MailMessageScalarFieldEnum[]
+}
+
+/**
+ * Membership.workforce
+ */
+export type Membership$workforceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Workforce
+   */
+  select?: Prisma.WorkforceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Workforce
+   */
+  omit?: Prisma.WorkforceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceInclude<ExtArgs> | null
+  where?: Prisma.WorkforceWhereInput
 }
 
 /**

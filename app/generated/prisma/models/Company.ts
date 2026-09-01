@@ -271,6 +271,9 @@ export type CompanyWhereInput = {
   workforce?: Prisma.WorkforceListRelationFilter
   carriers?: Prisma.CarrierListRelationFilter
   businessRules?: Prisma.BusinessRuleListRelationFilter
+  workforceJobs?: Prisma.WorkforceJobListRelationFilter
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeListRelationFilter
+  presenceQrSessions?: Prisma.PresenceQrSessionListRelationFilter
   absenceRequests?: Prisma.AbsenceRequestListRelationFilter
 }
 
@@ -306,6 +309,9 @@ export type CompanyOrderByWithRelationInput = {
   workforce?: Prisma.WorkforceOrderByRelationAggregateInput
   carriers?: Prisma.CarrierOrderByRelationAggregateInput
   businessRules?: Prisma.BusinessRuleOrderByRelationAggregateInput
+  workforceJobs?: Prisma.WorkforceJobOrderByRelationAggregateInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeOrderByRelationAggregateInput
+  presenceQrSessions?: Prisma.PresenceQrSessionOrderByRelationAggregateInput
   absenceRequests?: Prisma.AbsenceRequestOrderByRelationAggregateInput
 }
 
@@ -344,6 +350,9 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   workforce?: Prisma.WorkforceListRelationFilter
   carriers?: Prisma.CarrierListRelationFilter
   businessRules?: Prisma.BusinessRuleListRelationFilter
+  workforceJobs?: Prisma.WorkforceJobListRelationFilter
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeListRelationFilter
+  presenceQrSessions?: Prisma.PresenceQrSessionListRelationFilter
   absenceRequests?: Prisma.AbsenceRequestListRelationFilter
 }, "id">
 
@@ -419,6 +428,9 @@ export type CompanyCreateInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -454,6 +466,9 @@ export type CompanyUncheckedCreateInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -489,6 +504,9 @@ export type CompanyUpdateInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -524,6 +542,9 @@ export type CompanyUncheckedUpdateInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -845,6 +866,48 @@ export type CompanyUpdateOneWithoutWorkforceNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutWorkforceInput, Prisma.CompanyUpdateWithoutWorkforceInput>, Prisma.CompanyUncheckedUpdateWithoutWorkforceInput>
 }
 
+export type CompanyCreateNestedOneWithoutWorkforceJobsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceJobsInput, Prisma.CompanyUncheckedCreateWithoutWorkforceJobsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutWorkforceJobsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutWorkforceJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceJobsInput, Prisma.CompanyUncheckedCreateWithoutWorkforceJobsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutWorkforceJobsInput
+  upsert?: Prisma.CompanyUpsertWithoutWorkforceJobsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutWorkforceJobsInput, Prisma.CompanyUpdateWithoutWorkforceJobsInput>, Prisma.CompanyUncheckedUpdateWithoutWorkforceJobsInput>
+}
+
+export type CompanyCreateNestedOneWithoutWorkforceAccessCodesInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceAccessCodesInput, Prisma.CompanyUncheckedCreateWithoutWorkforceAccessCodesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutWorkforceAccessCodesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutWorkforceAccessCodesNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceAccessCodesInput, Prisma.CompanyUncheckedCreateWithoutWorkforceAccessCodesInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutWorkforceAccessCodesInput
+  upsert?: Prisma.CompanyUpsertWithoutWorkforceAccessCodesInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutWorkforceAccessCodesInput, Prisma.CompanyUpdateWithoutWorkforceAccessCodesInput>, Prisma.CompanyUncheckedUpdateWithoutWorkforceAccessCodesInput>
+}
+
+export type CompanyCreateNestedOneWithoutPresenceQrSessionsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPresenceQrSessionsInput, Prisma.CompanyUncheckedCreateWithoutPresenceQrSessionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPresenceQrSessionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutPresenceQrSessionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutPresenceQrSessionsInput, Prisma.CompanyUncheckedCreateWithoutPresenceQrSessionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutPresenceQrSessionsInput
+  upsert?: Prisma.CompanyUpsertWithoutPresenceQrSessionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutPresenceQrSessionsInput, Prisma.CompanyUpdateWithoutPresenceQrSessionsInput>, Prisma.CompanyUncheckedUpdateWithoutPresenceQrSessionsInput>
+}
+
 export type CompanyCreateNestedOneWithoutAbsenceRequestsInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutAbsenceRequestsInput, Prisma.CompanyUncheckedCreateWithoutAbsenceRequestsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutAbsenceRequestsInput
@@ -932,6 +995,9 @@ export type CompanyCreateWithoutBusinessRulesInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -966,6 +1032,9 @@ export type CompanyUncheckedCreateWithoutBusinessRulesInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1016,6 +1085,9 @@ export type CompanyUpdateWithoutBusinessRulesInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1050,6 +1122,9 @@ export type CompanyUncheckedUpdateWithoutBusinessRulesInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1084,6 +1159,9 @@ export type CompanyCreateWithoutMembershipsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -1118,6 +1196,9 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1168,6 +1249,9 @@ export type CompanyUpdateWithoutMembershipsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1202,6 +1286,9 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1236,6 +1323,9 @@ export type CompanyCreateWithoutInvitationsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -1270,6 +1360,9 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1320,6 +1413,9 @@ export type CompanyUpdateWithoutInvitationsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1354,6 +1450,9 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1388,6 +1487,9 @@ export type CompanyCreateWithoutCarriersInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -1422,6 +1524,9 @@ export type CompanyUncheckedCreateWithoutCarriersInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1472,6 +1577,9 @@ export type CompanyUpdateWithoutCarriersInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1506,6 +1614,9 @@ export type CompanyUncheckedUpdateWithoutCarriersInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1540,6 +1651,9 @@ export type CompanyCreateWithoutWarehousesInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -1574,6 +1688,9 @@ export type CompanyUncheckedCreateWithoutWarehousesInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1624,6 +1741,9 @@ export type CompanyUpdateWithoutWarehousesInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1658,6 +1778,9 @@ export type CompanyUncheckedUpdateWithoutWarehousesInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1692,6 +1815,9 @@ export type CompanyCreateWithoutAuditLogsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -1726,6 +1852,9 @@ export type CompanyUncheckedCreateWithoutAuditLogsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1776,6 +1905,9 @@ export type CompanyUpdateWithoutAuditLogsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1810,6 +1942,9 @@ export type CompanyUncheckedUpdateWithoutAuditLogsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1844,6 +1979,9 @@ export type CompanyCreateWithoutReceptionsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -1878,6 +2016,9 @@ export type CompanyUncheckedCreateWithoutReceptionsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -1928,6 +2069,9 @@ export type CompanyUpdateWithoutReceptionsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1962,6 +2106,9 @@ export type CompanyUncheckedUpdateWithoutReceptionsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -1996,6 +2143,9 @@ export type CompanyCreateWithoutReceptionDocumentsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -2030,6 +2180,9 @@ export type CompanyUncheckedCreateWithoutReceptionDocumentsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -2080,6 +2233,9 @@ export type CompanyUpdateWithoutReceptionDocumentsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2114,6 +2270,9 @@ export type CompanyUncheckedUpdateWithoutReceptionDocumentsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2148,6 +2307,9 @@ export type CompanyCreateWithoutReceptionInspectorsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -2182,6 +2344,9 @@ export type CompanyUncheckedCreateWithoutReceptionInspectorsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -2232,6 +2397,9 @@ export type CompanyUpdateWithoutReceptionInspectorsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2266,6 +2434,9 @@ export type CompanyUncheckedUpdateWithoutReceptionInspectorsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2300,6 +2471,9 @@ export type CompanyCreateWithoutReceptionEventsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -2334,6 +2508,9 @@ export type CompanyUncheckedCreateWithoutReceptionEventsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -2384,6 +2561,9 @@ export type CompanyUpdateWithoutReceptionEventsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2418,6 +2598,9 @@ export type CompanyUncheckedUpdateWithoutReceptionEventsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2452,6 +2635,9 @@ export type CompanyCreateWithoutOrdersInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -2486,6 +2672,9 @@ export type CompanyUncheckedCreateWithoutOrdersInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -2536,6 +2725,9 @@ export type CompanyUpdateWithoutOrdersInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2570,6 +2762,9 @@ export type CompanyUncheckedUpdateWithoutOrdersInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2604,6 +2799,9 @@ export type CompanyCreateWithoutShipmentsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -2638,6 +2836,9 @@ export type CompanyUncheckedCreateWithoutShipmentsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -2688,6 +2889,9 @@ export type CompanyUpdateWithoutShipmentsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2722,6 +2926,9 @@ export type CompanyUncheckedUpdateWithoutShipmentsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2756,6 +2963,9 @@ export type CompanyCreateWithoutInventoriesInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -2790,6 +3000,9 @@ export type CompanyUncheckedCreateWithoutInventoriesInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -2840,6 +3053,9 @@ export type CompanyUpdateWithoutInventoriesInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2874,6 +3090,9 @@ export type CompanyUncheckedUpdateWithoutInventoriesInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -2908,6 +3127,9 @@ export type CompanyCreateWithoutWorkforceInput = {
   inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -2942,6 +3164,9 @@ export type CompanyUncheckedCreateWithoutWorkforceInput = {
   inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -2992,6 +3217,9 @@ export type CompanyUpdateWithoutWorkforceInput = {
   inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3026,6 +3254,501 @@ export type CompanyUncheckedUpdateWithoutWorkforceInput = {
   inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutWorkforceJobsInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
+  receptionEvents?: Prisma.ReceptionEventCreateNestedManyWithoutCompanyInput
+  receptionInspectors?: Prisma.ReceptionInspectorCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
+  absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutWorkforceJobsInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  receptionEvents?: Prisma.ReceptionEventUncheckedCreateNestedManyWithoutCompanyInput
+  receptionInspectors?: Prisma.ReceptionInspectorUncheckedCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutWorkforceJobsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceJobsInput, Prisma.CompanyUncheckedCreateWithoutWorkforceJobsInput>
+}
+
+export type CompanyUpsertWithoutWorkforceJobsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutWorkforceJobsInput, Prisma.CompanyUncheckedUpdateWithoutWorkforceJobsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceJobsInput, Prisma.CompanyUncheckedCreateWithoutWorkforceJobsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutWorkforceJobsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutWorkforceJobsInput, Prisma.CompanyUncheckedUpdateWithoutWorkforceJobsInput>
+}
+
+export type CompanyUpdateWithoutWorkforceJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
+  receptionEvents?: Prisma.ReceptionEventUpdateManyWithoutCompanyNestedInput
+  receptionInspectors?: Prisma.ReceptionInspectorUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutWorkforceJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionEvents?: Prisma.ReceptionEventUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionInspectors?: Prisma.ReceptionInspectorUncheckedUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutWorkforceAccessCodesInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
+  receptionEvents?: Prisma.ReceptionEventCreateNestedManyWithoutCompanyInput
+  receptionInspectors?: Prisma.ReceptionInspectorCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
+  absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutWorkforceAccessCodesInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  receptionEvents?: Prisma.ReceptionEventUncheckedCreateNestedManyWithoutCompanyInput
+  receptionInspectors?: Prisma.ReceptionInspectorUncheckedCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutWorkforceAccessCodesInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceAccessCodesInput, Prisma.CompanyUncheckedCreateWithoutWorkforceAccessCodesInput>
+}
+
+export type CompanyUpsertWithoutWorkforceAccessCodesInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutWorkforceAccessCodesInput, Prisma.CompanyUncheckedUpdateWithoutWorkforceAccessCodesInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceAccessCodesInput, Prisma.CompanyUncheckedCreateWithoutWorkforceAccessCodesInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutWorkforceAccessCodesInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutWorkforceAccessCodesInput, Prisma.CompanyUncheckedUpdateWithoutWorkforceAccessCodesInput>
+}
+
+export type CompanyUpdateWithoutWorkforceAccessCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
+  receptionEvents?: Prisma.ReceptionEventUpdateManyWithoutCompanyNestedInput
+  receptionInspectors?: Prisma.ReceptionInspectorUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutWorkforceAccessCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionEvents?: Prisma.ReceptionEventUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionInspectors?: Prisma.ReceptionInspectorUncheckedUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutPresenceQrSessionsInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentCreateNestedManyWithoutCompanyInput
+  receptionEvents?: Prisma.ReceptionEventCreateNestedManyWithoutCompanyInput
+  receptionInspectors?: Prisma.ReceptionInspectorCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutPresenceQrSessionsInput = {
+  id?: string
+  name: string
+  legalName?: string | null
+  siret?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  postalCode?: string | null
+  city?: string | null
+  country?: string
+  logoUrl?: string | null
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  memberships?: Prisma.MembershipUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.InvitationUncheckedCreateNestedManyWithoutCompanyInput
+  warehouses?: Prisma.WarehouseUncheckedCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  erpConnections?: Prisma.ErpConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailConnections?: Prisma.MailConnectionUncheckedCreateNestedManyWithoutCompanyInput
+  mailMessages?: Prisma.MailMessageUncheckedCreateNestedManyWithoutCompanyInput
+  receptions?: Prisma.ReceptionUncheckedCreateNestedManyWithoutCompanyInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedCreateNestedManyWithoutCompanyInput
+  receptionEvents?: Prisma.ReceptionEventUncheckedCreateNestedManyWithoutCompanyInput
+  receptionInspectors?: Prisma.ReceptionInspectorUncheckedCreateNestedManyWithoutCompanyInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCompanyInput
+  shipments?: Prisma.ShipmentUncheckedCreateNestedManyWithoutCompanyInput
+  inventories?: Prisma.InventoryUncheckedCreateNestedManyWithoutCompanyInput
+  workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
+  carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
+  businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutPresenceQrSessionsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPresenceQrSessionsInput, Prisma.CompanyUncheckedCreateWithoutPresenceQrSessionsInput>
+}
+
+export type CompanyUpsertWithoutPresenceQrSessionsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutPresenceQrSessionsInput, Prisma.CompanyUncheckedUpdateWithoutPresenceQrSessionsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutPresenceQrSessionsInput, Prisma.CompanyUncheckedCreateWithoutPresenceQrSessionsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutPresenceQrSessionsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutPresenceQrSessionsInput, Prisma.CompanyUncheckedUpdateWithoutPresenceQrSessionsInput>
+}
+
+export type CompanyUpdateWithoutPresenceQrSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUpdateManyWithoutCompanyNestedInput
+  receptionEvents?: Prisma.ReceptionEventUpdateManyWithoutCompanyNestedInput
+  receptionInspectors?: Prisma.ReceptionInspectorUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutPresenceQrSessionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  siret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  memberships?: Prisma.MembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.InvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  warehouses?: Prisma.WarehouseUncheckedUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  erpConnections?: Prisma.ErpConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailConnections?: Prisma.MailConnectionUncheckedUpdateManyWithoutCompanyNestedInput
+  mailMessages?: Prisma.MailMessageUncheckedUpdateManyWithoutCompanyNestedInput
+  receptions?: Prisma.ReceptionUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionDocuments?: Prisma.ReceptionDocumentUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionEvents?: Prisma.ReceptionEventUncheckedUpdateManyWithoutCompanyNestedInput
+  receptionInspectors?: Prisma.ReceptionInspectorUncheckedUpdateManyWithoutCompanyNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCompanyNestedInput
+  shipments?: Prisma.ShipmentUncheckedUpdateManyWithoutCompanyNestedInput
+  inventories?: Prisma.InventoryUncheckedUpdateManyWithoutCompanyNestedInput
+  workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
+  carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
+  businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3061,6 +3784,9 @@ export type CompanyCreateWithoutAbsenceRequestsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAbsenceRequestsInput = {
@@ -3095,6 +3821,9 @@ export type CompanyUncheckedCreateWithoutAbsenceRequestsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAbsenceRequestsInput = {
@@ -3145,6 +3874,9 @@ export type CompanyUpdateWithoutAbsenceRequestsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAbsenceRequestsInput = {
@@ -3179,6 +3911,9 @@ export type CompanyUncheckedUpdateWithoutAbsenceRequestsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutMailMessagesInput = {
@@ -3212,6 +3947,9 @@ export type CompanyCreateWithoutMailMessagesInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -3246,6 +3984,9 @@ export type CompanyUncheckedCreateWithoutMailMessagesInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -3296,6 +4037,9 @@ export type CompanyUpdateWithoutMailMessagesInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3330,6 +4074,9 @@ export type CompanyUncheckedUpdateWithoutMailMessagesInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3364,6 +4111,9 @@ export type CompanyCreateWithoutMailConnectionsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -3398,6 +4148,9 @@ export type CompanyUncheckedCreateWithoutMailConnectionsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -3448,6 +4201,9 @@ export type CompanyUpdateWithoutMailConnectionsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3482,6 +4238,9 @@ export type CompanyUncheckedUpdateWithoutMailConnectionsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3516,6 +4275,9 @@ export type CompanyCreateWithoutErpConnectionsInput = {
   workforce?: Prisma.WorkforceCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestCreateNestedManyWithoutCompanyInput
 }
 
@@ -3550,6 +4312,9 @@ export type CompanyUncheckedCreateWithoutErpConnectionsInput = {
   workforce?: Prisma.WorkforceUncheckedCreateNestedManyWithoutCompanyInput
   carriers?: Prisma.CarrierUncheckedCreateNestedManyWithoutCompanyInput
   businessRules?: Prisma.BusinessRuleUncheckedCreateNestedManyWithoutCompanyInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedCreateNestedManyWithoutCompanyInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedCreateNestedManyWithoutCompanyInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedCreateNestedManyWithoutCompanyInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedCreateNestedManyWithoutCompanyInput
 }
 
@@ -3600,6 +4365,9 @@ export type CompanyUpdateWithoutErpConnectionsInput = {
   workforce?: Prisma.WorkforceUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3634,6 +4402,9 @@ export type CompanyUncheckedUpdateWithoutErpConnectionsInput = {
   workforce?: Prisma.WorkforceUncheckedUpdateManyWithoutCompanyNestedInput
   carriers?: Prisma.CarrierUncheckedUpdateManyWithoutCompanyNestedInput
   businessRules?: Prisma.BusinessRuleUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceJobs?: Prisma.WorkforceJobUncheckedUpdateManyWithoutCompanyNestedInput
+  workforceAccessCodes?: Prisma.WorkforceAccessCodeUncheckedUpdateManyWithoutCompanyNestedInput
+  presenceQrSessions?: Prisma.PresenceQrSessionUncheckedUpdateManyWithoutCompanyNestedInput
   absenceRequests?: Prisma.AbsenceRequestUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
@@ -3660,6 +4431,9 @@ export type CompanyCountOutputType = {
   workforce: number
   carriers: number
   businessRules: number
+  workforceJobs: number
+  workforceAccessCodes: number
+  presenceQrSessions: number
   absenceRequests: number
 }
 
@@ -3681,6 +4455,9 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   workforce?: boolean | CompanyCountOutputTypeCountWorkforceArgs
   carriers?: boolean | CompanyCountOutputTypeCountCarriersArgs
   businessRules?: boolean | CompanyCountOutputTypeCountBusinessRulesArgs
+  workforceJobs?: boolean | CompanyCountOutputTypeCountWorkforceJobsArgs
+  workforceAccessCodes?: boolean | CompanyCountOutputTypeCountWorkforceAccessCodesArgs
+  presenceQrSessions?: boolean | CompanyCountOutputTypeCountPresenceQrSessionsArgs
   absenceRequests?: boolean | CompanyCountOutputTypeCountAbsenceRequestsArgs
 }
 
@@ -3816,6 +4593,27 @@ export type CompanyCountOutputTypeCountBusinessRulesArgs<ExtArgs extends runtime
 /**
  * CompanyCountOutputType without action
  */
+export type CompanyCountOutputTypeCountWorkforceJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkforceJobWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountWorkforceAccessCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkforceAccessCodeWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountPresenceQrSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PresenceQrSessionWhereInput
+}
+
+/**
+ * CompanyCountOutputType without action
+ */
 export type CompanyCountOutputTypeCountAbsenceRequestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.AbsenceRequestWhereInput
 }
@@ -3853,6 +4651,9 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   workforce?: boolean | Prisma.Company$workforceArgs<ExtArgs>
   carriers?: boolean | Prisma.Company$carriersArgs<ExtArgs>
   businessRules?: boolean | Prisma.Company$businessRulesArgs<ExtArgs>
+  workforceJobs?: boolean | Prisma.Company$workforceJobsArgs<ExtArgs>
+  workforceAccessCodes?: boolean | Prisma.Company$workforceAccessCodesArgs<ExtArgs>
+  presenceQrSessions?: boolean | Prisma.Company$presenceQrSessionsArgs<ExtArgs>
   absenceRequests?: boolean | Prisma.Company$absenceRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
@@ -3927,6 +4728,9 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   workforce?: boolean | Prisma.Company$workforceArgs<ExtArgs>
   carriers?: boolean | Prisma.Company$carriersArgs<ExtArgs>
   businessRules?: boolean | Prisma.Company$businessRulesArgs<ExtArgs>
+  workforceJobs?: boolean | Prisma.Company$workforceJobsArgs<ExtArgs>
+  workforceAccessCodes?: boolean | Prisma.Company$workforceAccessCodesArgs<ExtArgs>
+  presenceQrSessions?: boolean | Prisma.Company$presenceQrSessionsArgs<ExtArgs>
   absenceRequests?: boolean | Prisma.Company$absenceRequestsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -3953,6 +4757,9 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     workforce: Prisma.$WorkforcePayload<ExtArgs>[]
     carriers: Prisma.$CarrierPayload<ExtArgs>[]
     businessRules: Prisma.$BusinessRulePayload<ExtArgs>[]
+    workforceJobs: Prisma.$WorkforceJobPayload<ExtArgs>[]
+    workforceAccessCodes: Prisma.$WorkforceAccessCodePayload<ExtArgs>[]
+    presenceQrSessions: Prisma.$PresenceQrSessionPayload<ExtArgs>[]
     absenceRequests: Prisma.$AbsenceRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -4381,6 +5188,9 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   workforce<T extends Prisma.Company$workforceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$workforceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkforcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   carriers<T extends Prisma.Company$carriersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$carriersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CarrierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   businessRules<T extends Prisma.Company$businessRulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$businessRulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BusinessRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  workforceJobs<T extends Prisma.Company$workforceJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$workforceJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkforceJobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  workforceAccessCodes<T extends Prisma.Company$workforceAccessCodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$workforceAccessCodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkforceAccessCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  presenceQrSessions<T extends Prisma.Company$presenceQrSessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$presenceQrSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PresenceQrSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   absenceRequests<T extends Prisma.Company$absenceRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$absenceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AbsenceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5223,6 +6033,78 @@ export type Company$businessRulesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.BusinessRuleScalarFieldEnum | Prisma.BusinessRuleScalarFieldEnum[]
+}
+
+/**
+ * Company.workforceJobs
+ */
+export type Company$workforceJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkforceJob
+   */
+  select?: Prisma.WorkforceJobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkforceJob
+   */
+  omit?: Prisma.WorkforceJobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceJobInclude<ExtArgs> | null
+  where?: Prisma.WorkforceJobWhereInput
+  orderBy?: Prisma.WorkforceJobOrderByWithRelationInput | Prisma.WorkforceJobOrderByWithRelationInput[]
+  cursor?: Prisma.WorkforceJobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkforceJobScalarFieldEnum | Prisma.WorkforceJobScalarFieldEnum[]
+}
+
+/**
+ * Company.workforceAccessCodes
+ */
+export type Company$workforceAccessCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkforceAccessCode
+   */
+  select?: Prisma.WorkforceAccessCodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkforceAccessCode
+   */
+  omit?: Prisma.WorkforceAccessCodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkforceAccessCodeInclude<ExtArgs> | null
+  where?: Prisma.WorkforceAccessCodeWhereInput
+  orderBy?: Prisma.WorkforceAccessCodeOrderByWithRelationInput | Prisma.WorkforceAccessCodeOrderByWithRelationInput[]
+  cursor?: Prisma.WorkforceAccessCodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkforceAccessCodeScalarFieldEnum | Prisma.WorkforceAccessCodeScalarFieldEnum[]
+}
+
+/**
+ * Company.presenceQrSessions
+ */
+export type Company$presenceQrSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PresenceQrSession
+   */
+  select?: Prisma.PresenceQrSessionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PresenceQrSession
+   */
+  omit?: Prisma.PresenceQrSessionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PresenceQrSessionInclude<ExtArgs> | null
+  where?: Prisma.PresenceQrSessionWhereInput
+  orderBy?: Prisma.PresenceQrSessionOrderByWithRelationInput | Prisma.PresenceQrSessionOrderByWithRelationInput[]
+  cursor?: Prisma.PresenceQrSessionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PresenceQrSessionScalarFieldEnum | Prisma.PresenceQrSessionScalarFieldEnum[]
 }
 
 /**
