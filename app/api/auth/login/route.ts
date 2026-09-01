@@ -50,6 +50,12 @@ export async function POST(request: Request) {
           },
           include: {
             company: true,
+            workforce: {
+              select: {
+                id: true,
+                isActive: true,
+              },
+            },
           },
         },
       },
@@ -164,6 +170,9 @@ export async function POST(request: Request) {
         name: membership.company.name,
       },
       role: membership.role,
+      employee: Boolean(
+        membership.workforce?.isActive,
+      ),
     });
   } catch (error) {
     console.error("Login error:", error);

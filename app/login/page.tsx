@@ -35,6 +35,7 @@ export default function LoginPage() {
       const data = (await response.json()) as {
         error?: string;
         message?: string;
+        employee?: boolean;
       };
 
       if (!response.ok) {
@@ -43,7 +44,11 @@ export default function LoginPage() {
         );
       }
 
-      router.push("/dashboard");
+      router.push(
+        data.employee
+          ? "/employee"
+          : "/dashboard",
+      );
       router.refresh();
     } catch (submitError) {
       setError(
