@@ -84,7 +84,8 @@ export const ModelName = {
   MailMessage: 'MailMessage',
   MailAttachment: 'MailAttachment',
   MailConnection: 'MailConnection',
-  ErpConnection: 'ErpConnection'
+  ErpConnection: 'ErpConnection',
+  WorkforcePerformanceDay: 'WorkforcePerformanceDay'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -738,6 +739,24 @@ export const ErpConnectionScalarFieldEnum = {
 } as const
 
 export type ErpConnectionScalarFieldEnum = (typeof ErpConnectionScalarFieldEnum)[keyof typeof ErpConnectionScalarFieldEnum]
+
+
+export const WorkforcePerformanceDayScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  workDate: 'workDate',
+  preparedOrders: 'preparedOrders',
+  preparedLines: 'preparedLines',
+  preparedParcels: 'preparedParcels',
+  preparedQuantity: 'preparedQuantity',
+  workedMinutes: 'workedMinutes',
+  source: 'source',
+  sourceReference: 'sourceReference',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforcePerformanceDayScalarFieldEnum = (typeof WorkforcePerformanceDayScalarFieldEnum)[keyof typeof WorkforcePerformanceDayScalarFieldEnum]
 
 
 export const SortOrder = {

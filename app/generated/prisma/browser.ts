@@ -187,3 +187,8 @@ export type MailConnection = Prisma.MailConnectionModel
  * 
  */
 export type ErpConnection = Prisma.ErpConnectionModel
+/**
+ * Model WorkforcePerformanceDay
+ * 
+ */
+export type WorkforcePerformanceDay = Prisma.WorkforcePerformanceDayModel

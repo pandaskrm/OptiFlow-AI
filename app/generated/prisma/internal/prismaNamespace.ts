@@ -417,7 +417,8 @@ export const ModelName = {
   MailMessage: 'MailMessage',
   MailAttachment: 'MailAttachment',
   MailConnection: 'MailConnection',
-  ErpConnection: 'ErpConnection'
+  ErpConnection: 'ErpConnection',
+  WorkforcePerformanceDay: 'WorkforcePerformanceDay'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -433,7 +434,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
+    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection" | "workforcePerformanceDay"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2953,6 +2954,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    WorkforcePerformanceDay: {
+      payload: Prisma.$WorkforcePerformanceDayPayload<ExtArgs>
+      fields: Prisma.WorkforcePerformanceDayFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkforcePerformanceDayFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkforcePerformanceDayFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>
+        }
+        findFirst: {
+          args: Prisma.WorkforcePerformanceDayFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkforcePerformanceDayFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>
+        }
+        findMany: {
+          args: Prisma.WorkforcePerformanceDayFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>[]
+        }
+        create: {
+          args: Prisma.WorkforcePerformanceDayCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>
+        }
+        createMany: {
+          args: Prisma.WorkforcePerformanceDayCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkforcePerformanceDayCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>[]
+        }
+        delete: {
+          args: Prisma.WorkforcePerformanceDayDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>
+        }
+        update: {
+          args: Prisma.WorkforcePerformanceDayUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkforcePerformanceDayDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkforcePerformanceDayUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkforcePerformanceDayUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkforcePerformanceDayUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforcePerformanceDayPayload>
+        }
+        aggregate: {
+          args: Prisma.WorkforcePerformanceDayAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkforcePerformanceDay>
+        }
+        groupBy: {
+          args: Prisma.WorkforcePerformanceDayGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkforcePerformanceDayGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkforcePerformanceDayCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkforcePerformanceDayCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3629,6 +3704,24 @@ export const ErpConnectionScalarFieldEnum = {
 export type ErpConnectionScalarFieldEnum = (typeof ErpConnectionScalarFieldEnum)[keyof typeof ErpConnectionScalarFieldEnum]
 
 
+export const WorkforcePerformanceDayScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  workDate: 'workDate',
+  preparedOrders: 'preparedOrders',
+  preparedLines: 'preparedLines',
+  preparedParcels: 'preparedParcels',
+  preparedQuantity: 'preparedQuantity',
+  workedMinutes: 'workedMinutes',
+  source: 'source',
+  sourceReference: 'sourceReference',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforcePerformanceDayScalarFieldEnum = (typeof WorkforcePerformanceDayScalarFieldEnum)[keyof typeof WorkforcePerformanceDayScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3910,6 +4003,7 @@ export type GlobalOmitConfig = {
   mailAttachment?: Prisma.MailAttachmentOmit
   mailConnection?: Prisma.MailConnectionOmit
   erpConnection?: Prisma.ErpConnectionOmit
+  workforcePerformanceDay?: Prisma.WorkforcePerformanceDayOmit
 }
 
 /* Types for Logging */
