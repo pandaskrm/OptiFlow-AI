@@ -1,8 +1,13 @@
-﻿import { prisma } from "../prisma";
+import { prisma } from "../prisma";
 
 export type PresencePlanningPopulation =
   | "EMPLOYEES"
   | "TEMPORARY";
+
+export type PresencePlanningPeriod = {
+  year: number;
+  month?: number;
+};
 
 function normalizeContractType(
   value: string | null,
@@ -10,10 +15,47 @@ function normalizeContractType(
   return value?.trim().toUpperCase() ?? "";
 }
 
+function buildPeriod(
+  period: PresencePlanningPeriod,
+) {
+  const { year, month } = period;
+
+  if (month) {
+    const start = new Date(
+      Date.UTC(year, month - 1, 1),
+    );
+
+    const end = new Date(
+      Date.UTC(year, month, 1),
+    );
+
+    return {
+      start,
+      end,
+      year,
+      month,
+    };
+  }
+
+  return {
+    start: new Date(
+      Date.UTC(year, 0, 1),
+    ),
+    end: new Date(
+      Date.UTC(year + 1, 0, 1),
+    ),
+    year,
+    month: null,
+  };
+}
+
 export async function getPresencePlanning(
   companyId: string,
   population: PresencePlanningPopulation,
+  period: PresencePlanningPeriod,
 ) {
+  const range = buildPeriod(period);
+
   const workers = await prisma.workforce.findMany({
     where: {
       companyId,
@@ -42,6 +84,21 @@ export async function getPresencePlanning(
       },
 
       presenceSchedules: {
+        where: {
+          OR: [
+            {
+              validUntil: null,
+            },
+            {
+              validUntil: {
+                gte: range.start,
+              },
+            },
+          ],
+          validFrom: {
+            lt: range.end,
+          },
+        },
         orderBy: [
           {
             dayOfWeek: "asc",
@@ -64,10 +121,15 @@ export async function getPresencePlanning(
       },
 
       presenceDays: {
-        orderBy: {
-          workDate: "desc",
+        where: {
+          workDate: {
+            gte: range.start,
+            lt: range.end,
+          },
         },
-        take: 62,
+        orderBy: {
+          workDate: "asc",
+        },
         select: {
           id: true,
           workDate: true,
@@ -89,6 +151,14 @@ export async function getPresencePlanning(
       absenceRequests: {
         where: {
           status: "PENDING",
+
+          startDate: {
+            lt: range.end,
+          },
+
+          endDate: {
+            gte: range.start,
+          },
         },
         orderBy: {
           submittedAt: "asc",
@@ -116,27 +186,44 @@ export async function getPresencePlanning(
     },
   });
 
-  const filteredWorkers = workers.filter((worker) => {
-    const contractType =
-      normalizeContractType(worker.contractType);
+  const filteredWorkers = workers.filter(
+    (worker) => {
+      const contractType =
+        normalizeContractType(
+          worker.contractType,
+        );
 
-    const isTemporary =
-      contractType === "INTERIM";
+      const isTemporary =
+        contractType === "INTERIM";
 
-    return population === "TEMPORARY"
-      ? isTemporary
-      : !isTemporary;
-  });
-
-  const sortedWorkers = filteredWorkers.sort(
-    (a, b) =>
-      a.name.localeCompare(b.name, "fr", {
-        sensitivity: "base",
-      }),
+      return population === "TEMPORARY"
+        ? isTemporary
+        : !isTemporary;
+    },
   );
+
+  const sortedWorkers =
+    filteredWorkers.sort(
+      (a, b) =>
+        a.name.localeCompare(
+          b.name,
+          "fr",
+          {
+            sensitivity: "base",
+          },
+        ),
+    );
 
   return {
     population,
+
+    period: {
+      year: range.year,
+      month: range.month,
+      start: range.start,
+      end: range.end,
+    },
+
     workers: sortedWorkers,
     total: sortedWorkers.length,
   };
