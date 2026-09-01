@@ -74,6 +74,9 @@ export const ModelName = {
   PresenceSchedule: 'PresenceSchedule',
   PresencePunch: 'PresencePunch',
   PresenceDay: 'PresenceDay',
+  AbsenceRequest: 'AbsenceRequest',
+  AbsenceRequestDocument: 'AbsenceRequestDocument',
+  AbsenceApproval: 'AbsenceApproval',
   PresenceCorrection: 'PresenceCorrection',
   MailMessage: 'MailMessage',
   MailAttachment: 'MailAttachment',
@@ -508,6 +511,60 @@ export const PresenceDayScalarFieldEnum = {
 } as const
 
 export type PresenceDayScalarFieldEnum = (typeof PresenceDayScalarFieldEnum)[keyof typeof PresenceDayScalarFieldEnum]
+
+
+export const AbsenceRequestScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  companyId: 'companyId',
+  type: 'type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  startPart: 'startPart',
+  endPart: 'endPart',
+  employeeComment: 'employeeComment',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  decidedAt: 'decidedAt',
+  decidedBy: 'decidedBy',
+  decisionComment: 'decisionComment',
+  cancelledAt: 'cancelledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AbsenceRequestScalarFieldEnum = (typeof AbsenceRequestScalarFieldEnum)[keyof typeof AbsenceRequestScalarFieldEnum]
+
+
+export const AbsenceRequestDocumentScalarFieldEnum = {
+  id: 'id',
+  absenceRequestId: 'absenceRequestId',
+  fileName: 'fileName',
+  contentType: 'contentType',
+  size: 'size',
+  storageKey: 'storageKey',
+  category: 'category',
+  isMedical: 'isMedical',
+  uploadedAt: 'uploadedAt'
+} as const
+
+export type AbsenceRequestDocumentScalarFieldEnum = (typeof AbsenceRequestDocumentScalarFieldEnum)[keyof typeof AbsenceRequestDocumentScalarFieldEnum]
+
+
+export const AbsenceApprovalScalarFieldEnum = {
+  id: 'id',
+  absenceRequestId: 'absenceRequestId',
+  step: 'step',
+  approverRole: 'approverRole',
+  approverUserId: 'approverUserId',
+  decision: 'decision',
+  decisionComment: 'decisionComment',
+  decidedAt: 'decidedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AbsenceApprovalScalarFieldEnum = (typeof AbsenceApprovalScalarFieldEnum)[keyof typeof AbsenceApprovalScalarFieldEnum]
 
 
 export const PresenceCorrectionScalarFieldEnum = {

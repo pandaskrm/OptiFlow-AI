@@ -65,6 +65,7 @@ model Company {
   workforce           Workforce[]
   carriers            Carrier[]
   businessRules       BusinessRule[]
+  absenceRequests     AbsenceRequest[]
 }
 
 /**
@@ -483,6 +484,7 @@ model Workforce {
   presenceSchedules PresenceSchedule[]
   presencePunches   PresencePunch[]
   presenceDays      PresenceDay[]
+  absenceRequests   AbsenceRequest[]
 
   @@index([companyId])
 }
@@ -549,6 +551,72 @@ model PresenceDay {
   @@index([workDate])
   @@index([status])
   @@index([dayCode])
+}
+
+model AbsenceRequest {
+  id              String    @id @default(cuid())
+  workforceId     Int
+  companyId       String
+  type            String
+  startDate       DateTime
+  endDate         DateTime
+  startPart       String    @default("FULL_DAY")
+  endPart         String    @default("FULL_DAY")
+  employeeComment String?
+  status          String    @default("PENDING")
+  submittedAt     DateTime  @default(now())
+  decidedAt       DateTime?
+  decidedBy       String?
+  decisionComment String?
+  cancelledAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  workforce Workforce                @relation(fields: [workforceId], references: [id], onDelete: Cascade)
+  company   Company                  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  documents AbsenceRequestDocument[]
+  approvals AbsenceApproval[]
+
+  @@index([workforceId, startDate])
+  @@index([companyId, status])
+  @@index([status])
+  @@index([startDate, endDate])
+}
+
+model AbsenceRequestDocument {
+  id               String   @id @default(cuid())
+  absenceRequestId String
+  fileName         String
+  contentType      String?
+  size             Int      @default(0)
+  storageKey       String
+  category         String   @default("JUSTIFICATIF")
+  isMedical        Boolean  @default(false)
+  uploadedAt       DateTime @default(now())
+
+  absenceRequest AbsenceRequest @relation(fields: [absenceRequestId], references: [id], onDelete: Cascade)
+
+  @@index([absenceRequestId])
+  @@index([isMedical])
+}
+
+model AbsenceApproval {
+  id               String    @id @default(cuid())
+  absenceRequestId String
+  step             Int       @default(1)
+  approverRole     String?
+  approverUserId   String?
+  decision         String    @default("PENDING")
+  decisionComment  String?
+  decidedAt        DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  absenceRequest AbsenceRequest @relation(fields: [absenceRequestId], references: [id], onDelete: Cascade)
+
+  @@index([absenceRequestId, step])
+  @@index([approverUserId])
+  @@index([decision])
 }
 
 model PresenceCorrection {

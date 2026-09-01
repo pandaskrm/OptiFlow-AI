@@ -133,6 +133,21 @@ export type PresencePunch = Prisma.PresencePunchModel
  */
 export type PresenceDay = Prisma.PresenceDayModel
 /**
+ * Model AbsenceRequest
+ * 
+ */
+export type AbsenceRequest = Prisma.AbsenceRequestModel
+/**
+ * Model AbsenceRequestDocument
+ * 
+ */
+export type AbsenceRequestDocument = Prisma.AbsenceRequestDocumentModel
+/**
+ * Model AbsenceApproval
+ * 
+ */
+export type AbsenceApproval = Prisma.AbsenceApprovalModel
+/**
  * Model PresenceCorrection
  * 
  */

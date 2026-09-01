@@ -407,6 +407,9 @@ export const ModelName = {
   PresenceSchedule: 'PresenceSchedule',
   PresencePunch: 'PresencePunch',
   PresenceDay: 'PresenceDay',
+  AbsenceRequest: 'AbsenceRequest',
+  AbsenceRequestDocument: 'AbsenceRequestDocument',
+  AbsenceApproval: 'AbsenceApproval',
   PresenceCorrection: 'PresenceCorrection',
   MailMessage: 'MailMessage',
   MailAttachment: 'MailAttachment',
@@ -427,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "presenceSchedule" | "presencePunch" | "presenceDay" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
+    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2133,6 +2136,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AbsenceRequest: {
+      payload: Prisma.$AbsenceRequestPayload<ExtArgs>
+      fields: Prisma.AbsenceRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AbsenceRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AbsenceRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.AbsenceRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AbsenceRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>
+        }
+        findMany: {
+          args: Prisma.AbsenceRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>[]
+        }
+        create: {
+          args: Prisma.AbsenceRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>
+        }
+        createMany: {
+          args: Prisma.AbsenceRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AbsenceRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.AbsenceRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>
+        }
+        update: {
+          args: Prisma.AbsenceRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.AbsenceRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AbsenceRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AbsenceRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.AbsenceRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.AbsenceRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAbsenceRequest>
+        }
+        groupBy: {
+          args: Prisma.AbsenceRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AbsenceRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AbsenceRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AbsenceRequestCountAggregateOutputType> | number
+        }
+      }
+    }
+    AbsenceRequestDocument: {
+      payload: Prisma.$AbsenceRequestDocumentPayload<ExtArgs>
+      fields: Prisma.AbsenceRequestDocumentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AbsenceRequestDocumentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AbsenceRequestDocumentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>
+        }
+        findFirst: {
+          args: Prisma.AbsenceRequestDocumentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AbsenceRequestDocumentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>
+        }
+        findMany: {
+          args: Prisma.AbsenceRequestDocumentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>[]
+        }
+        create: {
+          args: Prisma.AbsenceRequestDocumentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>
+        }
+        createMany: {
+          args: Prisma.AbsenceRequestDocumentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AbsenceRequestDocumentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>[]
+        }
+        delete: {
+          args: Prisma.AbsenceRequestDocumentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>
+        }
+        update: {
+          args: Prisma.AbsenceRequestDocumentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>
+        }
+        deleteMany: {
+          args: Prisma.AbsenceRequestDocumentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AbsenceRequestDocumentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AbsenceRequestDocumentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>[]
+        }
+        upsert: {
+          args: Prisma.AbsenceRequestDocumentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceRequestDocumentPayload>
+        }
+        aggregate: {
+          args: Prisma.AbsenceRequestDocumentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAbsenceRequestDocument>
+        }
+        groupBy: {
+          args: Prisma.AbsenceRequestDocumentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AbsenceRequestDocumentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AbsenceRequestDocumentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AbsenceRequestDocumentCountAggregateOutputType> | number
+        }
+      }
+    }
+    AbsenceApproval: {
+      payload: Prisma.$AbsenceApprovalPayload<ExtArgs>
+      fields: Prisma.AbsenceApprovalFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AbsenceApprovalFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AbsenceApprovalFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>
+        }
+        findFirst: {
+          args: Prisma.AbsenceApprovalFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AbsenceApprovalFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>
+        }
+        findMany: {
+          args: Prisma.AbsenceApprovalFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>[]
+        }
+        create: {
+          args: Prisma.AbsenceApprovalCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>
+        }
+        createMany: {
+          args: Prisma.AbsenceApprovalCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AbsenceApprovalCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>[]
+        }
+        delete: {
+          args: Prisma.AbsenceApprovalDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>
+        }
+        update: {
+          args: Prisma.AbsenceApprovalUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>
+        }
+        deleteMany: {
+          args: Prisma.AbsenceApprovalDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AbsenceApprovalUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AbsenceApprovalUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>[]
+        }
+        upsert: {
+          args: Prisma.AbsenceApprovalUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbsenceApprovalPayload>
+        }
+        aggregate: {
+          args: Prisma.AbsenceApprovalAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAbsenceApproval>
+        }
+        groupBy: {
+          args: Prisma.AbsenceApprovalGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AbsenceApprovalGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AbsenceApprovalCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AbsenceApprovalCountAggregateOutputType> | number
+        }
+      }
+    }
     PresenceCorrection: {
       payload: Prisma.$PresenceCorrectionPayload<ExtArgs>
       fields: Prisma.PresenceCorrectionFieldRefs
@@ -2955,6 +3180,60 @@ export const PresenceDayScalarFieldEnum = {
 export type PresenceDayScalarFieldEnum = (typeof PresenceDayScalarFieldEnum)[keyof typeof PresenceDayScalarFieldEnum]
 
 
+export const AbsenceRequestScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  companyId: 'companyId',
+  type: 'type',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  startPart: 'startPart',
+  endPart: 'endPart',
+  employeeComment: 'employeeComment',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  decidedAt: 'decidedAt',
+  decidedBy: 'decidedBy',
+  decisionComment: 'decisionComment',
+  cancelledAt: 'cancelledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AbsenceRequestScalarFieldEnum = (typeof AbsenceRequestScalarFieldEnum)[keyof typeof AbsenceRequestScalarFieldEnum]
+
+
+export const AbsenceRequestDocumentScalarFieldEnum = {
+  id: 'id',
+  absenceRequestId: 'absenceRequestId',
+  fileName: 'fileName',
+  contentType: 'contentType',
+  size: 'size',
+  storageKey: 'storageKey',
+  category: 'category',
+  isMedical: 'isMedical',
+  uploadedAt: 'uploadedAt'
+} as const
+
+export type AbsenceRequestDocumentScalarFieldEnum = (typeof AbsenceRequestDocumentScalarFieldEnum)[keyof typeof AbsenceRequestDocumentScalarFieldEnum]
+
+
+export const AbsenceApprovalScalarFieldEnum = {
+  id: 'id',
+  absenceRequestId: 'absenceRequestId',
+  step: 'step',
+  approverRole: 'approverRole',
+  approverUserId: 'approverUserId',
+  decision: 'decision',
+  decisionComment: 'decisionComment',
+  decidedAt: 'decidedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AbsenceApprovalScalarFieldEnum = (typeof AbsenceApprovalScalarFieldEnum)[keyof typeof AbsenceApprovalScalarFieldEnum]
+
+
 export const PresenceCorrectionScalarFieldEnum = {
   id: 'id',
   presenceDayId: 'presenceDayId',
@@ -3336,6 +3615,9 @@ export type GlobalOmitConfig = {
   presenceSchedule?: Prisma.PresenceScheduleOmit
   presencePunch?: Prisma.PresencePunchOmit
   presenceDay?: Prisma.PresenceDayOmit
+  absenceRequest?: Prisma.AbsenceRequestOmit
+  absenceRequestDocument?: Prisma.AbsenceRequestDocumentOmit
+  absenceApproval?: Prisma.AbsenceApprovalOmit
   presenceCorrection?: Prisma.PresenceCorrectionOmit
   mailMessage?: Prisma.MailMessageOmit
   mailAttachment?: Prisma.MailAttachmentOmit
