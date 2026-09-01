@@ -464,6 +464,11 @@ model Workforce {
   employeeNumber String   @unique
   name           String
   team           String?
+  service        String?
+  jobTitle       String?
+  contractType   String?
+  agency         String?
+  isActive       Boolean  @default(true)
   zone           String?
   status         String   @default("Présent")
   workedMinutes  Int      @default(0)
@@ -475,7 +480,92 @@ model Workforce {
   companyId String?
   company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
 
+  presenceSchedules PresenceSchedule[]
+  presencePunches   PresencePunch[]
+  presenceDays      PresenceDay[]
+
   @@index([companyId])
+}
+
+model PresenceSchedule {
+  id             String    @id @default(cuid())
+  workforceId    Int
+  dayOfWeek      Int
+  morningStart   String?
+  morningEnd     String?
+  afternoonStart String?
+  afternoonEnd   String?
+  isWorkingDay   Boolean   @default(true)
+  validFrom      DateTime?
+  validUntil     DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  workforce Workforce @relation(fields: [workforceId], references: [id], onDelete: Cascade)
+
+  @@index([workforceId])
+  @@index([workforceId, dayOfWeek])
+}
+
+model PresencePunch {
+  id          String   @id @default(cuid())
+  workforceId Int
+  type        String
+  punchedAt   DateTime
+  source      String   @default("MANUAL")
+  deviceId    String?
+  note        String?
+  createdAt   DateTime @default(now())
+
+  workforce Workforce @relation(fields: [workforceId], references: [id], onDelete: Cascade)
+
+  @@index([workforceId, punchedAt])
+  @@index([punchedAt])
+}
+
+model PresenceDay {
+  id                 String    @id @default(cuid())
+  workforceId        Int
+  workDate           DateTime
+  dayCode            String?
+  plannedMinutes     Int       @default(0)
+  calculatedMinutes  Int       @default(0)
+  approvedMinutes    Int?
+  status             String    @default("DRAFT")
+  anomaly            Boolean   @default(false)
+  anomalyReason      String?
+  note               String?
+  managerValidatedAt DateTime?
+  managerValidatedBy String?
+  hrValidatedAt      DateTime?
+  hrValidatedBy      String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  workforce   Workforce            @relation(fields: [workforceId], references: [id], onDelete: Cascade)
+  corrections PresenceCorrection[]
+
+  @@unique([workforceId, workDate])
+  @@index([workDate])
+  @@index([status])
+  @@index([dayCode])
+}
+
+model PresenceCorrection {
+  id               String   @id @default(cuid())
+  presenceDayId    String
+  originalMinutes  Int?
+  correctedMinutes Int
+  originalDayCode  String?
+  correctedDayCode String?
+  reason           String
+  correctedBy      String?
+  createdAt        DateTime @default(now())
+
+  presenceDay PresenceDay @relation(fields: [presenceDayId], references: [id], onDelete: Cascade)
+
+  @@index([presenceDayId])
+  @@index([createdAt])
 }
 
 /**
