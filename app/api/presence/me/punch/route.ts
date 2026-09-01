@@ -4,6 +4,12 @@ import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../../lib/auth/session";
 import { prisma } from "../../../../../lib/prisma";
+import {
+  businessDateKey,
+  businessDayOfWeek,
+  dateKeyInTimeZone,
+  normalizeTimeZone,
+} from "../../../../../lib/presence/timezone";
 
 type PunchBody = {
   token?: unknown;
@@ -33,31 +39,6 @@ function readToken(
   }
 
   return token;
-}
-
-function utcDateKey(
-  value: Date,
-) {
-  return value
-    .toISOString()
-    .slice(0, 10);
-}
-
-function utcDayOfWeek(
-  value: Date,
-) {
-  /*
-   * PresenceSchedule uses Monday = 1 ... Sunday = 7.
-   *
-   * We keep this consistent with the current Presence date storage.
-   * Company timezone support will replace this UTC helper globally
-   * rather than hardcoding LCA-specific timezone logic here.
-   */
-  const day = value.getUTCDay();
-
-  return day === 0
-    ? 7
-    : day;
 }
 
 export async function POST(
@@ -142,6 +123,26 @@ export async function POST(
 
     const now = new Date();
 
+    const warehouse =
+      await prisma.warehouse.findFirst({
+        where: {
+          companyId:
+            session.company.id,
+          isActive: true,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+        select: {
+          timezone: true,
+        },
+      });
+
+    const timeZone =
+      normalizeTimeZone(
+        warehouse?.timezone,
+      );
+
     const qr =
       await prisma.presenceQrSession.findUnique({
         where: {
@@ -211,10 +212,13 @@ export async function POST(
      * its validity envelope was configured incorrectly.
      */
     const qrDateKey =
-      utcDateKey(qr.workDate);
+      businessDateKey(qr.workDate);
 
     const nowDateKey =
-      utcDateKey(now);
+      dateKeyInTimeZone(
+        now,
+        timeZone,
+      );
 
     if (qrDateKey !== nowDateKey) {
       return NextResponse.json(
@@ -229,7 +233,7 @@ export async function POST(
     }
 
     const dayOfWeek =
-      utcDayOfWeek(qr.workDate);
+      businessDayOfWeek(qr.workDate);
 
     const schedule =
       await prisma.presenceSchedule.findFirst({

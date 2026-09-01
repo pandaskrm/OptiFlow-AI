@@ -4,6 +4,11 @@ import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../lib/auth/session";
 import { prisma } from "../../../../lib/prisma";
+import {
+  businessDateFromKey,
+  normalizeTimeZone,
+  zonedDateTimeToUtc,
+} from "../../../../lib/presence/timezone";
 
 type QrType = "ARRIVAL" | "DEPARTURE";
 
@@ -58,29 +63,41 @@ function readWorkDate(value: unknown): string | null {
 }
 
 function dateKeyToDatabaseDate(dateKey: string) {
-  return new Date(`${dateKey}T12:00:00.000Z`);
+  return businessDateFromKey(
+    dateKey,
+  );
 }
 
 function buildValidityWindow(
   dateKey: string,
   type: QrType,
+  timeZone: string,
 ) {
   /*
-   * The QR belongs to one OrganIA work date.
+   * The QR belongs to one OrganIA local work date.
    *
-   * Precise acceptance rules are checked against the employee's
-   * PresenceSchedule when the QR is scanned.
+   * The database keeps an absolute UTC instant for validity,
+   * while the boundaries are calculated from the warehouse
+   * timezone. ARRIVAL and DEPARTURE remain separate sessions.
    *
-   * ARRIVAL and DEPARTURE remain separate QR sessions.
-   *
-   * Using a neutral full-day UTC envelope here avoids hardcoding
-   * LCA working hours into the multi-company QR generator.
+   * Employee schedule validation is still performed when scanned.
    */
   void type;
 
   return {
-    validFrom: new Date(`${dateKey}T00:00:00.000Z`),
-    validUntil: new Date(`${dateKey}T23:59:59.999Z`),
+    validFrom:
+      zonedDateTimeToUtc(
+        dateKey,
+        "00:00:00",
+        timeZone,
+      ),
+
+    validUntil:
+      zonedDateTimeToUtc(
+        dateKey,
+        "23:59:59",
+        timeZone,
+      ),
   };
 }
 
@@ -144,7 +161,30 @@ export async function POST(request: Request) {
     }
 
     const companyId = session.company.id;
-    const workDate = dateKeyToDatabaseDate(dateKey);
+
+    const warehouse =
+      await prisma.warehouse.findFirst({
+        where: {
+          companyId,
+          isActive: true,
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+        select: {
+          timezone: true,
+        },
+      });
+
+    const timeZone =
+      normalizeTimeZone(
+        warehouse?.timezone,
+      );
+
+    const workDate =
+      dateKeyToDatabaseDate(
+        dateKey,
+      );
 
     /*
      * If an active QR already exists for this company/date/type,
@@ -159,7 +199,11 @@ export async function POST(request: Request) {
     const tokenHint = publicToken.slice(-6);
 
     const { validFrom, validUntil } =
-      buildValidityWindow(dateKey, type);
+      buildValidityWindow(
+        dateKey,
+        type,
+        timeZone,
+      );
 
     const qrSession = await prisma.$transaction(
       async (transaction) => {

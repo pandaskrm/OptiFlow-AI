@@ -5,6 +5,10 @@
 
 import { getCurrentSession } from "../../../../../lib/auth/session";
 import { prisma } from "../../../../../lib/prisma";
+import {
+  dateKeyInTimeZone,
+  normalizeTimeZone,
+} from "../../../../../lib/presence/timezone";
 
 type HistoryPeriod =
   | "day"
@@ -16,15 +20,7 @@ function parseReferenceDate(
   value: string | null,
 ) {
   if (!value) {
-    const now = new Date();
-
-    return new Date(
-      Date.UTC(
-        now.getUTCFullYear(),
-        now.getUTCMonth(),
-        now.getUTCDate(),
-      ),
-    );
+    return null;
   }
 
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
@@ -166,11 +162,41 @@ export async function GET(
     );
   }
 
+  const warehouse =
+    await prisma.warehouse.findFirst({
+      where: {
+        companyId:
+          session.company.id,
+        isActive: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+      select: {
+        timezone: true,
+      },
+    });
+
+  const timeZone =
+    normalizeTimeZone(
+      warehouse?.timezone,
+    );
+
+  const requestedDate =
+    request.nextUrl.searchParams.get(
+      "date",
+    );
+
+  const effectiveDate =
+    requestedDate ??
+    dateKeyInTimeZone(
+      new Date(),
+      timeZone,
+    );
+
   const reference =
     parseReferenceDate(
-      request.nextUrl.searchParams.get(
-        "date",
-      ),
+      effectiveDate,
     );
 
   if (!reference) {
