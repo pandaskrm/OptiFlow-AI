@@ -1,4 +1,6 @@
-﻿"use client";
+"use client";
+
+import EmployeeQrScanner from "../../components/presence/EmployeeQrScanner";
 
 import {
   useCallback,
@@ -271,16 +273,11 @@ export default function EmployeePage() {
               Retrouvez votre temps de travail et vos performances personnelles.
             </p>
 
-            <button
-              type="button"
-              disabled
-              className="mt-5 flex w-full items-center justify-center rounded-2xl bg-cyan-400 px-4 py-4 text-sm font-black text-slate-950 opacity-60"
-            >
-              Scanner le QR de présence
-              <span className="ml-2 text-xs font-semibold">
-                bientôt actif
-              </span>
-            </button>
+            <EmployeeQrScanner
+              onPunchRecorded={() => {
+                void loadHistory();
+              }}
+            />
           </section>
 
           <section>
