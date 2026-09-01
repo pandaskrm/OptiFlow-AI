@@ -2,6 +2,7 @@
 
 import {
   useEffect,
+  useMemo,
   useState,
 } from "react";
 
@@ -19,6 +20,38 @@ type PresenceSchedule = {
   isWorkingDay: boolean;
   validFrom: string | null;
   validUntil: string | null;
+};
+
+type PresenceHabit = {
+  id: string;
+  dayOfWeek: number;
+  isWorkingDay: boolean;
+  morningStart: string | null;
+  morningEnd: string | null;
+  afternoonStart: string | null;
+  afternoonEnd: string | null;
+  sampleCount: number;
+  confidence: number;
+  firstObservedAt: string | null;
+  lastObservedAt: string | null;
+  effectiveFrom: string;
+  effectiveUntil: string | null;
+  status: string;
+};
+
+type PresenceChange = {
+  id: string;
+  workDate: string;
+  dayOfWeek: number;
+  kind: string;
+  message: string;
+  expectedSnapshot: string | null;
+  actualSnapshot: string | null;
+  severity: string;
+  status: string;
+  detectedAt: string;
+  acknowledgedAt: string | null;
+  acknowledgedBy: string | null;
 };
 
 type PendingAbsence = {
@@ -59,6 +92,8 @@ type PlanningWorker = {
   } | null;
 
   presenceSchedules: PresenceSchedule[];
+  presenceScheduleHabits: PresenceHabit[];
+  presenceScheduleChanges: PresenceChange[];
   absenceRequests: PendingAbsence[];
 };
 
@@ -66,6 +101,14 @@ type PlanningResponse = {
   population: PlanningPopulation;
   workers: PlanningWorker[];
   total: number;
+};
+
+type Snapshot = {
+  isWorkingDay?: boolean;
+  morningStart?: string | null;
+  morningEnd?: string | null;
+  afternoonStart?: string | null;
+  afternoonEnd?: string | null;
 };
 
 const dayLabels = [
@@ -80,28 +123,78 @@ const dayLabels = [
 ];
 
 function formatSchedule(
-  schedule: PresenceSchedule,
+  schedule: {
+    isWorkingDay: boolean;
+    morningStart: string | null;
+    morningEnd: string | null;
+    afternoonStart: string | null;
+    afternoonEnd: string | null;
+  },
 ) {
   if (!schedule.isWorkingDay) {
     return "Repos";
   }
 
   const morning =
-    schedule.morningStart && schedule.morningEnd
+    schedule.morningStart &&
+    schedule.morningEnd
       ? `${schedule.morningStart}-${schedule.morningEnd}`
       : null;
 
   const afternoon =
-    schedule.afternoonStart && schedule.afternoonEnd
+    schedule.afternoonStart &&
+    schedule.afternoonEnd
       ? `${schedule.afternoonStart}-${schedule.afternoonEnd}`
       : null;
 
-  return [
-    morning,
-    afternoon,
-  ]
+  return [morning, afternoon]
     .filter(Boolean)
-    .join(" / ");
+    .join(" / ") || "Jour travaille";
+}
+
+function readSnapshot(
+  value: string | null,
+): Snapshot | null {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(value) as Snapshot;
+  }
+  catch {
+    return null;
+  }
+}
+
+function formatSnapshot(
+  value: string | null,
+) {
+  const snapshot =
+    readSnapshot(value);
+
+  if (!snapshot) {
+    return "Non disponible";
+  }
+
+  return formatSchedule({
+    isWorkingDay:
+      snapshot.isWorkingDay ?? true,
+    morningStart:
+      snapshot.morningStart ?? null,
+    morningEnd:
+      snapshot.morningEnd ?? null,
+    afternoonStart:
+      snapshot.afternoonStart ?? null,
+    afternoonEnd:
+      snapshot.afternoonEnd ?? null,
+  });
+}
+
+function confidenceLabel(
+  confidence: number,
+) {
+  return `${Math.round(confidence * 100)} %`;
 }
 
 export default function PresencePlanningSection() {
@@ -114,8 +207,14 @@ export default function PresencePlanningSection() {
   const [loading, setLoading] =
     useState(true);
 
+  const [learning, setLearning] =
+    useState(false);
+
   const [error, setError] =
     useState<string | null>(null);
+
+  const [refreshKey, setRefreshKey] =
+    useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -130,9 +229,10 @@ export default function PresencePlanningSection() {
           : "/api/presence/planning/temporary";
 
       try {
-        const response = await fetch(endpoint, {
-          cache: "no-store",
-        });
+        const response =
+          await fetch(endpoint, {
+            cache: "no-store",
+          });
 
         if (!response.ok) {
           throw new Error(
@@ -167,7 +267,54 @@ export default function PresencePlanningSection() {
     return () => {
       cancelled = true;
     };
-  }, [population]);
+  }, [population, refreshKey]);
+
+  const openChanges =
+    useMemo(
+      () =>
+        data?.workers.reduce(
+          (total, worker) =>
+            total +
+            worker
+              .presenceScheduleChanges
+              .length,
+          0,
+        ) ?? 0,
+      [data],
+    );
+
+  async function refreshLearning() {
+    setLearning(true);
+    setError(null);
+
+    try {
+      const response =
+        await fetch(
+          "/api/presence/planning/learning",
+          {
+            method: "POST",
+          },
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          `HTTP ${response.status}`,
+        );
+      }
+
+      setRefreshKey(
+        (value) => value + 1,
+      );
+    }
+    catch {
+      setError(
+        "Impossible d'actualiser l'analyse du planning.",
+      );
+    }
+    finally {
+      setLearning(false);
+    }
+  }
 
   const title =
     population === "EMPLOYEES"
@@ -187,7 +334,7 @@ export default function PresencePlanningSection() {
           </h2>
 
           <p className="mt-1 max-w-3xl text-sm text-slate-400">
-            Planning, horaires, demandes en attente et suivi des collaborateurs.
+            Planning, horaires, demandes en attente et changements de rythme detectes.
           </p>
         </div>
 
@@ -219,6 +366,39 @@ export default function PresencePlanningSection() {
           >
             Interimaires
           </button>
+
+          <button
+            type="button"
+            disabled={learning}
+            onClick={() =>
+              void refreshLearning()
+            }
+            className="rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-200 transition hover:bg-cyan-400/20 disabled:cursor-wait disabled:opacity-50"
+          >
+            {learning
+              ? "Analyse..."
+              : "Analyser les habitudes"}
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+          <p className="text-xs uppercase tracking-wide text-slate-400">
+            Collaborateurs
+          </p>
+          <p className="mt-1 text-xl font-bold">
+            {data?.total ?? "—"}
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+          <p className="text-xs uppercase tracking-wide text-slate-400">
+            Changements detectes
+          </p>
+          <p className="mt-1 text-xl font-bold text-cyan-300">
+            {loading ? "—" : openChanges}
+          </p>
         </div>
       </div>
 
@@ -231,7 +411,8 @@ export default function PresencePlanningSection() {
           <div className="p-8 text-center text-sm font-medium text-red-600">
             {error}
           </div>
-        ) : !data || data.workers.length === 0 ? (
+        ) : !data ||
+          data.workers.length === 0 ? (
           <div className="p-8 text-center">
             <p className="font-bold text-slate-900">
               Aucun collaborateur dans ce planning.
@@ -255,7 +436,7 @@ export default function PresencePlanningSection() {
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[1050px] text-left text-sm">
+              <table className="w-full min-w-[1250px] text-left text-sm">
                 <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
                   <tr>
                     <th className="px-4 py-3">
@@ -281,6 +462,10 @@ export default function PresencePlanningSection() {
                       Horaires
                     </th>
 
+                    <th className="px-4 py-3">
+                      Intelligence OrganIA
+                    </th>
+
                     <th className="px-4 py-3 text-center">
                       A valider
                     </th>
@@ -292,7 +477,7 @@ export default function PresencePlanningSection() {
                     (worker) => (
                       <tr
                         key={worker.id}
-                        className="border-t border-slate-100"
+                        className="border-t border-slate-100 align-top"
                       >
                         <td className="px-4 py-3">
                           <p className="font-bold text-slate-950">
@@ -333,8 +518,9 @@ export default function PresencePlanningSection() {
                         )}
 
                         <td className="px-4 py-3">
-                          {worker.presenceSchedules.length ===
-                          0 ? (
+                          {worker
+                            .presenceSchedules
+                            .length === 0 ? (
                             <span className="text-slate-400">
                               Aucun horaire
                             </span>
@@ -363,6 +549,105 @@ export default function PresencePlanningSection() {
                                 ),
                               )}
                             </div>
+                          )}
+                        </td>
+
+                        <td className="px-4 py-3">
+                          {worker
+                            .presenceScheduleChanges
+                            .length > 0 ? (
+                            <div className="flex min-w-[280px] flex-col gap-2">
+                              {worker.presenceScheduleChanges.map(
+                                (change) => (
+                                  <div
+                                    key={
+                                      change.id
+                                    }
+                                    className="rounded-xl border border-cyan-200 bg-cyan-50 p-3"
+                                  >
+                                    <div className="flex items-center justify-between gap-2">
+                                      <span className="text-xs font-black uppercase tracking-wide text-cyan-800">
+                                        {change.kind ===
+                                        "NEW_RECURRING_PATTERN"
+                                          ? "Nouveau rythme"
+                                          : "Changement detecte"}
+                                      </span>
+
+                                      <span className="text-xs font-bold text-slate-500">
+                                        {dayLabels[
+                                          change.dayOfWeek
+                                        ] ??
+                                          `J${change.dayOfWeek}`}
+                                      </span>
+                                    </div>
+
+                                    <div className="mt-2 grid gap-1 text-xs">
+                                      <p className="text-slate-600">
+                                        <span className="font-bold text-slate-900">
+                                          Habituel :
+                                        </span>{" "}
+                                        {formatSnapshot(
+                                          change.expectedSnapshot,
+                                        )}
+                                      </p>
+
+                                      <p className="text-slate-600">
+                                        <span className="font-bold text-slate-900">
+                                          Actuel :
+                                        </span>{" "}
+                                        {formatSnapshot(
+                                          change.actualSnapshot,
+                                        )}
+                                      </p>
+                                    </div>
+
+                                    <p className="mt-2 text-xs leading-relaxed text-slate-500">
+                                      {change.message}
+                                    </p>
+                                  </div>
+                                ),
+                              )}
+                            </div>
+                          ) : worker
+                              .presenceScheduleHabits
+                              .length > 0 ? (
+                            <div className="min-w-[220px]">
+                              <p className="text-xs font-bold text-slate-700">
+                                Rythme habituel appris
+                              </p>
+
+                              <div className="mt-1 flex flex-col gap-1">
+                                {worker.presenceScheduleHabits.map(
+                                  (habit) => (
+                                    <p
+                                      key={
+                                        habit.id
+                                      }
+                                      className="text-xs text-slate-500"
+                                    >
+                                      <span className="font-semibold text-slate-700">
+                                        {dayLabels[
+                                          habit.dayOfWeek
+                                        ] ??
+                                          `J${habit.dayOfWeek}`}
+                                      </span>
+                                      {" · "}
+                                      {formatSchedule(
+                                        habit,
+                                      )}
+                                      {" · "}
+                                      {confidenceLabel(
+                                        habit.confidence,
+                                      )}
+                                    </p>
+                                  ),
+                                )}
+                              </div>
+                            </div>
+                          ) : (
+                            <span className="text-xs text-slate-400">
+                              Pas encore assez d'historique
+                            </span>
                           )}
                         </td>
 

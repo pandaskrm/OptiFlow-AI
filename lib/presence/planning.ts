@@ -148,6 +148,59 @@ export async function getPresencePlanning(
         },
       },
 
+      presenceScheduleHabits: {
+        where: {
+          status: "ACTIVE",
+        },
+        orderBy: {
+          dayOfWeek: "asc",
+        },
+        select: {
+          id: true,
+          dayOfWeek: true,
+          isWorkingDay: true,
+          morningStart: true,
+          morningEnd: true,
+          afternoonStart: true,
+          afternoonEnd: true,
+          sampleCount: true,
+          confidence: true,
+          firstObservedAt: true,
+          lastObservedAt: true,
+          effectiveFrom: true,
+          effectiveUntil: true,
+          status: true,
+        },
+      },
+
+      presenceScheduleChanges: {
+        where: {
+          status: "OPEN",
+        },
+        orderBy: [
+          {
+            severity: "desc",
+          },
+          {
+            detectedAt: "desc",
+          },
+        ],
+        select: {
+          id: true,
+          workDate: true,
+          dayOfWeek: true,
+          kind: true,
+          message: true,
+          expectedSnapshot: true,
+          actualSnapshot: true,
+          severity: true,
+          status: true,
+          detectedAt: true,
+          acknowledgedAt: true,
+          acknowledgedBy: true,
+        },
+      },
+
       absenceRequests: {
         where: {
           status: "PENDING",
