@@ -1,4 +1,4 @@
-﻿import crypto from "node:crypto";
+import crypto from "node:crypto";
 
 import { NextResponse } from "next/server";
 
@@ -6,6 +6,7 @@ import { getCurrentSession } from "../../../../lib/auth/session";
 import { prisma } from "../../../../lib/prisma";
 import {
   businessDateFromKey,
+  dateKeyInTimeZone,
   normalizeTimeZone,
   zonedDateTimeToUtc,
 } from "../../../../lib/presence/timezone";
@@ -180,6 +181,47 @@ export async function POST(request: Request) {
       normalizeTimeZone(
         warehouse?.timezone,
       );
+
+    const todayKey =
+      dateKeyInTimeZone(
+        new Date(),
+        timeZone,
+      );
+
+    const todayDate =
+      businessDateFromKey(
+        todayKey,
+      );
+
+    const tomorrowDate =
+      new Date(
+        todayDate.getTime() +
+          24 * 60 * 60 * 1000,
+      );
+
+    const tomorrowKey =
+      tomorrowDate
+        .toISOString()
+        .slice(0, 10);
+
+    if (
+      dateKey !== todayKey &&
+      dateKey !== tomorrowKey
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Un QR Presence peut uniquement etre genere pour aujourd'hui ou demain.",
+          allowedDates: {
+            today: todayKey,
+            tomorrow: tomorrowKey,
+          },
+        },
+        {
+          status: 400,
+        },
+      );
+    }
 
     const workDate =
       dateKeyToDatabaseDate(

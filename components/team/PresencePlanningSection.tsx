@@ -6,6 +6,8 @@ import {
   useState,
 } from "react";
 
+import PresenceQrManager from "../presence/PresenceQrManager";
+
 type PlanningPopulation =
   | "EMPLOYEES"
   | "TEMPORARY";
@@ -751,6 +753,7 @@ export default function PresencePlanningSection() {
           </>
         )}
       </div>
+      <PresenceQrManager />
     </section>
   );
 }
