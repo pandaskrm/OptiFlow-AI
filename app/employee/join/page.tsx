@@ -420,7 +420,7 @@ export default function EmployeeJoinPage() {
             </button>
 
             <Link
-              href="/login"
+              href="/employee/login"
               className="mt-4 block text-center text-sm text-slate-400 hover:text-white"
             >
               J'ai déjà un compte
@@ -665,7 +665,7 @@ export default function EmployeeJoinPage() {
                   type="button"
                   onClick={() =>
                     router.push(
-                      "/login",
+                      "/employee/login",
                     )
                   }
                   className="mt-6 w-full rounded-xl border border-white/10 bg-white/5 px-5 py-4 font-black hover:bg-white/10"
@@ -684,7 +684,7 @@ export default function EmployeeJoinPage() {
                   type="button"
                   onClick={() =>
                     router.push(
-                      "/login",
+                      "/employee/login",
                     )
                   }
                   className="mt-6 w-full rounded-xl bg-cyan-400 px-5 py-4 font-black text-slate-950 hover:bg-cyan-300"

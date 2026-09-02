@@ -169,6 +169,8 @@ function TeamRealData() {
         </div>
       </section>
 
+      <PresencePlanningSection />
+
       <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
         {cards.map((card) => (
           <div

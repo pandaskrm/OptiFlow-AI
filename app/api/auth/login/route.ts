@@ -9,6 +9,7 @@ import { prisma } from "../../../../lib/prisma";
 type LoginBody = {
   email?: string;
   password?: string;
+  portal?: "FLOW" | "EMPLOYEE";
 };
 
 function normalizeEmail(value: string) {
@@ -91,6 +92,32 @@ export async function POST(request: Request) {
         {
           error:
             "Aucun accès actif à une entreprise n’est associé à ce compte.",
+        },
+        { status: 403 }
+      );
+    }
+
+    const portal = body.portal ?? "FLOW";
+    const isEmployee = Boolean(
+      membership.workforce?.isActive,
+    );
+
+    if (portal === "EMPLOYEE" && !isEmployee) {
+      return NextResponse.json(
+        {
+          error:
+            "Ce compte n'est pas un compte salari? Organ?IA.",
+        },
+        { status: 403 }
+      );
+    }
+
+    if (portal === "FLOW" && isEmployee) {
+      return NextResponse.json(
+        {
+          error:
+            "Utilisez le portail Organ?IA Salari? pour vous connecter.",
+          employeePortal: true,
         },
         { status: 403 }
       );

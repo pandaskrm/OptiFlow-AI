@@ -29,6 +29,7 @@ export default function LoginPage() {
         body: JSON.stringify({
           email,
           password,
+          portal: "FLOW",
         }),
       });
 
@@ -44,11 +45,7 @@ export default function LoginPage() {
         );
       }
 
-      router.push(
-        data.employee
-          ? "/employee"
-          : "/dashboard",
-      );
+      router.push("/dashboard");
       router.refresh();
     } catch (submitError) {
       setError(
@@ -218,19 +215,6 @@ export default function LoginPage() {
                 Créer une entreprise
               </Link>
             </form>
-
-          <div className="mt-5 border-t border-white/10 pt-5">
-            <p className="text-center text-xs text-slate-400">
-              Vous rejoignez votre entreprise pour la premi?re fois ?
-            </p>
-
-            <Link
-              href="/employee/join"
-              className="mt-3 block w-full rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-4 py-3 text-center text-sm font-bold text-cyan-300 transition hover:bg-cyan-400/15"
-            >
-              Je suis salari? / int?rimaire ? Cr?er mon acc?s
-            </Link>
-          </div>
 
             <div className="mt-6 border-t border-slate-800 pt-4">
               <p className="text-center text-sm text-slate-500">
