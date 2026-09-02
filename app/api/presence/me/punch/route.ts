@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../../lib/auth/session";
 import { prisma } from "../../../../../lib/prisma";
+import { calculatePresenceDay } from "../../../../../lib/presence/calculate-day";
 import {
   businessDateKey,
   businessDayOfWeek,
@@ -462,6 +463,26 @@ export async function POST(
         },
       );
 
+    try {
+      await calculatePresenceDay({
+        prisma,
+        workforceId: workforce.id,
+        companyId: session.company.id,
+        workDateKey: nowDateKey,
+      });
+    }
+    catch (calculationError) {
+      /*
+       * The raw punch has already been safely recorded.
+       * A calculation failure must never make the employee
+       * believe that the punch itself failed.
+       */
+      console.error(
+        "Presence day calculation error after punch:",
+        calculationError,
+      );
+    }
+
     return NextResponse.json(
       {
         success: true,
@@ -517,3 +538,6 @@ export async function POST(
     );
   }
 }
+
+
+
