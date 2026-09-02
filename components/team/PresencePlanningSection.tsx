@@ -8,6 +8,7 @@ import {
 
 import PresenceQrManager from "../presence/PresenceQrManager";
 import PresenceManagerValidation from "../presence/PresenceManagerValidation";
+import PresenceHrValidation from "../presence/PresenceHrValidation";
 
 type PlanningPopulation =
   | "EMPLOYEES"
@@ -755,8 +756,11 @@ export default function PresencePlanningSection() {
         )}
       </div>
       <PresenceManagerValidation />
+      <PresenceHrValidation />
       <PresenceQrManager />
     </section>
   );
 }
+
+
 
