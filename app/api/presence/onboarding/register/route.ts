@@ -24,6 +24,8 @@ type RegisterBody = {
   password?: unknown;
   phone?: unknown;
   jobId?: unknown;
+  agency?: unknown;
+  missionDuration?: unknown;
 };
 
 function normalizeCode(
@@ -82,6 +84,63 @@ function createEmployeeNumber() {
   );
 }
 
+const TEMPORARY_MISSION_DURATIONS = new Set([
+  "1_DAY",
+  "2_DAYS",
+  "3_DAYS",
+  "4_DAYS",
+  "1_WEEK",
+  "1_MONTH",
+]);
+
+function calculateMissionEndDate(
+  startDate: Date,
+  duration: string,
+) {
+  const endDate =
+    new Date(startDate);
+
+  switch (duration) {
+    case "1_DAY":
+      endDate.setDate(
+        endDate.getDate() + 1,
+      );
+      break;
+
+    case "2_DAYS":
+      endDate.setDate(
+        endDate.getDate() + 2,
+      );
+      break;
+
+    case "3_DAYS":
+      endDate.setDate(
+        endDate.getDate() + 3,
+      );
+      break;
+
+    case "4_DAYS":
+      endDate.setDate(
+        endDate.getDate() + 4,
+      );
+      break;
+
+    case "1_WEEK":
+      endDate.setDate(
+        endDate.getDate() + 7,
+      );
+      break;
+
+    case "1_MONTH":
+      endDate.setMonth(
+        endDate.getMonth() + 1,
+      );
+      break;
+  }
+
+  return endDate;
+}
+
 export async function POST(
   request: NextRequest,
 ) {
@@ -138,6 +197,17 @@ export async function POST(
       readString(
         body.jobId,
       );
+
+    const agency =
+      readString(
+        body.agency,
+      );
+
+    const missionDuration =
+      readString(
+        body.missionDuration,
+      )
+        .toUpperCase();
 
     if (
       code.length < 4 ||
@@ -359,6 +429,54 @@ export async function POST(
         ? "TEMPORARY"
         : "EMPLOYEES";
 
+    if (
+      population === "TEMPORARY" &&
+      (
+        agency.length < 2 ||
+        agency.length > 120
+      )
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "AGENCY_REQUIRED",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    if (
+      population === "TEMPORARY" &&
+      !TEMPORARY_MISSION_DURATIONS.has(
+        missionDuration,
+      )
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "MISSION_DURATION_INVALID",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    const missionStartDate =
+      population === "TEMPORARY"
+        ? new Date(now)
+        : null;
+
+    const missionEndDate =
+      missionStartDate
+        ? calculateMissionEndDate(
+            missionStartDate,
+            missionDuration,
+          )
+        : null;
+
     const onboardingStatus =
       accessCode.requiresApproval
         ? "PENDING"
@@ -502,10 +620,7 @@ export async function POST(
                 agency:
                   population ===
                   "TEMPORARY"
-                    ? (
-                        accessCode.agency ||
-                        null
-                      )
+                    ? agency
                     : null,
 
                 onboardingStatus,
@@ -517,6 +632,41 @@ export async function POST(
                   true,
               },
             });
+
+          const mission =
+            population === "TEMPORARY" &&
+            missionStartDate &&
+            missionEndDate
+              ? await transaction
+                  .workforceMission
+                  .create({
+                    data: {
+                      workforceId:
+                        workforce.id,
+
+                      companyId:
+                        accessCode.companyId,
+
+                      agency,
+
+                      contractType:
+                        contractType ||
+                        "INTERIM",
+
+                      startDate:
+                        missionStartDate,
+
+                      endDate:
+                        missionEndDate,
+
+                      status:
+                        onboardingStatus ===
+                        "ACTIVE"
+                          ? "ACTIVE"
+                          : "PENDING",
+                    },
+                  })
+              : null;
 
           await transaction.auditLog.create({
             data: {
@@ -560,11 +710,26 @@ export async function POST(
                   agency:
                     population ===
                     "TEMPORARY"
-                      ? (
-                          accessCode.agency ||
-                          null
-                        )
+                      ? agency
                       : null,
+
+                  missionId:
+                    mission?.id ??
+                    null,
+
+                  missionDuration:
+                    population ===
+                    "TEMPORARY"
+                      ? missionDuration
+                      : null,
+
+                  missionStartDate:
+                    mission?.startDate ??
+                    null,
+
+                  missionEndDate:
+                    mission?.endDate ??
+                    null,
 
                   jobId:
                     job.id,

@@ -71,6 +71,7 @@ export const ModelName = {
   Shipment: 'Shipment',
   Inventory: 'Inventory',
   Workforce: 'Workforce',
+  WorkforceMission: 'WorkforceMission',
   WorkforceJob: 'WorkforceJob',
   WorkforceAccessCode: 'WorkforceAccessCode',
   PresenceQrSession: 'PresenceQrSession',
@@ -466,6 +467,22 @@ export const WorkforceScalarFieldEnum = {
 } as const
 
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
+
+
+export const WorkforceMissionScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  companyId: 'companyId',
+  agency: 'agency',
+  contractType: 'contractType',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforceMissionScalarFieldEnum = (typeof WorkforceMissionScalarFieldEnum)[keyof typeof WorkforceMissionScalarFieldEnum]
 
 
 export const WorkforceJobScalarFieldEnum = {

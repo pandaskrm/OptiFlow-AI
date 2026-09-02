@@ -118,6 +118,11 @@ export type Inventory = Prisma.InventoryModel
  */
 export type Workforce = Prisma.WorkforceModel
 /**
+ * Model WorkforceMission
+ * 
+ */
+export type WorkforceMission = Prisma.WorkforceMissionModel
+/**
  * Model WorkforceJob
  * 
  */

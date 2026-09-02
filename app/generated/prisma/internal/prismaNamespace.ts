@@ -404,6 +404,7 @@ export const ModelName = {
   Shipment: 'Shipment',
   Inventory: 'Inventory',
   Workforce: 'Workforce',
+  WorkforceMission: 'WorkforceMission',
   WorkforceJob: 'WorkforceJob',
   WorkforceAccessCode: 'WorkforceAccessCode',
   PresenceQrSession: 'PresenceQrSession',
@@ -436,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection" | "workforcePerformanceDay" | "presenceScheduleHabit" | "presenceScheduleChange"
+    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceMission" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection" | "workforcePerformanceDay" | "presenceScheduleHabit" | "presenceScheduleChange"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1917,6 +1918,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.WorkforceCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.WorkforceCountAggregateOutputType> | number
+        }
+      }
+    }
+    WorkforceMission: {
+      payload: Prisma.$WorkforceMissionPayload<ExtArgs>
+      fields: Prisma.WorkforceMissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkforceMissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkforceMissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>
+        }
+        findFirst: {
+          args: Prisma.WorkforceMissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkforceMissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>
+        }
+        findMany: {
+          args: Prisma.WorkforceMissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>[]
+        }
+        create: {
+          args: Prisma.WorkforceMissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>
+        }
+        createMany: {
+          args: Prisma.WorkforceMissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkforceMissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>[]
+        }
+        delete: {
+          args: Prisma.WorkforceMissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>
+        }
+        update: {
+          args: Prisma.WorkforceMissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkforceMissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkforceMissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkforceMissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkforceMissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkforceMissionPayload>
+        }
+        aggregate: {
+          args: Prisma.WorkforceMissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkforceMission>
+        }
+        groupBy: {
+          args: Prisma.WorkforceMissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkforceMissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkforceMissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkforceMissionCountAggregateOutputType> | number
         }
       }
     }
@@ -3579,6 +3654,22 @@ export const WorkforceScalarFieldEnum = {
 export type WorkforceScalarFieldEnum = (typeof WorkforceScalarFieldEnum)[keyof typeof WorkforceScalarFieldEnum]
 
 
+export const WorkforceMissionScalarFieldEnum = {
+  id: 'id',
+  workforceId: 'workforceId',
+  companyId: 'companyId',
+  agency: 'agency',
+  contractType: 'contractType',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkforceMissionScalarFieldEnum = (typeof WorkforceMissionScalarFieldEnum)[keyof typeof WorkforceMissionScalarFieldEnum]
+
+
 export const WorkforceJobScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -4185,6 +4276,7 @@ export type GlobalOmitConfig = {
   shipment?: Prisma.ShipmentOmit
   inventory?: Prisma.InventoryOmit
   workforce?: Prisma.WorkforceOmit
+  workforceMission?: Prisma.WorkforceMissionOmit
   workforceJob?: Prisma.WorkforceJobOmit
   workforceAccessCode?: Prisma.WorkforceAccessCodeOmit
   presenceQrSession?: Prisma.PresenceQrSessionOmit

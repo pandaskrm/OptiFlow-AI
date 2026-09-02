@@ -101,6 +101,12 @@ export default function EmployeeJoinPage() {
   const [jobId, setJobId] =
     useState("");
 
+  const [agency, setAgency] =
+    useState("");
+
+  const [missionDuration, setMissionDuration] =
+    useState("");
+
   const [email, setEmail] =
     useState("");
 
@@ -233,6 +239,26 @@ export default function EmployeeJoinPage() {
     }
 
     if (
+      access.access.population === "TEMPORARY" &&
+      !agency.trim()
+    ) {
+      setError(
+        "Renseignez votre agence d'int?rim.",
+      );
+      return;
+    }
+
+    if (
+      access.access.population === "TEMPORARY" &&
+      !missionDuration
+    ) {
+      setError(
+        "S?lectionnez la dur?e de votre mission.",
+      );
+      return;
+    }
+
+    if (
       !email.trim() ||
       !password
     ) {
@@ -273,6 +299,14 @@ export default function EmployeeJoinPage() {
               password,
               phone,
               jobId,
+              agency:
+                access.access.population === "TEMPORARY"
+                  ? agency
+                  : undefined,
+              missionDuration:
+                access.access.population === "TEMPORARY"
+                  ? missionDuration
+                  : undefined,
             }),
           },
         );
@@ -320,6 +354,8 @@ export default function EmployeeJoinPage() {
   function restartCode() {
     setAccess(null);
     setJobId("");
+    setAgency("");
+    setMissionDuration("");
     setError(null);
     setStep("CODE");
   }
@@ -544,6 +580,52 @@ export default function EmployeeJoinPage() {
                   )}
                 </select>
               </label>
+
+              {access.access.population === "TEMPORARY" && (
+                <div className="mt-4 space-y-4 rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-4">
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-300">
+                    Mission int?rimaire
+                  </p>
+
+                  <label className="block">
+                    <span className="text-xs font-bold text-slate-300">
+                      Agence d'int?rim
+                    </span>
+
+                    <input
+                      value={agency}
+                      onChange={(event) =>
+                        setAgency(event.target.value)
+                      }
+                      placeholder="Nom de votre agence"
+                      autoComplete="organization"
+                      className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 outline-none focus:border-cyan-400"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="text-xs font-bold text-slate-300">
+                      Dur?e de la mission
+                    </span>
+
+                    <select
+                      value={missionDuration}
+                      onChange={(event) =>
+                        setMissionDuration(event.target.value)
+                      }
+                      className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 text-white outline-none focus:border-cyan-400"
+                    >
+                      <option value="">S?lectionner la dur?e</option>
+                      <option value="1_DAY">1 jour</option>
+                      <option value="2_DAYS">2 jours</option>
+                      <option value="3_DAYS">3 jours</option>
+                      <option value="4_DAYS">4 jours</option>
+                      <option value="1_WEEK">1 semaine</option>
+                      <option value="1_MONTH">1 mois</option>
+                    </select>
+                  </label>
+                </div>
+              )}
 
               <label className="mt-4 block">
                 <span className="text-xs font-bold text-slate-300">
