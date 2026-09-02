@@ -69,6 +69,7 @@ model Company {
   workforceAccessCodes WorkforceAccessCode[]
   presenceQrSessions   PresenceQrSession[]
   absenceRequests      AbsenceRequest[]
+  workforceMissions    WorkforceMission[]
 }
 
 /**
@@ -498,11 +499,32 @@ model Workforce {
   performanceDays         WorkforcePerformanceDay[]
   presenceScheduleHabits  PresenceScheduleHabit[]
   presenceScheduleChanges PresenceScheduleChange[]
+  workforceMissions       WorkforceMission[]
 
   @@index([companyId])
   @@index([jobId])
   @@index([companyId, service])
   @@index([companyId, contractType])
+}
+
+model WorkforceMission {
+  id           String   @id @default(cuid())
+  workforceId  Int
+  companyId    String
+  agency       String?
+  contractType String   @default("INTERIM")
+  startDate    DateTime
+  endDate      DateTime
+  status       String   @default("ACTIVE")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  workforce Workforce @relation(fields: [workforceId], references: [id], onDelete: Cascade)
+  company   Company   @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([workforceId, status])
+  @@index([companyId, status])
+  @@index([startDate, endDate])
 }
 
 model WorkforceJob {
