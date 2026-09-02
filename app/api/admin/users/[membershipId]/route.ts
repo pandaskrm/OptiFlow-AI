@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../../lib/auth/session";
 import { prisma } from "../../../../../lib/prisma";
@@ -7,6 +7,7 @@ const ALLOWED_ROLES = [
   "ADMIN",
   "LOGISTICS_MANAGER",
   "TEAM_LEADER",
+  "HR",
   "OPERATOR",
   "READ_ONLY",
 ] as const;
@@ -44,7 +45,7 @@ export async function PATCH(
 
     if (auth.membership.role !== "ADMIN") {
       return NextResponse.json(
-        { error: "Accès réservé aux administrateurs." },
+        { error: "AccÃ¨s rÃ©servÃ© aux administrateurs." },
         { status: 403 }
       );
     }
@@ -88,7 +89,7 @@ export async function PATCH(
       !isAllowedRole(body.role)
     ) {
       return NextResponse.json(
-        { error: "Le rôle sélectionné est invalide." },
+        { error: "Le rÃ´le sÃ©lectionnÃ© est invalide." },
         { status: 400 }
       );
     }
@@ -98,7 +99,7 @@ export async function PATCH(
       typeof body.isActive !== "boolean"
     ) {
       return NextResponse.json(
-        { error: "Le statut sélectionné est invalide." },
+        { error: "Le statut sÃ©lectionnÃ© est invalide." },
         { status: 400 }
       );
     }
@@ -111,7 +112,7 @@ export async function PATCH(
       return NextResponse.json(
         {
           error:
-            "Vous ne pouvez pas retirer votre propre rôle administrateur.",
+            "Vous ne pouvez pas retirer votre propre rÃ´le administrateur.",
         },
         { status: 400 }
       );
@@ -124,7 +125,7 @@ export async function PATCH(
       return NextResponse.json(
         {
           error:
-            "Vous ne pouvez pas désactiver votre propre compte.",
+            "Vous ne pouvez pas dÃ©sactiver votre propre compte.",
         },
         { status: 400 }
       );
@@ -172,7 +173,7 @@ export async function PATCH(
     );
 
     return NextResponse.json({
-      message: "Utilisateur mis à jour.",
+      message: "Utilisateur mis Ã  jour.",
       user: {
         membershipId: result.id,
         userId: result.user.id,
@@ -187,7 +188,7 @@ export async function PATCH(
     console.error("Update user error:", error);
 
     return NextResponse.json(
-      { error: "Impossible de modifier l’utilisateur." },
+      { error: "Impossible de modifier lâ€™utilisateur." },
       { status: 500 }
     );
   }
@@ -209,7 +210,7 @@ export async function DELETE(
 
     if (auth.membership.role !== "ADMIN") {
       return NextResponse.json(
-        { error: "Accès réservé aux administrateurs." },
+        { error: "AccÃ¨s rÃ©servÃ© aux administrateurs." },
         { status: 403 }
       );
     }
@@ -239,7 +240,7 @@ export async function DELETE(
       return NextResponse.json(
         {
           error:
-            "Vous ne pouvez pas supprimer votre propre accès.",
+            "Vous ne pouvez pas supprimer votre propre accÃ¨s.",
         },
         { status: 400 }
       );
@@ -269,13 +270,13 @@ export async function DELETE(
     });
 
     return NextResponse.json({
-      message: "Utilisateur retiré de l’entreprise.",
+      message: "Utilisateur retirÃ© de lâ€™entreprise.",
     });
   } catch (error) {
     console.error("Delete user error:", error);
 
     return NextResponse.json(
-      { error: "Impossible de supprimer l’utilisateur." },
+      { error: "Impossible de supprimer lâ€™utilisateur." },
       { status: 500 }
     );
   }

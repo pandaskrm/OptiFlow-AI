@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../lib/auth/session";
 import { hashPassword } from "../../../../lib/auth/password";
@@ -8,6 +8,7 @@ const ALLOWED_ROLES = [
   "ADMIN",
   "LOGISTICS_MANAGER",
   "TEAM_LEADER",
+  "HR",
   "OPERATOR",
   "READ_ONLY",
 ] as const;
@@ -46,7 +47,7 @@ export async function GET() {
 
   if (auth.membership.role !== "ADMIN") {
     return NextResponse.json(
-      { error: "Accès réservé aux administrateurs." },
+      { error: "AccÃ¨s rÃ©servÃ© aux administrateurs." },
       { status: 403 }
     );
   }
@@ -92,7 +93,7 @@ export async function POST(request: Request) {
 
     if (auth.membership.role !== "ADMIN") {
       return NextResponse.json(
-        { error: "Accès réservé aux administrateurs." },
+        { error: "AccÃ¨s rÃ©servÃ© aux administrateurs." },
         { status: 403 }
       );
     }
@@ -115,7 +116,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Tous les champs doivent être renseignés.",
+            "Tous les champs doivent Ãªtre renseignÃ©s.",
         },
         { status: 400 }
       );
@@ -123,14 +124,14 @@ export async function POST(request: Request) {
 
     if (!isValidEmail(email)) {
       return NextResponse.json(
-        { error: "L’adresse e-mail est invalide." },
+        { error: "Lâ€™adresse e-mail est invalide." },
         { status: 400 }
       );
     }
 
     if (!isAllowedRole(role)) {
       return NextResponse.json(
-        { error: "Le rôle sélectionné est invalide." },
+        { error: "Le rÃ´le sÃ©lectionnÃ© est invalide." },
         { status: 400 }
       );
     }
@@ -139,7 +140,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Le mot de passe temporaire doit contenir au moins 10 caractères.",
+            "Le mot de passe temporaire doit contenir au moins 10 caractÃ¨res.",
         },
         { status: 400 }
       );
@@ -162,7 +163,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Cet utilisateur appartient déjà à votre entreprise.",
+            "Cet utilisateur appartient dÃ©jÃ  Ã  votre entreprise.",
         },
         { status: 409 }
       );
@@ -218,7 +219,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
-        message: "Le collaborateur a été créé.",
+        message: "Le collaborateur a Ã©tÃ© crÃ©Ã©.",
         user: {
           id: result.user.id,
           firstName: result.user.firstName,
@@ -236,9 +237,10 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          "Impossible de créer le collaborateur.",
+          "Impossible de crÃ©er le collaborateur.",
       },
       { status: 500 }
     );
   }
 }
+

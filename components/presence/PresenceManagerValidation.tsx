@@ -54,7 +54,52 @@ export default function PresenceManagerValidation() {
   const [correctionReason, setCorrectionReason] =
     useState("");
 
+  const [currentRole, setCurrentRole] =
+    useState<string | null>(null);
+
   useEffect(() => {
+    let cancelled = false;
+
+    async function loadCurrentRole() {
+      try {
+        const response = await fetch("/api/auth/session", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) return;
+
+        const data = (await response.json()) as {
+          role?: string;
+        };
+
+        if (!cancelled) {
+          setCurrentRole(data.role ?? null);
+        }
+      } catch {
+        // Les autorisations restent contrôlées côté API.
+      }
+    }
+
+    void loadCurrentRole();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  useEffect(() => {
+    if (!currentRole) return;
+
+    const managerRoles = [
+      "ADMIN",
+      "LOGISTICS_MANAGER",
+      "TEAM_LEADER",
+    ];
+
+    if (!managerRoles.includes(currentRole)) {
+      setLoading(false);
+      return;
+    }
+
     async function loadDays() {
       setLoading(true);
       setError(null);
@@ -89,7 +134,7 @@ export default function PresenceManagerValidation() {
     }
 
     void loadDays();
-  }, []);
+  }, [currentRole]);
 
   function startCorrection(day: ManagerPresenceDay) {
     const retainedMinutes =
@@ -231,6 +276,18 @@ export default function PresenceManagerValidation() {
     }
   }
 
+  const managerRoles = [
+    "ADMIN",
+    "LOGISTICS_MANAGER",
+    "TEAM_LEADER",
+  ];
+
+  if (
+    currentRole &&
+    !managerRoles.includes(currentRole)
+  ) {
+    return null;
+  }
   if (loading) {
     return (
       <div className="rounded-3xl border border-slate-800 bg-slate-950 p-6 text-sm text-slate-400">
@@ -415,6 +472,10 @@ export default function PresenceManagerValidation() {
     </div>
   );
 }
+
+
+
+
 
 
 
