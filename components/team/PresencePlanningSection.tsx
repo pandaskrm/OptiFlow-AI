@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import {
   useEffect,
@@ -7,6 +7,7 @@ import {
 } from "react";
 
 import PresenceQrManager from "../presence/PresenceQrManager";
+import PresenceManagerValidation from "../presence/PresenceManagerValidation";
 
 type PlanningPopulation =
   | "EMPLOYEES"
@@ -443,7 +444,7 @@ export default function PresencePlanningSection() {
             Collaborateurs
           </p>
           <p className="mt-1 text-xl font-bold">
-            {data?.total ?? "—"}
+            {data?.total ?? "â€”"}
           </p>
         </div>
 
@@ -452,7 +453,7 @@ export default function PresencePlanningSection() {
             Changements detectes
           </p>
           <p className="mt-1 text-xl font-bold text-cyan-300">
-            {loading ? "—" : openChanges}
+            {loading ? "â€”" : openChanges}
           </p>
         </div>
       </div>
@@ -708,11 +709,11 @@ export default function PresencePlanningSection() {
                                         ] ??
                                           `J${habit.dayOfWeek}`}
                                       </span>
-                                      {" · "}
+                                      {" Â· "}
                                       {formatSchedule(
                                         habit,
                                       )}
-                                      {" · "}
+                                      {" Â· "}
                                       {confidenceLabel(
                                         habit.confidence,
                                       )}
@@ -740,7 +741,7 @@ export default function PresencePlanningSection() {
                             </span>
                           ) : (
                             <span className="text-slate-400">
-                              —
+                              â€”
                             </span>
                           )}
                         </td>
@@ -753,7 +754,9 @@ export default function PresencePlanningSection() {
           </>
         )}
       </div>
+      <PresenceManagerValidation />
       <PresenceQrManager />
     </section>
   );
 }
+
