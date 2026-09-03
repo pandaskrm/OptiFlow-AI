@@ -3,6 +3,7 @@
 import { getCurrentSession } from "../../../../lib/auth/session";
 import { hashPassword } from "../../../../lib/auth/password";
 import { prisma } from "../../../../lib/prisma";
+import { isPasswordValid, PASSWORD_POLICY_MESSAGE } from "@/lib/auth/password";
 
 const ALLOWED_ROLES = [
   "ADMIN",
@@ -136,11 +137,10 @@ export async function POST(request: Request) {
       );
     }
 
-    if (temporaryPassword.length < 10) {
+    if (!isPasswordValid(temporaryPassword)) {
       return NextResponse.json(
         {
-          error:
-            "Le mot de passe temporaire doit contenir au moins 10 caractÃ¨res.",
+          error: PASSWORD_POLICY_MESSAGE,
         },
         { status: 400 }
       );

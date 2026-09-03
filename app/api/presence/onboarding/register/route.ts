@@ -10,6 +10,8 @@ import {
 
 import {
   hashPassword,
+  isPasswordValid,
+  PASSWORD_POLICY_MESSAGE,
 } from "../../../../../lib/auth/password";
 
 import {
@@ -258,7 +260,7 @@ export async function POST(
     }
 
     if (
-      password.length < 8 ||
+      !isPasswordValid(password) ||
       password.length > 200
     ) {
       return NextResponse.json(

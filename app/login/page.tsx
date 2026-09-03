@@ -152,12 +152,12 @@ export default function LoginPage() {
                     Mot de passe
                   </label>
 
-                  <button
-                    type="button"
+                  <Link
+                    href="/forgot-password?portal=FLOW"
                     className="text-sm font-medium text-cyan-400 transition hover:text-cyan-300"
                   >
-                    Mot de passe oublié ?
-                  </button>
+                    Mot de passe oubli? ?
+                  </Link>
                 </div>
                 <div className="relative">
                   <input

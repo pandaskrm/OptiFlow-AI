@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { hashPassword } from "../../../../lib/auth/password";
 import { prisma } from "../../../../lib/prisma";
+import { isPasswordValid, PASSWORD_POLICY_MESSAGE } from "@/lib/auth/password";
 
 type BootstrapBody = {
   firstName?: string;
@@ -160,11 +161,10 @@ export async function POST(request: Request) {
       );
     }
 
-    if (password.length < 10) {
+    if (!isPasswordValid(password)) {
       return NextResponse.json(
         {
-          error:
-            "Le mot de passe doit contenir au moins 10 caractères.",
+          error: PASSWORD_POLICY_MESSAGE,
         },
         { status: 400 }
       );
