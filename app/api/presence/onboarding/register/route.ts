@@ -102,38 +102,38 @@ function calculateMissionEndDate(
 
   switch (duration) {
     case "1_DAY":
+      break;
+
+    case "2_DAYS":
       endDate.setDate(
         endDate.getDate() + 1,
       );
       break;
 
-    case "2_DAYS":
+    case "3_DAYS":
       endDate.setDate(
         endDate.getDate() + 2,
       );
       break;
 
-    case "3_DAYS":
+    case "4_DAYS":
       endDate.setDate(
         endDate.getDate() + 3,
       );
       break;
 
-    case "4_DAYS":
-      endDate.setDate(
-        endDate.getDate() + 4,
-      );
-      break;
-
     case "1_WEEK":
       endDate.setDate(
-        endDate.getDate() + 7,
+        endDate.getDate() + 6,
       );
       break;
 
     case "1_MONTH":
       endDate.setMonth(
         endDate.getMonth() + 1,
+      );
+      endDate.setDate(
+        endDate.getDate() - 1,
       );
       break;
   }
@@ -198,7 +198,7 @@ export async function POST(
         body.jobId,
       );
 
-    const agency =
+    const submittedAgency =
       readString(
         body.agency,
       );
@@ -316,6 +316,17 @@ export async function POST(
           },
         },
       });
+
+    const isLcaCompany =
+      accessCode?.company.name
+        .trim()
+        .toLowerCase()
+        .startsWith("lca");
+
+    const agency =
+      isLcaCompany
+        ? "Actual"
+        : submittedAgency;
 
     if (
       !accessCode ||

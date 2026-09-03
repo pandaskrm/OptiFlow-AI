@@ -42,6 +42,33 @@ function normalizeContractType(
   );
 }
 
+const DEFAULT_WORKFORCE_JOBS = [
+  {
+    code: "MANUTENTIONNAIRE",
+    name: "Manutentionnaire",
+    service: "LOGISTIQUE",
+    sortOrder: 10,
+  },
+  {
+    code: "PREPARATEUR",
+    name: "Pr?parateur",
+    service: "LOGISTIQUE",
+    sortOrder: 20,
+  },
+  {
+    code: "MAGASINIER",
+    name: "Magasinier",
+    service: "LOGISTIQUE",
+    sortOrder: 30,
+  },
+  {
+    code: "AUTRE",
+    name: "Autre",
+    service: "LOGISTIQUE",
+    sortOrder: 40,
+  },
+] as const;
+
 export async function POST(
   request: NextRequest,
 ) {
@@ -154,8 +181,34 @@ export async function POST(
       );
     }
 
-    const jobs =
-      await prisma.workforceJob.findMany({
+    const existingJobsCount =
+    await prisma.workforceJob.count({
+      where: {
+        companyId: accessCode.companyId,
+        isActive: true,
+      },
+    });
+
+  if (existingJobsCount === 0) {
+    await prisma.workforceJob.createMany({
+      data: DEFAULT_WORKFORCE_JOBS.map(
+        (job) => ({
+          companyId:
+            accessCode.companyId,
+          code: job.code,
+          name: job.name,
+          service: job.service,
+          sortOrder:
+            job.sortOrder,
+          isActive: true,
+        }),
+      ),
+      skipDuplicates: true,
+    });
+  }
+
+      const jobs =
+    await prisma.workforceJob.findMany({
         where: {
           companyId:
             accessCode.companyId,

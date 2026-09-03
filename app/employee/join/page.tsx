@@ -101,9 +101,6 @@ export default function EmployeeJoinPage() {
   const [jobId, setJobId] =
     useState("");
 
-  const [agency, setAgency] =
-    useState("");
-
   const [missionDuration, setMissionDuration] =
     useState("");
 
@@ -118,6 +115,12 @@ export default function EmployeeJoinPage() {
 
   const [confirmPassword, setConfirmPassword] =
     useState("");
+
+  const [showPassword, setShowPassword] =
+    useState(false);
+
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
 
   const [loading, setLoading] =
     useState(false);
@@ -240,16 +243,6 @@ export default function EmployeeJoinPage() {
 
     if (
       access.access.population === "TEMPORARY" &&
-      !agency.trim()
-    ) {
-      setError(
-        "Renseignez votre agence d'int?rim.",
-      );
-      return;
-    }
-
-    if (
-      access.access.population === "TEMPORARY" &&
       !missionDuration
     ) {
       setError(
@@ -264,6 +257,32 @@ export default function EmployeeJoinPage() {
     ) {
       setError(
         "Renseignez votre e-mail et votre mot de passe.",
+      );
+      return;
+    }
+
+    const letterCount =
+      (password.match(/[A-Za-z?-??-??-?]/g) ?? []).length;
+
+    const digitCount =
+      (password.match(/\d/g) ?? []).length;
+
+    const hasUppercase =
+      /[A-Z?-??-?]/.test(password);
+
+    const hasSpecialCharacter =
+      /[^A-Za-z?-??-??-?0-9]/.test(password);
+
+    const isPasswordValid =
+      password.length >= 10 &&
+      hasUppercase &&
+      letterCount >= 5 &&
+      digitCount >= 2 &&
+      hasSpecialCharacter;
+
+    if (!isPasswordValid) {
+      setError(
+        "Le mot de passe doit contenir au minimum 10 caract?res, avec 1 majuscule, au moins 5 lettres, 2 chiffres et 1 caract?re sp?cial.",
       );
       return;
     }
@@ -299,10 +318,6 @@ export default function EmployeeJoinPage() {
               password,
               phone,
               jobId,
-              agency:
-                access.access.population === "TEMPORARY"
-                  ? agency
-                  : undefined,
               missionDuration:
                 access.access.population === "TEMPORARY"
                   ? missionDuration
@@ -354,7 +369,6 @@ export default function EmployeeJoinPage() {
   function restartCode() {
     setAccess(null);
     setJobId("");
-    setAgency("");
     setMissionDuration("");
     setError(null);
     setStep("CODE");
@@ -587,21 +601,14 @@ export default function EmployeeJoinPage() {
                     Mission int?rimaire
                   </p>
 
-                  <label className="block">
-                    <span className="text-xs font-bold text-slate-300">
+                  <div className="rounded-xl border border-white/10 bg-slate-950 px-3 py-3">
+                    <p className="text-xs font-bold text-slate-300">
                       Agence d'int?rim
-                    </span>
-
-                    <input
-                      value={agency}
-                      onChange={(event) =>
-                        setAgency(event.target.value)
-                      }
-                      placeholder="Nom de votre agence"
-                      autoComplete="organization"
-                      className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 outline-none focus:border-cyan-400"
-                    />
-                  </label>
+                    </p>
+                    <p className="mt-1 font-bold text-white">
+                      Actual
+                    </p>
+                  </div>
 
                   <label className="block">
                     <span className="text-xs font-bold text-slate-300">
@@ -666,41 +673,160 @@ export default function EmployeeJoinPage() {
                 />
               </label>
 
-              <label className="mt-4 block">
+              <div className="mt-4">
                 <span className="text-xs font-bold text-slate-300">
                   Mot de passe
                 </span>
 
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(event) =>
-                    setPassword(
-                      event.target.value,
-                    )
-                  }
-                  autoComplete="new-password"
-                  className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 outline-none focus:border-cyan-400"
-                />
-              </label>
+                <div className="relative mt-2">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(event) =>
+                      setPassword(event.target.value)
+                    }
+                    autoComplete="new-password"
+                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 pr-14 outline-none focus:border-cyan-400"
+                  />
 
-              <label className="mt-4 block">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowPassword((value) => !value)
+                    }
+                    className="absolute inset-y-0 right-0 px-4 text-lg text-slate-400 hover:text-white"
+                    aria-label={
+                      showPassword
+                        ? "Masquer le mot de passe"
+                        : "Afficher le mot de passe"
+                    }
+                  >
+                    {showPassword ? "??" : "??"}
+                  </button>
+                </div>
+
+                <p className="mt-2 text-xs leading-5 text-slate-400">
+                  * Minimum 10 caract?res : 1 majuscule, au moins
+                  5 lettres, 2 chiffres et 1 caract?re sp?cial.
+                </p>
+
+                {password && (() => {
+                  const letters =
+                    (password.match(/[A-Za-z?-??-??-?]/g) ?? []).length;
+                  const digits =
+                    (password.match(/\d/g) ?? []).length;
+
+                  const checks = [
+                    password.length >= 10,
+                    /[A-Z?-??-?]/.test(password),
+                    letters >= 5,
+                    digits >= 2,
+                    /[^A-Za-z?-??-??-?0-9]/.test(password),
+                  ];
+
+                  const score =
+                    checks.filter(Boolean).length;
+
+                  const strength =
+                    score <= 2
+                      ? "Faible"
+                      : score <= 4
+                        ? "Moyen"
+                        : "Fort";
+
+                  const barClass =
+                    score <= 2
+                      ? "bg-red-500"
+                      : score <= 4
+                        ? "bg-orange-400"
+                        : "bg-green-500";
+
+                  return (
+                    <div className="mt-3">
+                      <div className="h-2 overflow-hidden rounded-full bg-slate-800">
+                        <div
+                          className={`h-full transition-all ${barClass}`}
+                          style={{
+                            width: `${Math.max(20, score * 20)}%`,
+                          }}
+                        />
+                      </div>
+
+                      <p className="mt-1 text-xs font-bold text-slate-300">
+                        S?curit? : {strength}
+                      </p>
+
+                      <div className="mt-2 grid gap-1 text-xs">
+                        {[
+                          [checks[0], "10 caract?res minimum"],
+                          [checks[1], "1 majuscule"],
+                          [checks[2], "5 lettres minimum"],
+                          [checks[3], "2 chiffres minimum"],
+                          [checks[4], "1 caract?re sp?cial"],
+                        ].map(([valid, label]) => (
+                          <span
+                            key={String(label)}
+                            className={
+                              valid
+                                ? "text-green-400"
+                                : "text-slate-500"
+                            }
+                          >
+                            {valid ? "?" : "?"} {String(label)}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              <div className="mt-4">
                 <span className="text-xs font-bold text-slate-300">
                   Confirmer le mot de passe
                 </span>
 
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(event) =>
-                    setConfirmPassword(
-                      event.target.value,
-                    )
-                  }
-                  autoComplete="new-password"
-                  className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 outline-none focus:border-cyan-400"
-                />
-              </label>
+                <div className="relative mt-2">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    value={confirmPassword}
+                    onChange={(event) =>
+                      setConfirmPassword(event.target.value)
+                    }
+                    autoComplete="new-password"
+                    className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 pr-14 outline-none focus:border-cyan-400"
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowConfirmPassword((value) => !value)
+                    }
+                    className="absolute inset-y-0 right-0 px-4 text-lg text-slate-400 hover:text-white"
+                    aria-label={
+                      showConfirmPassword
+                        ? "Masquer le mot de passe"
+                        : "Afficher le mot de passe"
+                    }
+                  >
+                    {showConfirmPassword ? "??" : "??"}
+                  </button>
+                </div>
+
+                {confirmPassword && (
+                  <p
+                    className={`mt-2 text-xs font-bold ${
+                      password === confirmPassword
+                        ? "text-green-400"
+                        : "text-red-400"
+                    }`}
+                  >
+                    {password === confirmPassword
+                      ? "? Les mots de passe correspondent"
+                      : "? Les mots de passe ne correspondent pas"}
+                  </p>
+                )}
+              </div>
 
               {error && (
                 <div className="mt-4 rounded-xl border border-red-400/20 bg-red-400/10 p-3 text-sm text-red-200">

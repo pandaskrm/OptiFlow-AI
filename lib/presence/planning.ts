@@ -83,6 +83,20 @@ export async function getPresencePlanning(
         },
       },
 
+      workforceMissions: {
+        orderBy: {
+          startDate: "desc",
+        },
+        take: 1,
+        select: {
+          id: true,
+          agency: true,
+          startDate: true,
+          endDate: true,
+          status: true,
+        },
+      },
+
       presenceSchedules: {
         where: {
           OR: [

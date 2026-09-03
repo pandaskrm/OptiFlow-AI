@@ -3,6 +3,7 @@
 import useSimulationV2 from "../../hooks/useSimulationV2";
 import useWarehouseSummary from "../../hooks/useWarehouseSummary";
 import PresencePlanningSection from "./PresencePlanningSection";
+import PresenceAccessCodes from "./PresenceAccessCodes";
 
 const weeklySchedule = [
   {
@@ -170,6 +171,8 @@ function TeamRealData() {
       </section>
 
       <PresencePlanningSection />
+
+      <PresenceAccessCodes />
 
       <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
         {cards.map((card) => (
@@ -487,6 +490,8 @@ function TeamDemoState() {
       </section>
 
       <PresencePlanningSection />
+
+      <PresenceAccessCodes />
 
       <section className="grid gap-3 md:grid-cols-3 xl:grid-cols-6">
         {cards.map((card) => (

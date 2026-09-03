@@ -87,6 +87,14 @@ type PlanningWorker = {
   onboardingStatus: string;
   zone: string | null;
 
+  workforceMissions: {
+    id: string;
+    agency: string | null;
+    startDate: string;
+    endDate: string;
+    status: string;
+  }[];
+
   job: {
     id: string;
     code: string | null;
@@ -510,9 +518,17 @@ export default function PresencePlanningSection() {
 
                     {population ===
                       "TEMPORARY" && (
-                      <th className="px-4 py-3">
-                        Agence
-                      </th>
+                      <>
+                        <th className="px-4 py-3">
+                          Agence
+                        </th>
+                        <th className="px-4 py-3">
+                          D?but mission
+                        </th>
+                        <th className="px-4 py-3">
+                          Fin mission
+                        </th>
+                      </>
                     )}
 
                     <th className="px-4 py-3">
@@ -568,10 +584,27 @@ export default function PresencePlanningSection() {
 
                         {population ===
                           "TEMPORARY" && (
-                          <td className="px-4 py-3 font-medium text-slate-700">
-                            {worker.agency ??
-                              "Agence non definie"}
-                          </td>
+                          <>
+                            <td className="px-4 py-3 font-medium text-slate-700">
+                              {worker.workforceMissions[0]?.agency ??
+                                worker.agency ??
+                                "Agence non d?finie"}
+                            </td>
+                            <td className="px-4 py-3 text-slate-700">
+                              {worker.workforceMissions[0]?.startDate
+                                ? new Date(
+                                    worker.workforceMissions[0].startDate,
+                                  ).toLocaleDateString("fr-FR")
+                                : "?"}
+                            </td>
+                            <td className="px-4 py-3 text-slate-700">
+                              {worker.workforceMissions[0]?.endDate
+                                ? new Date(
+                                    worker.workforceMissions[0].endDate,
+                                  ).toLocaleDateString("fr-FR")
+                                : "?"}
+                            </td>
+                          </>
                         )}
 
                         <td className="px-4 py-3">
