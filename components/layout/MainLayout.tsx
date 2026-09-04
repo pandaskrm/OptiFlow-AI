@@ -18,6 +18,12 @@ export default async function MainLayout({ children }: Props) {
     redirect("/login");
   }
 
+  // Un compte salarie ne doit jamais acceder a l'interface manager,
+  // meme si sa fiche Workforce est absente ou incomplete.
+  if (auth.membership.role === "OPERATOR") {
+    redirect("/employee");
+  }
+
   const employee = await prisma.workforce.findFirst({
     where: {
       membershipId: auth.membership.id,
