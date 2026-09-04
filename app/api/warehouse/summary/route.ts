@@ -10,6 +10,13 @@ function isAuthenticationError(error: unknown) {
   );
 }
 
+function isAuthorizationError(error: unknown) {
+  return (
+    error instanceof Error &&
+    error.message === "Acces non autorise."
+  );
+}
+
 export async function GET() {
   try {
     const summary = await getWarehouseSummary();
@@ -27,6 +34,17 @@ export async function GET() {
         },
         {
           status: 401,
+        }
+      );
+    }
+
+    if (isAuthorizationError(error)) {
+      return NextResponse.json(
+        {
+          message: "Acces non autorise.",
+        },
+        {
+          status: 403,
         }
       );
     }

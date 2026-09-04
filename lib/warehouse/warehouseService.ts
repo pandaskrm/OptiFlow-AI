@@ -472,6 +472,10 @@ export async function getWarehouseSummary(): Promise<WarehouseSummary> {
     throw new Error("Utilisateur non authentifié.");
   }
 
+  if (currentSession.membership.role === "OPERATOR") {
+    throw new Error("Acces non autorise.");
+  }
+
   const companyId = currentSession.company.id;
 
   const connection = await prisma.erpConnection.findFirst({
