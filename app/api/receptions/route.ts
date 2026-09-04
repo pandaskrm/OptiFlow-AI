@@ -68,6 +68,18 @@ export async function POST(request: Request) {
       );
     }
 
+  if (![
+    "OWNER",
+    "ADMIN",
+    "LOGISTICS_MANAGER",
+    "TEAM_LEADER",
+  ].includes(auth.membership.role)) {
+    return NextResponse.json(
+      { error: "Accès opérationnel non autorisé." },
+      { status: 403 },
+    );
+  }
+
     const body = await request.json();
 
     const supplier =

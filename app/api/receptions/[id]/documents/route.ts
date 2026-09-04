@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../../lib/auth/session";
 import { prisma } from "../../../../../lib/prisma";
@@ -125,6 +125,18 @@ export async function POST(
       {
         status: 401,
       },
+    );
+  }
+
+  if (![
+    "OWNER",
+    "ADMIN",
+    "LOGISTICS_MANAGER",
+    "TEAM_LEADER",
+  ].includes(auth.membership.role)) {
+    return NextResponse.json(
+      { error: "Accès opérationnel non autorisé." },
+      { status: 403 },
     );
   }
 

@@ -45,6 +45,18 @@ export async function PATCH(
     );
   }
 
+  if (![
+    "OWNER",
+    "ADMIN",
+    "LOGISTICS_MANAGER",
+    "TEAM_LEADER",
+  ].includes(auth.membership.role)) {
+    return NextResponse.json(
+      { error: "Accès opérationnel non autorisé." },
+      { status: 403 },
+    );
+  }
+
   const { id } = await context.params;
 
   const receptionId =
@@ -502,6 +514,18 @@ export async function DELETE(
       {
         status: 401,
       },
+    );
+  }
+
+  if (![
+    "OWNER",
+    "ADMIN",
+    "LOGISTICS_MANAGER",
+    "TEAM_LEADER",
+  ].includes(auth.membership.role)) {
+    return NextResponse.json(
+      { error: "Accès opérationnel non autorisé." },
+      { status: 403 },
     );
   }
 
