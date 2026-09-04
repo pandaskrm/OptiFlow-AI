@@ -5,6 +5,7 @@ import {
 } from "../../../../lib/ai/decisionEngine";
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
+import { getCurrentSession } from "../../../../lib/auth/session";
 
 export const runtime = "nodejs";
 
@@ -230,6 +231,21 @@ Respecte les confirmations obligatoires avant toute action sensible.
 `;
 export async function POST(request: Request) {
   try {
+    const auth = await getCurrentSession();
+
+    if (!auth) {
+      return NextResponse.json(
+        { error: "Authentification requise." },
+        { status: 401 },
+      );
+    }
+
+    if (auth.membership.role === "OPERATOR") {
+      return NextResponse.json(
+        { error: "Acces Libot manager non autorise." },
+        { status: 403 },
+      );
+    }
     const apiKey = process.env.OPENAI_API_KEY;
 
     if (!apiKey || apiKey.includes("COLLE_TA_CLE_ICI")) {
