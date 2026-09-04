@@ -88,7 +88,8 @@ export const ModelName = {
   ErpConnection: 'ErpConnection',
   WorkforcePerformanceDay: 'WorkforcePerformanceDay',
   PresenceScheduleHabit: 'PresenceScheduleHabit',
-  PresenceScheduleChange: 'PresenceScheduleChange'
+  PresenceScheduleChange: 'PresenceScheduleChange',
+  AuthRateLimit: 'AuthRateLimit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -822,6 +823,20 @@ export const PresenceScheduleChangeScalarFieldEnum = {
 } as const
 
 export type PresenceScheduleChangeScalarFieldEnum = (typeof PresenceScheduleChangeScalarFieldEnum)[keyof typeof PresenceScheduleChangeScalarFieldEnum]
+
+
+export const AuthRateLimitScalarFieldEnum = {
+  id: 'id',
+  keyHash: 'keyHash',
+  action: 'action',
+  count: 'count',
+  windowStart: 'windowStart',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AuthRateLimitScalarFieldEnum = (typeof AuthRateLimitScalarFieldEnum)[keyof typeof AuthRateLimitScalarFieldEnum]
 
 
 export const SortOrder = {

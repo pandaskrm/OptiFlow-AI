@@ -1,8 +1,13 @@
 ﻿import crypto from "node:crypto";
 
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
+import {
+  consumeRateLimit,
+  getRequestIp,
+} from "../../../../lib/auth/rate-limit";
 import { prisma } from "../../../../lib/prisma";
 
 const GENERIC_MESSAGE =
@@ -59,6 +64,30 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "L’adresse e-mail est obligatoire." },
         { status: 400 },
+      );
+    }
+
+    const requestHeaders = await headers();
+    const ipAddress = getRequestIp(requestHeaders);
+
+    const forgotRateLimit = await consumeRateLimit({
+      action: "AUTH_FORGOT_PASSWORD",
+      identifier: `${ipAddress}|${email}`,
+      limit: 5,
+      windowMs: 15 * 60 * 1000,
+    });
+
+    if (!forgotRateLimit.allowed) {
+      return NextResponse.json(
+        { message: GENERIC_MESSAGE },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              forgotRateLimit.retryAfterSeconds,
+            ),
+          },
+        },
       );
     }
 

@@ -4,6 +4,11 @@ import { cookies, headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { verifyPassword } from "../../../../lib/auth/password";
+import {
+  clearRateLimit,
+  consumeRateLimit,
+  getRequestIp,
+} from "../../../../lib/auth/rate-limit";
 import { prisma } from "../../../../lib/prisma";
 
 type LoginBody = {
@@ -37,6 +42,34 @@ export async function POST(request: Request) {
             "L’adresse e-mail et le mot de passe sont obligatoires.",
         },
         { status: 400 }
+      );
+    }
+
+    const requestHeaders = await headers();
+    const ipAddress = getRequestIp(requestHeaders);
+    const loginRateLimitIdentifier = `${ipAddress}|${email}`;
+
+    const loginRateLimit = await consumeRateLimit({
+      action: "AUTH_LOGIN",
+      identifier: loginRateLimitIdentifier,
+      limit: 5,
+      windowMs: 15 * 60 * 1000,
+    });
+
+    if (!loginRateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error:
+            "Trop de tentatives de connexion. Réessayez dans quelques minutes.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              loginRateLimit.retryAfterSeconds,
+            ),
+          },
+        },
       );
     }
 
@@ -123,21 +156,15 @@ export async function POST(request: Request) {
       );
     }
 
+    await clearRateLimit(
+      "AUTH_LOGIN",
+      loginRateLimitIdentifier,
+    );
     const sessionToken = crypto.randomBytes(48).toString("hex");
     const tokenHash = hashToken(sessionToken);
     const expiresAt = new Date(
       Date.now() + 7 * 24 * 60 * 60 * 1000
     );
-
-    const requestHeaders = await headers();
-
-    const forwardedFor =
-      requestHeaders.get("x-forwarded-for") ?? "";
-
-    const ipAddress =
-      forwardedFor.split(",")[0]?.trim() ||
-      requestHeaders.get("x-real-ip") ||
-      null;
 
     const userAgent =
       requestHeaders.get("user-agent") ?? null;
@@ -173,6 +200,7 @@ export async function POST(request: Request) {
         },
       }),
     ]);
+
 
     const cookieStore = await cookies();
 

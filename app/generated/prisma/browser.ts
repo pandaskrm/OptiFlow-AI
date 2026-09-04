@@ -207,3 +207,8 @@ export type PresenceScheduleHabit = Prisma.PresenceScheduleHabitModel
  * 
  */
 export type PresenceScheduleChange = Prisma.PresenceScheduleChangeModel
+/**
+ * Model AuthRateLimit
+ * 
+ */
+export type AuthRateLimit = Prisma.AuthRateLimitModel

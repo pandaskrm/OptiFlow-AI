@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
     if (!token) {
       return NextResponse.json(
-        { error: "Lien de r?initialisation invalide." },
+        { error: "Lien de réinitialisation invalide." },
         { status: 400 },
       );
     }
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Ce lien est invalide ou a expir?. Demandez un nouveau lien.",
+            "Ce lien est invalide ou a expiré. Demandez un nouveau lien.",
         },
         { status: 400 },
       );
@@ -101,7 +101,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       message:
-        "Votre mot de passe a ?t? modifi?. Vous pouvez maintenant vous reconnecter.",
+        "Votre mot de passe a été modifié. Vous pouvez maintenant vous reconnecter.",
     });
   } catch (error) {
     console.error("Password reset failed.", error);

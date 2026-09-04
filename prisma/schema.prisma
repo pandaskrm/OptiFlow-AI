@@ -948,3 +948,18 @@ model PresenceScheduleChange {
   @@index([workforceId, status])
   @@index([workDate, status])
 }
+
+model AuthRateLimit {
+  id          String   @id @default(cuid())
+  keyHash     String
+  action      String
+  count       Int      @default(1)
+  windowStart DateTime @default(now())
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([keyHash, action])
+  @@index([expiresAt])
+  @@index([action, expiresAt])
+}

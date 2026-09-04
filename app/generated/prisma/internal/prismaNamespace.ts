@@ -421,7 +421,8 @@ export const ModelName = {
   ErpConnection: 'ErpConnection',
   WorkforcePerformanceDay: 'WorkforcePerformanceDay',
   PresenceScheduleHabit: 'PresenceScheduleHabit',
-  PresenceScheduleChange: 'PresenceScheduleChange'
+  PresenceScheduleChange: 'PresenceScheduleChange',
+  AuthRateLimit: 'AuthRateLimit'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -437,7 +438,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceMission" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection" | "workforcePerformanceDay" | "presenceScheduleHabit" | "presenceScheduleChange"
+    modelProps: "user" | "company" | "businessRule" | "membership" | "session" | "passwordResetToken" | "invitation" | "carrier" | "warehouse" | "dock" | "auditLog" | "reception" | "receptionDocument" | "receptionInspector" | "receptionEvent" | "order" | "orderLine" | "shipment" | "inventory" | "workforce" | "workforceMission" | "workforceJob" | "workforceAccessCode" | "presenceQrSession" | "presenceSchedule" | "presencePunch" | "presenceDay" | "absenceRequest" | "absenceRequestDocument" | "absenceApproval" | "presenceCorrection" | "mailMessage" | "mailAttachment" | "mailConnection" | "erpConnection" | "workforcePerformanceDay" | "presenceScheduleHabit" | "presenceScheduleChange" | "authRateLimit"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3253,6 +3254,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AuthRateLimit: {
+      payload: Prisma.$AuthRateLimitPayload<ExtArgs>
+      fields: Prisma.AuthRateLimitFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AuthRateLimitFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AuthRateLimitFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>
+        }
+        findFirst: {
+          args: Prisma.AuthRateLimitFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AuthRateLimitFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>
+        }
+        findMany: {
+          args: Prisma.AuthRateLimitFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>[]
+        }
+        create: {
+          args: Prisma.AuthRateLimitCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>
+        }
+        createMany: {
+          args: Prisma.AuthRateLimitCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AuthRateLimitCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>[]
+        }
+        delete: {
+          args: Prisma.AuthRateLimitDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>
+        }
+        update: {
+          args: Prisma.AuthRateLimitUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>
+        }
+        deleteMany: {
+          args: Prisma.AuthRateLimitDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AuthRateLimitUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AuthRateLimitUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>[]
+        }
+        upsert: {
+          args: Prisma.AuthRateLimitUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AuthRateLimitPayload>
+        }
+        aggregate: {
+          args: Prisma.AuthRateLimitAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuthRateLimit>
+        }
+        groupBy: {
+          args: Prisma.AuthRateLimitGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuthRateLimitGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AuthRateLimitCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuthRateLimitCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -4009,6 +4084,20 @@ export const PresenceScheduleChangeScalarFieldEnum = {
 export type PresenceScheduleChangeScalarFieldEnum = (typeof PresenceScheduleChangeScalarFieldEnum)[keyof typeof PresenceScheduleChangeScalarFieldEnum]
 
 
+export const AuthRateLimitScalarFieldEnum = {
+  id: 'id',
+  keyHash: 'keyHash',
+  action: 'action',
+  count: 'count',
+  windowStart: 'windowStart',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AuthRateLimitScalarFieldEnum = (typeof AuthRateLimitScalarFieldEnum)[keyof typeof AuthRateLimitScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4294,6 +4383,7 @@ export type GlobalOmitConfig = {
   workforcePerformanceDay?: Prisma.WorkforcePerformanceDayOmit
   presenceScheduleHabit?: Prisma.PresenceScheduleHabitOmit
   presenceScheduleChange?: Prisma.PresenceScheduleChangeOmit
+  authRateLimit?: Prisma.AuthRateLimitOmit
 }
 
 /* Types for Logging */
