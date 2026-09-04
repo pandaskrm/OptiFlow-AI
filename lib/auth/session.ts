@@ -26,16 +26,10 @@ export async function getCurrentSession() {
       tokenHash,
     },
     include: {
-      user: {
+      user: true,
+      membership: {
         include: {
-          memberships: {
-            where: {
-              isActive: true,
-            },
-            include: {
-              company: true,
-            },
-          },
+          company: true,
         },
       },
     },
@@ -45,21 +39,17 @@ export async function getCurrentSession() {
     !session ||
     session.revokedAt ||
     session.expiresAt <= new Date() ||
-    !session.user.isActive
+    !session.user.isActive ||
+    !session.membership.isActive ||
+    session.membership.userId !== session.userId
   ) {
-    return null;
-  }
-
-  const membership = session.user.memberships[0];
-
-  if (!membership) {
     return null;
   }
 
   return {
     session,
     user: session.user,
-    membership,
-    company: membership.company,
+    membership: session.membership,
+    company: session.membership.company,
   };
 }

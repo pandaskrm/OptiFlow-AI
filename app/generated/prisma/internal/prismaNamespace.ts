@@ -3441,6 +3441,7 @@ export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof
 export const SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  membershipId: 'membershipId',
   tokenHash: 'tokenHash',
   expiresAt: 'expiresAt',
   ipAddress: 'ipAddress',

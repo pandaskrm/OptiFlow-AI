@@ -173,6 +173,7 @@ export async function POST(request: Request) {
       prisma.session.create({
         data: {
           userId: user.id,
+          membershipId: membership.id,
           tokenHash,
           expiresAt,
           ipAddress,

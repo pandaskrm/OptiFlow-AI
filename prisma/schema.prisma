@@ -115,6 +115,7 @@ model Membership {
   company   Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   messages  MailMessage[]
   workforce Workforce?
+  sessions  Session[]
 
   @@unique([userId, companyId])
   @@index([companyId])
@@ -122,18 +123,21 @@ model Membership {
 }
 
 model Session {
-  id        String    @id @default(cuid())
-  userId    String
-  tokenHash String    @unique
-  expiresAt DateTime
-  ipAddress String?
-  userAgent String?
-  createdAt DateTime  @default(now())
-  revokedAt DateTime?
+  id           String    @id @default(cuid())
+  userId       String
+  membershipId String
+  tokenHash    String    @unique
+  expiresAt    DateTime
+  ipAddress    String?
+  userAgent    String?
+  createdAt    DateTime  @default(now())
+  revokedAt    DateTime?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  membership Membership @relation(fields: [membershipId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([membershipId])
   @@index([expiresAt])
 }
 
@@ -267,7 +271,7 @@ model AuditLog {
 
 model Reception {
   id                  Int       @id @default(autoincrement())
-  number              String    @unique
+  number              String
   supplier            String
   carrier             String
   dock                String
@@ -285,13 +289,14 @@ model Reception {
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
 
-  companyId           String?
-  company             Company?             @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId           String
+  company             Company              @relation(fields: [companyId], references: [id], onDelete: Restrict)
   mailMessages        MailMessage[]
   receptionDocuments  ReceptionDocument[]
   receptionEvents     ReceptionEvent[]
   receptionInspectors ReceptionInspector[]
 
+  @@unique([companyId, number])
   @@index([companyId])
 }
 
@@ -357,7 +362,7 @@ model ReceptionEvent {
 
 model Order {
   id            Int     @id @default(autoincrement())
-  number        String  @unique
+  number        String
   customer      String
   carrier       String?
   priority      String  @default("Normale")
@@ -381,10 +386,11 @@ model Order {
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
 
-  companyId String?
-  company   Company?    @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId String
+  company   Company     @relation(fields: [companyId], references: [id], onDelete: Restrict)
   lines     OrderLine[]
 
+  @@unique([companyId, number])
   @@index([companyId])
 }
 
@@ -429,7 +435,7 @@ model OrderLine {
 
 model Shipment {
   id          Int       @id @default(autoincrement())
-  number      String    @unique
+  number      String
   orderNumber String?
   customer    String
   carrier     String
@@ -442,15 +448,16 @@ model Shipment {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  companyId String?
-  company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Restrict)
 
+  @@unique([companyId, number])
   @@index([companyId])
 }
 
 model Inventory {
   id          Int      @id @default(autoincrement())
-  sku         String   @unique
+  sku         String
   designation String
   location    String?
   quantity    Int      @default(0)
@@ -459,15 +466,16 @@ model Inventory {
   updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now())
 
-  companyId String?
-  company   Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Restrict)
 
+  @@unique([companyId, sku])
   @@index([companyId])
 }
 
 model Workforce {
   id               Int      @id @default(autoincrement())
-  employeeNumber   String   @unique
+  employeeNumber   String
   name             String
   team             String?
   service          String?
@@ -487,8 +495,8 @@ model Workforce {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
-  companyId  String?
-  company    Company?      @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  companyId  String
+  company    Company       @relation(fields: [companyId], references: [id], onDelete: Restrict)
   job        WorkforceJob? @relation(fields: [jobId], references: [id], onDelete: SetNull)
   membership Membership?   @relation(fields: [membershipId], references: [id], onDelete: SetNull)
 
@@ -501,6 +509,7 @@ model Workforce {
   presenceScheduleChanges PresenceScheduleChange[]
   workforceMissions       WorkforceMission[]
 
+  @@unique([companyId, employeeNumber])
   @@index([companyId])
   @@index([jobId])
   @@index([companyId, service])

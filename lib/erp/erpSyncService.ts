@@ -116,7 +116,10 @@ const connection = await prisma.erpConnection.findFirst({
 
       await prisma.reception.upsert({
         where: {
-          number: reception.number,
+          companyId_number: {
+            companyId,
+            number: reception.number,
+          },
         },
         update: {
           supplier: reception.supplier,
@@ -181,7 +184,10 @@ const connection = await prisma.erpConnection.findFirst({
 
       await prisma.order.upsert({
         where: {
-          number: order.number,
+          companyId_number: {
+            companyId,
+            number: order.number,
+          },
         },
         update: {
           customer: order.customer,
@@ -257,7 +263,10 @@ const connection = await prisma.erpConnection.findFirst({
 
       await prisma.shipment.upsert({
         where: {
-          number: shipment.number,
+          companyId_number: {
+            companyId,
+            number: shipment.number,
+          },
         },
         update: {
           orderNumber: shipment.orderNumber || null,
@@ -314,7 +323,10 @@ const connection = await prisma.erpConnection.findFirst({
 
       await prisma.inventory.upsert({
         where: {
-          sku: item.sku,
+          companyId_sku: {
+            companyId,
+            sku: item.sku,
+          },
         },
         update: {
           designation: item.label,
@@ -366,7 +378,10 @@ const connection = await prisma.erpConnection.findFirst({
 
       await prisma.workforce.upsert({
         where: {
-          employeeNumber: employee.id,
+          companyId_employeeNumber: {
+            companyId,
+            employeeNumber: employee.id,
+          },
         },
         update: {
           name: employee.fullName,

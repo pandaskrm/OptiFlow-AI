@@ -662,11 +662,6 @@ export type CompanyScalarRelationFilter = {
   isNot?: Prisma.CompanyWhereInput
 }
 
-export type CompanyNullableScalarRelationFilter = {
-  is?: Prisma.CompanyWhereInput | null
-  isNot?: Prisma.CompanyWhereInput | null
-}
-
 export type CompanyCreateNestedOneWithoutBusinessRulesInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutBusinessRulesInput, Prisma.CompanyUncheckedCreateWithoutBusinessRulesInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutBusinessRulesInput
@@ -757,12 +752,10 @@ export type CompanyCreateNestedOneWithoutReceptionsInput = {
   connect?: Prisma.CompanyWhereUniqueInput
 }
 
-export type CompanyUpdateOneWithoutReceptionsNestedInput = {
+export type CompanyUpdateOneRequiredWithoutReceptionsNestedInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutReceptionsInput, Prisma.CompanyUncheckedCreateWithoutReceptionsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutReceptionsInput
   upsert?: Prisma.CompanyUpsertWithoutReceptionsInput
-  disconnect?: Prisma.CompanyWhereInput | boolean
-  delete?: Prisma.CompanyWhereInput | boolean
   connect?: Prisma.CompanyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutReceptionsInput, Prisma.CompanyUpdateWithoutReceptionsInput>, Prisma.CompanyUncheckedUpdateWithoutReceptionsInput>
 }
@@ -815,12 +808,10 @@ export type CompanyCreateNestedOneWithoutOrdersInput = {
   connect?: Prisma.CompanyWhereUniqueInput
 }
 
-export type CompanyUpdateOneWithoutOrdersNestedInput = {
+export type CompanyUpdateOneRequiredWithoutOrdersNestedInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutOrdersInput, Prisma.CompanyUncheckedCreateWithoutOrdersInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutOrdersInput
   upsert?: Prisma.CompanyUpsertWithoutOrdersInput
-  disconnect?: Prisma.CompanyWhereInput | boolean
-  delete?: Prisma.CompanyWhereInput | boolean
   connect?: Prisma.CompanyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutOrdersInput, Prisma.CompanyUpdateWithoutOrdersInput>, Prisma.CompanyUncheckedUpdateWithoutOrdersInput>
 }
@@ -831,12 +822,10 @@ export type CompanyCreateNestedOneWithoutShipmentsInput = {
   connect?: Prisma.CompanyWhereUniqueInput
 }
 
-export type CompanyUpdateOneWithoutShipmentsNestedInput = {
+export type CompanyUpdateOneRequiredWithoutShipmentsNestedInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutShipmentsInput, Prisma.CompanyUncheckedCreateWithoutShipmentsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutShipmentsInput
   upsert?: Prisma.CompanyUpsertWithoutShipmentsInput
-  disconnect?: Prisma.CompanyWhereInput | boolean
-  delete?: Prisma.CompanyWhereInput | boolean
   connect?: Prisma.CompanyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutShipmentsInput, Prisma.CompanyUpdateWithoutShipmentsInput>, Prisma.CompanyUncheckedUpdateWithoutShipmentsInput>
 }
@@ -847,12 +836,10 @@ export type CompanyCreateNestedOneWithoutInventoriesInput = {
   connect?: Prisma.CompanyWhereUniqueInput
 }
 
-export type CompanyUpdateOneWithoutInventoriesNestedInput = {
+export type CompanyUpdateOneRequiredWithoutInventoriesNestedInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutInventoriesInput, Prisma.CompanyUncheckedCreateWithoutInventoriesInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutInventoriesInput
   upsert?: Prisma.CompanyUpsertWithoutInventoriesInput
-  disconnect?: Prisma.CompanyWhereInput | boolean
-  delete?: Prisma.CompanyWhereInput | boolean
   connect?: Prisma.CompanyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutInventoriesInput, Prisma.CompanyUpdateWithoutInventoriesInput>, Prisma.CompanyUncheckedUpdateWithoutInventoriesInput>
 }
@@ -863,12 +850,10 @@ export type CompanyCreateNestedOneWithoutWorkforceInput = {
   connect?: Prisma.CompanyWhereUniqueInput
 }
 
-export type CompanyUpdateOneWithoutWorkforceNestedInput = {
+export type CompanyUpdateOneRequiredWithoutWorkforceNestedInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutWorkforceInput, Prisma.CompanyUncheckedCreateWithoutWorkforceInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutWorkforceInput
   upsert?: Prisma.CompanyUpsertWithoutWorkforceInput
-  disconnect?: Prisma.CompanyWhereInput | boolean
-  delete?: Prisma.CompanyWhereInput | boolean
   connect?: Prisma.CompanyWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutWorkforceInput, Prisma.CompanyUpdateWithoutWorkforceInput>, Prisma.CompanyUncheckedUpdateWithoutWorkforceInput>
 }

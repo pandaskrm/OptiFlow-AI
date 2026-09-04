@@ -231,7 +231,7 @@ export type InventoryGroupByOutputType = {
   minimum: number
   updatedAt: Date
   createdAt: Date
-  companyId: string | null
+  companyId: string
   _count: InventoryCountAggregateOutputType | null
   _avg: InventoryAvgAggregateOutputType | null
   _sum: InventorySumAggregateOutputType | null
@@ -267,8 +267,8 @@ export type InventoryWhereInput = {
   minimum?: Prisma.IntFilter<"Inventory"> | number
   updatedAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
-  companyId?: Prisma.StringNullableFilter<"Inventory"> | string | null
-  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
+  companyId?: Prisma.StringFilter<"Inventory"> | string
+  company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
 }
 
 export type InventoryOrderByWithRelationInput = {
@@ -281,16 +281,17 @@ export type InventoryOrderByWithRelationInput = {
   minimum?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   company?: Prisma.CompanyOrderByWithRelationInput
 }
 
 export type InventoryWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  sku?: string
+  companyId_sku?: Prisma.InventoryCompanyIdSkuCompoundUniqueInput
   AND?: Prisma.InventoryWhereInput | Prisma.InventoryWhereInput[]
   OR?: Prisma.InventoryWhereInput[]
   NOT?: Prisma.InventoryWhereInput | Prisma.InventoryWhereInput[]
+  sku?: Prisma.StringFilter<"Inventory"> | string
   designation?: Prisma.StringFilter<"Inventory"> | string
   location?: Prisma.StringNullableFilter<"Inventory"> | string | null
   quantity?: Prisma.IntFilter<"Inventory"> | number
@@ -298,9 +299,9 @@ export type InventoryWhereUniqueInput = Prisma.AtLeast<{
   minimum?: Prisma.IntFilter<"Inventory"> | number
   updatedAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
-  companyId?: Prisma.StringNullableFilter<"Inventory"> | string | null
-  company?: Prisma.XOR<Prisma.CompanyNullableScalarRelationFilter, Prisma.CompanyWhereInput> | null
-}, "id" | "sku">
+  companyId?: Prisma.StringFilter<"Inventory"> | string
+  company?: Prisma.XOR<Prisma.CompanyScalarRelationFilter, Prisma.CompanyWhereInput>
+}, "id" | "companyId_sku">
 
 export type InventoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -312,7 +313,7 @@ export type InventoryOrderByWithAggregationInput = {
   minimum?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  companyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  companyId?: Prisma.SortOrder
   _count?: Prisma.InventoryCountOrderByAggregateInput
   _avg?: Prisma.InventoryAvgOrderByAggregateInput
   _max?: Prisma.InventoryMaxOrderByAggregateInput
@@ -333,7 +334,7 @@ export type InventoryScalarWhereWithAggregatesInput = {
   minimum?: Prisma.IntWithAggregatesFilter<"Inventory"> | number
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Inventory"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Inventory"> | Date | string
-  companyId?: Prisma.StringNullableWithAggregatesFilter<"Inventory"> | string | null
+  companyId?: Prisma.StringWithAggregatesFilter<"Inventory"> | string
 }
 
 export type InventoryCreateInput = {
@@ -345,7 +346,7 @@ export type InventoryCreateInput = {
   minimum?: number
   updatedAt?: Date | string
   createdAt?: Date | string
-  company?: Prisma.CompanyCreateNestedOneWithoutInventoriesInput
+  company: Prisma.CompanyCreateNestedOneWithoutInventoriesInput
 }
 
 export type InventoryUncheckedCreateInput = {
@@ -358,7 +359,7 @@ export type InventoryUncheckedCreateInput = {
   minimum?: number
   updatedAt?: Date | string
   createdAt?: Date | string
-  companyId?: string | null
+  companyId: string
 }
 
 export type InventoryUpdateInput = {
@@ -370,7 +371,7 @@ export type InventoryUpdateInput = {
   minimum?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  company?: Prisma.CompanyUpdateOneWithoutInventoriesNestedInput
+  company?: Prisma.CompanyUpdateOneRequiredWithoutInventoriesNestedInput
 }
 
 export type InventoryUncheckedUpdateInput = {
@@ -383,7 +384,7 @@ export type InventoryUncheckedUpdateInput = {
   minimum?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type InventoryCreateManyInput = {
@@ -396,7 +397,7 @@ export type InventoryCreateManyInput = {
   minimum?: number
   updatedAt?: Date | string
   createdAt?: Date | string
-  companyId?: string | null
+  companyId: string
 }
 
 export type InventoryUpdateManyMutationInput = {
@@ -420,7 +421,7 @@ export type InventoryUncheckedUpdateManyInput = {
   minimum?: Prisma.IntFieldUpdateOperationsInput | number
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  companyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companyId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type InventoryListRelationFilter = {
@@ -431,6 +432,11 @@ export type InventoryListRelationFilter = {
 
 export type InventoryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type InventoryCompanyIdSkuCompoundUniqueInput = {
+  companyId: string
+  sku: string
 }
 
 export type InventoryCountOrderByAggregateInput = {
@@ -590,7 +596,7 @@ export type InventoryScalarWhereInput = {
   minimum?: Prisma.IntFilter<"Inventory"> | number
   updatedAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Inventory"> | Date | string
-  companyId?: Prisma.StringNullableFilter<"Inventory"> | string | null
+  companyId?: Prisma.StringFilter<"Inventory"> | string
 }
 
 export type InventoryCreateManyCompanyInput = {
@@ -653,7 +659,7 @@ export type InventorySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   updatedAt?: boolean
   createdAt?: boolean
   companyId?: boolean
-  company?: boolean | Prisma.Inventory$companyArgs<ExtArgs>
+  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventory"]>
 
 export type InventorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -667,7 +673,7 @@ export type InventorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   updatedAt?: boolean
   createdAt?: boolean
   companyId?: boolean
-  company?: boolean | Prisma.Inventory$companyArgs<ExtArgs>
+  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventory"]>
 
 export type InventorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -681,7 +687,7 @@ export type InventorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   updatedAt?: boolean
   createdAt?: boolean
   companyId?: boolean
-  company?: boolean | Prisma.Inventory$companyArgs<ExtArgs>
+  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventory"]>
 
 export type InventorySelectScalar = {
@@ -699,19 +705,19 @@ export type InventorySelectScalar = {
 
 export type InventoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sku" | "designation" | "location" | "quantity" | "reserved" | "minimum" | "updatedAt" | "createdAt" | "companyId", ExtArgs["result"]["inventory"]>
 export type InventoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  company?: boolean | Prisma.Inventory$companyArgs<ExtArgs>
+  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }
 export type InventoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  company?: boolean | Prisma.Inventory$companyArgs<ExtArgs>
+  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }
 export type InventoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  company?: boolean | Prisma.Inventory$companyArgs<ExtArgs>
+  company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
 }
 
 export type $InventoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Inventory"
   objects: {
-    company: Prisma.$CompanyPayload<ExtArgs> | null
+    company: Prisma.$CompanyPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -723,7 +729,7 @@ export type $InventoryPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     minimum: number
     updatedAt: Date
     createdAt: Date
-    companyId: string | null
+    companyId: string
   }, ExtArgs["result"]["inventory"]>
   composites: {}
 }
@@ -1118,7 +1124,7 @@ readonly fields: InventoryFieldRefs;
  */
 export interface Prisma__InventoryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  company<T extends Prisma.Inventory$companyArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Inventory$companyArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  company<T extends Prisma.CompanyDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CompanyDefaultArgs<ExtArgs>>): Prisma.Prisma__CompanyClient<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1556,25 +1562,6 @@ export type InventoryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many Inventories to delete.
    */
   limit?: number
-}
-
-/**
- * Inventory.company
- */
-export type Inventory$companyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Company
-   */
-  select?: Prisma.CompanySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Company
-   */
-  omit?: Prisma.CompanyOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CompanyInclude<ExtArgs> | null
-  where?: Prisma.CompanyWhereInput
 }
 
 /**
