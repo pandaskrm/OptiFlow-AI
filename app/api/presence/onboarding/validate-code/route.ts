@@ -1,11 +1,18 @@
-﻿import {
+import {
   createHash,
 } from "crypto";
+
+import { headers } from "next/headers";
 
 import {
   NextRequest,
   NextResponse,
 } from "next/server";
+
+import {
+  consumeRateLimit,
+  getRequestIp,
+} from "../../../../../lib/auth/rate-limit";
 
 import {
   prisma,
@@ -85,6 +92,32 @@ export async function POST(
 
     const normalizedCode =
       normalizeCode(rawCode);
+
+    const requestHeaders = await headers();
+    const ipAddress = getRequestIp(requestHeaders);
+
+    const validationRateLimit = await consumeRateLimit({
+      action: "PRESENCE_ONBOARDING_VALIDATE_CODE",
+      identifier: ipAddress,
+      limit: 20,
+      windowMs: 15 * 60 * 1000,
+    });
+
+    if (!validationRateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: "TOO_MANY_ATTEMPTS",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              validationRateLimit.retryAfterSeconds,
+            ),
+          },
+        },
+      );
+    }
 
     if (
       normalizedCode.length < 4 ||
