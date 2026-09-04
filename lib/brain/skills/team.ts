@@ -1,4 +1,4 @@
 export const teamSkill = {
   name: "team",
-  description: "Analyse l'équipe."
+  description: "Analyse l'Ã©quipe."
 };

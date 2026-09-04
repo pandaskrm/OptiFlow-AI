@@ -1,4 +1,4 @@
 export const receptionSkill = {
   name: "reception",
-  description: "Analyse les réceptions."
+  description: "Analyse les rÃ©ceptions."
 };

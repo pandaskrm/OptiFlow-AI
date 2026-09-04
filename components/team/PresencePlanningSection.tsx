@@ -453,7 +453,7 @@ export default function PresencePlanningSection() {
             Collaborateurs
           </p>
           <p className="mt-1 text-xl font-bold">
-            {data?.total ?? "â€”"}
+            {data?.total ?? "—"}
           </p>
         </div>
 
@@ -462,7 +462,7 @@ export default function PresencePlanningSection() {
             Changements detectes
           </p>
           <p className="mt-1 text-xl font-bold text-cyan-300">
-            {loading ? "â€”" : openChanges}
+            {loading ? "—" : openChanges}
           </p>
         </div>
       </div>
@@ -743,11 +743,11 @@ export default function PresencePlanningSection() {
                                         ] ??
                                           `J${habit.dayOfWeek}`}
                                       </span>
-                                      {" Â· "}
+                                      {" · "}
                                       {formatSchedule(
                                         habit,
                                       )}
-                                      {" Â· "}
+                                      {" · "}
                                       {confidenceLabel(
                                         habit.confidence,
                                       )}
@@ -775,7 +775,7 @@ export default function PresencePlanningSection() {
                             </span>
                           ) : (
                             <span className="text-slate-400">
-                              â€”
+                              —
                             </span>
                           )}
                         </td>

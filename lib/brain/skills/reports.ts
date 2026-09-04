@@ -1,4 +1,4 @@
 export const reportsSkill = {
   name: "reports",
-  description: "Génère les rapports IA."
+  description: "GÃ©nÃ¨re les rapports IA."
 };

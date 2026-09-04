@@ -106,7 +106,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Ce compte n'est pas un compte salari? Organ?IA.",
+            "Ce compte n'est pas un compte salarié Organ·IA.",
         },
         { status: 403 }
       );
@@ -116,7 +116,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Utilisez le portail Organ?IA Salari? pour vous connecter.",
+            "Utilisez le portail Organ·IA Salarié pour vous connecter.",
           employeePortal: true,
         },
         { status: 403 }

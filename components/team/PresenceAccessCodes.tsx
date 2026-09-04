@@ -154,16 +154,16 @@ export default function PresenceAccessCodes() {
     <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="mb-4">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-700">
-          Organ?IA Salari?
+          Organ·IA Salarié
         </p>
 
         <h2 className="mt-1 text-lg font-semibold text-slate-950">
-          Acc?s salari?s
+          Accès salariés
         </h2>
 
         <p className="mt-1 text-sm text-slate-500">
           Partagez le code correspondant
-          pour permettre aux salari?s de
+          pour permettre aux salariés de
           cr?er leur espace personnel.
         </p>
       </div>
@@ -198,7 +198,7 @@ export default function PresenceAccessCodes() {
                     <p className="mt-1 text-xs text-slate-500">
                       {temporary
                         ? "Code commun ? tous les int?rimaires."
-                        : "Code r?serv? aux salari?s embauch?s."}
+                        : "Code réservé aux salariés embauchés."}
                     </p>
                   </div>
 

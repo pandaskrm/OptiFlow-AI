@@ -1,4 +1,4 @@
 export const shippingSkill = {
   name: "shipping",
-  description: "Analyse les expéditions."
+  description: "Analyse les expÃ©ditions."
 };

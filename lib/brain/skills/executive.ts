@@ -1,4 +1,4 @@
 export const executiveSkill = {
   name: "executive",
-  description: "Prépare les rapports dirigeants."
+  description: "PrÃ©pare les rapports dirigeants."
 };

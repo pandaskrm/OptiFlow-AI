@@ -259,10 +259,10 @@ model AuditLog {
 }
 
 /**
- * DONNÃ‰ES LOGISTIQUES
+ * DONNÉES LOGISTIQUES
  * companyId reste facultatif pendant la transition afin de ne pas casser
- * les API actuelles. Il deviendra obligatoire quand lâ€™isolation multi-client
- * sera branchÃ©e dans les services.
+ * les API actuelles. Il deviendra obligatoire quand l’isolation multi-client
+ * sera branchée dans les services.
  */
 
 model Reception {

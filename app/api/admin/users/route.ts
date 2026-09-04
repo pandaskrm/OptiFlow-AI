@@ -48,7 +48,7 @@ export async function GET() {
 
   if (auth.membership.role !== "ADMIN") {
     return NextResponse.json(
-      { error: "AccÃ¨s rÃ©servÃ© aux administrateurs." },
+      { error: "Accès réservé aux administrateurs." },
       { status: 403 }
     );
   }
@@ -94,7 +94,7 @@ export async function POST(request: Request) {
 
     if (auth.membership.role !== "ADMIN") {
       return NextResponse.json(
-        { error: "AccÃ¨s rÃ©servÃ© aux administrateurs." },
+        { error: "Accès réservé aux administrateurs." },
         { status: 403 }
       );
     }
@@ -117,7 +117,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Tous les champs doivent Ãªtre renseignÃ©s.",
+            "Tous les champs doivent être renseignés.",
         },
         { status: 400 }
       );
@@ -125,14 +125,14 @@ export async function POST(request: Request) {
 
     if (!isValidEmail(email)) {
       return NextResponse.json(
-        { error: "Lâ€™adresse e-mail est invalide." },
+        { error: "L’adresse e-mail est invalide." },
         { status: 400 }
       );
     }
 
     if (!isAllowedRole(role)) {
       return NextResponse.json(
-        { error: "Le rÃ´le sÃ©lectionnÃ© est invalide." },
+        { error: "Le rôle sélectionné est invalide." },
         { status: 400 }
       );
     }
@@ -163,7 +163,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error:
-            "Cet utilisateur appartient dÃ©jÃ  Ã  votre entreprise.",
+            "Cet utilisateur appartient déjà à votre entreprise.",
         },
         { status: 409 }
       );
@@ -219,7 +219,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
-        message: "Le collaborateur a Ã©tÃ© crÃ©Ã©.",
+        message: "Le collaborateur a été créé.",
         user: {
           id: result.user.id,
           firstName: result.user.firstName,
@@ -237,7 +237,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error:
-          "Impossible de crÃ©er le collaborateur.",
+          "Impossible de créer le collaborateur.",
       },
       { status: 500 }
     );
