@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../lib/auth/session";
 import { hashPassword } from "../../../../lib/auth/password";
@@ -46,7 +46,7 @@ export async function GET() {
     );
   }
 
-  if (auth.membership.role !== "ADMIN") {
+  if (!["OWNER", "ADMIN"].includes(auth.membership.role)) {
     return NextResponse.json(
       { error: "Accès réservé aux administrateurs." },
       { status: 403 }
@@ -92,7 +92,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (auth.membership.role !== "ADMIN") {
+    if (!["OWNER", "ADMIN"].includes(auth.membership.role)) {
       return NextResponse.json(
         { error: "Accès réservé aux administrateurs." },
         { status: 403 }

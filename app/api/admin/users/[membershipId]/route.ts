@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../../lib/auth/session";
 import { prisma } from "../../../../../lib/prisma";
@@ -43,7 +43,7 @@ export async function PATCH(
       );
     }
 
-    if (auth.membership.role !== "ADMIN") {
+    if (!["OWNER", "ADMIN"].includes(auth.membership.role)) {
       return NextResponse.json(
         { error: "Accès réservé aux administrateurs." },
         { status: 403 }
@@ -68,6 +68,13 @@ export async function PATCH(
       return NextResponse.json(
         { error: "Utilisateur introuvable." },
         { status: 404 }
+      );
+    }
+
+    if (membership.role === "OWNER") {
+      return NextResponse.json(
+        { error: "Le compte propriétaire ne peut pas être modifié ici." },
+        { status: 403 }
       );
     }
 
@@ -208,7 +215,7 @@ export async function DELETE(
       );
     }
 
-    if (auth.membership.role !== "ADMIN") {
+    if (!["OWNER", "ADMIN"].includes(auth.membership.role)) {
       return NextResponse.json(
         { error: "Accès réservé aux administrateurs." },
         { status: 403 }
@@ -233,6 +240,13 @@ export async function DELETE(
       return NextResponse.json(
         { error: "Utilisateur introuvable." },
         { status: 404 }
+      );
+    }
+
+    if (membership.role === "OWNER") {
+      return NextResponse.json(
+        { error: "Le compte propriétaire ne peut pas être supprimé." },
+        { status: 403 }
       );
     }
 
