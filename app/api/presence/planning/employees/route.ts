@@ -49,6 +49,11 @@ function readPeriod(request: NextRequest) {
   };
 }
 
+const ALLOWED_ROLES = new Set([
+  "ADMIN",
+  "LOGISTICS_MANAGER",
+  "TEAM_LEADER",
+]);
 export async function GET(
   request: NextRequest,
 ) {
@@ -66,6 +71,12 @@ export async function GET(
     );
   }
 
+  if (!ALLOWED_ROLES.has(session.membership.role)) {
+    return NextResponse.json(
+      { error: "Acces reserve aux responsables." },
+      { status: 403 },
+    );
+  }
   const period =
     readPeriod(request);
 

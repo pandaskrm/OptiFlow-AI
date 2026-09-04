@@ -1,7 +1,19 @@
+import { redirect } from "next/navigation";
+import { getCurrentSession } from "../../lib/auth/session";
 import MainLayout from "../../components/layout/MainLayout";
 import AuditTable from "../../components/audit/AuditTable";
 
-export default function AuditPage() {
+export default async function AuditPage() {
+  const auth = await getCurrentSession();
+
+  if (!auth) {
+    redirect("/login");
+  }
+
+  if (auth.membership.role !== "ADMIN") {
+    redirect("/");
+  }
+
   return (
     <MainLayout>
       <div className="space-y-6">

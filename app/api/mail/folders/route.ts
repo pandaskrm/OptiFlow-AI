@@ -1,9 +1,15 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 import { getCurrentSession } from "../../../../lib/auth/session";
 import { decryptMailSecret } from "../../../../lib/mail/crypto";
 import { getMicrosoftGraphMailFolderTree } from "../../../../lib/mail/providers/microsoftGraph";
 import { prisma } from "../../../../lib/prisma";
+
+const MAIL_FOLDER_ROLES = new Set([
+  "ADMIN",
+  "OWNER",
+  "LOGISTICS_MANAGER",
+]);
 
 export async function GET() {
   const session = await getCurrentSession();
@@ -12,6 +18,13 @@ export async function GET() {
     return NextResponse.json(
       { error: "Non authentifié." },
       { status: 401 },
+    );
+  }
+
+  if (!MAIL_FOLDER_ROLES.has(session.membership.role)) {
+    return NextResponse.json(
+      { error: "Accès réservé aux responsables." },
+      { status: 403 },
     );
   }
 

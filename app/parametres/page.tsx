@@ -8,6 +8,7 @@ import MainLayout from "../../components/layout/MainLayout";
 import UsersAdminPanel from "../../components/settings/UsersAdminPanel";
 import { getCurrentSession } from "../../lib/auth/session";
 
+const SETTINGS_ROLES = new Set(["OWNER", "ADMIN"]);
 const roleLabels: Record<string, string> = {
   ADMIN: "Administrateur",
   OWNER: "Propriétaire",
@@ -24,6 +25,9 @@ export default async function ParametresPage() {
     redirect("/login");
   }
 
+  if (!SETTINGS_ROLES.has(auth.membership.role)) {
+    redirect("/");
+  }
   const company = auth.company;
 
   return (
