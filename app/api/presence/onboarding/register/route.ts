@@ -3,10 +3,17 @@ import {
   randomBytes,
 } from "crypto";
 
+import { headers } from "next/headers";
+
 import {
   NextRequest,
   NextResponse,
 } from "next/server";
+
+import {
+  consumeRateLimit,
+  getRequestIp,
+} from "../../../../../lib/auth/rate-limit";
 
 import {
   hashPassword,
@@ -161,6 +168,32 @@ export async function POST(
         },
         {
           status: 400,
+        },
+      );
+    }
+
+    const requestHeaders = await headers();
+    const ipAddress = getRequestIp(requestHeaders);
+
+    const registerRateLimit = await consumeRateLimit({
+      action: "PRESENCE_ONBOARDING_REGISTER",
+      identifier: ipAddress,
+      limit: 60,
+      windowMs: 15 * 60 * 1000,
+    });
+
+    if (!registerRateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: "TOO_MANY_ATTEMPTS",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              registerRateLimit.retryAfterSeconds,
+            ),
+          },
         },
       );
     }
