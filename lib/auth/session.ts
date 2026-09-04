@@ -41,6 +41,7 @@ export async function getCurrentSession() {
     session.expiresAt <= new Date() ||
     !session.user.isActive ||
     !session.membership.isActive ||
+    !session.membership.company.isActive ||
     session.membership.userId !== session.userId
   ) {
     return null;
