@@ -1,6 +1,11 @@
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { hashPassword } from "../../../../lib/auth/password";
+import {
+  consumeRateLimit,
+  getRequestIp,
+} from "../../../../lib/auth/rate-limit";
 import { prisma } from "../../../../lib/prisma";
 import { isPasswordValid, PASSWORD_POLICY_MESSAGE } from "@/lib/auth/password";
 
@@ -65,14 +70,30 @@ function isValidSiret(value: string) {
 
 export async function POST(request: Request) {
   try {
-    const existingUsers = await prisma.user.count();
+    const requestHeaders = await headers();
+    const ipAddress = getRequestIp(requestHeaders);
 
-    if (existingUsers > 0) {
+    const bootstrapRateLimit = await consumeRateLimit({
+      action: "AUTH_BOOTSTRAP",
+      identifier: ipAddress,
+      limit: 5,
+      windowMs: 15 * 60 * 1000,
+    });
+
+    if (!bootstrapRateLimit.allowed) {
       return NextResponse.json(
         {
-          error: "La configuration initiale a déjà été réalisée.",
+          error:
+            "Trop de tentatives de configuration initiale. R?essayez dans quelques minutes.",
         },
-        { status: 409 }
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              bootstrapRateLimit.retryAfterSeconds
+            ),
+          },
+        }
       );
     }
 
@@ -203,6 +224,11 @@ export async function POST(request: Request) {
 
     const result = await prisma.$transaction(
       async (transaction) => {
+        const existingUsers = await transaction.user.count();
+
+        if (existingUsers > 0) {
+          return null;
+        }
         const company = await transaction.company.create({
           data: {
             name: companyName,
@@ -267,8 +293,20 @@ export async function POST(request: Request) {
           user,
           warehouse,
         };
+      },
+      {
+        isolationLevel: "Serializable",
       }
     );
+
+    if (!result) {
+      return NextResponse.json(
+        {
+          error: "La configuration initiale a déjà été réalisée.",
+        },
+        { status: 409 }
+      );
+    }
 
     return NextResponse.json(
       {
@@ -293,6 +331,23 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
+    const prismaErrorCode =
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error
+        ? (error as { code?: unknown }).code
+        : undefined;
+
+    if (prismaErrorCode === "P2034" || prismaErrorCode === "P2002") {
+      return NextResponse.json(
+        {
+          error:
+            "La configuration initiale n'est plus disponible. Rechargez la page.",
+        },
+        { status: 409 }
+      );
+    }
+
     console.error("Bootstrap authentication error:", error);
 
     return NextResponse.json(
