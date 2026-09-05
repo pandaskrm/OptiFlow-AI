@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 import {
@@ -7,6 +8,10 @@ import {
   isPasswordValid,
   PASSWORD_POLICY_MESSAGE,
 } from "../../../../lib/auth/password";
+import {
+  consumeRateLimit,
+  getRequestIp,
+} from "../../../../lib/auth/rate-limit";
 import { prisma } from "../../../../lib/prisma";
 
 function hashToken(token: string) {
@@ -38,6 +43,33 @@ export async function POST(request: Request) {
     }
 
     const tokenHash = hashToken(token);
+
+    const requestHeaders = await headers();
+    const ipAddress = getRequestIp(requestHeaders);
+
+    const resetRateLimit = await consumeRateLimit({
+      action: "AUTH_RESET_PASSWORD",
+      identifier: ipAddress,
+      limit: 5,
+      windowMs: 15 * 60 * 1000,
+    });
+
+    if (!resetRateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error:
+            "Trop de tentatives de r\u00e9initialisation. R\u00e9essayez dans quelques minutes.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(
+              resetRateLimit.retryAfterSeconds
+            ),
+          },
+        },
+      );
+    }
 
     const resetToken =
       await prisma.passwordResetToken.findUnique({
@@ -73,32 +105,57 @@ export async function POST(request: Request) {
     const passwordHash = await hashPassword(password);
     const now = new Date();
 
-    await prisma.$transaction([
-      prisma.user.update({
-        where: { id: resetToken.userId },
-        data: { passwordHash },
-      }),
-      prisma.passwordResetToken.update({
-        where: { id: resetToken.id },
-        data: { usedAt: now },
-      }),
-      prisma.passwordResetToken.updateMany({
-        where: {
-          userId: resetToken.userId,
-          id: { not: resetToken.id },
-          usedAt: null,
-        },
-        data: { usedAt: now },
-      }),
-      prisma.session.updateMany({
-        where: {
-          userId: resetToken.userId,
-          revokedAt: null,
-        },
-        data: { revokedAt: now },
-      }),
-    ]);
+    const resetApplied = await prisma.$transaction(
+      async (transaction) => {
+        const claimedToken =
+          await transaction.passwordResetToken.updateMany({
+            where: {
+              id: resetToken.id,
+              usedAt: null,
+              expiresAt: { gt: now },
+            },
+            data: { usedAt: now },
+          });
 
+        if (claimedToken.count !== 1) {
+          return false;
+        }
+
+        await transaction.user.update({
+          where: { id: resetToken.userId },
+          data: { passwordHash },
+        });
+
+        await transaction.passwordResetToken.updateMany({
+          where: {
+            userId: resetToken.userId,
+            id: { not: resetToken.id },
+            usedAt: null,
+          },
+          data: { usedAt: now },
+        });
+
+        await transaction.session.updateMany({
+          where: {
+            userId: resetToken.userId,
+            revokedAt: null,
+          },
+          data: { revokedAt: now },
+        });
+
+        return true;
+      },
+    );
+
+    if (!resetApplied) {
+      return NextResponse.json(
+        {
+          error:
+            "Ce lien est invalide ou a expir\u00e9. Demandez un nouveau lien.",
+        },
+        { status: 400 },
+      );
+    }
     return NextResponse.json({
       message:
         "Votre mot de passe a été modifié. Vous pouvez maintenant vous reconnecter.",
