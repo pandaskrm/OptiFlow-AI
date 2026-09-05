@@ -197,7 +197,7 @@ export default function PresenceAccessCodes() {
 
                     <p className="mt-1 text-xs text-slate-500">
                       {temporary
-                        ? "Code commun ? tous les int?rimaires."
+                        ? "Code commun à tous les intérimaires."
                         : "Code réservé aux salariés embauchés."}
                     </p>
                   </div>
@@ -287,7 +287,7 @@ export default function PresenceAccessCodes() {
                     L'agence d'int?rim et la
                     dur?e de mission seront
                     renseign?es s?par?ment par
-                    l'int?rimaire.
+                    l'intérimaire.
                   </p>
                 ) : null}
               </article>

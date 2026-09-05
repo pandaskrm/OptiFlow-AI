@@ -598,7 +598,7 @@ export default function EmployeeJoinPage() {
               {access.access.population === "TEMPORARY" && (
                 <div className="mt-4 space-y-4 rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-4">
                   <p className="text-xs font-black uppercase tracking-[0.18em] text-cyan-300">
-                    Mission int?rimaire
+                    Mission intérimaire
                   </p>
 
                   <div className="rounded-xl border border-white/10 bg-slate-950 px-3 py-3">

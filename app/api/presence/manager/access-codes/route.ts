@@ -122,8 +122,8 @@ export async function GET() {
               contractType:
                 type.contractType,
 
-              // L'agence appartient ? la mission,
-              // jamais au code commun int?rimaire.
+              // L'agence appartient à la mission,
+              // jamais au code commun intérimaire.
               agency: null,
 
               codeHash:
